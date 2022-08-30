@@ -19,7 +19,7 @@ class _NotificationButtonState extends State<NotificationButton> {
 
 
     return Badge(
-        position: BadgePosition(top: 8, start: 20),
+        position: BadgePosition(top: 8, start: 25),
         badgeContent: Text(productProvider.getNotiListlength.toString()),
         child: IconButton(
           icon: Icon(

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
@@ -12,6 +13,7 @@ import 'package:testecommerce/screen/detailscreen.dart';
 import 'package:testecommerce/screen/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/notification_button.dart';
+import 'package:testecommerce/screen/profile.dart';
 import 'package:testecommerce/screen/singleproduct.dart';
 import './singleproduct.dart';
 import 'package:carousel_pro/carousel_pro.dart';
@@ -35,24 +37,27 @@ class _HomePageState extends State<HomePage> {
   late bool homeColor = true;
   late bool settingColor = false;
   late bool aboutColor = false;
-  late bool contactColor = false;
-  late bool searchTextField = true;
+  late bool profileColor = false;
+  late bool searchTextField = false;
   TextEditingController searchInput = TextEditingController();
 
   late ProductProvider productProvider;
   late List<Product> listFeature = [];
   late List<Product> listNew = [];
 
-  late List<Product> listAsia = [];
-  late List<Product> listEast = [];
+  late List<Product> listAsia  = [];
+  late List<Product> listEast  = [];
   late List<Product> listSnack = [];
   late List<Product> listWater = [];
+  String? name = "";
+
   // final bool logoutColor = true;
 
   @override
   Widget build(BuildContext context) {
     categoryProvider = Provider.of<CategoryProvider>(context);
     productProvider = Provider.of<ProductProvider>(context);
+
     if (listAsia.length == 0) {
       Future<int> a = categoryProvider.setAsiaDish();
       listAsia = categoryProvider.getListAsia();
@@ -69,7 +74,6 @@ class _HomePageState extends State<HomePage> {
       Future<int> d = categoryProvider.setwaterDish();
       listWater = categoryProvider.getWaterDish();
     }
-
     if (listFeature.length == 0) {
       Future<int> e = productProvider.setFeatureProduct();
       listFeature = productProvider.getFeatureProduct();
@@ -77,6 +81,10 @@ class _HomePageState extends State<HomePage> {
     if (listNew.length == 0) {
       Future<int> f = productProvider.setNewProduct();
       listNew = productProvider.getNewProduct();
+    }
+    if (name == "") {
+      Future<int> f = productProvider.setUserModel();
+      name = productProvider.getUserModelName;
     }
 
     return Scaffold(
@@ -140,12 +148,12 @@ class _HomePageState extends State<HomePage> {
         children: [
           UserAccountsDrawerHeader(
             accountName: Text(
-              "Son",
+              name!,
               style: TextStyle(
                   fontWeight: FontWeight.bold, fontSize: 30, color: Colors.red),
             ),
             accountEmail: Text(
-              "Abc@gmail.com",
+              productProvider.getEmailFromLogin,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
@@ -173,12 +181,30 @@ class _HomePageState extends State<HomePage> {
               setState(() {
                 homeColor = true;
                 settingColor = false;
-                contactColor = false;
+                profileColor = false;
                 aboutColor = false;
               });
             },
             title: const Text("Home"),
             leading: const Icon(Icons.home),
+          ),
+          ListTile(
+            selected: profileColor,
+            onTap: () {
+              _key.currentState!.openEndDrawer();
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (ctx) => ProfileScreen()));
+              // _key.currentState!.showSnackBar(
+              //     const SnackBar(content: Text("You click Contact ListTile")));
+              setState(() {
+                settingColor = false;
+                profileColor = true;
+                homeColor = false;
+                aboutColor = false;
+              });
+            },
+            title: const Text("Profile"),
+            leading: const Icon(Icons.phone),
           ),
           ListTile(
             selected: settingColor,
@@ -188,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                   const SnackBar(content: Text("You click Setting ListTile")));
               setState(() {
                 settingColor = true;
-                contactColor = false;
+                profileColor = false;
                 homeColor = false;
                 aboutColor = false;
               });
@@ -204,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                   const SnackBar(content: Text("You click About ListTile")));
               setState(() {
                 settingColor = false;
-                contactColor = false;
+                profileColor = false;
                 homeColor = false;
                 aboutColor = true;
               });
@@ -213,29 +239,13 @@ class _HomePageState extends State<HomePage> {
             leading: const Icon(Icons.info),
           ),
           ListTile(
-            selected: contactColor,
-            onTap: () {
-              // _key.currentState!.openEndDrawer();
-              _key.currentState!.showSnackBar(
-                  const SnackBar(content: Text("You click Contact ListTile")));
-              setState(() {
-                settingColor = false;
-                contactColor = true;
-                homeColor = false;
-                aboutColor = false;
-              });
-            },
-            title: const Text("Contact us"),
-            leading: const Icon(Icons.phone),
-          ),
-          ListTile(
             onTap: () {
               _key.currentState!.openEndDrawer();
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(builder: (ctx) => Login()));
               setState(() {
                 settingColor = false;
-                contactColor = true;
+                profileColor = true;
                 homeColor = false;
                 aboutColor = false;
               });

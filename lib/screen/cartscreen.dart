@@ -82,7 +82,10 @@ class _CartScreenState extends State<CartScreen> {
                         margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: [Text("Total: "), Text("${total==null ? 0: total} \$")]),
+                            children: [
+                              Text("Total: "),
+                              Text("${total == null ? 0 : total} \$")
+                            ]),
                       ),
                     ],
                   ),
@@ -95,8 +98,10 @@ class _CartScreenState extends State<CartScreen> {
                       margin: EdgeInsets.all(20),
                       child: Row(
                         children: [
-                          Text(promo),
-                          showRemovePromoButton
+                          Text(productProvider.getPromo == 0
+                              ? "Add Promo"
+                              : "-${productProvider.getPromo}%"),
+                          productProvider.getPromo != 0
                               ? IconButton(
                                   onPressed: () {
                                     double value = 0;
@@ -108,10 +113,12 @@ class _CartScreenState extends State<CartScreen> {
                                           productProvider
                                               .getCartmodel[i].price);
                                     }
+                                    productProvider.setPromo(0);
                                     productProvider.setTotal(value);
+
                                     setState(() {
                                       showRemovePromoButton = false;
-                                      promo = "Add Promo";
+                                      // promo = "Add Promo";
                                     });
                                   },
                                   icon: Icon(
@@ -298,10 +305,18 @@ class _CartScreenState extends State<CartScreen> {
         child: Text(message),
         onTap: () {
           setState(() {
+            double subTotal = 0;
             showRemovePromoButton = true;
             promo = "-" + message + "%";
-            productProvider.setTotal(
-                productProvider.getTotal * (1 - double.parse(message) / 100));
+            productProvider.setPromo(0);
+            for (int i = 0; i < productProvider.getCartmodelLength; i++) {
+              subTotal += (productProvider.getCartmodel[i].quantity *
+                  productProvider.getCartmodel[i].price);
+            }
+            productProvider.setTotal(0);
+            productProvider
+                .setTotal(subTotal * (1 - double.parse(message) / 100));
+            productProvider.setPromo(double.parse(message));
           });
 
           Navigator.of(context).pop();

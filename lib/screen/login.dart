@@ -2,8 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/signup.dart';
+import 'dart:isolate';
+
+import '../models/usermodel.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -13,16 +18,26 @@ class Login extends StatefulWidget {
 String p =
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 RegExp regExp = RegExp(p);
+late ProductProvider productProvider;
+// void doTaskUserModel(SendPort sendPort) {
+//   // productProvider.setEmailFromLogin(email!);
+//   print("doTaskUserModel");
+//   Future<int> g = productProvider.getUserModelData();
+//   sendPort.send(productProvider.getUserModel);
+//   // print(
+//   //     "UserName:${productProvider.getUserModel.userName}, UserId:${productProvider.getUserModel.userId}, UserEmail:${productProvider.getUserModel.userEmail}, UserGender:${productProvider.getUserModel.userGender}, UserPhone:${productProvider.getUserModel.userPhone}");
+// }
 
 class _Login extends State<Login> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   void validation() {
     if (_formKey.currentState!.validate()) {
       print("email: $email and password: $password");
+       productProvider.setEmailFromLogin(email!);
       try {
         final result = FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email!, password: password!);
-            Navigator.of(context)
+        Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (ctx) => HomePage()));
       } on PlatformException catch (e) {
         print(e.message.toString());
@@ -32,17 +47,30 @@ class _Login extends State<Login> {
     }
   }
 
+  // void newIsolate() {
+  //   ReceivePort receivePort = ReceivePort();
+  //   Isolate.spawn(doTaskUserModel, receivePort.sendPort);
+  //   receivePort.listen((message) {
+  //     assert(message);
+  //   });
+  // }
+
   var obscureText = true;
   String? email;
   String? password;
 
   @override
   Widget build(BuildContext context) {
+    productProvider = Provider.of<ProductProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.arrow_back),onPressed:(){
-           Navigator.of(context).pop();
-        },),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: Form(
         key: _formKey,
@@ -56,7 +84,9 @@ class _Login extends State<Login> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SizedBox(height: 40,),
+                    SizedBox(
+                      height: 40,
+                    ),
                     Text(
                       "Login",
                       style:
@@ -122,7 +152,9 @@ class _Login extends State<Login> {
                         width: double.infinity,
                         child: RaisedButton(
                           onPressed: () {
+                            // Future.delayed(Duration(seconds: 2), () {
                             validation();
+                            // });
                           },
                           color: Colors.grey,
                           child: Text("Login"),

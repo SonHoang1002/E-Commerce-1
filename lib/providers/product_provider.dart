@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/models/usermodel.dart';
 
 import '../models/cartmodels.dart';
 import '../models/product.dart';
@@ -79,14 +81,22 @@ class ProductProvider with ChangeNotifier {
   int get getCartmodelLength => cartModelList.length;
 
   // total
-  late double total;
+  late double total = 0;
   void setTotal(double value) {
-    total = double.parse(value.toStringAsFixed(2));
+    total = double.parse((value * (1 - getPromo / 100)).toStringAsFixed(2));
     notifyListeners();
   }
 
   double get getTotal => total;
 
+  // promo
+  late double promo = 0;
+  void setPromo(double value) {
+    promo = value;
+    notifyListeners();
+  }
+
+  double get getPromo => promo;
   // notification
   List<String> notiList = [];
 
@@ -95,4 +105,65 @@ class ProductProvider with ChangeNotifier {
   }
 
   int get getNotiListlength => notiList.length;
+
+  //data form login screen
+  late String email;
+  setEmailFromLogin(String value) {
+    email = value;
+  }
+
+  get getEmailFromLogin => email;
+
+  late String userName;
+  late String userEmail;
+  late String userPhone;
+  late String userGender;
+  
+  // late List<UserModel> listUserModel;
+  Future<int> setUserModel() async {
+    String email = getEmailFromLogin;
+    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance.collection("User").get();
+    snapshot.docs.forEach((element) {
+      if (element["UserEmail"] == email) {
+        userName = element["UserName"];
+        userEmail = email;
+        userPhone = element["UserPhone"];
+        userGender = element["UserGender"];
+      }
+    });
+    notifyListeners();
+    return 0;
+  }
+
+get getUserModelName => userName;
+get getUserModelPhone => userPhone;
+get getUserModelEmail => userEmail;
+get getUserModelGender => userGender;
+
+  // late UserModel userModel;
+  // late List<UserModel> listUserModel;
+  // Future<int> setUserModel() async {
+  //   // String email = getEmailFromLogin;
+  //    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+  //       .collection("products")
+  //       .doc("Yr4cg3K870i11VWoxx5q")
+  //       .collection("DemoUser")
+  //       .get();
+  //   snapshot.docs.forEach((element) {
+  //     if (element["UserEmail"] == "a@gmail.com") {
+  //       userModel = UserModel(
+  //           userName: element["UserName"],
+  //           userId: element["UserId"],
+  //           userEmail: email,
+  //           userGender: element["UserGender"],
+  //           userPhone: element["UserPhone"]);
+  //     }
+  //     listUserModel.add(userModel);
+  //   });
+  //   notifyListeners();
+  //   return 0;
+  //
+  // get getUserModel => userModel;
+  // get getUserModelName => userModel.userName;
+  // get getListUserModel => listUserModel;
 }

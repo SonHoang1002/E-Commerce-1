@@ -17,14 +17,30 @@ RegExp regExp = RegExp(p);
 class _Signup extends State<Signup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _ScaffordState = GlobalKey<ScaffoldState>();
+  var obscureText = true;
+  String? password;
+  String? email;
+  String? phone;
+  String? username;
+  bool isMale = true;
   void validation() async {
     if (_formKey.currentState!.validate()) {
       try {
         print("email: $email and password :$password");
         final result = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email!, password: password!);
-        print("UID_____________");
-        print(result.user!.uid);
+        FirebaseFirestore.instance
+            .collection("User")
+            .doc(result.user!.uid)
+            .set({
+          "UserName": username,
+          "UserId": result.user!.uid,
+          "UserEmail": email,
+          "UserGender": isMale ? "Male" : "Female",
+          "UserPhone": phone
+          // "UserPassWord":password
+        });
+        print("add User ok");
       } on PlatformException catch (e) {
         print("error:" + e.message.toString());
         _ScaffordState.currentState!.showSnackBar(SnackBar(
@@ -38,13 +54,10 @@ class _Signup extends State<Signup> {
     }
   }
 
-  var obscureText = true;
-  String? password;
-  String? email;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+        appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -61,7 +74,7 @@ class _Signup extends State<Signup> {
               child: Column(
                 children: [
                   Container(
-                    height: 220,
+                    height: 100,
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -80,14 +93,18 @@ class _Signup extends State<Signup> {
                     height: 20,
                   ),
                   Container(
-                    height: 400,
+                    height: 500,
                     margin: EdgeInsets.symmetric(horizontal: 10),
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         TextFormField(
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              username = value;
+                            });
+                          },
                           validator: (value) {
                             if (value == "") {
                               return "Please fill Username";
@@ -106,7 +123,6 @@ class _Signup extends State<Signup> {
                           onChanged: (value) {
                             setState(() {
                               email = value;
-                              print("email: $email");
                             });
                           },
                           validator: (value) {
@@ -120,7 +136,9 @@ class _Signup extends State<Signup> {
                           decoration: InputDecoration(
                             hintText: "Email",
                             labelText: "Email",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(
+                              color: Colors.black,
+                            ),
                             border: OutlineInputBorder(),
                           ),
                         ),
@@ -128,7 +146,6 @@ class _Signup extends State<Signup> {
                           onChanged: (value) {
                             setState(() {
                               password = value;
-                              print("password: $password");
                             });
                           },
                           obscureText: obscureText,
@@ -159,12 +176,53 @@ class _Signup extends State<Signup> {
                                       color: Colors.black,
                                     )),
                             ),
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(
+                              color: Colors.black,
+                            ),
                             border: OutlineInputBorder(),
                           ),
                         ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isMale = !isMale;
+                            });
+                          },
+                          child: Container(
+                            height: 60,
+                            width: double.infinity,
+                            padding:
+                                EdgeInsets.only(left: 10, right: 10, top: 4),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey)),
+                            child: Container(
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    isMale ? "Male" : "Female",
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Column(
+                                    children: [
+                                      Icon(Icons.arrow_drop_up),
+                                      Icon(Icons.arrow_drop_down)
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                         TextFormField(
-                          onChanged: (value) {},
+                          onChanged: (value) {
+                            setState(() {
+                              phone = value;
+                            });
+                          },
                           validator: (value) {
                             if (value == "") {
                               return "Please fill Phone";
@@ -176,23 +234,37 @@ class _Signup extends State<Signup> {
                           decoration: InputDecoration(
                             hintText: "Phone",
                             labelText: "Phone",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: TextStyle(
+                              color: Colors.black,
+                            ),
                             border: OutlineInputBorder(),
                           ),
                         ),
                         Container(
-                          height: 45,
+                          height: 50,
                           width: double.infinity,
                           child: RaisedButton(
-                              child: Text("Register"),
-                              color: Colors.blueGrey[400],
+                              child: Text(
+                                "Register",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              color: Colors.blue[400],
                               onPressed: () {
                                 validation();
                               }),
                         ),
                         Row(
                           children: [
-                            Text("I have account"),
+                            Text(
+                              "I have account",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold),
+                            ),
                             SizedBox(
                               width: 10,
                             ),
@@ -205,6 +277,7 @@ class _Signup extends State<Signup> {
                               child: Text(
                                 "Login",
                                 style: TextStyle(
+                                    fontSize: 17,
                                     color: Colors.cyan,
                                     fontWeight: FontWeight.bold),
                               ),

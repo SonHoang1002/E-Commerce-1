@@ -146,6 +146,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
 
     if (widget.quantity == 0) {
       list.remove(list[index]);
+      
     } else {
       list[index].quantity = widget.quantity;
     }

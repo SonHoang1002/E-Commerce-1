@@ -284,6 +284,7 @@ class _DetailScreenState extends State<DetailScreen> {
       width: double.infinity,
       child: RaisedButton(
         onPressed: () {
+          total = 0;
           productProvider.setCartModel(
               widget.name, widget.price, quantity, widget.img);
           for (int i = 0; i < productProvider.getCartmodelLength; i++) {

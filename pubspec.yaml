@@ -40,7 +40,8 @@ dependencies:
   carousel_pro: ^1.0.0
   badges: ^2.0.3
   provider: ^6.0.3
-
+  flutter_isolate: ^2.0.2
+  image_picker: ^0.8.5+3
 
   
 dev_dependencies:

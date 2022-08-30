@@ -46,6 +46,9 @@ class MyApp extends StatelessWidget {
         home: StreamBuilder(
           stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
+            // print("snapshot: ${snapshot}");
+            // print("snapshot.hasData: ${snapshot.hasData}");
+            // print("snapshot.hasError: ${snapshot.hasError}");
             // if (snapshot.hasData) {
             //   print("HomePage() is called first");
             //   return HomePage();
@@ -53,7 +56,7 @@ class MyApp extends StatelessWidget {
             //   print("Login() is called first");
             //   return Login();
             // }
-            return ProfileScreen();
+            return Login();
           },
         ),
       ),
@@ -63,9 +66,6 @@ class MyApp extends StatelessWidget {
 
 //       home: CartScreen(name:"body suit",price: 19.0,img: "i1.png",));
 
-// Future<void> demo(BuildContext context) async {
-//   CategoryProvider categoryProvider = Provider.of<CategoryProvider>(context);
-//   await categoryProvider.getAsiaDish();
-//   List<Product> list = categoryProvider.getListAsia();
-//   print(list.length);
-// }
+// git remote add origin https://github.com/SonHoang1002/E-Commerce-1.git
+// git branch -M main
+// git push -u origin main
