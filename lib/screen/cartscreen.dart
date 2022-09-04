@@ -60,13 +60,13 @@ class _CartScreenState extends State<CartScreen> {
               height: 560,
               width: double.infinity,
               child: ListView.builder(
-                itemCount: productProvider.getCartmodelLength,
+                itemCount: productProvider.getCartModelLength,
                 itemBuilder: (context, index) {
                   return CartSingleProduct(
-                      name: productProvider.getCartmodel[index].name,
-                      price: productProvider.getCartmodel[index].price,
-                      img: productProvider.getCartmodel[index].img,
-                      quantity: productProvider.getCartmodel[index].quantity);
+                      name: productProvider.getCartModel[index].name,
+                      price: productProvider.getCartModel[index].price,
+                      img: productProvider.getCartModel[index].img,
+                      quantity: productProvider.getCartModel[index].quantity);
                 },
               ),
             ),
@@ -106,12 +106,12 @@ class _CartScreenState extends State<CartScreen> {
                                   onPressed: () {
                                     double value = 0;
                                     for (int i = 0;
-                                        i < productProvider.getCartmodelLength;
+                                        i < productProvider.getCartModelLength;
                                         i++) {
                                       value += (productProvider
-                                              .getCartmodel[i].quantity *
+                                              .getCartModel[i].quantity *
                                           productProvider
-                                              .getCartmodel[i].price);
+                                              .getCartModel[i].price);
                                     }
                                     productProvider.setPromo(0);
                                     productProvider.setTotal(value);
@@ -274,9 +274,9 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void CountTotal() {
-    for (int i = 0; i < productProvider.getCartmodelLength; i++) {
-      total += (productProvider.getCartmodel[i].quantity *
-          productProvider.getCartmodel[i].price);
+    for (int i = 0; i < productProvider.getCartModelLength; i++) {
+      total += (productProvider.getCartModel[i].quantity *
+          productProvider.getCartModel[i].price);
     }
   }
 
@@ -309,9 +309,9 @@ class _CartScreenState extends State<CartScreen> {
             showRemovePromoButton = true;
             promo = "-" + message + "%";
             productProvider.setPromo(0);
-            for (int i = 0; i < productProvider.getCartmodelLength; i++) {
-              subTotal += (productProvider.getCartmodel[i].quantity *
-                  productProvider.getCartmodel[i].price);
+            for (int i = 0; i < productProvider.getCartModelLength; i++) {
+              subTotal += (productProvider.getCartModel[i].quantity *
+                  productProvider.getCartModel[i].price);
             }
             productProvider.setTotal(0);
             productProvider

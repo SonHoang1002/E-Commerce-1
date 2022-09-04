@@ -45,7 +45,7 @@ class _DetailScreenState extends State<DetailScreen> {
           NotificationButton(),
           IconButton(
               icon: Badge(
-                  badgeContent: Text("${productProvider.getCartmodelLength}"),
+                  badgeContent: Text("${productProvider.getCartModelLength}"),
                   badgeColor: Colors.red,
                   shape: BadgeShape.circle,
                   showBadge: true,
@@ -287,14 +287,36 @@ class _DetailScreenState extends State<DetailScreen> {
           total = 0;
           productProvider.setCartModel(
               widget.name, widget.price, quantity, widget.img);
-          for (int i = 0; i < productProvider.getCartmodelLength; i++) {
-            total += (productProvider.getCartmodel[i].quantity *
-                productProvider.getCartmodel[i].price);
+          for (int i = 0; i < productProvider.getCartModelLength; i++) {
+            total += (productProvider.getCartModel[i].quantity *
+                productProvider.getCartModel[i].price);
           }
           productProvider.setTotal(total);
           productProvider.setNotiList(widget.name);
           Navigator.push(
               context, MaterialPageRoute(builder: (ctx) => CartScreen()));
+
+          // total = 0;
+          // bool? isExist;
+          // int? index;
+          // for (int i = 0; i < productProvider.getCartmodelLength; i++) {
+          //   total += (productProvider.getCartmodel[i].quantity *
+          //       productProvider.getCartmodel[i].price);
+          //   if (widget.name == productProvider.getCartmodel[i]) {
+          //     isExist = true;
+          //     index = i;
+          //   }
+          // }
+          // if (isExist == true) {
+          //   productProvider.getCartmodel[index!].quantity += quantity;
+          // } else {
+          //   productProvider.setCartModel(
+          //       widget.name, widget.price, quantity, widget.img);
+          // }
+          // productProvider.setTotal(total);
+          // productProvider.setNotiList(widget.name);
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (ctx) => CartScreen()));
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Center(
@@ -338,9 +360,9 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   void CountTotal() {
-    for (int i = 0; i < productProvider.getCartmodelLength; i++) {
-      total += (productProvider.getCartmodel[i].quantity *
-          productProvider.getCartmodel[i].price);
+    for (int i = 0; i < productProvider.getCartModelLength; i++) {
+      total += (productProvider.getCartModel[i].quantity *
+          productProvider.getCartModel[i].price);
     }
   }
 }

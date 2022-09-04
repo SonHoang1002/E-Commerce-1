@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
+import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 import 'package:testecommerce/screen/listproduct.dart';
@@ -45,18 +46,19 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listFeature = [];
   late List<Product> listNew = [];
 
-  late List<Product> listAsia  = [];
-  late List<Product> listEast  = [];
+  late List<Product> listAsia = [];
+  late List<Product> listEast = [];
   late List<Product> listSnack = [];
   late List<Product> listWater = [];
   String? name = "";
-
+  late ThemeDarkProvider themeProvider;
   // final bool logoutColor = true;
 
   @override
   Widget build(BuildContext context) {
     categoryProvider = Provider.of<CategoryProvider>(context);
     productProvider = Provider.of<ProductProvider>(context);
+    themeProvider = Provider.of<ThemeDarkProvider>(context);
 
     if (listAsia.length == 0) {
       Future<int> a = categoryProvider.setAsiaDish();
@@ -86,7 +88,6 @@ class _HomePageState extends State<HomePage> {
       Future<int> f = productProvider.setUserModel();
       name = productProvider.getUserModelName;
     }
-
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -128,7 +129,7 @@ class _HomePageState extends State<HomePage> {
               icon: Badge(
                 animationType: BadgeAnimationType.scale,
                 shape: BadgeShape.circle,
-                badgeContent: Text("${productProvider.getCartmodelLength}"),
+                badgeContent: Text("${productProvider.getCartModelLength}"),
                 showBadge: true,
                 child: Icon(
                   Icons.shopping_cart,
@@ -206,19 +207,61 @@ class _HomePageState extends State<HomePage> {
             title: const Text("Profile"),
             leading: const Icon(Icons.phone),
           ),
-          ListTile(
-            selected: settingColor,
-            onTap: () {
-              // _key.currentState!.openEndDrawer();
-              _key.currentState!.showSnackBar(
-                  const SnackBar(content: Text("You click Setting ListTile")));
-              setState(() {
-                settingColor = true;
-                profileColor = false;
-                homeColor = false;
-                aboutColor = false;
-              });
-            },
+          ExpansionTile(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Theme"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          themeProvider.setTheme();
+                        },
+                        icon: themeProvider.isDark
+                            ? Icon(Icons.dark_mode)
+                            : Icon(Icons.light_mode),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text("Phone"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.phone),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                    ],
+                  ),
+                ],
+              )
+            ],
             title: const Text("Settings"),
             leading: const Icon(Icons.settings),
           ),
@@ -556,6 +599,24 @@ Widget _CircleImage(String img, int color, String messageOfTooltip) {
     ),
   );
 }
+
+
+// ListTile(
+          //   selected: settingColor,
+          //   onTap: () {
+          //     // _key.currentState!.openEndDrawer();
+          //     _key.currentState!.showSnackBar(
+          //         const SnackBar(content: Text("You click Setting ListTile")));
+          //     setState(() {
+          //       settingColor = !settingColor;
+          //       profileColor = false;
+          //       homeColor = false;
+          //       aboutColor = false;
+          //     });
+          //   },
+          //   title: const Text("Settings"),
+          //   leading: const Icon(Icons.settings),
+          // ),
 
  // Row(
         //   children: [

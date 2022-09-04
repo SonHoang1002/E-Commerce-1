@@ -127,7 +127,26 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                     ],
                   ),
                 ),
-              )
+              ),
+              GestureDetector(
+                  child: Icon(Icons.close),
+                  onTap: () {
+                    List<CartModel> list = productProvider.cartModelList;
+                    late int index;
+                    for (int i = 0; i < list.length; i++) {
+                      if (widget.name == list[i].name) {
+                        index = i;
+                      }
+                    }
+                    list.remove(list[index]);
+                    productProvider.setCartModelList(list);
+                    if (list.length == 0) {
+                      productProvider.setTotal(0);
+                    } else {
+                      productProvider.setTotal(CountTotal(list));
+                    }
+                    productProvider.setNotiList(widget.name);
+                  })
             ],
           ),
         ]),
@@ -146,15 +165,14 @@ class _CartSingleProductState extends State<CartSingleProduct> {
 
     if (widget.quantity == 0) {
       list.remove(list[index]);
-      
     } else {
       list[index].quantity = widget.quantity;
     }
 
     productProvider.setCartModelList(list);
-    if(list.length==0){
+    if (list.length == 0) {
       productProvider.setTotal(0);
-    }else{
+    } else {
       productProvider.setTotal(CountTotal(list));
     }
   }

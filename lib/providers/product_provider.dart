@@ -66,8 +66,24 @@ class ProductProvider with ChangeNotifier {
   late CartModel cartModel;
   List<CartModel> cartModelList = [];
   void setCartModel(String name, double price, int quantity, String img) {
-    cartModelList
-        .add(CartModel(name: name, price: price, img: img, quantity: quantity));
+    int? index;
+    int? oldQuantity;
+    int? newQuantity;
+    for (int i = 0; i < getCartModelLength; i++) {
+      if (name == getCartModel[i].name) {
+        index = i;
+        oldQuantity = getCartModel[i].quantity;
+      }
+    }
+    if (index == null) {
+      cartModelList.add(
+          CartModel(name: name, price: price, img: img, quantity: quantity));
+    }else if ((index >= 0)) {
+      cartModelList.remove(getCartModel[index]);
+      newQuantity = oldQuantity! + quantity;
+      cartModelList.insert(index,
+          CartModel(name: name, price: price, img: img, quantity: newQuantity));
+    }
 
     notifyListeners();
   }
@@ -77,8 +93,8 @@ class ProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<CartModel> get getCartmodel => List.from(cartModelList);
-  int get getCartmodelLength => cartModelList.length;
+  List<CartModel> get getCartModel => List.from(cartModelList);
+  int get getCartModelLength => cartModelList.length;
 
   // total
   late double total = 0;
@@ -104,6 +120,15 @@ class ProductProvider with ChangeNotifier {
     notiList.add(value);
   }
 
+  void removeList(value) {
+    for (int i = 0; i < notiList.length; i++) {
+      if (notiList[i] == value) {
+        notiList.remove(value);
+        print("remove item in NotiList succesfully");
+      }
+    }
+  }
+
   int get getNotiListlength => notiList.length;
 
   //data form login screen
@@ -118,11 +143,12 @@ class ProductProvider with ChangeNotifier {
   late String userEmail;
   late String userPhone;
   late String userGender;
-  
+
   // late List<UserModel> listUserModel;
   Future<int> setUserModel() async {
     String email = getEmailFromLogin;
-    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance.collection("User").get();
+    QuerySnapshot<Object?> snapshot =
+        await FirebaseFirestore.instance.collection("User").get();
     snapshot.docs.forEach((element) {
       if (element["UserEmail"] == email) {
         userName = element["UserName"];
@@ -135,10 +161,10 @@ class ProductProvider with ChangeNotifier {
     return 0;
   }
 
-get getUserModelName => userName;
-get getUserModelPhone => userPhone;
-get getUserModelEmail => userEmail;
-get getUserModelGender => userGender;
+  get getUserModelName => userName;
+  get getUserModelPhone => userPhone;
+  get getUserModelEmail => userEmail;
+  get getUserModelGender => userGender;
 
   // late UserModel userModel;
   // late List<UserModel> listUserModel;

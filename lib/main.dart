@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
+import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 import 'package:testecommerce/screen/homepage.dart';
@@ -14,6 +15,20 @@ import 'package:testecommerce/screen/welcomescreen.dart';
 import './screen/signup.dart';
 import './providers/category_provider.dart';
 import 'models/product.dart';
+
+ThemeData light = ThemeData(
+    brightness: Brightness.light,
+    primarySwatch: Colors.indigo,
+    primaryColor: Color(0xff746bc9),
+    iconTheme: IconThemeData(color: Colors.black),
+    scaffoldBackgroundColor: Color(0xfff1f1f1));
+
+ThemeData dark = ThemeData(
+  brightness: Brightness.dark,
+  primarySwatch: Colors.indigo,
+  primaryColor: Color(0xff746bc9),
+  iconTheme: IconThemeData(color: Colors.black),
+);
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
@@ -36,9 +51,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ProductProvider>(
           create: (context) => ProductProvider(),
         ),
+        ChangeNotifierProvider<ThemeDarkProvider>(
+          create: (context) => ThemeDarkProvider(),
+        ),
       ],
       child: MaterialApp(
+        // theme: Provider.of<ThemeDarkProvider>(context).isDark ? dark:light,
         theme: ThemeData(
+          brightness: Brightness.dark,
+          primarySwatch: Colors.indigo,
           primaryColor: Color(0xff746bc9),
           iconTheme: IconThemeData(color: Colors.black),
         ),
@@ -62,7 +83,16 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+  // ThemeData setThemeDark(BuildContext context) {
+  //   if (Provider.of<ThemeProvider>(context).isDark) {
+  //     return dark;
+  //   } else {
+  //     return light;
+  //   }
+  // }
 }
+
+
 
 //       home: CartScreen(name:"body suit",price: 19.0,img: "i1.png",));
 

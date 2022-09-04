@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:image_picker/image_picker.dart';
@@ -28,15 +30,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool edit = false;
 
   late bool isMale = (gender == "Male");
+
+  File? _pickedImage;
+  PickedFile? _image;
+  late String imageUrl;
+  Future getImage(ImageSource src) async {
+    _image = (await ImagePicker().getImage(source: src))!;
+    if (_image != null) {
+      _pickedImage = File(_image!.path);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     productProvider = Provider.of<ProductProvider>(context);
-    late File _pickedFile;
-    PickedFile _image;
-    Future getImage() async {
-      _image = (await ImagePicker().getImage(source: ImageSource.camera))!;
-      _pickedFile = File(_image.path);
-    }
 
     if (name == "") {
       Future<int> i = productProvider.setUserModel();
@@ -54,6 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       Future<int> i = productProvider.setUserModel();
       gender = productProvider.getUserModelGender;
     }
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xfff8f8f8),
@@ -66,12 +74,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       setState(() {
                         edit = false;
                       });
+                      uploadImage(_pickedImage!);
                     },
                     icon: Icon(
                       Icons.check,
                       color: Colors.green,
                     ))
-                : IconButton(onPressed: () {}, icon: NotificationButton())
+                : IconButton(
+                    onPressed: () {
+                      setState(() {
+                        edit = false;
+                      });
+                    },
+                    icon: NotificationButton())
           ],
           leading: edit
               ? IconButton(
@@ -101,17 +116,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CircleAvatar(
-                      maxRadius: 60,
-                      backgroundImage: NetworkImage(
-                          "https://scontent.fhan2-4.fna.fbcdn.net/v/t1.6435-9/203063561_108326058170068_6656793944407315036_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=JL4XcaY8Kr8AX_C2foH&_nc_ht=scontent.fhan2-4.fna&oh=00_AT_xEYOqC4RzWAcgtHLMxTD9ata6kzl_qaRxlvQRZcQRog&oe=632E61CE"),
-                    ),
+                        maxRadius: 60, backgroundImage: setImageForAvatar()),
                   ],
                 ),
               ),
               edit
                   ? GestureDetector(
                       onTap: () {
-                        getImage();
+                        // getImage(ImageSource.camera);
+                        ImageDialogBox();
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(left: 80, top: 80),
@@ -222,14 +235,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Future buildDialog() {
+  ImageProvider setImageForAvatar() {
+    if (_pickedImage == null) {
+      return NetworkImage(
+          "https://scontent.fhan2-4.fna.fbcdn.net/v/t1.6435-9/203063561_108326058170068_6656793944407315036_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=JL4XcaY8Kr8AX_C2foH&_nc_ht=scontent.fhan2-4.fna&oh=00_AT_xEYOqC4RzWAcgtHLMxTD9ata6kzl_qaRxlvQRZcQRog&oe=632E61CE");
+    } else {
+      return FileImage(_pickedImage!);
+    }
+  }
+
+  ImageDialogBox() async {
     return showDialog(
-        context: context,
-        builder: (ctx) {
-          return AlertDialog(
-            
-          );
-        });
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.camera),
+                  title: Text('Pick From Camera'),
+                  onTap: () {
+                    getImage(ImageSource.camera);
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.photo_library),
+                  title: Text('Pick From Photo Library'),
+                  onTap: () {
+                    getImage(ImageSource.gallery);
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ),
+          ),
+        );
+      },
+      barrierDismissible: false,
+    );
+  }
+
+  uploadImage(File image) async {
+    User? user = FirebaseAuth.instance.currentUser;
+    Reference reference = FirebaseStorage.instance.ref().child("images/a.jpg");
+    print("reference:${reference}");
+    UploadTask uploadTask = reference.putFile(image);
+    print("images: ${image}");
+    print("uploadTask: ${uploadTask}");
+    TaskSnapshot snapshot = await uploadTask;
+    print("snapshot: ${snapshot}");
+    imageUrl = await snapshot.ref.getDownloadURL();
+    print("imageUrl: ${imageUrl}");
+    
   }
 }
 

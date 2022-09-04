@@ -55,12 +55,12 @@ class _CheckOutState extends State<CheckOut> {
             Container(
               height: 595,
               child: ListView.builder(
-                itemCount: productProvider.getCartmodelLength,
+                itemCount: productProvider.getCartModelLength,
                 itemBuilder: (context, index) => CartSingleProduct(
-                    name: productProvider.getCartmodel[index].name,
-                    price: productProvider.getCartmodel[index].price, 
-                    img: productProvider.getCartmodel[index].img, 
-                    quantity: productProvider.getCartmodel[index].quantity
+                    name: productProvider.getCartModel[index].name,
+                    price: productProvider.getCartModel[index].price, 
+                    img: productProvider.getCartModel[index].img, 
+                    quantity: productProvider.getCartModel[index].quantity
                 ),
               ),
             ),
