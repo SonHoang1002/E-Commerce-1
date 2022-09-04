@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/models/cartmodels.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/screen/homepage.dart';
@@ -21,12 +22,12 @@ class CartSingleProduct extends StatefulWidget {
   State<CartSingleProduct> createState() => _CartSingleProductState();
 }
 
-late ProductProvider productProvider;
+late GeneralProvider generalProvider;
 
 class _CartSingleProductState extends State<CartSingleProduct> {
   @override
   Widget build(BuildContext context) {
-    productProvider = Provider.of<ProductProvider>(context);
+    generalProvider = Provider.of<GeneralProvider>(context);
     return Container(
       height: 220,
       width: double.infinity,
@@ -131,7 +132,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
               GestureDetector(
                   child: Icon(Icons.close),
                   onTap: () {
-                    List<CartModel> list = productProvider.cartModelList;
+                    List<CartModel> list = generalProvider.cartModelList;
                     late int index;
                     for (int i = 0; i < list.length; i++) {
                       if (widget.name == list[i].name) {
@@ -139,13 +140,13 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                       }
                     }
                     list.remove(list[index]);
-                    productProvider.setCartModelList(list);
+                    generalProvider.setCartModelList(list);
                     if (list.length == 0) {
-                      productProvider.setTotal(0);
+                      generalProvider.setTotal(0);
                     } else {
-                      productProvider.setTotal(CountTotal(list));
+                      generalProvider.setTotal(CountTotal(list));
                     }
-                    productProvider.setNotiList(widget.name);
+                    generalProvider.setNotiList(widget.name);
                   })
             ],
           ),
@@ -155,7 +156,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
   }
 
   void updateQuantity(String name) {
-    List<CartModel> list = productProvider.cartModelList;
+    List<CartModel> list = generalProvider.cartModelList;
     late int index;
     for (int i = 0; i < list.length; i++) {
       if (widget.name == list[i].name) {
@@ -169,11 +170,11 @@ class _CartSingleProductState extends State<CartSingleProduct> {
       list[index].quantity = widget.quantity;
     }
 
-    productProvider.setCartModelList(list);
+    generalProvider.setCartModelList(list);
     if (list.length == 0) {
-      productProvider.setTotal(0);
+      generalProvider.setTotal(0);
     } else {
-      productProvider.setTotal(CountTotal(list));
+      generalProvider.setTotal(CountTotal(list));
     }
   }
 

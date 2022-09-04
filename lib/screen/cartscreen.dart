@@ -6,21 +6,25 @@ import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
 
+import '../providers/general_provider.dart';
+
 class CartScreen extends StatefulWidget {
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
 
 class _CartScreenState extends State<CartScreen> {
-  late ProductProvider productProvider;
+  // late ProductProvider productProvider;
+  late GeneralProvider generalProvider;
+
   int quantity = 1;
   double total = 0;
   late String promo = "Add promo";
   bool showRemovePromoButton = false;
   @override
   Widget build(BuildContext context) {
-    productProvider = Provider.of<ProductProvider>(context);
-    total = productProvider.getTotal;
+    generalProvider = Provider.of<GeneralProvider>(context);
+    total = generalProvider.getTotal;
     return Scaffold(
         appBar: AppBar(
           title: Center(
@@ -60,13 +64,13 @@ class _CartScreenState extends State<CartScreen> {
               height: 560,
               width: double.infinity,
               child: ListView.builder(
-                itemCount: productProvider.getCartModelLength,
+                itemCount: generalProvider.getCartModelLength,
                 itemBuilder: (context, index) {
                   return CartSingleProduct(
-                      name: productProvider.getCartModel[index].name,
-                      price: productProvider.getCartModel[index].price,
-                      img: productProvider.getCartModel[index].img,
-                      quantity: productProvider.getCartModel[index].quantity);
+                      name: generalProvider.getCartModel[index].name,
+                      price: generalProvider.getCartModel[index].price,
+                      img: generalProvider.getCartModel[index].img,
+                      quantity: generalProvider.getCartModel[index].quantity);
                 },
               ),
             ),
@@ -98,23 +102,23 @@ class _CartScreenState extends State<CartScreen> {
                       margin: EdgeInsets.all(20),
                       child: Row(
                         children: [
-                          Text(productProvider.getPromo == 0
+                          Text(generalProvider.getPromo == 0
                               ? "Add Promo"
-                              : "-${productProvider.getPromo}%"),
-                          productProvider.getPromo != 0
+                              : "-${generalProvider.getPromo}%"),
+                          generalProvider.getPromo != 0
                               ? IconButton(
                                   onPressed: () {
                                     double value = 0;
                                     for (int i = 0;
-                                        i < productProvider.getCartModelLength;
+                                        i < generalProvider.getCartModelLength;
                                         i++) {
-                                      value += (productProvider
+                                      value += (generalProvider
                                               .getCartModel[i].quantity *
-                                          productProvider
+                                          generalProvider
                                               .getCartModel[i].price);
                                     }
-                                    productProvider.setPromo(0);
-                                    productProvider.setTotal(value);
+                                    generalProvider.setPromo(0);
+                                    generalProvider.setTotal(value);
 
                                     setState(() {
                                       showRemovePromoButton = false;
@@ -274,9 +278,9 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   void CountTotal() {
-    for (int i = 0; i < productProvider.getCartModelLength; i++) {
-      total += (productProvider.getCartModel[i].quantity *
-          productProvider.getCartModel[i].price);
+    for (int i = 0; i < generalProvider.getCartModelLength; i++) {
+      total += (generalProvider.getCartModel[i].quantity *
+          generalProvider.getCartModel[i].price);
     }
   }
 
@@ -308,15 +312,15 @@ class _CartScreenState extends State<CartScreen> {
             double subTotal = 0;
             showRemovePromoButton = true;
             promo = "-" + message + "%";
-            productProvider.setPromo(0);
-            for (int i = 0; i < productProvider.getCartModelLength; i++) {
-              subTotal += (productProvider.getCartModel[i].quantity *
-                  productProvider.getCartModel[i].price);
+            generalProvider.setPromo(0);
+            for (int i = 0; i < generalProvider.getCartModelLength; i++) {
+              subTotal += (generalProvider.getCartModel[i].quantity *
+                  generalProvider.getCartModel[i].price);
             }
-            productProvider.setTotal(0);
-            productProvider
+            generalProvider.setTotal(0);
+            generalProvider
                 .setTotal(subTotal * (1 - double.parse(message) / 100));
-            productProvider.setPromo(double.parse(message));
+            generalProvider.setPromo(double.parse(message));
           });
 
           Navigator.of(context).pop();

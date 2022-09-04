@@ -7,6 +7,7 @@ import 'package:badges/badges.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/models/usermodel.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/notification_button.dart';
@@ -20,7 +21,8 @@ class ProfileScreen extends StatefulWidget {
 
 late UserModel userModel;
 late List<UserModel> list = [];
-late ProductProvider productProvider;
+late GeneralProvider generalProvider;
+//late ProductProvider productProvider;
 String name = "";
 String phone = "";
 String gender = "";
@@ -43,25 +45,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    productProvider = Provider.of<ProductProvider>(context);
+    generalProvider = Provider.of<GeneralProvider>(context);
 
     if (name == "") {
-      Future<int> i = productProvider.setUserModel();
-      name = productProvider.getUserModelName;
+      Future<int> i = generalProvider.setUserModel();
+      name = generalProvider.getUserModelName;
     }
     if (phone == "") {
-      Future<int> i = productProvider.setUserModel();
-      phone = productProvider.getUserModelPhone;
+      Future<int> i = generalProvider.setUserModel();
+      phone = generalProvider.getUserModelPhone;
     }
     if (email == "") {
-      Future<int> i = productProvider.setUserModel();
-      email = productProvider.getUserModelEmail;
+      Future<int> i = generalProvider.setUserModel();
+      email = generalProvider.getUserModelEmail;
     }
     if (gender == "") {
-      Future<int> i = productProvider.setUserModel();
-      gender = productProvider.getUserModelGender;
+      Future<int> i = generalProvider.setUserModel();
+      gender = generalProvider.getUserModelGender;
     }
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Color(0xfff8f8f8),

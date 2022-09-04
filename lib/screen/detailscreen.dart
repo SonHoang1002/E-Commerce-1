@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/checkout.dart';
@@ -20,11 +21,11 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   double total = 0;
   late int quantity = 0;
-  late ProductProvider productProvider;
+  // late GeneralProvider generalProvider;
+  late GeneralProvider generalProvider;
   @override
   Widget build(BuildContext context) {
-    productProvider = Provider.of<ProductProvider>(context);
-
+    generalProvider = Provider.of<GeneralProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -45,7 +46,7 @@ class _DetailScreenState extends State<DetailScreen> {
           NotificationButton(),
           IconButton(
               icon: Badge(
-                  badgeContent: Text("${productProvider.getCartModelLength}"),
+                  badgeContent: Text("${generalProvider.getCartModelLength}"),
                   badgeColor: Colors.red,
                   shape: BadgeShape.circle,
                   showBadge: true,
@@ -285,36 +286,36 @@ class _DetailScreenState extends State<DetailScreen> {
       child: RaisedButton(
         onPressed: () {
           total = 0;
-          productProvider.setCartModel(
+          generalProvider.setCartModel(
               widget.name, widget.price, quantity, widget.img);
-          for (int i = 0; i < productProvider.getCartModelLength; i++) {
-            total += (productProvider.getCartModel[i].quantity *
-                productProvider.getCartModel[i].price);
+          for (int i = 0; i < generalProvider.getCartModelLength; i++) {
+            total += (generalProvider.getCartModel[i].quantity *
+                generalProvider.getCartModel[i].price);
           }
-          productProvider.setTotal(total);
-          productProvider.setNotiList(widget.name);
+          generalProvider.setTotal(total);
+          generalProvider.setNotiList(widget.name);
           Navigator.push(
               context, MaterialPageRoute(builder: (ctx) => CartScreen()));
 
           // total = 0;
           // bool? isExist;
           // int? index;
-          // for (int i = 0; i < productProvider.getCartmodelLength; i++) {
-          //   total += (productProvider.getCartmodel[i].quantity *
-          //       productProvider.getCartmodel[i].price);
-          //   if (widget.name == productProvider.getCartmodel[i]) {
+          // for (int i = 0; i < generalProvider.getCartmodelLength; i++) {
+          //   total += (generalProvider.getCartmodel[i].quantity *
+          //       generalProvider.getCartmodel[i].price);
+          //   if (widget.name == generalProvider.getCartmodel[i]) {
           //     isExist = true;
           //     index = i;
           //   }
           // }
           // if (isExist == true) {
-          //   productProvider.getCartmodel[index!].quantity += quantity;
+          //   generalProvider.getCartmodel[index!].quantity += quantity;
           // } else {
-          //   productProvider.setCartModel(
+          //   generalProvider.setCartModel(
           //       widget.name, widget.price, quantity, widget.img);
           // }
-          // productProvider.setTotal(total);
-          // productProvider.setNotiList(widget.name);
+          // generalProvider.setTotal(total);
+          // generalProvider.setNotiList(widget.name);
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (ctx) => CartScreen()));
         },
@@ -360,9 +361,9 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   void CountTotal() {
-    for (int i = 0; i < productProvider.getCartModelLength; i++) {
-      total += (productProvider.getCartModel[i].quantity *
-          productProvider.getCartModel[i].price);
+    for (int i = 0; i < generalProvider.getCartModelLength; i++) {
+      total += (generalProvider.getCartModel[i].quantity *
+          generalProvider.getCartModel[i].price);
     }
   }
 }

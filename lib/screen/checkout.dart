@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
 
@@ -8,12 +9,12 @@ class CheckOut extends StatefulWidget {
   State<CheckOut> createState() => _CheckOutState();
 }
 
-late ProductProvider productProvider;
-
+// late ProductProvider productProvider;
+late GeneralProvider generalProvider;
 class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
-  productProvider = Provider.of<ProductProvider>(context);
+  generalProvider = Provider.of<GeneralProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,12 +56,12 @@ class _CheckOutState extends State<CheckOut> {
             Container(
               height: 595,
               child: ListView.builder(
-                itemCount: productProvider.getCartModelLength,
+                itemCount: generalProvider.getCartModelLength,
                 itemBuilder: (context, index) => CartSingleProduct(
-                    name: productProvider.getCartModel[index].name,
-                    price: productProvider.getCartModel[index].price, 
-                    img: productProvider.getCartModel[index].img, 
-                    quantity: productProvider.getCartModel[index].quantity
+                    name: generalProvider.getCartModel[index].name,
+                    price: generalProvider.getCartModel[index].price, 
+                    img: generalProvider.getCartModel[index].img, 
+                    quantity: generalProvider.getCartModel[index].quantity
                 ),
               ),
             ),

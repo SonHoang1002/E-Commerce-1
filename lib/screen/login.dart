@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/signup.dart';
@@ -18,7 +19,7 @@ class Login extends StatefulWidget {
 String p =
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
 RegExp regExp = RegExp(p);
-late ProductProvider productProvider;
+late GeneralProvider generalProvider;
 // void doTaskUserModel(SendPort sendPort) {
 //   // productProvider.setEmailFromLogin(email!);
 //   print("doTaskUserModel");
@@ -33,7 +34,7 @@ class _Login extends State<Login> {
   void validation() {
     if (_formKey.currentState!.validate()) {
       print("email: $email and password: $password");
-       productProvider.setEmailFromLogin(email!);
+       generalProvider.setEmailFromLogin(email!);
       try {
         final result = FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email!, password: password!);
@@ -61,7 +62,7 @@ class _Login extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    productProvider = Provider.of<ProductProvider>(context);
+    generalProvider = Provider.of<GeneralProvider>(context);
 
     return Scaffold(
       appBar: AppBar(

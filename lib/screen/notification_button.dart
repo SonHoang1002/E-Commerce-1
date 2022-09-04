@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 
 class NotificationButton extends StatefulWidget {
@@ -9,18 +10,18 @@ class NotificationButton extends StatefulWidget {
   @override
   State<NotificationButton> createState() => _NotificationButtonState();
 }
-
-late ProductProvider productProvider;
+//late ProductProvider productProvider;
+late GeneralProvider generalProvider;
 
 class _NotificationButtonState extends State<NotificationButton> {
   @override
   Widget build(BuildContext context) {
-    productProvider = Provider.of<ProductProvider>(context);
+    generalProvider = Provider.of<GeneralProvider>(context);
 
 
     return Badge(
         position: BadgePosition(top: 8, start: 25),
-        badgeContent: Text(productProvider.getNotiListlength.toString()),
+        badgeContent: Text(generalProvider.getNotiListlength.toString()),
         child: IconButton(
           icon: Icon(
             Icons.notifications,

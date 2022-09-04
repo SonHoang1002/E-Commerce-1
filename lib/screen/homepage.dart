@@ -16,6 +16,7 @@ import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/notification_button.dart';
 import 'package:testecommerce/screen/profile.dart';
 import 'package:testecommerce/screen/singleproduct.dart';
+import '../providers/general_provider.dart';
 import './singleproduct.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:badges/badges.dart';
@@ -33,8 +34,10 @@ var waterDish;
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
-  late CategoryProvider categoryProvider;
-  // late final dropDownList = true;
+  final GlobalKey<State<Tooltip>> keyTooltip = GlobalKey<State<Tooltip>>();
+  late GeneralProvider generalProvider;
+
+  // late generalProvider generalProvider;
   late bool homeColor = true;
   late bool settingColor = false;
   late bool aboutColor = false;
@@ -42,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   late bool searchTextField = false;
   TextEditingController searchInput = TextEditingController();
 
-  late ProductProvider productProvider;
+  // late generalProvider generalProvider;
   late List<Product> listFeature = [];
   late List<Product> listNew = [];
 
@@ -51,42 +54,42 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listSnack = [];
   late List<Product> listWater = [];
   String? name = "";
-  late ThemeDarkProvider themeProvider;
+  // late ThemeDarkProvider generalProvider;
   // final bool logoutColor = true;
 
   @override
   Widget build(BuildContext context) {
-    categoryProvider = Provider.of<CategoryProvider>(context);
-    productProvider = Provider.of<ProductProvider>(context);
-    themeProvider = Provider.of<ThemeDarkProvider>(context);
+    // generalProvider = Provider.of<generalProvider>(context);
+    // generalProvider = Provider.of<generalProvider>(context);
+    generalProvider = Provider.of<GeneralProvider>(context);
 
     if (listAsia.length == 0) {
-      Future<int> a = categoryProvider.setAsiaDish();
-      listAsia = categoryProvider.getListAsia();
+      Future<int> a = generalProvider.setAsiaDish();
+      listAsia = generalProvider.getListAsia();
     }
     if (listEast.length == 0) {
-      Future<int> b = categoryProvider.setEastDish();
-      listEast = categoryProvider.getEastDish();
+      Future<int> b = generalProvider.setEastDish();
+      listEast = generalProvider.getEastDish();
     }
     if (listSnack.length == 0) {
-      Future<int> c = categoryProvider.setSnack();
-      listSnack = categoryProvider.getSnack();
+      Future<int> c = generalProvider.setSnack();
+      listSnack = generalProvider.getSnack();
     }
     if (listWater.length == 0) {
-      Future<int> d = categoryProvider.setwaterDish();
-      listWater = categoryProvider.getWaterDish();
+      Future<int> d = generalProvider.setwaterDish();
+      listWater = generalProvider.getWaterDish();
     }
     if (listFeature.length == 0) {
-      Future<int> e = productProvider.setFeatureProduct();
-      listFeature = productProvider.getFeatureProduct();
+      Future<int> e = generalProvider.setFeatureProduct();
+      listFeature = generalProvider.getFeatureProduct();
     }
     if (listNew.length == 0) {
-      Future<int> f = productProvider.setNewProduct();
-      listNew = productProvider.getNewProduct();
+      Future<int> f = generalProvider.setNewProduct();
+      listNew = generalProvider.getNewProduct();
     }
     if (name == "") {
-      Future<int> f = productProvider.setUserModel();
-      name = productProvider.getUserModelName;
+      Future<int> f = generalProvider.setUserModel();
+      name = generalProvider.getUserModelName;
     }
     return Scaffold(
       key: _key,
@@ -129,7 +132,7 @@ class _HomePageState extends State<HomePage> {
               icon: Badge(
                 animationType: BadgeAnimationType.scale,
                 shape: BadgeShape.circle,
-                badgeContent: Text("${productProvider.getCartModelLength}"),
+                badgeContent: Text("${generalProvider.getCartModelLength}"),
                 showBadge: true,
                 child: Icon(
                   Icons.shopping_cart,
@@ -154,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold, fontSize: 30, color: Colors.red),
             ),
             accountEmail: Text(
-              productProvider.getEmailFromLogin,
+              generalProvider.getEmailFromLogin,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
@@ -224,9 +227,9 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          themeProvider.setTheme();
+                          generalProvider.setTheme();
                         },
-                        icon: themeProvider.isDark
+                        icon: generalProvider.isDark
                             ? Icon(Icons.dark_mode)
                             : Icon(Icons.light_mode),
                       ),
@@ -400,19 +403,20 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         Container(
-          height: 60,
+          height: 90,
           child: Row(
             children: [
               GestureDetector(
-                child: _CircleImage("waterdish.webp", 0xffb74093, "Water Food"),
-                onTap: () {
-                  Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (ctx) =>
-                          ListProduct(name: "waterfood", list: listWater)));
-                },
-              ),
+                  child:
+                      _CircleImage("waterdish.webp", 0xffb74093, "Water Food"),
+                  onTap: () {
+                    // keyTooltip.currentState!.;
+                    Navigator.of(context).push(CupertinoPageRoute(
+                        builder: (ctx) =>
+                            ListProduct(name: "waterfood", list: listWater)));
+                  },),
               GestureDetector(
-                child: _CircleImage("snack.png", 0xffb74093, "Snack Food"),
+                child: _CircleImage("snack-food.png", 0xffb74093, "Snack Food"),
                 onTap: () {
                   Navigator.of(context).push(CupertinoPageRoute(
                       builder: (ctx) =>
@@ -420,7 +424,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
               GestureDetector(
-                child: _CircleImage("eastfood.jpg", 0xffb74093, "Europe FOod"),
+                child: _CircleImage("east-food.png", 0xffb74093, "Europe Food"),
                 onTap: () {
                   Navigator.of(context).push(CupertinoPageRoute(
                       builder: (ctx) =>
@@ -590,12 +594,20 @@ class _HomePageState extends State<HomePage> {
 }
 
 Widget _CircleImage(String img, int color, String messageOfTooltip) {
-  return Container(
-    margin: EdgeInsets.all(4),
-    child: CircleAvatar(
-      maxRadius: 30,
-      backgroundColor: Color(color),
-      child: Image(image: AssetImage("images/$img")),
+  return Tooltip(
+    waitDuration: Duration(seconds: 1),
+    showDuration: Duration(seconds: 2),
+    message: messageOfTooltip,
+    padding: const EdgeInsets.all(5),
+    height: 25,
+    preferBelow: true,
+    child: Container(
+      margin: EdgeInsets.all(4),
+      child: CircleAvatar(
+        maxRadius: 30,
+        backgroundColor: Color(color),
+        child: Image(image: AssetImage("images/$img")),
+      ),
     ),
   );
 }

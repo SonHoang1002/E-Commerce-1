@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/providers/category_provider.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
@@ -24,10 +25,11 @@ ThemeData light = ThemeData(
     scaffoldBackgroundColor: Color(0xfff1f1f1));
 
 ThemeData dark = ThemeData(
-  brightness: Brightness.dark,
-  primarySwatch: Colors.indigo,
-  primaryColor: Color(0xff746bc9),
-  iconTheme: IconThemeData(color: Colors.black),
+    brightness: Brightness.dark,
+    primarySwatch: Colors.indigo,
+    primaryColor: Color(0xff746bc9),
+    iconTheme: IconThemeData(color: Colors.black),
+    // scaffoldBackgroundColor: Colors.black
 );
 
 void main() async {
@@ -43,45 +45,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<CategoryProvider>(
-          create: (context) => CategoryProvider(),
-        ),
-        ChangeNotifierProvider<ProductProvider>(
-          create: (context) => ProductProvider(),
-        ),
-        ChangeNotifierProvider<ThemeDarkProvider>(
-          create: (context) => ThemeDarkProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        // theme: Provider.of<ThemeDarkProvider>(context).isDark ? dark:light,
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primarySwatch: Colors.indigo,
-          primaryColor: Color(0xff746bc9),
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-        debugShowCheckedModeBanner: false,
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            // print("snapshot: ${snapshot}");
-            // print("snapshot.hasData: ${snapshot.hasData}");
-            // print("snapshot.hasError: ${snapshot.hasError}");
-            // if (snapshot.hasData) {
-            //   print("HomePage() is called first");
-            //   return HomePage();
-            // } else {
-            //   print("Login() is called first");
-            //   return Login();
-            // }
-            return Login();
-          },
-        ),
-      ),
-    );
+    return ChangeNotifierProvider(
+        create: (_) => GeneralProvider(),
+        child: Consumer<GeneralProvider>(
+            builder: (context, GeneralProvider notifier, child) {
+          return MaterialApp(
+            title: "Flutter Provider",
+            theme: notifier.isDark ? dark : light,
+            darkTheme: notifier.isDark ? dark : light,
+            themeMode: notifier.isDark ? ThemeMode.dark : ThemeMode.light,
+            debugShowCheckedModeBanner: false,
+            home: StreamBuilder(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                return Login();
+              },
+            ),
+          );
+        }));
   }
   // ThemeData setThemeDark(BuildContext context) {
   //   if (Provider.of<ThemeProvider>(context).isDark) {
@@ -94,8 +75,45 @@ class MyApp extends StatelessWidget {
 
 
 
-//       home: CartScreen(name:"body suit",price: 19.0,img: "i1.png",));
-
+// MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider<CategoryProvider>(
+//           create: (context) => CategoryProvider(),
+//         ),
+//         ChangeNotifierProvider<ProductProvider>(
+//           create: (context) => ProductProvider(),
+//         ),
+//         ChangeNotifierProvider<ThemeDarkProvider>(
+//           create: (context) => ThemeDarkProvider(),
+//         ),
+//       ],
+//       child: MaterialApp(
+//         // theme: Provider.of<ThemeDarkProvider>(context).isDark ? dark:light,
+//         theme: ThemeData(
+//           brightness: Brightness.dark,
+//           primarySwatch: Colors.indigo,
+//           primaryColor: Color(0xff746bc9),
+//           iconTheme: IconThemeData(color: Colors.black),
+//         ),
+//         debugShowCheckedModeBanner: false,
+//         home: StreamBuilder(
+//           stream: FirebaseAuth.instance.authStateChanges(),
+//           builder: (context, snapshot) {
+//             // print("snapshot: ${snapshot}");
+//             // print("snapshot.hasData: ${snapshot.hasData}");
+//             // print("snapshot.hasError: ${snapshot.hasError}");
+//             // if (snapshot.hasData) {
+//             //   print("HomePage() is called first");
+//             //   return HomePage();
+//             // } else {
+//             //   print("Login() is called first");
+//             //   return Login();
+//             // }
+//             return Login();
+//           },
+//         ),
+//       ),
+//     );
 // git remote add origin https://github.com/SonHoang1002/E-Commerce-1.git
 // git branch -M main
 // git push -u origin main
