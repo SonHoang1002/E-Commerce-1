@@ -141,6 +141,15 @@ class GeneralProvider with ChangeNotifier {
 
   double get getTotal => total;
 
+
+  late double subTotal = 0;
+  void setSubTotal(double value) {
+    subTotal = value;
+    notifyListeners();
+  }
+
+  double get getSubTotal => subTotal;
+
   // promo
   late double promo = 0;
   void setPromo(double value) {
@@ -174,11 +183,12 @@ class GeneralProvider with ChangeNotifier {
   }
 
   get getEmailFromLogin => email;
-
+  late String userAddress;
   late String userName;
   late String userEmail;
   late String userPhone;
   late String userGender;
+  late String userImage;
 
   Future<int> setUserModel() async {
     String email = getEmailFromLogin;
@@ -190,6 +200,8 @@ class GeneralProvider with ChangeNotifier {
         userEmail = email;
         userPhone = element["UserPhone"];
         userGender = element["UserGender"];
+        userAddress = element["UserAddress"];
+        userImage = element["UserImage"];
       }
     });
     notifyListeners();
@@ -200,7 +212,9 @@ class GeneralProvider with ChangeNotifier {
   get getUserModelPhone => userPhone;
   get getUserModelEmail => userEmail;
   get getUserModelGender => userGender;
-
+  get getUserModelAddress => userAddress;
+  get getUserModelImage => userImage;
+  
   late Product asiaDish;
   List<Product> asiaList = [];
   Future<int> setAsiaDish() async {

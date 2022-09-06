@@ -30,21 +30,52 @@ late GeneralProvider generalProvider;
 // }
 
 class _Login extends State<Login> {
+  TextEditingController email = TextEditingController(text: "d@gmail.com");
+  TextEditingController password = TextEditingController(text:"12345678");
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  void validation() {
-    if (_formKey.currentState!.validate()) {
-      print("email: $email and password: $password");
-       generalProvider.setEmailFromLogin(email!);
-      try {
-        final result = FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email!, password: password!);
-        Navigator.of(context)
-            .pushReplacement(MaterialPageRoute(builder: (ctx) => HomePage()));
-      } on PlatformException catch (e) {
-        print(e.message.toString());
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  bool isLoading = false;
+
+  void submit(context) async {
+    late UserCredential result;
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      if (_formKey.currentState!.validate()) {
+        result = await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: email.text.trim(), password: password.text.trim());
+        print(result);
+        if (result != null) {
+          generalProvider.setEmailFromLogin(email.text.trim());
+          Navigator.of(context)
+              .pushReplacement(MaterialPageRoute(builder: (ctx) => HomePage()));
+        }
       }
-    } else {
-      print("login no");
+    } on PlatformException catch (error) {
+      String? message = "Please Check Your Internet Connection ";
+      if (error.message != null) {
+        message = error.message;
+      }
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text(message.toString()),
+          duration: Duration(milliseconds: 800),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+      );
+      setState(() {
+        isLoading = false;
+      });
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+      _scaffoldKey.currentState!.showSnackBar(SnackBar(
+        content: Text(error.toString()),
+        duration: Duration(milliseconds: 800),
+        backgroundColor: Theme.of(context).primaryColor,
+      ));
     }
   }
 
@@ -57,14 +88,15 @@ class _Login extends State<Login> {
   // }
 
   var obscureText = true;
-  String? email;
-  String? password;
+  // String? email;
+  // String? password;
 
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
 
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
@@ -94,18 +126,7 @@ class _Login extends State<Login> {
                           TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
                     ),
                     TextFormField(
-                      onChanged: (value) {
-                        setState(() {
-                          email = value;
-                        });
-                      },
-                      validator: ((value) {
-                        if (value == "") {
-                          return "Email is empty";
-                        } else if (!regExp.hasMatch(value!)) {
-                          return "invalide format";
-                        }
-                      }),
+                      controller: email,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           hintText: "Email",
@@ -113,18 +134,7 @@ class _Login extends State<Login> {
                           hintStyle: TextStyle(color: Colors.black)),
                     ),
                     TextFormField(
-                      onChanged: (value) {
-                        setState(() {
-                          password = value;
-                        });
-                      },
-                      validator: ((value) {
-                        if (value == "") {
-                          return "Password is empty";
-                        } else if (value!.length < 8) {
-                          return "Password short less 8";
-                        }
-                      }),
+                      controller: password,
                       obscureText: obscureText,
                       decoration: InputDecoration(
                           border: OutlineInputBorder(),
@@ -190,4 +200,41 @@ class _Login extends State<Login> {
       ),
     );
   }
+
+  void validation() async {
+    if (email.text.isEmpty && password.text.isEmpty) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Both Field Are Empty"),
+        ),
+      );
+    } else if (email.text.isEmpty) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Email Is Empty"),
+        ),
+      );
+    } else if (!regExp.hasMatch(email.text)) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Please Try Valid Email"),
+        ),
+      );
+    } else if (password.text.isEmpty) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Password Is Empty"),
+        ),
+      );
+    } else if (password.text.length < 8) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Password  Is Too Short"),
+        ),
+      );
+    } else {
+      submit(context);
+    }
+  }
+
 }

@@ -42,8 +42,10 @@ dependencies:
   provider: ^6.0.3
   flutter_isolate: ^2.0.2
   image_picker: ^0.8.5+3
+  file_picker: ^5.0.1
   firebase_storage: ^10.3.7
   shared_preferences: ^2.0.15
+  # permission_handler: ^10.0.0
 
   
 dev_dependencies:

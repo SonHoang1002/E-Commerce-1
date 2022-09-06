@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 
+import 'homepage.dart';
+
 class Signup extends StatefulWidget {
   @override
   _Signup createState() => _Signup();
@@ -16,47 +18,60 @@ RegExp regExp = RegExp(p);
 
 class _Signup extends State<Signup> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _ScaffordState = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var obscureText = true;
-  String? password;
-  String? email;
-  String? phone;
-  String? username;
+  final TextEditingController username = TextEditingController();
+  final TextEditingController email = TextEditingController();
+  final TextEditingController phone = TextEditingController();
+  final TextEditingController password = TextEditingController();
+  final TextEditingController address = TextEditingController();
+  // String? password;
+  // String? email;
+  // String? phone;
+  // String? username;
   bool isMale = true;
+  bool isLoading = false;
+
   void validation() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        print("email: $email and password :$password");
-        final result = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email!, password: password!);
-        FirebaseFirestore.instance
-            .collection("User")
-            .doc(result.user!.uid)
-            .set({
-          "UserName": username,
-          "UserId": result.user!.uid,
-          "UserEmail": email,
-          "UserGender": isMale ? "Male" : "Female",
-          "UserPhone": phone
-          // "UserPassWord":password
-        });
-        print("add User ok");
-      } on PlatformException catch (e) {
-        print("error:" + e.message.toString());
-        _ScaffordState.currentState!.showSnackBar(SnackBar(
-          content: Text(e.message.toString()),
-          duration: Duration(milliseconds: 600),
-          backgroundColor: Theme.of(context).primaryColor,
-        ));
-      }
+    if (email.text.isEmpty && password.text.isEmpty) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Both Field Are Empty"),
+        ),
+      );
+    } else if (email.text.isEmpty) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Email Is Empty"),
+        ),
+      );
+    } else if (!regExp.hasMatch(email.text)) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Please Try Valid Email"),
+        ),
+      );
+    } else if (password.text.isEmpty) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Password Is Empty"),
+        ),
+      );
+    } else if (password.text.length < 8) {
+      _scaffoldKey.currentState!.showSnackBar(
+        SnackBar(
+          content: Text("Password  Is Too Short"),
+        ),
+      );
     } else {
-      print("no");
+      submit();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -65,7 +80,7 @@ class _Signup extends State<Signup> {
             },
           ),
         ),
-        key: _ScaffordState,
+        key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         body: SafeArea(
           child: Form(
@@ -100,18 +115,7 @@ class _Signup extends State<Signup> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         TextFormField(
-                          onChanged: (value) {
-                            setState(() {
-                              username = value;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == "") {
-                              return "Please fill Username";
-                            } else if (value!.length <= 1) {
-                              return "Username Is less 1";
-                            }
-                          },
+                          controller: username,
                           decoration: InputDecoration(
                             hintText: "UserName",
                             labelText: "Username",
@@ -120,19 +124,7 @@ class _Signup extends State<Signup> {
                           ),
                         ),
                         TextFormField(
-                          onChanged: (value) {
-                            setState(() {
-                              email = value;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == "") {
-                              return "Please fill email";
-                            }
-                            if (!regExp.hasMatch(value!)) {
-                              return "Email invalid";
-                            }
-                          },
+                          controller: email,
                           decoration: InputDecoration(
                             hintText: "Email",
                             labelText: "Email",
@@ -143,19 +135,7 @@ class _Signup extends State<Signup> {
                           ),
                         ),
                         TextFormField(
-                          onChanged: (value) {
-                            setState(() {
-                              password = value;
-                            });
-                          },
-                          obscureText: obscureText,
-                          validator: (value) {
-                            if (value == "") {
-                              return "Please fill password";
-                            } else if (value!.length < 8) {
-                              return "Password Is Short";
-                            }
-                          },
+                          controller: password,
                           decoration: InputDecoration(
                             hintText: "Password",
                             labelText: "Password",
@@ -218,22 +198,23 @@ class _Signup extends State<Signup> {
                           ),
                         ),
                         TextFormField(
-                          onChanged: (value) {
-                            setState(() {
-                              phone = value;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == "") {
-                              return "Please fill Phone";
-                            } else if (value!.length < 8) {
-                              return "Phone Is less 8";
-                            }
-                          },
+                          controller: phone,
                           style: TextStyle(),
                           decoration: InputDecoration(
                             hintText: "Phone",
                             labelText: "Phone",
+                            hintStyle: TextStyle(
+                              color: Colors.black,
+                            ),
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        TextFormField(
+                          controller: address,
+                          style: TextStyle(),
+                          decoration: InputDecoration(
+                            hintText: "Address",
+                            labelText: "Address",
                             hintStyle: TextStyle(
                               color: Colors.black,
                             ),
@@ -293,4 +274,57 @@ class _Signup extends State<Signup> {
           ),
         ));
   }
+
+  void submit() async {
+    late UserCredential result;
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: email.text, password: password.text);
+      print(result);
+    } on PlatformException catch (error) {
+      var message = "Please Check Your Internet Connection ";
+      if (error.message != null) {
+        message = error.message!;
+      }
+      _scaffoldKey.currentState!.showSnackBar(SnackBar(
+        content: Text(message.toString()),
+        duration: Duration(milliseconds: 600),
+        backgroundColor: Theme.of(context).primaryColor,
+      ));
+      setState(() {
+        isLoading = false;
+      });
+    } catch (error) {
+      setState(() {
+        isLoading = false;
+      });
+      _scaffoldKey.currentState!.showSnackBar(SnackBar(
+        content: Text(error.toString()),
+        duration: Duration(milliseconds: 600),
+        backgroundColor: Theme.of(context).primaryColor,
+      ));
+      print(error);
+    }
+    FirebaseFirestore
+    .instance
+    .collection("User")
+    .doc(result.user!.uid)
+    .set({
+      "UserName": username.text,
+      "UserId": result.user!.uid,
+      "UserEmail": email.text,
+      "UserAddress": address.text,
+      "UserGender": isMale == true ? "Male" : "Female",
+      "UserPhone": phone.text,
+    });
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (ctx) => Login()));
+    setState(() {
+      isLoading = false;
+    });
+  }
+
 }

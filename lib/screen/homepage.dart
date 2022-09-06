@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -100,7 +101,7 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: Colors.grey[100],
+        backgroundColor: generalProvider.isDark ? null : Colors.grey[100],
         leading: IconButton(
             onPressed: () {
               _key.currentState!.openDrawer();
@@ -148,160 +149,172 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildDrawer() {
     return Drawer(
-      child: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: Text(
-              name!,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 30, color: Colors.red),
-            ),
-            accountEmail: Text(
-              generalProvider.getEmailFromLogin,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                  fontSize: 25,
-                  color: Colors.black),
-            ),
-            currentAccountPicture: CircleAvatar(
-              backgroundImage: AssetImage("images/userlogo.jpg"),
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xfff2f2f2),
-            ),
-          ),
-          const Divider(
-            height: 1,
-            thickness: 1,
-            color: Colors.lightGreen,
-          ),
-          ListTile(
-            selected: homeColor,
-            onTap: () {
-              // _key.currentState!.openEndDrawer();
-              _key.currentState!.showSnackBar(
-                  const SnackBar(content: Text("You click Home ListTile")));
-              setState(() {
-                homeColor = true;
-                settingColor = false;
-                profileColor = false;
-                aboutColor = false;
-              });
-            },
-            title: const Text("Home"),
-            leading: const Icon(Icons.home),
-          ),
-          ListTile(
-            selected: profileColor,
-            onTap: () {
-              _key.currentState!.openEndDrawer();
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (ctx) => ProfileScreen()));
-              // _key.currentState!.showSnackBar(
-              //     const SnackBar(content: Text("You click Contact ListTile")));
-              setState(() {
-                settingColor = false;
-                profileColor = true;
-                homeColor = false;
-                aboutColor = false;
-              });
-            },
-            title: const Text("Profile"),
-            leading: const Icon(Icons.phone),
-          ),
-          ExpansionTile(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text("Theme"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          generalProvider.setTheme();
-                        },
-                        icon: generalProvider.isDark
-                            ? Icon(Icons.dark_mode)
-                            : Icon(Icons.light_mode),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                    ],
-                  ),
-                ],
+        child: StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection("User").snapshots(),
+      builder: (context, snapshot) {
+        snapshot.data!.docs.forEach((element) {
+          if (element["UserId"] == FirebaseAuth.instance.currentUser!.uid) {
+            name = element["UserName"];
+            email = element["UserEmail"];
+          }
+        });
+        return ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text(
+                name!,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    color: Colors.red),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Text("Phone"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.phone),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                    ],
-                  ),
-                ],
-              )
-            ],
-            title: const Text("Settings"),
-            leading: const Icon(Icons.settings),
-          ),
-          ListTile(
-            selected: aboutColor,
-            onTap: () {
-              // _key.currentState!.openEndDrawer();
-              _key.currentState!.showSnackBar(
-                  const SnackBar(content: Text("You click About ListTile")));
-              setState(() {
-                settingColor = false;
-                profileColor = false;
-                homeColor = false;
-                aboutColor = true;
-              });
-            },
-            title: const Text("About"),
-            leading: const Icon(Icons.info),
-          ),
-          ListTile(
-            onTap: () {
-              _key.currentState!.openEndDrawer();
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (ctx) => Login()));
-              setState(() {
-                settingColor = false;
-                profileColor = true;
-                homeColor = false;
-                aboutColor = false;
-              });
-            },
-            title: const Text("Logout"),
-            leading: const Icon(Icons.exit_to_app),
-          ),
-        ],
-      ),
-    );
+              accountEmail: Text(
+                generalProvider.getEmailFromLogin,
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    fontSize: 25,
+                    color: Colors.black),
+              ),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: AssetImage("images/userlogo.jpg"),
+              ),
+              decoration: BoxDecoration(
+                color: Color(0xfff2f2f2),
+              ),
+            ),
+            const Divider(
+              height: 1,
+              thickness: 1,
+              color: Colors.lightGreen,
+            ),
+            ListTile(
+              selected: homeColor,
+              onTap: () {
+                // _key.currentState!.openEndDrawer();
+                _key.currentState!.showSnackBar(
+                    const SnackBar(content: Text("You click Home ListTile")));
+                setState(() {
+                  homeColor = true;
+                  settingColor = false;
+                  profileColor = false;
+                  aboutColor = false;
+                });
+              },
+              title: const Text("Home"),
+              leading: const Icon(Icons.home),
+            ),
+            ListTile(
+              selected: profileColor,
+              onTap: () {
+                _key.currentState!.openEndDrawer();
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => ProfileScreen()));
+                // _key.currentState!.showSnackBar(
+                //     const SnackBar(content: Text("You click Contact ListTile")));
+                setState(() {
+                  settingColor = false;
+                  profileColor = true;
+                  homeColor = false;
+                  aboutColor = false;
+                });
+              },
+              title: const Text("Profile"),
+              leading: const Icon(Icons.phone),
+            ),
+            ExpansionTile(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Theme"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            generalProvider.setTheme();
+                          },
+                          icon: generalProvider.isDark
+                              ? Icon(Icons.light_mode)
+                              : Icon(Icons.dark_mode),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Phone"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(Icons.phone),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              ],
+              title: const Text("Settings"),
+              leading: const Icon(Icons.settings),
+            ),
+            ListTile(
+              selected: aboutColor,
+              onTap: () {
+                // _key.currentState!.openEndDrawer();
+                _key.currentState!.showSnackBar(
+                    const SnackBar(content: Text("You click About ListTile")));
+                setState(() {
+                  settingColor = false;
+                  profileColor = false;
+                  homeColor = false;
+                  aboutColor = true;
+                });
+              },
+              title: const Text("About"),
+              leading: const Icon(Icons.info),
+            ),
+            ListTile(
+              onTap: () {
+                _key.currentState!.openEndDrawer();
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (ctx) => Login()));
+                setState(() {
+                  settingColor = false;
+                  profileColor = true;
+                  homeColor = false;
+                  aboutColor = false;
+                });
+              },
+              title: const Text("Logout"),
+              leading: const Icon(Icons.exit_to_app),
+            ),
+          ],
+        );
+      },
+    ));
   }
 
   Widget buildBody() {
@@ -407,14 +420,14 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               GestureDetector(
-                  child:
-                      _CircleImage("waterdish.webp", 0xffb74093, "Water Food"),
-                  onTap: () {
-                    // keyTooltip.currentState!.;
-                    Navigator.of(context).push(CupertinoPageRoute(
-                        builder: (ctx) =>
-                            ListProduct(name: "waterfood", list: listWater)));
-                  },),
+                child: _CircleImage("waterdish.webp", 0xffb74093, "Water Food"),
+                onTap: () {
+                  // keyTooltip.currentState!.;
+                  Navigator.of(context).push(CupertinoPageRoute(
+                      builder: (ctx) =>
+                          ListProduct(name: "waterfood", list: listWater)));
+                },
+              ),
               GestureDetector(
                 child: _CircleImage("snack-food.png", 0xffb74093, "Snack Food"),
                 onTap: () {
