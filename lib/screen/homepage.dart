@@ -16,6 +16,7 @@ import 'package:testecommerce/screen/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/notification_button.dart';
 import 'package:testecommerce/screen/profile.dart';
+import 'package:testecommerce/screen/search.dart';
 import 'package:testecommerce/screen/singleproduct.dart';
 import '../providers/general_provider.dart';
 import './singleproduct.dart';
@@ -38,7 +39,6 @@ class _HomePageState extends State<HomePage> {
   final GlobalKey<State<Tooltip>> keyTooltip = GlobalKey<State<Tooltip>>();
   late GeneralProvider generalProvider;
 
-  // late generalProvider generalProvider;
   late bool homeColor = true;
   late bool settingColor = false;
   late bool aboutColor = false;
@@ -46,7 +46,6 @@ class _HomePageState extends State<HomePage> {
   late bool searchTextField = false;
   TextEditingController searchInput = TextEditingController();
 
-  // late generalProvider generalProvider;
   late List<Product> listFeature = [];
   late List<Product> listNew = [];
 
@@ -55,13 +54,12 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listSnack = [];
   late List<Product> listWater = [];
   String? name = "";
-  // late ThemeDarkProvider generalProvider;
-  // final bool logoutColor = true;
+
+  bool hasSearchWord = false;
+  bool showResultWord = false;
 
   @override
   Widget build(BuildContext context) {
-    // generalProvider = Provider.of<generalProvider>(context);
-    // generalProvider = Provider.of<generalProvider>(context);
     generalProvider = Provider.of<GeneralProvider>(context);
 
     if (listAsia.length == 0) {
@@ -119,6 +117,7 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   searchTextField = !searchTextField;
                 });
+                // showSearch(context: context, delegate: Search());
               },
               icon: Icon(
                 Icons.search,
@@ -331,9 +330,95 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   searchTextField ? buildSearch() : buildCarousel(),
-                  buildCategory(),
-                  buildFeatured(),
-                  buildNewProduct()
+                  hasSearchWord
+                      ? showResultWord
+                          ? Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: Column(
+                                children: [
+                                  searchInput.text.trim().length > 0
+                                      ? Row(
+                                          children: [
+                                            Text(
+                                              "You search:  ${searchInput.text}",
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontStyle: FontStyle.italic),
+                                            ),
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            GestureDetector(
+                                              child: Icon(Icons.close),
+                                              onTap: () {
+                                                setState(() {
+                                                  searchInput.text = "";
+                                                });
+                                              },
+                                            )
+                                          ],
+                                        )
+                                      : Container(),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              searchInput.text = "";
+                                              hasSearchWord = false;
+                                            });
+                                          },
+                                          child: Center(
+                                              child: Tooltip(
+                                            waitDuration: Duration(seconds: 1),
+                                            showDuration: Duration(seconds: 3),
+                                            message: "Back To Home",
+                                            child: CircleAvatar(
+                                                maxRadius: 25,
+                                                backgroundColor: Colors.grey,
+                                                child: Icon(Icons.arrow_back)),
+                                          )),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "Result",
+                                    style: TextStyle(
+                                        fontSize: 30,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                  Container(
+                                    height: 500,
+                                    child: ListView.builder(
+                                      itemCount:
+                                          generalProvider.getSearchList.length,
+                                      itemBuilder: (context, index) =>
+                                          SingleProduct(
+                                              name: generalProvider
+                                                  .getSearchList[index].name,
+                                              price: generalProvider
+                                                  .getSearchList[index].price,
+                                              image: generalProvider
+                                                  .getSearchList[index].image),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          : Container()
+                      : Column(
+                          children: [
+                            buildCategory(),
+                            buildFeatured(),
+                            buildNewProduct()
+                          ],
+                        )
                 ],
               ),
             ),
@@ -356,7 +441,14 @@ class _HomePageState extends State<HomePage> {
                   Icons.send,
                 ),
                 onTap: () {
-                  print(searchInput.text);
+                  setState(() {
+                    if (searchInput.text.trim().length > 0) {
+                      hasSearchWord = true;
+                      showResultWord = true;
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      generalProvider.searchProductList(searchInput.text);
+                    }
+                  });
                 },
               ),
               hintText: "Search Something",
@@ -402,16 +494,6 @@ class _HomePageState extends State<HomePage> {
                 "Category",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     // Navigator.of(context).push(CupertinoPageRoute(
-              //     //     builder: (context) => ListProduct(name: "Category",)));
-              //   },
-              //   child: Text(
-              //     "See More",
-              //     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              //   ),
-              // )
             ],
           ),
         ),
@@ -419,43 +501,30 @@ class _HomePageState extends State<HomePage> {
           height: 90,
           child: Row(
             children: [
-              GestureDetector(
-                child: _CircleImage("waterdish.webp", 0xffb74093, "Water Food"),
-                onTap: () {
-                  // keyTooltip.currentState!.;
-                  Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (ctx) =>
-                          ListProduct(name: "waterfood", list: listWater)));
-                },
-              ),
-              GestureDetector(
-                child: _CircleImage("snack-food.png", 0xffb74093, "Snack Food"),
-                onTap: () {
-                  Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (ctx) =>
-                          ListProduct(name: "snack", list: listSnack)));
-                },
-              ),
-              GestureDetector(
-                child: _CircleImage("east-food.png", 0xffb74093, "Europe Food"),
-                onTap: () {
-                  Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (ctx) =>
-                          ListProduct(name: "eastfood", list: listEast)));
-                },
-              ),
-              GestureDetector(
-                child: _CircleImage("asiafood.png", 0xffb74093, "Asia Food"),
-                onTap: () {
-                  Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (ctx) =>
-                          ListProduct(name: "asiafood", list: listAsia)));
-                },
-              ),
+              buildIconCategory(
+                  "waterdish.webp", "Water Food", "WATER FOOD", listWater),
+              buildIconCategory(
+                  "snack-food.png", "Snack Food", "SNACK FOOD", listSnack),
+              buildIconCategory(
+                  "east-food.png", "Europe Food", "EUROPE FOOD", listEast),
+              buildIconCategory(
+                  "asiafood.png", "Asia Food", "ASIA FOOD", listAsia),
             ],
           ),
         )
       ],
+    );
+  }
+
+  Widget buildIconCategory(
+      String pathImage, String name, String nameList, List<Product> list) {
+    return GestureDetector(
+      child: _CircleImage(pathImage, 0xffb74093, name),
+      onTap: () {
+        // keyTooltip.currentState!.;
+        Navigator.of(context).push(CupertinoPageRoute(
+            builder: (ctx) => ListProduct(name: nameList, list: list)));
+      },
     );
   }
 
@@ -617,76 +686,10 @@ Widget _CircleImage(String img, int color, String messageOfTooltip) {
     child: Container(
       margin: EdgeInsets.all(4),
       child: CircleAvatar(
-        maxRadius: 30,
+        maxRadius: 35,
         backgroundColor: Color(color),
         child: Image(image: AssetImage("images/$img")),
       ),
     ),
   );
 }
-
-
-// ListTile(
-          //   selected: settingColor,
-          //   onTap: () {
-          //     // _key.currentState!.openEndDrawer();
-          //     _key.currentState!.showSnackBar(
-          //         const SnackBar(content: Text("You click Setting ListTile")));
-          //     setState(() {
-          //       settingColor = !settingColor;
-          //       profileColor = false;
-          //       homeColor = false;
-          //       aboutColor = false;
-          //     });
-          //   },
-          //   title: const Text("Settings"),
-          //   leading: const Icon(Icons.settings),
-          // ),
-
- // Row(
-        //   children: [
-        //     Column(
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         Row(
-        //           children: [
-        //             GestureDetector(
-        //               onTap: () {
-        //                 Navigator.of(context).push(CupertinoPageRoute(
-        //                     builder: (ctx) => DetailScreen(
-        //                         name: listFeature[0].name,
-        //                         price: listFeature[0].price,
-        //                         img: listFeature[0].image)));
-        //               },
-        //               child: SingleProduct(
-        //                   name: listFeature[0].name,
-        //                   price: listFeature[0].price,
-        //                   image: listFeature[0].image),
-        //             ),
-        //             GestureDetector(
-        //               onTap: () {
-        //                 Navigator.of(context).push(CupertinoPageRoute(
-        //                     builder: (ctx) => DetailScreen(
-        //                         name: listFeature[1].name,
-        //                         price: listFeature[1].price,
-        //                         img: listFeature[1].image)));
-        //               },
-        //               child: SingleProduct(
-        //                   name: listFeature[1].name,
-        //                   price: listFeature[1].price,
-        //                   image: listFeature[1].image),
-        //             ),
-        //           ],
-        //         )
-        //       ],
-        //     ),
-        //   ],
-        // ),
-
-// TextFormField(
-//   decoration: InputDecoration(
-//       prefixIcon: Icon(Icons.search),
-//       hintText: "Search Something",
-//       border: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(30))),
-// ),

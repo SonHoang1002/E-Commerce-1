@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:testecommerce/models/usermodel.dart';
-
 import '../models/cartmodels.dart';
 import '../models/product.dart';
 
@@ -69,6 +68,63 @@ class GeneralProvider with ChangeNotifier {
   List<Product> getFeatureProduct() {
     return featureProductList;
   }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  List<Product> searchList = [];
+  List<Product> searchProductList(String query) {
+    searchList = [];
+    List<Product> searchFeatureList = featureProductList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchNewList = newProductList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchSnackList = snackList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchAsiaList = asiaList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchEuropeList = eastList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchWaterList = waterList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    if (searchFeatureList.length > 0) {
+      searchList.addAll(searchFeatureList);
+    }
+    if (searchNewList.length > 0) {
+      searchList.addAll(searchNewList);
+    }
+    if (searchAsiaList.length > 0) {
+      searchList.addAll(searchAsiaList);
+    }
+    if (searchEuropeList.length > 0) {
+      searchList.addAll(searchEuropeList);
+    }
+    if (searchWaterList.length > 0) {
+      searchList.addAll(searchWaterList);
+    }
+    if (searchSnackList.length > 0) {
+      searchList.addAll(searchSnackList);
+    }
+    return searchList;
+  }
+
+  List<Product> get getSearchList => searchList;
 
   //new product
 
@@ -135,24 +191,38 @@ class GeneralProvider with ChangeNotifier {
   // total
   late double total = 0;
   void setTotal(double value) {
-    total = double.parse((value * (1 - getPromo / 100)).toStringAsFixed(2));
+    total = 0;
+    // total = double.parse((value * (1 - getPromo / 100)).toStringAsFixed(2));
+    setPrice();
+    total = double.parse(
+        ((value + getShipping - getDiscount) * (1 - getPromo / 100))
+            .toStringAsFixed(2));
+
     notifyListeners();
   }
 
   double get getTotal => total;
 
+// subtotal
 
-  late double subTotal = 0;
-  void setSubTotal(double value) {
-    subTotal = value;
+  late double price = 0;
+  void setPrice() {
+    price = 0;
+    for (int i = 0; i < getCartModelLength; i++) {
+      price += (getCartModel[i].quantity * getCartModel[i].price);
+    }
     notifyListeners();
   }
 
-  double get getSubTotal => subTotal;
+  double get getPrice => price;
+
+  double get getShipping => double.parse((getPrice * 0.15).toStringAsFixed(2));
+  double get getDiscount => double.parse((getPrice * 0.1).toStringAsFixed(2));
 
   // promo
   late double promo = 0;
   void setPromo(double value) {
+    promo = 0;
     promo = value;
     notifyListeners();
   }
@@ -214,7 +284,7 @@ class GeneralProvider with ChangeNotifier {
   get getUserModelGender => userGender;
   get getUserModelAddress => userAddress;
   get getUserModelImage => userImage;
-  
+
   late Product asiaDish;
   List<Product> asiaList = [];
   Future<int> setAsiaDish() async {

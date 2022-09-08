@@ -29,7 +29,7 @@ ThemeData dark = ThemeData(
     primarySwatch: Colors.indigo,
     primaryColor: Color(0xff746bc9),
     iconTheme: IconThemeData(color: Colors.black),
-    // scaffoldBackgroundColor: Colors.black
+
 );
 
 void main() async {
@@ -42,7 +42,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -64,13 +64,7 @@ class MyApp extends StatelessWidget {
           );
         }));
   }
-  // ThemeData setThemeDark(BuildContext context) {
-  //   if (Provider.of<ThemeProvider>(context).isDark) {
-  //     return dark;
-  //   } else {
-  //     return light;
-  //   }
-  // }
+ 
 }
 
 
@@ -114,6 +108,11 @@ class MyApp extends StatelessWidget {
 //         ),
 //       ),
 //     );
+
+
 // git remote add origin https://github.com/SonHoang1002/E-Commerce-1.git
 // git branch -M main
+// git push -u origin main
+// git add .
+// git commit -m 'askjfhskd'
 // git push -u origin main

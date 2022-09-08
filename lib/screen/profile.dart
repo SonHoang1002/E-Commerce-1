@@ -258,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                 )
                               : Container(
-                                  height: 300,
+                                  height: 400,
                                   width: double.infinity,
                                   child: Column(
                                     mainAxisAlignment:
@@ -269,6 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       buildFieldInput("Gender", gender),
                                       buildFieldInput("Phone Number", phone),
                                       buildFieldInput("Address", address),
+                                      buildFieldInput("Address", "ghkjfhgdf kfdjghk kdjghkk kdfjghdfk"),
                                     ],
                                   ),
                                 ),
@@ -531,10 +532,21 @@ Widget buildFieldInput(String name, String value) {
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          Text(
-            value,
-            style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+          value.length<20 
+          ? Text(
+              value,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+            )
+          :Container(
+            width: 180,
+            child: Text(
+              value,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+            ),
           )
         ],
       ),

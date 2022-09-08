@@ -11,10 +11,11 @@ class CheckOut extends StatefulWidget {
 
 // late ProductProvider productProvider;
 late GeneralProvider generalProvider;
+
 class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
-  generalProvider = Provider.of<GeneralProvider>(context);
+    generalProvider = Provider.of<GeneralProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -54,21 +55,39 @@ class _CheckOutState extends State<CheckOut> {
         child: Column(
           children: [
             Container(
-              height: 595,
+              height: 400,
               child: ListView.builder(
                 itemCount: generalProvider.getCartModelLength,
                 itemBuilder: (context, index) => CartSingleProduct(
                     name: generalProvider.getCartModel[index].name,
-                    price: generalProvider.getCartModel[index].price, 
-                    img: generalProvider.getCartModel[index].img, 
-                    quantity: generalProvider.getCartModel[index].quantity
-                ),
+                    price: generalProvider.getCartModel[index].price,
+                    img: generalProvider.getCartModel[index].img,
+                    quantity: generalProvider.getCartModel[index].quantity),
               ),
             ),
-            buildBottomSheet()
+            
           ],
         ),
       ),
+      bottomSheet: Container(
+        height: 300,
+          child: Column(
+        children: [
+          Container(
+                          height: 200,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              buildDeatail("Price", "300 \$"),
+                              buildDeatail("Discount", " 15%"),
+                              buildDeatail("Shipping", "32 \$"),
+                              buildDeatail("Total", "3465 \$"),
+                            ],
+                          ),
+                        ),
+          buildBottomSheet(),
+        ],
+      )),
     );
   }
 
@@ -147,19 +166,6 @@ class _CheckOutState extends State<CheckOut> {
   //   );
   // }
 
-  // Container(
-  //                         height: 100,
-  //                         child: Column(
-  //                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                           children: [
-  //                             buildDeatail("Price", "300 \$"),
-  //                             buildDeatail("Discount", " 15%"),
-  //                             // buildDeatail("Shipping", "32 \$"),
-  //                             // buildDeatail("Total", "3465 \$"),
-  //                           ],
-  //                         ),
-  //                       )
-
   Widget buildBottomSheet() {
     return Container(
       height: 50,
@@ -179,39 +185,26 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   Widget buildDeatail(String startName, String endName) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          startName,
-          style: TextStyle(
-              fontSize: 20,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold),
+    return Container(
+      width: 380,
+      child: Center(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              startName,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold),
+            ),
+            Text(endName,
+                style: TextStyle(
+                  fontSize: 14,
+                ))
+          ],
         ),
-        Text(endName,
-            style: TextStyle(
-              fontSize: 14,
-            ))
-      ],
+      ),
     );
   }
 }
-
-
-
- // Container(
-                        //   height: 150,
-                        //   width: double.infinity,
-                        //   color: Colors.grey,
-                        //   child: Column(
-                        //     mainAxisAlignment: MainAxisAlignment.end,
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     children: [
-                        //       Text(
-                        //         "Checkout",
-                        //         style: TextStyle(fontSize: 30),
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),

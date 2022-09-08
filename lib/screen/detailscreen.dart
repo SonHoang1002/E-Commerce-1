@@ -20,9 +20,11 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   double total = 0;
-  late int quantity = 0;
+  late int quantity = 1;
   // late GeneralProvider generalProvider;
   late GeneralProvider generalProvider;
+ 
+
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
