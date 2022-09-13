@@ -269,7 +269,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       buildFieldInput("Gender", gender),
                                       buildFieldInput("Phone Number", phone),
                                       buildFieldInput("Address", address),
-                                      buildFieldInput("Address", "ghkjfhgdf kfdjghk kdjghkk kdfjghdfk"),
+                                    
                                     ],
                                   ),
                                 ),

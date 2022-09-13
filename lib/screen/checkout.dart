@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
+import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
 
 class CheckOut extends StatefulWidget {
@@ -15,12 +16,15 @@ late GeneralProvider generalProvider;
 class _CheckOutState extends State<CheckOut> {
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
     generalProvider = Provider.of<GeneralProvider>(context);
+    Future<int> a = generalProvider.setUserModel();
 
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         title: Center(
-          child: Text("Check Out", style: TextStyle(color: Colors.black)),
+          child: Text("Payment Invoice", style: TextStyle(fontSize: 30, color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -41,54 +45,59 @@ class _CheckOutState extends State<CheckOut> {
             ),
             onPressed: () {},
           ),
-          // IconButton(
-          //   icon: Icon(
-          //     Icons.shopping_cart,
-          //     color: Colors.black,
-          //   ),
-          //   onPressed: () {},
-          // ),
         ],
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-        child: Column(
-          children: [
-            Container(
-              height: 400,
-              child: ListView.builder(
-                itemCount: generalProvider.getCartModelLength,
-                itemBuilder: (context, index) => CartSingleProduct(
-                    name: generalProvider.getCartModel[index].name,
-                    price: generalProvider.getCartModel[index].price,
-                    img: generalProvider.getCartModel[index].img,
-                    quantity: generalProvider.getCartModel[index].quantity),
-              ),
-            ),
-            
-          ],
+          child: Column(children: [
+        buildDetail("Name", generalProvider.userName),
+        buildDetail("Email", generalProvider.userEmail),
+        buildDetail("Phone", generalProvider.userPhone),
+        buildDetail("Address", generalProvider.userAddress),
+        // buildDetail("Test", "ghkjfhgdf kfdjghk kdjghkk kdfjghdfk"),
+        SizedBox(
+          height: 30,
         ),
-      ),
-      bottomSheet: Container(
-        height: 300,
-          child: Column(
-        children: [
-          Container(
-                          height: 200,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              buildDeatail("Price", "300 \$"),
-                              buildDeatail("Discount", " 15%"),
-                              buildDeatail("Shipping", "32 \$"),
-                              buildDeatail("Total", "3465 \$"),
-                            ],
-                          ),
-                        ),
-          buildBottomSheet(),
-        ],
-      )),
+        Center(
+            child: Text(
+          "Detail",
+          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
+        )),
+        Container(
+          width: 350,
+          child: DataTable(columns: [
+            DataColumn(
+                label: Expanded(
+              child: Text(
+                "Quantity",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            )),
+            DataColumn(
+                label: Expanded(
+              child: Text(
+                "Food' Name",
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ),
+            ))
+          ], rows: buildDataCell()),
+        ),
+        buildDetail("Total", "${generalProvider.getTotal.toString()} \$"),
+      ])),
+      bottomSheet: buildBottomSheet(),
     );
+  }
+
+  List<DataRow> buildDataCell() {
+    List<DataRow> list = [];
+    int len = generalProvider.getCartModelLength;
+    for (int i = 0; i < len; i++) {
+      list.add(DataRow(cells: [
+        DataCell(Text(generalProvider.getCartModel[i].quantity.toString())),
+        DataCell(Text(generalProvider.getCartModel[i].name))
+      ]));
+    }
+    list.add(DataRow(cells: [DataCell(Text("")), DataCell(Text(""))]));
+    return list;
   }
 
   // Widget buildCart() {
@@ -168,40 +177,91 @@ class _CheckOutState extends State<CheckOut> {
 
   Widget buildBottomSheet() {
     return Container(
-      height: 50,
-      width: 700,
+      height: 100,
+      width: double.infinity,
       margin: EdgeInsets.all(20),
-      child: RaisedButton(
-        onPressed: () {
-          // Navigator.of(context)
-          //     .push(MaterialPageRoute(builder: (ctx) => CheckOut()));
-        },
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [Text('CHECK OUT')],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: 150,
+            height: 50,
+            child: RaisedButton(
+              onPressed: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [Text('CHECK AGAIN')],
+              ),
+            ),
+          ),
+          Container(
+            width: 150,
+            height: 50,
+            child: RaisedButton(
+              onPressed: () {
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [Text('PAYMENT')],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget buildDeatail(String startName, String endName) {
+  Widget buildDetail(String startName, String endName) {
     return Container(
-      width: 380,
+      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              startName,
-              style: TextStyle(
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                SizedBox(
+                  width: 30,
+                ),
+                Text(
+                  startName,
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Text(endName,
-                style: TextStyle(
-                  fontSize: 14,
-                ))
+            Row(
+              children: [
+                endName.length < 20
+                    ? Text(
+                        endName,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      )
+                    : Container(
+                        width: 180,
+                        child: Text(
+                          endName,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ),
+                SizedBox(
+                  width: 30,
+                )
+              ],
+            )
           ],
         ),
       ),
