@@ -387,27 +387,39 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ],
                                   ),
-                                  Text(
-                                    "Result",
+                                  generalProvider.getSearchList.length >0 
+                                  ? Column(
+                                    children: [
+                                       Text(
+                                              "Result",
+                                              style: TextStyle(
+                                                  fontSize: 30,
+                                                  fontStyle: FontStyle.italic),
+                                            ),
+                                      Container(
+                                        height: 500,
+                                        child: ListView.builder(
+                                          itemCount:
+                                              generalProvider.getSearchList.length,
+                                          itemBuilder: (context, index) =>
+                                              SingleProduct(
+                                                  name: generalProvider
+                                                      .getSearchList[index].name,
+                                                  price: generalProvider
+                                                      .getSearchList[index].price,
+                                                  image: generalProvider
+                                                      .getSearchList[index].image),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                  :  Text(
+                                    "NO RESULT",
                                     style: TextStyle(
                                         fontSize: 30,
                                         fontStyle: FontStyle.italic),
                                   ),
-                                  Container(
-                                    height: 500,
-                                    child: ListView.builder(
-                                      itemCount:
-                                          generalProvider.getSearchList.length,
-                                      itemBuilder: (context, index) =>
-                                          SingleProduct(
-                                              name: generalProvider
-                                                  .getSearchList[index].name,
-                                              price: generalProvider
-                                                  .getSearchList[index].price,
-                                              image: generalProvider
-                                                  .getSearchList[index].image),
-                                    ),
-                                  )
+                                  
                                 ],
                               ),
                             )

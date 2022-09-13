@@ -101,9 +101,9 @@ class _CartScreenState extends State<CartScreen> {
                     buildDeatail(Icon(Icons.price_change), "Price",
                         "${generalProvider.getPrice} \$"),
                     buildDeatail(Icon(Icons.discount), "Discount (-10%)",
-                        "-${generalProvider.getDiscount}\$"),
+                        "-${generalProvider.getDiscount} \$"),
                     buildDeatail(Icon(Icons.local_shipping), "Shipping",
-                        "+${generalProvider.getShipping}\$"),
+                        "+${generalProvider.getShipping} \$"),
                     Container(
                       width: 380,
                       child: Center(

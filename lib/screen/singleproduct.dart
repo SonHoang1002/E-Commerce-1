@@ -40,7 +40,7 @@ class SingleProduct extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
-                        color: Colors.red),
+                        color: Colors.white),
                   ),
                   Text(
                     name,
