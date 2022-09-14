@@ -6,7 +6,8 @@ import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/notification_button.dart';
+import '../widget/notification_button.dart';
+
 
 class DetailScreen extends StatefulWidget {
   late String name;

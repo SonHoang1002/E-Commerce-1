@@ -13,7 +13,8 @@ import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/homepage.dart';
-import 'package:testecommerce/screen/notification_button.dart';
+import '../widget/notification_button.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);

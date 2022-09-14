@@ -2,10 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:testecommerce/screen/homepage.dart';
-import 'package:testecommerce/screen/singleproduct.dart';
+import '../widget/cartsingleproduct.dart';
+
 import 'package:carousel_pro/carousel_pro.dart';
 
 import '../models/product.dart';
+import '../widget/singleproduct.dart';
 
 class ListProduct extends StatelessWidget {
   String? name;

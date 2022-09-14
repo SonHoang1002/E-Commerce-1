@@ -12,17 +12,19 @@ import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
-import 'package:testecommerce/screen/listproduct.dart';
+import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
-import 'package:testecommerce/screen/notification_button.dart';
+import '../widget/listproduct.dart';
+import '../widget/notification_button.dart';
 import 'package:testecommerce/screen/profile.dart';
-import 'package:testecommerce/screen/search.dart';
-import 'package:testecommerce/screen/singleproduct.dart';
+import '../addition/search.dart';
+import '../widget/cartsingleproduct.dart';
+
 import '../providers/general_provider.dart';
-import './singleproduct.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:badges/badges.dart';
 import '../models/product.dart';
+import '../widget/singleproduct.dart';
 
 class HomePage extends StatefulWidget {
   @override
