@@ -370,6 +370,34 @@ class GeneralProvider with ChangeNotifier {
     return snackList;
   }
 
+//Drink
+late Product drink;
+  List<Product> drinkList = [];
+  Future<int> setDrink() async {
+   List<Product> newList = [];
+    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+        .collection("category")
+        .doc("2n0DMzp0z2in1eLYBXHG")
+        .collection("Drink")
+        .get();
+    snapshot.docs.forEach(
+      (element) {
+        newList.add(Product(
+            image: element["image"],
+            price: double.parse(element["price"]),
+            name: element["category"]));
+      },
+    );
+    drinkList = newList;
+    notifyListeners();
+    return 0;
+  }
+
+  List<Product> getListDrink() {
+    return drinkList;
+  }
+
+
 //WaterDish
 
   late Product waterDish;

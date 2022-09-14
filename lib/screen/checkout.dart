@@ -4,6 +4,8 @@ import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class CheckOut extends StatefulWidget {
   @override
@@ -24,7 +26,8 @@ class _CheckOutState extends State<CheckOut> {
       key: _key,
       appBar: AppBar(
         title: Center(
-          child: Text("Payment Invoice", style: TextStyle(fontSize: 30, color: Colors.black)),
+          child: Text("Payment Invoice",
+              style: TextStyle(fontSize: 30, color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -202,6 +205,7 @@ class _CheckOutState extends State<CheckOut> {
             height: 50,
             child: RaisedButton(
               onPressed: () {
+                send();
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -266,5 +270,43 @@ class _CheckOutState extends State<CheckOut> {
         ),
       ),
     );
+  }
+
+  Future<void> send() async {
+    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+    String mes = ''' 
+     Name                 : name1 \n
+     Email                : email1 \n
+     Phone                : phone1  \n
+     Address              : address1 \n
+     Quantity Of Products : quantity1 \n
+     Totals               : total1     \n
+     ''';
+    try {
+      final response = await http.post(url,
+          headers: {
+            "Content-Type": "application/json",
+            "origin": "http://localhost"
+          },
+          body: json.encode({
+            "service_id": "service_epn6lva",
+            "template_id": "template_34vsgep",
+            "user_id": "XODjifkQVe_sJaakG",
+            "template_params": {
+              "to_email": "kingmountain117@gmail.com",
+              "from_email": "hoangtrungson07012001@gmail.com",
+              "from_name": "H&H FOOD",
+              "to_name": "fgfgjgjgj",
+              "name": "name1",
+              "phone": "phone1",
+              "address":"address1",
+              "quantityOfProduct":"quantity1",
+              "total":"total1"
+            }
+          }));
+      print(response.body);
+    } catch (error) {
+      print("ERROR: ${error}");
+    }
   }
 }

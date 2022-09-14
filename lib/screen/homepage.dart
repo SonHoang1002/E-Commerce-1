@@ -53,6 +53,8 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listEast = [];
   late List<Product> listSnack = [];
   late List<Product> listWater = [];
+  late List<Product> listDrink = [];
+  
   String? name = "";
 
   bool hasSearchWord = false;
@@ -85,6 +87,10 @@ class _HomePageState extends State<HomePage> {
     if (listNew.length == 0) {
       Future<int> f = generalProvider.setNewProduct();
       listNew = generalProvider.getNewProduct();
+    }
+    if (listDrink.length == 0) {
+      Future<int> g = generalProvider.setDrink();
+      listDrink = generalProvider.getListDrink();
     }
     if (name == "") {
       Future<int> f = generalProvider.setUserModel();
@@ -521,6 +527,8 @@ class _HomePageState extends State<HomePage> {
                   "east-food.png", "Europe Food", "EUROPE FOOD", listEast),
               buildIconCategory(
                   "asiafood.png", "Asia Food", "ASIA FOOD", listAsia),
+                  buildIconCategory(
+                  "cocktail.png", "Drinking", "DRINKING", listDrink),
             ],
           ),
         )
@@ -698,7 +706,7 @@ Widget _CircleImage(String img, int color, String messageOfTooltip) {
     child: Container(
       margin: EdgeInsets.all(4),
       child: CircleAvatar(
-        maxRadius: 35,
+        maxRadius: 30,
         backgroundColor: Color(color),
         child: Image(image: AssetImage("images/$img")),
       ),
