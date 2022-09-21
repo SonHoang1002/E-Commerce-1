@@ -43,7 +43,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
 
   @override
   Widget build(BuildContext context) {
-    generalProvider = Provider.of<GeneralProvider>(context);
+    generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -83,74 +83,75 @@ class _NotificationMessageState extends State<NotificationMessage> {
       body: buildBody(),
     );
   }
-}
 
-Widget buildBody() {
-  return Container(
-    padding: EdgeInsets.all(30),
-    child: Column(
-      children: [
-        Container(
-          child: Text("Number Message: 2",
-              textAlign: TextAlign.justify,
-              style: TextStyle(
-                // color: Colors.greenAccent,
-                fontSize: 20,
-                fontStyle: FontStyle.italic,
-              )),
-        ),
-        SizedBox(
-          width: 20,
-        ),
-        Container(
-          height: 500,
-          width:double.infinity,
-          child: ListView(
-            children: [
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Text("You already add 2 products in cart",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      // color: Colors.greenAccent,
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                    )),
-              ),
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Text("You already add 1 products in cart",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      // color: Colors.greenAccent,
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                    )),
-              ),
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Text("You already add 3 products in cart",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      // color: Colors.greenAccent,
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                    )),
-              ),
-              Container(
-                padding: EdgeInsets.all(20),
-                child: Text("You already remove 2 products in cart",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      // color: Colors.greenAccent,
-                      fontSize: 20,
-                      fontStyle: FontStyle.italic,
-                    )),
-              )
-            ],
+  Widget buildBody() {
+    int num = generalProvider.getNotiList.length;
+    return Container(
+      padding: EdgeInsets.all(30),
+      child: Column(
+        children: [
+          Container(
+            child: Text("Number Message: ${num}",
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                  // color: Colors.greenAccent,
+                  fontSize: 20,
+                  fontStyle: FontStyle.italic,
+                )),
           ),
-        )
-      ],
-    ),
-  );
+          SizedBox(
+            width: 20,
+          ),
+          Container(
+            height: 500,
+            width: double.infinity,
+            child: ListView.builder(
+                itemCount: num,
+                itemBuilder: ((context, index) {
+                  return Container(
+                    padding: EdgeInsets.all(20),
+                    child: Text("${generalProvider.getNotiList[index]}",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          // color: Colors.greenAccent,
+                          fontSize: 20,
+                          fontStyle: FontStyle.italic,
+                        )),
+                  );
+                })),
+          ),
+          Container(
+            height: 50,
+            width: double.infinity,
+            child: RaisedButton(onPressed: () {
+              generalProvider.removeNotiList();
+            },
+            child: Center(child: Text("RESET", style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,color: Colors.red
+            ),)),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }
+// Column(
+//         children: [
+//           Container(
+//             height: 460,
+//             width: double.infinity,
+//             child: ListView.builder(
+//               itemCount: generalProvider.getCartModelLength,
+//               itemBuilder: (context, index) {
+//                 return CartSingleProduct(
+//                     name: generalProvider.getCartModel[index].name,
+//                     price: generalProvider.getCartModel[index].price,
+//                     img: generalProvider.getCartModel[index].img,
+//                     quantity: generalProvider.getCartModel[index].quantity);
+//               },
+//             ),
+//           ),
+//         ],
+//       ),

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/formatInput.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:testecommerce/widget/notification_button.dart';
 
 class CheckOut extends StatefulWidget {
   @override
@@ -39,15 +43,7 @@ class _CheckOutState extends State<CheckOut> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.red,
-            ),
-            onPressed: () {},
-          ),
-        ],
+        actions: [NotificationButton()],
       ),
       body: Container(
           child: Column(children: [
@@ -257,15 +253,11 @@ class _CheckOutState extends State<CheckOut> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  buileBankCard(
-                                      "images/agri.png", "AgriBank"),
-                                  buileBankCard(
-                                      "images/mb.png", "MB Bank"),
-                                  buileBankCard(
-                                      "images/tp.jpg", "TP Bank"),
-                                  buileBankCard(
-                                      "images/us.png", "US Bank"),
-                                  buileBankCard(
+                                  buildBankCard("images/agri.png", "AgriBank"),
+                                  buildBankCard("images/mb.png", "MB Bank"),
+                                  buildBankCard("images/tp.jpg", "TP Bank"),
+                                  buildBankCard("images/us.png", "US Bank"),
+                                  buildBankCard(
                                       "images/vietin.jpg", "VietTin Bank"),
                                 ],
                               ),
@@ -283,17 +275,12 @@ class _CheckOutState extends State<CheckOut> {
                                     child: Column(
                                       children: [
                                         TextFormField(
+                                          inputFormatters: [FilteringTextInputFormatter.digitsOnly, CustomInputFormatter()],
+                                          keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
                                               border: OutlineInputBorder(),
                                               hintText: "Card Number",
                                               labelText: "CARD NUMBER",
-                                              suffixIcon: GestureDetector(
-                                                onTap: () {},
-                                                child: Icon(
-                                                  Icons.visibility,
-                                                  color: Colors.black,
-                                                ),
-                                              ),
                                               hintStyle: TextStyle(
                                                   color: Colors.black)),
                                         ),
@@ -460,7 +447,7 @@ class _CheckOutState extends State<CheckOut> {
     }
   }
 
-  Widget buileBankCard(String img, String name) {
+  Widget buildBankCard(String img, String name) {
     return Container(
         width: 120.0,
         child: Column(

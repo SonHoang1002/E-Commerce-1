@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/models/cartmodels.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -120,6 +121,9 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                                   widget.quantity += 1;
                                 });
                                 updateQuantity(widget.name);
+                                generalProvider.addNotiList(
+                                    "${getTime()}: You have already updated ${widget.name} quantity");
+                
                               },
                             ),
                           ],
@@ -146,7 +150,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                     } else {
                       generalProvider.setTotal(CountTotal(list));
                     }
-                    generalProvider.setNotiList(widget.name);
+                    generalProvider.addNotiList("${getTime()}: You have already deleted ${widget.quantity} ${widget.name}");
                   })
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
@@ -297,6 +298,7 @@ class _DetailScreenState extends State<DetailScreen> {
           }
           generalProvider.setTotal(total);
           generalProvider.setNotiList(widget.name);
+          generalProvider.addNotiList("${getTime()}: You have already added ${quantity} ${widget.name}");
           Navigator.push(
               context, MaterialPageRoute(builder: (ctx) => CartScreen()));
 

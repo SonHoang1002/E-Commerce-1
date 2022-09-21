@@ -70,6 +70,38 @@ class GeneralProvider with ChangeNotifier {
   }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  List<String> listNoti = [];
+  addNotiList(String value) {
+    listNoti.add(value);
+    notifyListeners();
+  }
+
+  removeNotiList() {
+    listNoti=[];
+    notifyListeners();
+  }
+
+  List<String> get getNotiList => listNoti;
+
+  List<String> notiList = [];
+
+  void setNotiList(String value) {
+    notiList.add(value);
+    notifyListeners();
+  }
+
+  void removeList(value) {
+    for (int i = 0; i < notiList.length; i++) {
+      if (notiList[i] == value) {
+        notiList.remove(value);
+        print("remove item in NotiList succesfully");
+      }
+    }
+  }
+
+  int get getNotiListlength => notiList.length;
+
   List<Product> searchList = [];
   List<Product> searchProductList(String query) {
     searchList = [];
@@ -229,24 +261,6 @@ class GeneralProvider with ChangeNotifier {
 
   double get getPromo => promo;
 
-  // notification
-  List<String> notiList = [];
-
-  void setNotiList(String value) {
-    notiList.add(value);
-  }
-
-  void removeList(value) {
-    for (int i = 0; i < notiList.length; i++) {
-      if (notiList[i] == value) {
-        notiList.remove(value);
-        print("remove item in NotiList succesfully");
-      }
-    }
-  }
-
-  int get getNotiListlength => notiList.length;
-
   late String email;
   setEmailFromLogin(String? value) {
     email = value!;
@@ -371,10 +385,10 @@ class GeneralProvider with ChangeNotifier {
   }
 
 //Drink
-late Product drink;
+  late Product drink;
   List<Product> drinkList = [];
   Future<int> setDrink() async {
-   List<Product> newList = [];
+    List<Product> newList = [];
     QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
         .collection("category")
         .doc("2n0DMzp0z2in1eLYBXHG")
@@ -396,7 +410,6 @@ late Product drink;
   List<Product> getListDrink() {
     return drinkList;
   }
-
 
 //WaterDish
 

@@ -9,12 +9,12 @@ import 'package:badges/badges.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import '../widget/notification_button.dart';
-
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -270,7 +270,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       buildFieldInput("Gender", gender),
                                       buildFieldInput("Phone Number", phone),
                                       buildFieldInput("Address", address),
-                                    
                                     ],
                                   ),
                                 ),
@@ -313,6 +312,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (_image != null) {
       _pickedImage = File(_image!.path);
     }
+  }
+
+  bool checkDataFieldChange(String oldValue, String newValue) {
+    return oldValue != newValue;
   }
 
   ImageProvider setImageForAvatar() {
@@ -378,7 +381,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 //  https://www.educative.io/answers/how-to-upload-to-firebase-storage-with-flutter
 
-
     // final result = await FilePicker.platform.pickFiles(
     //     allowMultiple: false,
     //     type: FileType.custom,
@@ -396,8 +398,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     //     imageUrl = await snapshot.ref.getDownloadURL();
     // }on FirebaseException  catch(e){
     //   print(e);
-    // }  
-      return imageUrl;
+    // }
+    return imageUrl;
   }
 
 // uploadImage() async {
@@ -465,6 +467,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
     User? user = FirebaseAuth.instance.currentUser;
 
+    if (checkDataFieldChange(generalProvider.userName, tName.text) ||
+        checkDataFieldChange(generalProvider.userAddress, tAddress.text) ||
+        checkDataFieldChange(generalProvider.userPhone, tPhone.text) ||
+        checkDataFieldChange(generalProvider.userImage, imageMap.text) ||
+        generalProvider.userGender != (isMale == true ? "Male" : "Female")) {
+      generalProvider.addNotiList("${getTime()}: You already change Profile");
+    }
     _pickedImage != null
         ? imageMap = await uploadImage(_pickedImage!)
         : Container();
@@ -472,7 +481,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "UserName": tName.text,
       "UserGender": isMale == true ? "Male" : "Female",
       "UserPhone": tPhone.text,
-      "UserImage": imageMap,
+      "UserImage": (imageMap==null|| imageMap == "") ? generalProvider.userImage : imageMap,
       "UserAddress": tAddress.text
     });
     generalProvider.setUserModel();
@@ -533,24 +542,30 @@ Widget buildFieldInput(String name, String value) {
             style: TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
-          value.length<20 
-          ? Text(
-              value,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-            )
-          :Container(
-            width: 180,
-            child: Text(
-              value,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-            ),
-          )
+          value.length < 20
+              ? Text(
+                  value,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                )
+              : Container(
+                  width: 180,
+                  child: Text(
+                    value,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                )
         ],
       ),
     ),
   );
 }
+
+

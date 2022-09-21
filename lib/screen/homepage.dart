@@ -14,6 +14,7 @@ import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/about.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
+import '../addition/timer.dart';
 import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
 import '../widget/listproduct.dart';
@@ -27,6 +28,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:badges/badges.dart';
 import '../models/product.dart';
 import '../widget/singleproduct.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -100,6 +102,7 @@ class _HomePageState extends State<HomePage> {
       Future<int> f = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
+    
     setState(() {
       isLoaded = true;
     });

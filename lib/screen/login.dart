@@ -9,6 +9,7 @@ import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/signup.dart';
 import 'dart:isolate';
 
+import '../addition/timer.dart';
 import '../models/product.dart';
 import '../models/usermodel.dart';
 
@@ -58,7 +59,8 @@ class _Login extends State<Login> {
             email: email.text.trim(), password: password.text.trim());
         print(result);
         if (result != null) {
-          generalProvider = Provider.of<GeneralProvider>(context,listen: false);
+          generalProvider =
+              Provider.of<GeneralProvider>(context, listen: false);
           generalProvider.setEmailFromLogin(email.text.trim());
           loadData();
           Navigator.of(context)
@@ -248,7 +250,6 @@ class _Login extends State<Login> {
     }
   }
 
-  
   void loadData() {
     // generalProvider = Provider.of<GeneralProvider>(context);
     // generalProvider.setEmailFromLogin(FirebaseAuth.instance.currentUser!.email);
@@ -284,6 +285,7 @@ class _Login extends State<Login> {
       Future<int> f = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
+    generalProvider
+        .addNotiList("${getTime()}: Welcome To Home Screen Of H&H FOOD");
   }
-
 }

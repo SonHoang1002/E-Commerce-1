@@ -22,7 +22,7 @@ class _NotificationButtonState extends State<NotificationButton> {
 
     return Badge(
         position: BadgePosition(top: 8, start: 25),
-        badgeContent: Text(generalProvider.getNotiListlength.toString()),
+        badgeContent: Text(generalProvider.getNotiList.length.toString()),
         child: IconButton(
           icon: Icon(
             Icons.notifications,

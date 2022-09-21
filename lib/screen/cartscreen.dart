@@ -6,6 +6,7 @@ import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
+import 'package:testecommerce/widget/notification_button.dart';
 
 import '../providers/general_provider.dart';
 
@@ -43,13 +44,7 @@ class _CartScreenState extends State<CartScreen> {
           },
         ),
         actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.red,
-            ),
-            onPressed: () {},
-          ),
+          NotificationButton(),
           // IconButton(
           //   icon: Icon(
           //     Icons.shopping_cart,
