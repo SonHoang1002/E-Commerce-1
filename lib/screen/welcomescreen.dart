@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/signup.dart';
@@ -17,11 +18,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Container(
-                height: 320,
+                height: 300,
                 width: double.infinity,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("images/userlogo.jpg"),
+                        image: AssetImage("images/logo1.jpg"),
                         fit: BoxFit.fill)),
               ),
               Container(
@@ -29,18 +30,51 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Text("Welcome ",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "DynaPuff")),
-                    Text("Ready to shopping",
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 25,
-                            fontStyle: FontStyle.italic,
-                            fontFamily: "DynaPuff")),
+                    TextLiquidFill(
+                      waveDuration: Duration(seconds: 5),
+                      text: 'H&H FOOD',
+                      waveColor: Colors.black,
+                      boxBackgroundColor: Color(0xfff1f1f1),
+                      textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "DynaPuff"),
+                      boxHeight: 100.0,
+                    ),
+                    // const Text("H&H FOOD ",
+                    //     style: TextStyle(
+                    //         color: Colors.black,
+                    //         fontSize: 35,
+                    //         fontWeight: FontWeight.bold,
+                    //         fontFamily: "DynaPuff")),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: DefaultTextStyle(
+                        style: const TextStyle(
+                            fontSize: 30.0,
+                            fontFamily: 'DynaPuff',
+                            color: Colors.black),
+                        child: AnimatedTextKit(
+                          repeatForever: true,
+                          animatedTexts: [
+                            TypewriterAnimatedText('Welcome to shopping !!!'),
+                          ],
+                          onTap: () {
+                            print("Tap Event");
+                          },
+                        ),
+                      ),
+                    ),
+                    // Text("Ready to shopping",
+                    //     style: TextStyle(
+                    //         color: Colors.black,
+                    //         fontSize: 25,
+                    //         fontStyle: FontStyle.italic,
+                    //         fontFamily: "DynaPuff")),
                     GestureDetector(
                       child: Text("Getting started",
                           style: TextStyle(
@@ -65,8 +99,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           width: 300,
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(builder: (ctx) => Signup()));
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (ctx) => Signup()));
                             },
                             color: Colors.redAccent,
                             shape: RoundedRectangleBorder(

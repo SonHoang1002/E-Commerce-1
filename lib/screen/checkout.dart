@@ -26,8 +26,7 @@ class _CheckOutState extends State<CheckOut> {
       key: _key,
       appBar: AppBar(
         title: Center(
-          child: Text("Payment Invoice",
-              style: TextStyle(fontSize: 30, color: Colors.black)),
+          child: Text("Payment Invoice", style: TextStyle(color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -72,14 +71,20 @@ class _CheckOutState extends State<CheckOut> {
                 label: Expanded(
               child: Text(
                 "Quantity",
-                style: TextStyle(fontStyle: FontStyle.italic),
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 15,
+                ),
               ),
             )),
             DataColumn(
                 label: Expanded(
               child: Text(
-                "Food' Name",
-                style: TextStyle(fontStyle: FontStyle.italic),
+                "Food Name",
+                style: TextStyle(
+                  fontStyle: FontStyle.italic,
+                  fontSize: 15,
+                ),
               ),
             ))
           ], rows: buildDataCell()),
@@ -95,8 +100,14 @@ class _CheckOutState extends State<CheckOut> {
     int len = generalProvider.getCartModelLength;
     for (int i = 0; i < len; i++) {
       list.add(DataRow(cells: [
-        DataCell(Text(generalProvider.getCartModel[i].quantity.toString())),
-        DataCell(Text(generalProvider.getCartModel[i].name))
+        DataCell(Text(
+          generalProvider.getCartModel[i].quantity.toString(),
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        )),
+        DataCell(Text(
+          generalProvider.getCartModel[i].name,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        ))
       ]));
     }
     list.add(DataRow(cells: [DataCell(Text("")), DataCell(Text(""))]));
@@ -205,7 +216,146 @@ class _CheckOutState extends State<CheckOut> {
             height: 50,
             child: RaisedButton(
               onPressed: () {
-                send();
+                // send();
+                showModalBottomSheet(
+                    context: context,
+                    builder: (ctx) {
+                      return Container(
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: Center(
+                                child: Text(
+                                  "You Pay 97.43\$",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Select Bank",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontStyle: FontStyle.italic),
+                                  ),
+                                  Container(
+                                      child: Divider(
+                                    color: Colors.red,
+                                    height: 40,
+                                  )),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 130,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: <Widget>[
+                                  buileBankCard(
+                                      "images/agri.png", "AgriBank"),
+                                  buileBankCard(
+                                      "images/mb.png", "MB Bank"),
+                                  buileBankCard(
+                                      "images/tp.jpg", "TP Bank"),
+                                  buileBankCard(
+                                      "images/us.png", "US Bank"),
+                                  buileBankCard(
+                                      "images/vietin.jpg", "VietTin Bank"),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  child: Center(
+                                      child: Text(
+                                          "Enter your card number to pay")),
+                                ),
+                                Container(
+                                    width: 360,
+                                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    child: Column(
+                                      children: [
+                                        TextFormField(
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              hintText: "Card Number",
+                                              labelText: "CARD NUMBER",
+                                              suffixIcon: GestureDetector(
+                                                onTap: () {},
+                                                child: Icon(
+                                                  Icons.visibility,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black)),
+                                        ),
+                                        Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                width: 175,
+                                                child: TextFormField(
+                                                  decoration: InputDecoration(
+                                                      border:
+                                                          OutlineInputBorder(),
+                                                      hintText: "Card Expiry",
+                                                      labelText: "CARD EXPIRY",
+                                                      hintStyle: TextStyle(
+                                                          color: Colors.black)),
+                                                ),
+                                              ),
+                                              Container(
+                                                width: 175,
+                                                child: TextFormField(
+                                                  decoration: InputDecoration(
+                                                      border:
+                                                          OutlineInputBorder(),
+                                                      hintText: "Cvv",
+                                                      labelText: "CVV",
+                                                      hintStyle: TextStyle(
+                                                          color: Colors.black)),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 60,
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                          child: RaisedButton(
+                                            onPressed: () {},
+                                            child: Center(
+                                              child: Text(
+                                                "PAY",
+                                                style: TextStyle(
+                                                    fontSize: 25,
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    )),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    });
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -299,14 +449,41 @@ class _CheckOutState extends State<CheckOut> {
               "to_name": "fgfgjgjgj",
               "name": "name1",
               "phone": "phone1",
-              "address":"address1",
-              "quantityOfProduct":"quantity1",
-              "total":"total1"
+              "address": "address1",
+              "quantityOfProduct": "quantity1",
+              "total": "total1"
             }
           }));
       print(response.body);
     } catch (error) {
       print("ERROR: ${error}");
     }
+  }
+
+  Widget buileBankCard(String img, String name) {
+    return Container(
+        width: 120.0,
+        child: Column(
+          children: [
+            Container(
+              // padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30), color: Colors.red),
+              child: Image.asset(
+                img,
+                height: 80,
+                width: 80,
+              ),
+            ),
+            Center(
+              child: Text(
+                name,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
+        ));
   }
 }

@@ -9,6 +9,7 @@ import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/signup.dart';
 import 'dart:isolate';
 
+import '../models/product.dart';
 import '../models/usermodel.dart';
 
 class Login extends StatefulWidget {
@@ -31,11 +32,21 @@ late GeneralProvider generalProvider;
 
 class _Login extends State<Login> {
   TextEditingController email = TextEditingController(text: "d@gmail.com");
-  TextEditingController password = TextEditingController(text:"12345678");
+  TextEditingController password = TextEditingController(text: "12345678");
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool isLoading = false;
 
+  late List<Product> listFeature = [];
+  late List<Product> listNew = [];
+
+  late List<Product> listAsia = [];
+  late List<Product> listEast = [];
+  late List<Product> listSnack = [];
+  late List<Product> listWater = [];
+  late List<Product> listDrink = [];
+
+  String? name = "";
   void submit(context) async {
     late UserCredential result;
     try {
@@ -47,9 +58,11 @@ class _Login extends State<Login> {
             email: email.text.trim(), password: password.text.trim());
         print(result);
         if (result != null) {
+          generalProvider = Provider.of<GeneralProvider>(context,listen: false);
           generalProvider.setEmailFromLogin(email.text.trim());
+          loadData();
           Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (ctx) => HomePage()));
+              .push(MaterialPageRoute(builder: (ctx) => HomePage()));
         }
       }
     } on PlatformException catch (error) {
@@ -64,9 +77,6 @@ class _Login extends State<Login> {
           backgroundColor: Theme.of(context).primaryColor,
         ),
       );
-      setState(() {
-        isLoading = false;
-      });
     } catch (error) {
       setState(() {
         isLoading = false;
@@ -88,8 +98,6 @@ class _Login extends State<Login> {
   // }
 
   var obscureText = true;
-  // String? email;
-  // String? password;
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +172,9 @@ class _Login extends State<Login> {
                         child: RaisedButton(
                           onPressed: () {
                             // Future.delayed(Duration(seconds: 2), () {
+                            setState(() {
+                              isLoading = true;
+                            });
                             validation();
                             // });
                           },
@@ -234,6 +245,44 @@ class _Login extends State<Login> {
       );
     } else {
       submit(context);
+    }
+  }
+
+  
+  void loadData() {
+    // generalProvider = Provider.of<GeneralProvider>(context);
+    // generalProvider.setEmailFromLogin(FirebaseAuth.instance.currentUser!.email);
+    if (listAsia.length == 0) {
+      Future<int> a = generalProvider.setAsiaDish();
+      listAsia = generalProvider.getListAsia();
+    }
+    if (listEast.length == 0) {
+      Future<int> b = generalProvider.setEastDish();
+      listEast = generalProvider.getEastDish();
+    }
+    if (listSnack.length == 0) {
+      Future<int> c = generalProvider.setSnack();
+      listSnack = generalProvider.getSnack();
+    }
+    if (listWater.length == 0) {
+      Future<int> d = generalProvider.setwaterDish();
+      listWater = generalProvider.getWaterDish();
+    }
+    if (listFeature.length == 0) {
+      Future<int> e = generalProvider.setFeatureProduct();
+      listFeature = generalProvider.getFeatureProduct();
+    }
+    if (listNew.length == 0) {
+      Future<int> f = generalProvider.setNewProduct();
+      listNew = generalProvider.getNewProduct();
+    }
+    if (listDrink.length == 0) {
+      Future<int> g = generalProvider.setDrink();
+      listDrink = generalProvider.getListDrink();
+    }
+    if (name == "") {
+      Future<int> f = generalProvider.setUserModel();
+      name = generalProvider.getUserModelName;
     }
   }
 

@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
+import 'package:testecommerce/screen/about.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 import '../widget/listproduct.dart';
@@ -56,16 +58,16 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listSnack = [];
   late List<Product> listWater = [];
   late List<Product> listDrink = [];
-  
+
   String? name = "";
+  bool isLoaded = false;
 
   bool hasSearchWord = false;
   bool showResultWord = false;
 
-  @override
-  Widget build(BuildContext context) {
-    generalProvider = Provider.of<GeneralProvider>(context);
-
+  void loadData() {
+    generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    generalProvider.setEmailFromLogin(FirebaseAuth.instance.currentUser!.email);
     if (listAsia.length == 0) {
       Future<int> a = generalProvider.setAsiaDish();
       listAsia = generalProvider.getListAsia();
@@ -98,11 +100,19 @@ class _HomePageState extends State<HomePage> {
       Future<int> f = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
+    setState(() {
+      isLoaded = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    loadData();
     return Scaffold(
       key: _key,
       appBar: AppBar(
         title: Text(
-          "Home Page",
+          "Home",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -150,7 +160,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: buildDrawer(),
-      body: buildBody(),
+      body: isLoaded ? buildBody() : CircularProgressIndicator(),
     );
   }
 
@@ -290,9 +300,9 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               selected: aboutColor,
               onTap: () {
-                // _key.currentState!.openEndDrawer();
-                _key.currentState!.showSnackBar(
-                    const SnackBar(content: Text("You click About ListTile")));
+                _key.currentState!.openEndDrawer();
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (ctx) => About()));
                 setState(() {
                   settingColor = false;
                   profileColor = false;
@@ -395,39 +405,44 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ],
                                   ),
-                                  generalProvider.getSearchList.length >0 
-                                  ? Column(
-                                    children: [
-                                       Text(
+                                  generalProvider.getSearchList.length > 0
+                                      ? Column(
+                                          children: [
+                                            Text(
                                               "Result",
                                               style: TextStyle(
                                                   fontSize: 30,
                                                   fontStyle: FontStyle.italic),
                                             ),
-                                      Container(
-                                        height: 500,
-                                        child: ListView.builder(
-                                          itemCount:
-                                              generalProvider.getSearchList.length,
-                                          itemBuilder: (context, index) =>
-                                              SingleProduct(
-                                                  name: generalProvider
-                                                      .getSearchList[index].name,
-                                                  price: generalProvider
-                                                      .getSearchList[index].price,
-                                                  image: generalProvider
-                                                      .getSearchList[index].image),
+                                            Container(
+                                              height: 500,
+                                              child: ListView.builder(
+                                                itemCount: generalProvider
+                                                    .getSearchList.length,
+                                                itemBuilder: (context, index) =>
+                                                    SingleProduct(
+                                                        name: generalProvider
+                                                            .getSearchList[
+                                                                index]
+                                                            .name,
+                                                        price: generalProvider
+                                                            .getSearchList[
+                                                                index]
+                                                            .price,
+                                                        image: generalProvider
+                                                            .getSearchList[
+                                                                index]
+                                                            .image),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      : Text(
+                                          "NO RESULT",
+                                          style: TextStyle(
+                                              fontSize: 30,
+                                              fontStyle: FontStyle.italic),
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                  :  Text(
-                                    "NO RESULT",
-                                    style: TextStyle(
-                                        fontSize: 30,
-                                        fontStyle: FontStyle.italic),
-                                  ),
-                                  
                                 ],
                               ),
                             )
@@ -529,7 +544,7 @@ class _HomePageState extends State<HomePage> {
                   "east-food.png", "Europe Food", "EUROPE FOOD", listEast),
               buildIconCategory(
                   "asiafood.png", "Asia Food", "ASIA FOOD", listAsia),
-                  buildIconCategory(
+              buildIconCategory(
                   "cocktail.png", "Drinking", "DRINKING", listDrink),
             ],
           ),

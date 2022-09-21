@@ -248,8 +248,8 @@ class GeneralProvider with ChangeNotifier {
   int get getNotiListlength => notiList.length;
 
   late String email;
-  setEmailFromLogin(String value) {
-    email = value;
+  setEmailFromLogin(String? value) {
+    email = value!;
   }
 
   get getEmailFromLogin => email;

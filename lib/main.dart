@@ -25,11 +25,10 @@ ThemeData light = ThemeData(
     scaffoldBackgroundColor: Color(0xfff1f1f1));
 
 ThemeData dark = ThemeData(
-    brightness: Brightness.dark,
-    primarySwatch: Colors.indigo,
-    primaryColor: Color(0xff746bc9),
-    iconTheme: IconThemeData(color: Colors.black),
-
+  brightness: Brightness.dark,
+  primarySwatch: Colors.indigo,
+  primaryColor: Color(0xff746bc9),
+  iconTheme: IconThemeData(color: Colors.black),
 );
 
 void main() async {
@@ -42,7 +41,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -50,7 +48,7 @@ class MyApp extends StatelessWidget {
         child: Consumer<GeneralProvider>(
             builder: (context, GeneralProvider notifier, child) {
           return MaterialApp(
-            title: "Flutter Provider",
+            title: "H&H FOOD",
             theme: notifier.isDark ? dark : light,
             darkTheme: notifier.isDark ? dark : light,
             themeMode: notifier.isDark ? ThemeMode.dark : ThemeMode.light,
@@ -58,13 +56,20 @@ class MyApp extends StatelessWidget {
             home: StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
-                return Login();
+                // if (snapshot.hasData) {
+                //   print(
+                //       "HomePage() is called first -----------${snapshot.data}");
+                //   return HomePage();
+                // } else {
+                //   print("Login() is called first");
+                //   return WelcomeScreen();
+                // }
+                return WelcomeScreen();
               },
             ),
           );
         }));
   }
- 
 }
 
 
