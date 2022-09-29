@@ -78,7 +78,7 @@ class GeneralProvider with ChangeNotifier {
   }
 
   removeNotiList() {
-    listNoti=[];
+    listNoti = [];
     notifyListeners();
   }
 
@@ -135,6 +135,11 @@ class GeneralProvider with ChangeNotifier {
             element.name.toUpperCase().contains(query) ||
             element.name.toLowerCase().contains(query))
         .toList();
+    List<Product> searchDrinkList = drinkList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
     if (searchFeatureList.length > 0) {
       searchList.addAll(searchFeatureList);
     }
@@ -153,6 +158,11 @@ class GeneralProvider with ChangeNotifier {
     if (searchSnackList.length > 0) {
       searchList.addAll(searchSnackList);
     }
+    if (searchDrinkList.length > 0) {
+      searchList.addAll(searchDrinkList);
+    }
+    // print("searchList length: ${searchList.length}");
+    notifyListeners();
     return searchList;
   }
 
@@ -442,4 +452,110 @@ class GeneralProvider with ChangeNotifier {
   List<Product> getWaterDish() {
     return waterList;
   }
+
+////////////////////////////////////////////////////////ADMIN////////////////////////////////
+
+  int numberOfAllProduct = 0;
+  List<Product> allProduct = [];
+  Future<int> setNumberOfAllProduct() async {
+    await setAsiaDish();
+    await setDrink();
+    await setSnack();
+    await setwaterDish();
+    await setEastDish();
+    await setFeatureProduct();
+    await setNewProduct();
+    allProduct = getAllProduct;
+
+    numberOfAllProduct = getListAsia().length +
+        getListDrink().length +
+        getSnack().length +
+        getWaterDish().length +
+        getEastDish().length +
+        getFeatureProduct().length +
+        newProductList.length;
+    notifyListeners();
+    return 0;
+  }
+
+  // Future<int> setAllProduct(String value) async {
+  //   allProduct = searchProductList(value);
+  //   notifyListeners();
+  //   return 1;
+  // }
+
+  int get getAllNumberProduct => numberOfAllProduct;
+
+  List<Product> searchProductListForAdmin(String query) {
+    List<Product> list = [];
+    List<Product> searchFeatureList = featureProductList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchNewList = newProductList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchSnackList = snackList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchAsiaList = asiaList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchEuropeList = eastList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchWaterList = waterList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    List<Product> searchDrinkList = drinkList
+        .where((element) =>
+            element.name.toUpperCase().contains(query) ||
+            element.name.toLowerCase().contains(query))
+        .toList();
+    if (searchFeatureList.length > 0) {
+      list.addAll(searchFeatureList);
+    }
+    if (searchNewList.length > 0) {
+      list.addAll(searchNewList);
+    }
+    if (searchAsiaList.length > 0) {
+      list.addAll(searchAsiaList);
+    }
+    if (searchEuropeList.length > 0) {
+      list.addAll(searchEuropeList);
+    }
+    if (searchWaterList.length > 0) {
+      list.addAll(searchWaterList);
+    }
+    if (searchSnackList.length > 0) {
+      list.addAll(searchSnackList);
+    }
+    if (searchDrinkList.length > 0) {
+      list.addAll(searchDrinkList);
+    }
+    // print("list length: ${list.length}");
+    // notifyListeners();
+    return list;
+  }
+
+  List<Product> get getAllProduct => searchProductListForAdmin("");
+
+  // check admin or user
+  bool isAdmin = false;
+  setAdmin(bool value) {
+    isAdmin = value;
+    notifyListeners();
+  }
+  get getIsAdmin =>isAdmin;
 }

@@ -481,7 +481,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "UserName": tName.text,
       "UserGender": isMale == true ? "Male" : "Female",
       "UserPhone": tPhone.text,
-      "UserImage": (imageMap==null|| imageMap == "") ? generalProvider.userImage : imageMap,
+      "UserImage": (imageMap == null || imageMap == "")
+          ? generalProvider.userImage
+          : imageMap,
       "UserAddress": tAddress.text
     });
     generalProvider.setUserModel();
@@ -567,5 +569,3 @@ Widget buildFieldInput(String name, String value) {
     ),
   );
 }
-
-

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
+import 'package:testecommerce/screen/admin/homeadmin.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/signup.dart';
 import 'dart:isolate';
@@ -32,7 +33,7 @@ late GeneralProvider generalProvider;
 // }
 
 class _Login extends State<Login> {
-  TextEditingController email = TextEditingController(text: "d@gmail.com");
+  TextEditingController email = TextEditingController(text: "admin@gmail.com");
   TextEditingController password = TextEditingController(text: "12345678");
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -63,8 +64,18 @@ class _Login extends State<Login> {
               Provider.of<GeneralProvider>(context, listen: false);
           generalProvider.setEmailFromLogin(email.text.trim());
           loadData();
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (ctx) => HomePage()));
+          if (email.text.trim() == "admin@gmail.com") {
+            generalProvider.setAdmin(true);
+            generalProvider.removeNotiList();
+            generalProvider.addNotiList(
+                "${getTime()}: Welcome To Admin Screen Of H&H FOOD");
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) => HomeAdmin()));
+          } else {
+            generalProvider.setAdmin(false);
+            Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (ctx) => HomePage()));
+          }
         }
       }
     } on PlatformException catch (error) {
@@ -282,10 +293,14 @@ class _Login extends State<Login> {
       listDrink = generalProvider.getListDrink();
     }
     if (name == "") {
+      // generalProvider.setNumberOfAllProduct();
       Future<int> f = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
-    generalProvider
-        .addNotiList("${getTime()}: Welcome To Home Screen Of H&H FOOD");
+
+    if (generalProvider.getNotiList.length <= 0) {
+      generalProvider
+          .addNotiList("${getTime()}: Welcome To Home Screen Of H&H FOOD");
+    }
   }
 }

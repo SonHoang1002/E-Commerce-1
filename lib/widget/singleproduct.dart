@@ -12,10 +12,13 @@ class SingleProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(CupertinoPageRoute(builder: (context) =>
-            DetailScreen(name: name, price: price, img: image)
-            ));
+        Navigator.of(context).push(CupertinoPageRoute(
+            builder: (context) =>
+                DetailScreen(name: name, price: price, img: image)));
+      },
+      onLongPress: () {
+        _showAlertDialog(context);
+        print(name);
       },
       child: Card(
         child: Container(
@@ -55,6 +58,40 @@ class SingleProduct extends StatelessWidget {
           ]),
         ),
       ),
+    );
+  }
+
+  _showAlertDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          // <-- SEE HERE
+          title: Text('Cancel booking'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Are you sure want to cancel booking?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

@@ -62,6 +62,8 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listDrink = [];
 
   String? name = "";
+  String image = "";
+  bool isMale = false;
   bool isLoaded = false;
 
   bool hasSearchWord = false;
@@ -102,15 +104,21 @@ class _HomePageState extends State<HomePage> {
       Future<int> f = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
-    
+
     setState(() {
       isLoaded = true;
     });
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     loadData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // loadData();
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -176,6 +184,8 @@ class _HomePageState extends State<HomePage> {
           if (element["UserId"] == FirebaseAuth.instance.currentUser!.uid) {
             name = element["UserName"];
             email = element["UserEmail"];
+            image = element["UserImage"];
+            isMale = element["UserGender"] == "Male";
           }
         });
         return ListView(
@@ -197,7 +207,13 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.black),
               ),
               currentAccountPicture: CircleAvatar(
-                backgroundImage: AssetImage("images/userlogo.jpg"),
+                backgroundImage: image == ""
+                    ? isMale
+                        ? NetworkImage(
+                            "https://w7.pngwing.com/pngs/481/915/png-transparent-computer-icons-user-avatar-woman-avatar-computer-business-conversation-thumbnail.png")
+                        : NetworkImage(
+                            "https://cdn-icons-png.flaticon.com/512/219/219990.png")
+                    : NetworkImage(image),
               ),
               decoration: BoxDecoration(
                 color: Color(0xfff2f2f2),

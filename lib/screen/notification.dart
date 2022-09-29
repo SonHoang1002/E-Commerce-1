@@ -55,29 +55,32 @@ class _NotificationMessageState extends State<NotificationMessage> {
         backgroundColor: generalProvider.isDark ? null : Colors.grey[100],
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (ctx) => HomePage()));
+              // Navigator.of(context)
+              //     .push(MaterialPageRoute(builder: (ctx) => HomePage()));
+              Navigator.of(context).pop();
             },
             icon: Icon(
               Icons.arrow_back,
               color: Colors.black,
             )),
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
-              },
-              icon: Badge(
-                animationType: BadgeAnimationType.scale,
-                shape: BadgeShape.circle,
-                badgeContent: Text("${generalProvider.getCartModelLength}"),
-                showBadge: true,
-                child: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.black,
-                ),
-              ))
+          generalProvider.getIsAdmin
+              ? Container()
+              : IconButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (ctx) => CartScreen()));
+                  },
+                  icon: Badge(
+                    animationType: BadgeAnimationType.scale,
+                    shape: BadgeShape.circle,
+                    badgeContent: Text("${generalProvider.getCartModelLength}"),
+                    showBadge: true,
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: Colors.black,
+                    ),
+                  ))
         ],
       ),
       body: buildBody(),
@@ -100,6 +103,14 @@ class _NotificationMessageState extends State<NotificationMessage> {
                 )),
           ),
           SizedBox(
+            height: 20,
+          ),
+          Divider(
+            color: Colors.red,
+            height: 20,
+            thickness: 2,
+          ),
+          SizedBox(
             width: 20,
           ),
           Container(
@@ -109,27 +120,53 @@ class _NotificationMessageState extends State<NotificationMessage> {
                 itemCount: num,
                 itemBuilder: ((context, index) {
                   return Container(
-                    padding: EdgeInsets.all(20),
-                    child: Text("${generalProvider.getNotiList[index]}",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          // color: Colors.greenAccent,
-                          fontSize: 20,
-                          fontStyle: FontStyle.italic,
-                        )),
+                    padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                    child: Column(
+                      children: [
+                        Text("${generalProvider.getNotiList[index]}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontStyle: FontStyle.italic,
+                            )),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        index < num - 1
+                            ? Divider(
+                                color: Colors.green,
+                                height: 10,
+                                thickness: 2,
+                              )
+                            : Container()
+                      ],
+                    ),
                   );
                 })),
+          ),
+          Divider(
+            color: Colors.red,
+            height: 10,
+            thickness: 2,
+          ),
+          SizedBox(
+            height: 20,
           ),
           Container(
             height: 50,
             width: double.infinity,
-            child: RaisedButton(onPressed: () {
-              generalProvider.removeNotiList();
-            },
-            child: Center(child: Text("RESET", style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,color: Colors.red
-            ),)),
+            child: RaisedButton(
+              onPressed: () {
+                generalProvider.removeNotiList();
+              },
+              child: Center(
+                  child: Text(
+                "RESET",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red),
+              )),
             ),
           )
         ],

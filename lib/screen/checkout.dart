@@ -448,29 +448,34 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   Widget buildBankCard(String img, String name) {
-    return Container(
-        width: 120.0,
-        child: Column(
-          children: [
-            Container(
-              // padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30), color: Colors.red),
-              child: Image.asset(
-                img,
-                height: 80,
-                width: 80,
+    return GestureDetector(
+      onTap: (){
+        
+      },
+      child: Container(
+          width: 120.0,
+          child: Column(
+            children: [
+              Container(
+                // padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30), color: Colors.red),
+                child: Image.asset(
+                  img,
+                  height: 80,
+                  width: 80,
+                ),
               ),
-            ),
-            Center(
-              child: Text(
-                name,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            )
-          ],
-        ));
+              Center(
+                child: Text(
+                  name,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              )
+            ],
+          )),
+    );
   }
 }
