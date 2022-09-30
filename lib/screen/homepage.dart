@@ -170,6 +170,7 @@ class _HomePageState extends State<HomePage> {
               ))
         ],
       ),
+      // endDrawer: buildDrawer(),
       drawer: buildDrawer(),
       body: isLoaded ? buildBody() : CircularProgressIndicator(),
     );
@@ -191,19 +192,22 @@ class _HomePageState extends State<HomePage> {
         return ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text(
-                name!,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    color: Colors.red),
+              accountName: Container(
+                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Text(
+                  name!,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      color: Colors.red),
+                ),
               ),
               accountEmail: Text(
                 generalProvider.getEmailFromLogin,
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
-                    fontSize: 25,
+                    fontSize: 20,
                     color: Colors.black),
               ),
               currentAccountPicture: CircleAvatar(
@@ -256,7 +260,7 @@ class _HomePageState extends State<HomePage> {
                 });
               },
               title: const Text("Profile"),
-              leading: const Icon(Icons.phone),
+              leading: const Icon(Icons.people),
             ),
             ExpansionTile(
               children: [
@@ -288,6 +292,71 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
+                ExpansionTile(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Text("Vietnamese"),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(onPressed: () {}, icon: Icon(Icons.abc)),
+                            SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Text("English"),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.abc),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                  title: Text("Language"),
+                  // leading: const Icon(Icons.language),
+                ),
+              ],
+              title: const Text("Settings"),
+              leading: const Icon(Icons.settings),
+            ),
+            ExpansionTile(
+              title: Text("Contact"),
+              leading: Icon(Icons.contact_page),
+              children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -301,20 +370,37 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.phone),
-                        ),
+                        IconButton(onPressed: () {}, icon: Icon(Icons.phone)),
                         SizedBox(
                           width: 20,
                         ),
                       ],
                     ),
                   ],
-                )
+                ),
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text("Messenger"),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        IconButton(onPressed: () {}, icon: Icon(Icons.message)),
+                        SizedBox(
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+            
               ],
-              title: const Text("Settings"),
-              leading: const Icon(Icons.settings),
             ),
             ListTile(
               selected: aboutColor,
@@ -354,160 +440,165 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBody() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 15),
-      height: double.infinity,
-      width: double.infinity,
-      child: ListView(
-        children: [
-          Column(children: [
-            Container(
-              width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  searchTextField ? buildSearch() : buildCarousel(),
-                  hasSearchWord
-                      ? showResultWord
-                          ? Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Column(
-                                children: [
-                                  searchInput.text.trim().length > 0
-                                      ? Row(
-                                          children: [
-                                            Text(
-                                              "You search:  ${searchInput.text}",
-                                              style: TextStyle(
-                                                  fontSize: 20,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                            SizedBox(
-                                              width: 15,
-                                            ),
-                                            GestureDetector(
-                                              child: Icon(Icons.close),
-                                              onTap: () {
-                                                setState(() {
-                                                  searchInput.text = "";
-                                                });
-                                              },
-                                            )
-                                          ],
-                                        )
-                                      : Container(),
-                                  SizedBox(
-                                    height: 30,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              searchInput.text = "";
-                                              hasSearchWord = false;
-                                            });
-                                          },
-                                          child: Center(
-                                              child: Tooltip(
-                                            waitDuration: Duration(seconds: 1),
-                                            showDuration: Duration(seconds: 3),
-                                            message: "Back To Home",
-                                            child: CircleAvatar(
-                                                maxRadius: 25,
-                                                backgroundColor: Colors.grey,
-                                                child: Icon(Icons.arrow_back)),
-                                          )),
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 15),
+        height: double.infinity,
+        width: double.infinity,
+        child: ListView(
+          children: [
+            Column(children: [
+              Container(
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    searchTextField ? buildSearch() : buildCarousel(),
+                    hasSearchWord
+                        ? showResultWord
+                            ? Container(
+                                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 30,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                searchInput.text = "";
+                                                hasSearchWord = false;
+                                                searchTextField = false;
+                                              });
+                                            },
+                                            child: Center(
+                                                child: Tooltip(
+                                              waitDuration:
+                                                  Duration(seconds: 1),
+                                              showDuration:
+                                                  Duration(seconds: 3),
+                                              message: "Back To Home",
+                                              child: CircleAvatar(
+                                                  maxRadius: 25,
+                                                  backgroundColor: Colors.grey,
+                                                  child:
+                                                      Icon(Icons.arrow_back)),
+                                            )),
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  generalProvider.getSearchList.length > 0
-                                      ? Column(
-                                          children: [
-                                            Text(
-                                              "Result",
-                                              style: TextStyle(
-                                                  fontSize: 30,
-                                                  fontStyle: FontStyle.italic),
-                                            ),
-                                            Container(
-                                              height: 500,
-                                              child: ListView.builder(
-                                                itemCount: generalProvider
-                                                    .getSearchList.length,
-                                                itemBuilder: (context, index) =>
-                                                    SingleProduct(
-                                                        name: generalProvider
-                                                            .getSearchList[
-                                                                index]
-                                                            .name,
-                                                        price: generalProvider
-                                                            .getSearchList[
-                                                                index]
-                                                            .price,
-                                                        image: generalProvider
-                                                            .getSearchList[
-                                                                index]
-                                                            .image),
+                                      ],
+                                    ),
+                                    generalProvider.getSearchList.length > 0
+                                        ? Column(
+                                            children: [
+                                              Text(
+                                                "Result",
+                                                style: TextStyle(
+                                                    fontSize: 30,
+                                                    fontStyle:
+                                                        FontStyle.italic),
                                               ),
-                                            ),
-                                          ],
-                                        )
-                                      : Text(
-                                          "NO RESULT",
-                                          style: TextStyle(
-                                              fontSize: 30,
-                                              fontStyle: FontStyle.italic),
-                                        ),
-                                ],
-                              ),
-                            )
-                          : Container()
-                      : Column(
-                          children: [
-                            buildCategory(),
-                            buildFeatured(),
-                            buildNewProduct()
-                          ],
-                        )
-                ],
+                                              Container(
+                                                height: 500,
+                                                child: ListView.builder(
+                                                  itemCount: generalProvider
+                                                      .getSearchList.length,
+                                                  itemBuilder: (context,
+                                                          index) =>
+                                                      SingleProduct(
+                                                          name: generalProvider
+                                                              .getSearchList[
+                                                                  index]
+                                                              .name,
+                                                          price: generalProvider
+                                                              .getSearchList[
+                                                                  index]
+                                                              .price,
+                                                          image: generalProvider
+                                                              .getSearchList[
+                                                                  index]
+                                                              .image),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Text(
+                                            "NO RESULT",
+                                            style: TextStyle(
+                                                fontSize: 30,
+                                                fontStyle: FontStyle.italic),
+                                          ),
+                                  ],
+                                ),
+                              )
+                            : Container()
+                        : Column(
+                            children: [
+                              buildCategory(),
+                              buildFeatured(),
+                              buildNewProduct()
+                            ],
+                          )
+                  ],
+                ),
               ),
-            ),
-          ]),
-        ],
+            ]),
+          ],
+        ),
       ),
     );
   }
 
   Widget buildSearch() {
     return Container(
-      height: 50,
-      width: 450,
-      child: Container(
-        child: TextFormField(
-          controller: searchInput,
-          decoration: InputDecoration(
-              suffixIcon: GestureDetector(
-                child: Icon(
-                  Icons.send,
+      // height: 60,
+      padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
+      child: TextFormField(
+        controller: searchInput,
+        style: TextStyle(),
+        decoration: InputDecoration(
+          suffixIcon: Container(
+            margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
+            child: Wrap(
+              children: [
+                GestureDetector(
+                  child: Icon(Icons.close),
+                  onTap: () {
+                    generalProvider.setNumberOfAllProduct();
+                    setState(() {
+                      searchInput.text = "";
+                    });
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
                 ),
-                onTap: () {
-                  setState(() {
+                SizedBox(width: 10),
+                GestureDetector(
+                  child: Icon(Icons.send),
+                  onTap: () {
                     if (searchInput.text.trim().length > 0) {
                       hasSearchWord = true;
                       showResultWord = true;
                       FocusManager.instance.primaryFocus?.unfocus();
                       generalProvider.searchProductList(searchInput.text);
                     }
-                  });
-                },
-              ),
-              hintText: "Search Something",
-              border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(30))),
+                  },
+                )
+              ],
+            ),
+          ),
+          hintText: "Search",
+          labelText: "Search",
+          hintStyle: TextStyle(
+            color: Colors.black,
+          ),
         ),
       ),
     );

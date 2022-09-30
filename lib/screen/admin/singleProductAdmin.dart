@@ -23,10 +23,6 @@ class SingleProductForAdmin extends StatelessWidget {
             builder: (context) =>
                 DetailScreenForAdmin(name: name, price: price, img: image)));
       },
-      // onLongPress: () {
-      //   _showAlertDialog(context);
-      //   print(name);
-      // },
       child: Card(
         child: Container(
           height: 230,

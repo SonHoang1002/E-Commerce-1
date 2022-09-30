@@ -104,13 +104,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Icons.check,
                       color: Colors.green,
                     ))
-                : IconButton(
-                    onPressed: () {
+                : GestureDetector(
+                    onTap: () {
                       setState(() {
                         edit = false;
                       });
                     },
-                    icon: NotificationButton())
+                    child: NotificationButton())
           ],
           leading: edit
               ? IconButton(

@@ -257,6 +257,7 @@ class _Login extends State<Login> {
         ),
       );
     } else {
+       FocusManager.instance.primaryFocus?.unfocus();
       submit(context);
     }
   }

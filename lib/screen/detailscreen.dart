@@ -75,11 +75,11 @@ class _DetailScreenState extends State<DetailScreen> {
                   children: [
                     buildNameToDescription(),
                     buildContentDescription(),
-                    buildSizes(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    buildColors()
+                    // buildSizes(),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
+                    // buildColors()
                   ],
                 ),
               ),
@@ -327,7 +327,7 @@ class _DetailScreenState extends State<DetailScreen> {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         child: Center(
             child: Text(
-          "CHECK OUT",
+          "ADD TO CART",
           style: TextStyle(color: Colors.white, fontSize: 20),
         )),
         color: Colors.red,

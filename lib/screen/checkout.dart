@@ -1,3 +1,4 @@
+import 'package:custom_dialog/custom_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -11,15 +12,26 @@ import 'dart:convert';
 
 import 'package:testecommerce/widget/notification_button.dart';
 
+import '../addition/timer.dart';
+
 class CheckOut extends StatefulWidget {
   @override
   State<CheckOut> createState() => _CheckOutState();
 }
 
-// late ProductProvider productProvider;
+TextEditingController cardNumber = TextEditingController();
+TextEditingController expiry = TextEditingController();
+TextEditingController cvv = TextEditingController();
+
 late GeneralProvider generalProvider;
 
 class _CheckOutState extends State<CheckOut> {
+  bool agri = false;
+  bool mb = false;
+  bool tp = false;
+  bool us = false;
+  bool viettin = false;
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -43,7 +55,10 @@ class _CheckOutState extends State<CheckOut> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [NotificationButton()],
+        actions:  [
+           GestureDetector(
+              child: NotificationButton())
+        ],
       ),
       body: Container(
           child: Column(children: [
@@ -223,7 +238,7 @@ class _CheckOutState extends State<CheckOut> {
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                               child: Center(
                                 child: Text(
-                                  "You Pay 97.43\$",
+                                  "You Pay ${generalProvider.getTotal}\$",
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold),
@@ -253,12 +268,92 @@ class _CheckOutState extends State<CheckOut> {
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: <Widget>[
-                                  buildBankCard("images/agri.png", "AgriBank"),
-                                  buildBankCard("images/mb.png", "MB Bank"),
-                                  buildBankCard("images/tp.jpg", "TP Bank"),
-                                  buildBankCard("images/us.png", "US Bank"),
-                                  buildBankCard(
-                                      "images/vietin.jpg", "VietTin Bank"),
+                                  Container(
+                                    color: agri
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = true;
+                                            mb = false;
+                                            tp = false;
+                                            us = false;
+                                            viettin = false;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/agri.png", "AgriBank")),
+                                  ),
+                                  Container(
+                                    color: mb
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = false;
+                                            mb = true;
+                                            tp = false;
+                                            us = false;
+                                            viettin = false;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/mb.png", "MB Bank")),
+                                  ),
+                                  Container(
+                                    color: tp
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = false;
+                                            mb = false;
+                                            tp = true;
+                                            us = false;
+                                            viettin = false;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/tp.jpg", "TP Bank")),
+                                  ),
+                                  Container(
+                                    color: us
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = false;
+                                            mb = false;
+                                            tp = false;
+                                            us = true;
+                                            viettin = false;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/us.png", "US Bank")),
+                                  ),
+                                  Container(
+                                    color: viettin
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          agri = false;
+                                          mb = false;
+                                          tp = false;
+                                          us = false;
+                                          viettin = true;
+                                        });
+                                      },
+                                      child: buildBankCard(
+                                          "images/vietin.jpg", "VietTin Bank"),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -275,7 +370,12 @@ class _CheckOutState extends State<CheckOut> {
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          inputFormatters: [FilteringTextInputFormatter.digitsOnly, CustomInputFormatter()],
+                                          controller: cardNumber,
+                                          inputFormatters: [
+                                            FilteringTextInputFormatter
+                                                .digitsOnly,
+                                            CustomInputFormatter()
+                                          ],
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
                                               border: OutlineInputBorder(),
@@ -294,6 +394,9 @@ class _CheckOutState extends State<CheckOut> {
                                               Container(
                                                 width: 175,
                                                 child: TextFormField(
+                                                  controller: expiry,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   decoration: InputDecoration(
                                                       border:
                                                           OutlineInputBorder(),
@@ -306,6 +409,9 @@ class _CheckOutState extends State<CheckOut> {
                                               Container(
                                                 width: 175,
                                                 child: TextFormField(
+                                                  controller: cvv,
+                                                  keyboardType:
+                                                      TextInputType.number,
                                                   decoration: InputDecoration(
                                                       border:
                                                           OutlineInputBorder(),
@@ -323,7 +429,9 @@ class _CheckOutState extends State<CheckOut> {
                                           padding:
                                               EdgeInsets.fromLTRB(0, 10, 0, 0),
                                           child: RaisedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              validation();
+                                            },
                                             child: Center(
                                               child: Text(
                                                 "PAY",
@@ -412,13 +520,14 @@ class _CheckOutState extends State<CheckOut> {
   Future<void> send() async {
     final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
     String mes = ''' 
-     Name                 : name1 \n
-     Email                : email1 \n
-     Phone                : phone1  \n
-     Address              : address1 \n
-     Quantity Of Products : quantity1 \n
-     Totals               : total1     \n
+     Name                 : ${generalProvider.getUserModelName} \n
+     Email                : ${generalProvider.getUserModelEmail} \n
+     Phone                : ${generalProvider.getUserModelPhone}  \n
+     Address              : ${generalProvider.getUserModelAddress} \n
+     Total                : ${generalProvider.getTotal}     \n
      ''';
+
+    //Quantity Of Products : quantity1 \n
     try {
       final response = await http.post(url,
           headers: {
@@ -433,12 +542,12 @@ class _CheckOutState extends State<CheckOut> {
               "to_email": "kingmountain117@gmail.com",
               "from_email": "hoangtrungson07012001@gmail.com",
               "from_name": "H&H FOOD",
-              "to_name": "fgfgjgjgj",
-              "name": "name1",
-              "phone": "phone1",
-              "address": "address1",
+              "to_name": "${generalProvider.getUserModelName}",
+              "name": "${generalProvider.getUserModelName}",
+              "phone": "${generalProvider.getUserModelPhone}",
+              "address": "${generalProvider.getUserModelAddress}",
               "quantityOfProduct": "quantity1",
-              "total": "total1"
+              "total": "${generalProvider.getTotal}"
             }
           }));
       print(response.body);
@@ -448,34 +557,116 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   Widget buildBankCard(String img, String name) {
-    return GestureDetector(
-      onTap: (){
-        
-      },
-      child: Container(
-          width: 120.0,
-          child: Column(
-            children: [
-              Container(
-                // padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30), color: Colors.red),
-                child: Image.asset(
-                  img,
-                  height: 80,
-                  width: 80,
-                ),
+    return Container(
+        // color: Colors.blue.withOpacity(20),
+        width: 120.0,
+        child: Column(
+          children: [
+            Container(
+              // padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(),
+              // borderRadius: BorderRadius.circular(30), color: Colors.red),
+              child: Image.asset(
+                img,
+                height: 80,
+                width: 80,
               ),
-              Center(
-                child: Text(
-                  name,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              )
-            ],
-          )),
+            ),
+            Center(
+              child: Text(
+                name,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            )
+          ],
+        ));
+  }
+
+  validation() {
+    if (mb == false &&
+        viettin == false &&
+        us == false &&
+        tp == false &&
+        agri == false) {
+      showDialogWithWarning(context, "You don't choose bank category");
+      return;
+    } else if (cvv.text.isEmpty) {
+      showDialogWithWarning(context, "Cvv Is Empty");
+      return;
+    } else if (expiry.text.isEmpty) {
+      showDialogWithWarning(context, "Card Expiry Is Empty");
+      return;
+    } else if (cvv.text.isEmpty &&
+        cardNumber.text.isEmpty &&
+        expiry.text.isEmpty) {
+      showDialogWithWarning(context, "Both Field Are Empty");
+      return;
+    } else {
+      Navigator.of(context).pop();
+      _showPaymentDialog(context);
+      generalProvider
+          .addNotiList("${getTime()}: You Have Already Paid Successfully ");
+      setState(() {
+        expiry.text = "";
+        cardNumber.text = "";
+        cvv.text = "";
+
+        mb = false;
+        tp = false;
+        viettin = false;
+        us = false;
+        agri = false;
+      });
+    }
+  }
+
+  _showPaymentDialog(BuildContext context) {
+    // send();
+    return showDialog(
+      context: context,
+      builder: (context) => CustomDialog(
+        content: Text(
+          'Payment Successfull',
+          style: TextStyle(
+              fontWeight: FontWeight.w900, fontSize: 20.0, color: Colors.black),
+        ),
+        title: Text(''),
+        firstColor: Color(0xFF3CCF57),
+        secondColor: Colors.white,
+        headerIcon: Icon(
+          Icons.check_circle_outline,
+          size: 120.0,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  showDialogWithWarning(BuildContext context, String message) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('WARNING !!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(message),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
