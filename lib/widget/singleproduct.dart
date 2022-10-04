@@ -23,7 +23,7 @@ class SingleProduct extends StatelessWidget {
       child: Card(
         child: Container(
           height: 230,
-          width: 180,
+          width: 173,
           color: Colors.blue,
           child: Column(children: [
             Container(

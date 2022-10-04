@@ -34,9 +34,10 @@ class _ContactMessengerState extends State<ContactMessenger> {
         email: ["admin@gmail.com"],
         welcomeMessage: "Hello, Can We Help You");
 
-    // final user = session.getUser(id: widget.id, name: widget.name,email: [widget.email],welcomeMessage: "Hello, Can We Help You");
+    // final user = session.getUser(id: widget.id, name: widget.name,email: [widget.email]);
 
-    final user = session.getUser(id: '995648', name: 'd12345');
+    final user =
+        session.getUser(id: '995648', name: 'd12345', email: ["d@gmail.com"]);
 
     generalProvider.isAdmin ? session.me = admin : session.me = user;
 
@@ -50,6 +51,13 @@ class _ContactMessengerState extends State<ContactMessenger> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Messenger Contact'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: Icon(Icons.close))
+          ],
         ),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) => Column(

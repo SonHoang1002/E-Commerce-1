@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:testecommerce/models/contact_user.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import '../models/cartmodels.dart';
 import '../models/product.dart';
@@ -557,5 +558,37 @@ class GeneralProvider with ChangeNotifier {
     isAdmin = value;
     notifyListeners();
   }
-  get getIsAdmin =>isAdmin;
+
+  get getIsAdmin => isAdmin;
+
+
+// save sharedpreferences
+  List<String> listIdMessenger = [];
+
+  late String idMessenger;
+  setListId(String id) {
+    idMessenger = id;
+    listIdMessenger.add(idMessenger);
+    notifyListeners();
+  }
+
+  get getIdMessenger => idMessenger;
+  get getIdMessengerList => listIdMessenger;
+
+  List<ContactMessengerModel> listContactMessengerModel = [];
+  setNameAndEmailFromId(i) async {
+    QuerySnapshot<Object?> snapshot =
+        await FirebaseFirestore.instance.collection("Model").get();
+    listIdMessenger.forEach((id) {
+      snapshot.docs.forEach((element) {
+        if (element["Id_messenger"] == id) {
+          listContactMessengerModel.add(
+           ContactMessengerModel( id: id,
+            name:element["UserName"],
+            email: element["UserEmail"])
+          );
+        }
+      });
+    });
+  }
 }

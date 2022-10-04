@@ -403,13 +403,14 @@ class _HomePageState extends State<HomePage> {
                                       .get();
                               snapshot.docs.forEach((element) {
                                 if (element.id == id) {
+                                  generalProvider
+                                      .setListId(element["Id_messenger"]);
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (ctx) => ContactMessenger(
                                             id: element["Id_messenger"],
                                             name: element["UserName"],
-                                            email: element["UseEmail"],
-                                          ))
-                                  );
+                                            email: element["UserEmail"],
+                                          )));
                                 }
                               });
                             },

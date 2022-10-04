@@ -114,7 +114,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
             width: 20,
           ),
           Container(
-            height: 500,
+            height: 450,
             width: double.infinity,
             child: ListView.builder(
                 itemCount: num,

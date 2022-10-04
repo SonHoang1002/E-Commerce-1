@@ -197,7 +197,7 @@ class _Login extends State<Login> {
                               borderRadius: BorderRadius.circular(100.0),
                             ),
                           ),
-                          child: Text("Login"),
+                          child: Text("Login",style: TextStyle(fontSize: 30),),
                         )),
                     Row(
                       children: [

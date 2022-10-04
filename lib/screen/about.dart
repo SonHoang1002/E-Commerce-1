@@ -44,7 +44,7 @@ class _AboutState extends State<About> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.fromLTRB(15, 10, 15, 0),
+        padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
         child: ListView(
           children: [
             Column(

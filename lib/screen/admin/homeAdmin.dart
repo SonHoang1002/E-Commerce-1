@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/models/contact_user.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -31,6 +32,8 @@ import 'package:badges/badges.dart';
 import '../../models/product.dart';
 import '../../widget/singleproduct.dart';
 import 'package:intl/intl.dart';
+
+import '../contact_messenger.dart';
 
 class HomeAdmin extends StatefulWidget {
   @override
@@ -466,6 +469,14 @@ class _HomeAdminState extends State<HomeAdmin> {
           onTap: () {},
           title: const Text("Home"),
           leading: const Icon(Icons.home),
+        ),
+        ListTile(
+          onTap: () {
+             Navigator.of(context)
+                .push(MaterialPageRoute(builder: (ctx) => ContactMessenger(id:"1",name:"32",email:"fdfj")));
+          },
+          title: const Text("Contact"),
+          leading: const Icon(Icons.message),
         ),
         ListTile(
           onTap: () {

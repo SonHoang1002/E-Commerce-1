@@ -288,6 +288,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       height: 50,
       width: double.infinity,
+      padding:EdgeInsets.symmetric(horizontal: 10),
       child: ElevatedButton(
         onPressed: () {
           total = 0;
@@ -325,7 +326,7 @@ class _DetailScreenState extends State<DetailScreen> {
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (ctx) => CartScreen()));
         },
-        // style: ButtonStyle(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),)
+        style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),),
         child: Center(
             child: Text(
           "ADD TO CART",
