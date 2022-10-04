@@ -34,31 +34,31 @@ class _Signup extends State<Signup> {
 
   void validation() async {
     if (email.text.isEmpty && password.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Both Field Are Empty"),
         ),
       );
     } else if (email.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
     } else if (!regExp.hasMatch(email.text)) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Please Try Valid Email"),
         ),
       );
     } else if (password.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Password Is Empty"),
         ),
       );
     } else if (password.text.length < 8) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Password  Is Too Short"),
         ),
@@ -224,7 +224,7 @@ class _Signup extends State<Signup> {
                         Container(
                           height: 50,
                           width: double.infinity,
-                          child: RaisedButton(
+                          child: ElevatedButton(
                               child: Text(
                                 "Register",
                                 style: TextStyle(
@@ -232,7 +232,13 @@ class _Signup extends State<Signup> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
-                              color: Colors.blue[400],
+                               style: ElevatedButton.styleFrom(
+                                    primary: Colors.blue[400],
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
+                                    ),
+                                  ),
                               onPressed: () {
                                 validation();
                               }),
@@ -289,7 +295,7 @@ class _Signup extends State<Signup> {
       if (error.message != null) {
         message = error.message!;
       }
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message.toString()),
         duration: Duration(milliseconds: 600),
         backgroundColor: Theme.of(context).primaryColor,
@@ -301,7 +307,7 @@ class _Signup extends State<Signup> {
       setState(() {
         isLoading = false;
       });
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
         duration: Duration(milliseconds: 600),
         backgroundColor: Theme.of(context).primaryColor,

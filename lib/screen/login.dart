@@ -83,7 +83,7 @@ class _Login extends State<Login> {
       if (error.message != null) {
         message = error.message;
       }
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(message.toString()),
           duration: Duration(milliseconds: 800),
@@ -94,7 +94,7 @@ class _Login extends State<Login> {
       setState(() {
         isLoading = false;
       });
-      _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
         duration: Duration(milliseconds: 800),
         backgroundColor: Theme.of(context).primaryColor,
@@ -182,7 +182,7 @@ class _Login extends State<Login> {
                     Container(
                         height: 45,
                         width: double.infinity,
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           onPressed: () {
                             // Future.delayed(Duration(seconds: 2), () {
                             setState(() {
@@ -191,7 +191,12 @@ class _Login extends State<Login> {
                             validation();
                             // });
                           },
-                          color: Colors.grey,
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.grey,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(100.0),
+                            ),
+                          ),
                           child: Text("Login"),
                         )),
                     Row(
@@ -227,37 +232,37 @@ class _Login extends State<Login> {
 
   void validation() async {
     if (email.text.isEmpty && password.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Both Field Are Empty"),
         ),
       );
     } else if (email.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
     } else if (!regExp.hasMatch(email.text)) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Please Try Valid Email"),
         ),
       );
     } else if (password.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Password Is Empty"),
         ),
       );
     } else if (password.text.length < 8) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Password  Is Too Short"),
         ),
       );
     } else {
-       FocusManager.instance.primaryFocus?.unfocus();
+      FocusManager.instance.primaryFocus?.unfocus();
       submit(context);
     }
   }

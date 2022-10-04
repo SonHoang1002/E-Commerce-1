@@ -234,7 +234,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                               padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                               height: 60,
                               width: double.infinity,
-                              child: RaisedButton(
+                              child: ElevatedButton(
                                   child: Text(
                                     "ADD",
                                     style: TextStyle(
@@ -242,7 +242,13 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
                                   ),
-                                  color: Colors.blue[400],
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.blue[400],
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
+                                    ),
+                                  ),
                                   onPressed: () {
                                     validation();
 
@@ -425,7 +431,7 @@ class _HomeAdminState extends State<HomeAdmin> {
 
   Widget buildDrawer() {
     return Drawer(
-      // key:_key,
+        // key:_key,
         child: ListView(
       children: [
         UserAccountsDrawerHeader(

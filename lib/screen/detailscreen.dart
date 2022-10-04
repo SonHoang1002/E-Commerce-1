@@ -1,3 +1,4 @@
+
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -287,7 +288,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       height: 50,
       width: double.infinity,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {
           total = 0;
           generalProvider.setCartModel(
@@ -324,13 +325,12 @@ class _DetailScreenState extends State<DetailScreen> {
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (ctx) => CartScreen()));
         },
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        // style: ButtonStyle(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),)
         child: Center(
             child: Text(
           "ADD TO CART",
           style: TextStyle(color: Colors.white, fontSize: 20),
         )),
-        color: Colors.red,
       ),
     );
   }

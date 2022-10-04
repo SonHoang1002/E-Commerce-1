@@ -211,7 +211,7 @@ class _CheckOutState extends State<CheckOut> {
           Container(
             width: 150,
             height: 50,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
@@ -225,7 +225,7 @@ class _CheckOutState extends State<CheckOut> {
           Container(
             width: 150,
             height: 50,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 // send();
                 showModalBottomSheet(
@@ -428,7 +428,7 @@ class _CheckOutState extends State<CheckOut> {
                                           height: 60,
                                           padding:
                                               EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                          child: RaisedButton(
+                                          child: ElevatedButton(
                                             onPressed: () {
                                               validation();
                                             },

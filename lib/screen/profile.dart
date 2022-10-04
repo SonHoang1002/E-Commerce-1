@@ -280,16 +280,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: RaisedButton(
+                                  child: ElevatedButton(
+                                     style: ElevatedButton.styleFrom(
+                                    primary: Colors.grey,
                                     shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(60)),
+                                      borderRadius:
+                                          BorderRadius.circular(60.0),
+                                    ),
+                                  ),
                                     onPressed: () {
                                       setState(() {
                                         edit = !edit;
                                       });
                                     },
-                                    color: Colors.grey,
                                     child: Text("FIX"),
                                   ),
                                 )
@@ -433,25 +436,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
 //   }
   void validation() async {
     if (tEmail.text.isEmpty) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
     } else if (!regExp.hasMatch(tEmail.text)) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Please Try Valid Email"),
         ),
       );
     } else if (tPhone.text.length < 10 && tPhone.text.length > 10) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Phone Number Is Too Short Or Too Long"),
         ),
       );
     } else if (tName.text.length < 6) {
-      _scaffoldKey.currentState!.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Name Is Too Short"),
         ),

@@ -211,7 +211,7 @@ class _CartScreenState extends State<CartScreen> {
       height: 50,
       width: 700,
       margin: EdgeInsets.all(20),
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {
           Navigator.of(context)
               .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));

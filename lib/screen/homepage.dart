@@ -13,6 +13,7 @@ import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/about.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
+import 'package:testecommerce/screen/contact_messenger.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 import '../addition/timer.dart';
 import '../widget/listproduct.dart';
@@ -232,7 +233,9 @@ class _HomePageState extends State<HomePage> {
               selected: homeColor,
               onTap: () {
                 // _key.currentState!.openEndDrawer();
-                _key.currentState!.showSnackBar(
+                // _key.currentState!.showSnackBar(
+                //     const SnackBar(content: Text("You click Home ListTile")));
+                ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text("You click Home ListTile")));
                 setState(() {
                   homeColor = true;
@@ -378,7 +381,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                 Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
@@ -391,7 +394,26 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        IconButton(onPressed: () {}, icon: Icon(Icons.message)),
+                        IconButton(
+                            onPressed: () async {
+                              var id = FirebaseAuth.instance.currentUser!.uid;
+                              QuerySnapshot<Object?> snapshot =
+                                  await FirebaseFirestore.instance
+                                      .collection("User")
+                                      .get();
+                              snapshot.docs.forEach((element) {
+                                if (element.id == id) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (ctx) => ContactMessenger(
+                                            id: element["Id_messenger"],
+                                            name: element["UserName"],
+                                            email: element["UseEmail"],
+                                          ))
+                                  );
+                                }
+                              });
+                            },
+                            icon: Icon(Icons.message)),
                         SizedBox(
                           width: 20,
                         ),
@@ -399,7 +421,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-            
               ],
             ),
             ListTile(

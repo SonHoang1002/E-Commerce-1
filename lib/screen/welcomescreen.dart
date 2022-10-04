@@ -97,14 +97,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         Container(
                           height: 45,
                           width: 300,
-                          child: RaisedButton(
+                          child: ElevatedButton(
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (ctx) => Signup()));
                             },
-                            color: Colors.redAccent,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.blue[400],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
                             child: Text(
                               "Sign Up",
                               style: TextStyle(

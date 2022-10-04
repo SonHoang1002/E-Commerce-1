@@ -155,7 +155,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
           Container(
             height: 50,
             width: double.infinity,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 generalProvider.removeNotiList();
               },
