@@ -284,6 +284,7 @@ class GeneralProvider with ChangeNotifier {
   late String userPhone;
   late String userGender;
   late String userImage;
+  late String userIdMessenger;
 
   Future<int> setUserModel() async {
     String email = getEmailFromLogin;
@@ -297,6 +298,7 @@ class GeneralProvider with ChangeNotifier {
         userGender = element["UserGender"];
         userAddress = element["UserAddress"];
         userImage = element["UserImage"];
+        userIdMessenger = element["Id_messenger"];
       }
     });
     notifyListeners();
@@ -309,6 +311,7 @@ class GeneralProvider with ChangeNotifier {
   get getUserModelGender => userGender;
   get getUserModelAddress => userAddress;
   get getUserModelImage => userImage;
+  get getUserModelIdMessenger => userIdMessenger;
 
   late Product asiaDish;
   List<Product> asiaList = [];
@@ -561,7 +564,6 @@ class GeneralProvider with ChangeNotifier {
 
   get getIsAdmin => isAdmin;
 
-
 // save sharedpreferences
   List<String> listIdMessenger = [];
 
@@ -582,11 +584,8 @@ class GeneralProvider with ChangeNotifier {
     listIdMessenger.forEach((id) {
       snapshot.docs.forEach((element) {
         if (element["Id_messenger"] == id) {
-          listContactMessengerModel.add(
-           ContactMessengerModel( id: id,
-            name:element["UserName"],
-            email: element["UserEmail"])
-          );
+          listContactMessengerModel.add(ContactMessengerModel(
+              id: id, name: element["UserName"], email: element["UserEmail"]));
         }
       });
     });

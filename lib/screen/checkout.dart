@@ -55,10 +55,7 @@ class _CheckOutState extends State<CheckOut> {
             Navigator.of(context).pop();
           },
         ),
-        actions:  [
-           GestureDetector(
-              child: NotificationButton())
-        ],
+        actions: [GestureDetector(child: NotificationButton())],
       ),
       body: Container(
           child: Column(children: [
@@ -216,9 +213,15 @@ class _CheckOutState extends State<CheckOut> {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
               },
+               style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [Text('CHECK AGAIN')],
+                children: [Text('CHECK AGAIN',style: TextStyle(color: Colors.black),)],
               ),
             ),
           ),
@@ -226,6 +229,12 @@ class _CheckOutState extends State<CheckOut> {
             width: 150,
             height: 50,
             child: ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               onPressed: () {
                 // send();
                 showModalBottomSheet(
@@ -432,6 +441,13 @@ class _CheckOutState extends State<CheckOut> {
                                             onPressed: () {
                                               validation();
                                             },
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Colors.grey,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                            ),
                                             child: Center(
                                               child: Text(
                                                 "PAY",

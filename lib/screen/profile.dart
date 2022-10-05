@@ -482,12 +482,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : Container();
     FirebaseFirestore.instance.collection("User").doc(user!.uid).update({
       "UserName": tName.text,
+      "UserEmail":email,
       "UserGender": isMale == true ? "Male" : "Female",
       "UserPhone": tPhone.text,
       "UserImage": (imageMap == null || imageMap == "")
-          ? generalProvider.userImage
+          ? generalProvider.getUserModelImage
           : imageMap,
-      "UserAddress": tAddress.text
+      "UserAddress": tAddress.text,
+      "Id_messenger": generalProvider.getUserModelIdMessenger,
+      "UserId":user.uid
     });
     generalProvider.setUserModel();
 
@@ -504,6 +507,7 @@ Widget buildTextFormField(String hintText, String label) {
   return Container(
     height: 50,
     child: TextFormField(
+      
       decoration: InputDecoration(
           hintText: hintText,
           labelText: label,
@@ -518,6 +522,7 @@ Widget buildTextFormFieldFromController(
   return Container(
     height: 50,
     child: TextFormField(
+      readOnly: label=="Email",
       controller: controller,
       decoration: InputDecoration(
           // hintText: hintText,

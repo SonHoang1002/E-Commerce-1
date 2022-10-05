@@ -216,9 +216,15 @@ class _CartScreenState extends State<CartScreen> {
           Navigator.of(context)
               .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));
         },
+        style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [Text('CHECK OUT')],
+          children: [Text('BUY ',style: TextStyle(color: Colors.black,fontSize: 20),)],
         ),
       ),
     );

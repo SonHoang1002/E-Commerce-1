@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:testecommerce/screen/login.dart';
@@ -71,7 +73,6 @@ class _Signup extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -232,13 +233,12 @@ class _Signup extends State<Signup> {
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
-                               style: ElevatedButton.styleFrom(
-                                    primary: Colors.blue[400],
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(100.0),
-                                    ),
-                                  ),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.grey,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                              ),
                               onPressed: () {
                                 validation();
                               }),
@@ -314,23 +314,29 @@ class _Signup extends State<Signup> {
       ));
       print(error);
     }
-    FirebaseFirestore
-    .instance
-    .collection("User")
-    .doc(result.user!.uid)
-    .set({
+
+    String idMessenger = '';
+    for (int i = 0; i < 6; i++) {
+      idMessenger += Random().nextInt(9).toString();
+    }
+    if(idMessenger.split("")[0]==0){
+      for (int i = 0; i < 6; i++) {
+      idMessenger += Random().nextInt(9).toString();
+    }
+    }
+    FirebaseFirestore.instance.collection("User").doc(result.user!.uid).set({
       "UserName": username.text,
       "UserId": result.user!.uid,
       "UserEmail": email.text,
       "UserAddress": address.text,
       "UserGender": isMale == true ? "Male" : "Female",
       "UserPhone": phone.text,
+      "Id_messenger":idMessenger,
+      "UserImage":"https://cdn-icons-png.flaticon.com/512/149/149071.png"
     });
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (ctx) => Login()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Login()));
     setState(() {
       isLoading = false;
     });
   }
-
 }

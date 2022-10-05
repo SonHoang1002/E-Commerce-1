@@ -159,6 +159,12 @@ class _NotificationMessageState extends State<NotificationMessage> {
               onPressed: () {
                 generalProvider.removeNotiList();
               },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
               child: Center(
                   child: Text(
                 "RESET",

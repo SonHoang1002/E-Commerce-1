@@ -51,13 +51,12 @@ class _ContactMessengerState extends State<ContactMessenger> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Messenger Contact'),
-          actions: [
+          leading: 
             IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: Icon(Icons.close))
-          ],
+                icon: Icon(Icons.arrow_back))
         ),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) => Column(

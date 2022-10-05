@@ -52,9 +52,9 @@ class _Login extends State<Login> {
   void submit(context) async {
     late UserCredential result;
     try {
-      setState(() {
-        isLoading = true;
-      });
+      // setState(() {
+      //   isLoading = true;
+      // });
       if (_formKey.currentState!.validate()) {
         result = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: email.text.trim(), password: password.text.trim());
@@ -69,10 +69,16 @@ class _Login extends State<Login> {
             generalProvider.removeNotiList();
             generalProvider.addNotiList(
                 "${getTime()}: Welcome To Admin Screen Of H&H FOOD");
+            setState(() {
+              isLoading = false;
+            });
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (ctx) => HomeAdmin()));
           } else {
             generalProvider.setAdmin(false);
+            setState(() {
+              isLoading = false;
+            });
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (ctx) => HomePage()));
           }
@@ -83,22 +89,21 @@ class _Login extends State<Login> {
       if (error.message != null) {
         message = error.message;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(message.toString()),
-          duration: Duration(milliseconds: 800),
-          backgroundColor: Theme.of(context).primaryColor,
-        ),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(
+      //     content: Text(message.toString()),
+      //     duration: Duration(milliseconds: 800),
+      //     backgroundColor: Theme.of(context).primaryColor,
+      //   ),
+      // );
+      print(message.toString());
     } catch (error) {
-      setState(() {
-        isLoading = false;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(error.toString()),
-        duration: Duration(milliseconds: 800),
-        backgroundColor: Theme.of(context).primaryColor,
-      ));
+      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      //   content: Text(error.toString()),
+      //   duration: Duration(milliseconds: 800),
+      //   backgroundColor: Theme.of(context).primaryColor,
+      // ));
+      print(error.toString());
     }
   }
 
@@ -115,7 +120,6 @@ class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
-
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -126,111 +130,128 @@ class _Login extends State<Login> {
           },
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            children: [
-              Container(
-                height: 340,
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Text(
-                      "Login",
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                    ),
-                    TextFormField(
-                      controller: email,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Email",
-                          labelText: "Email",
-                          hintStyle: TextStyle(color: Colors.black)),
-                    ),
-                    TextFormField(
-                      controller: password,
-                      obscureText: obscureText,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: "Password",
-                          labelText: "Password",
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                obscureText = !obscureText;
-                              });
-                            },
-                            child: obscureText
-                                ? Icon(
-                                    Icons.visibility,
-                                    color: Colors.black,
-                                  )
-                                : Icon(
-                                    Icons.visibility_off,
-                                    color: Colors.black,
-                                  ),
-                          ),
-                          hintStyle: TextStyle(color: Colors.black)),
-                    ),
-                    Container(
-                        height: 45,
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Future.delayed(Duration(seconds: 2), () {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            validation();
-                            // });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.grey,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(100.0),
-                            ),
-                          ),
-                          child: Text("Login",style: TextStyle(fontSize: 30),),
-                        )),
-                    Row(
-                      children: [
-                        Text(
-                          "I have no account !!",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pushReplacement(
-                                CupertinoPageRoute(
-                                    builder: (context) => Signup()));
-                          },
-                          child: Text("Sign Up",
-                              style:
-                                  TextStyle(color: Colors.blue, fontSize: 15)),
-                        ),
-                      ],
-                    )
-                  ],
+      body: Column(
+        children: [
+          isLoading
+              ? Container(
+                padding: EdgeInsets.symmetric(vertical: 10),
+                child: Center(child: CircularProgressIndicator()))
+              : Container(
+                  height: 20,
                 ),
-              )
-            ],
+          Form(
+            key: _formKey,
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
+                children: [
+                  Container(
+                    height: 340,
+                    width: double.infinity,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Text(
+                          "Login",
+                          style: TextStyle(
+                              fontSize: 50, fontWeight: FontWeight.bold),
+                        ),
+                        TextFormField(
+                          controller: email,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: "Email",
+                              labelText: "Email",
+                              hintStyle: TextStyle(color: Colors.black)),
+                        ),
+                        TextFormField(
+                          controller: password,
+                          obscureText: obscureText,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: "Password",
+                              labelText: "Password",
+                              suffixIcon: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    obscureText = !obscureText;
+                                  });
+                                },
+                                child: obscureText
+                                    ? Icon(
+                                        Icons.visibility,
+                                        color: Colors.black,
+                                      )
+                                    : Icon(
+                                        Icons.visibility_off,
+                                        color: Colors.black,
+                                      ),
+                              ),
+                              hintStyle: TextStyle(color: Colors.black)),
+                        ),
+                        Container(
+                            height: 45,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                // Future.delayed(Duration(seconds: 2), () {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                validation();
+                                // });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.grey,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                ),
+                              ),
+                              child: Text(
+                                "Login",
+                                style: TextStyle(fontSize: 30),
+                              ),
+                            )),
+                        Row(
+                          children: [
+                            Text(
+                              "I have no account !!",
+                              style: TextStyle(color: Colors.black),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pushReplacement(
+                                    CupertinoPageRoute(
+                                        builder: (context) => Signup()));
+                              },
+                              child: Text("Sign Up",
+                                  style: TextStyle(
+                                      color: Colors.blue, fontSize: 15)),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   void validation() async {
+    setState(() {
+      isLoading = true;
+    });
     if (email.text.isEmpty && password.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
