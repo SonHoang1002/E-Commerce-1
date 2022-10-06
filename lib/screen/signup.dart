@@ -231,7 +231,7 @@ class _Signup extends State<Signup> {
                                 style: TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white),
+                                    color: Colors.black),
                               ),
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.grey,

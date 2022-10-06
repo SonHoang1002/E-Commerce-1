@@ -8,6 +8,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 
 import '../models/product.dart';
 import '../widget/singleproduct.dart';
+import 'notification_button.dart';
 
 class ListProduct extends StatelessWidget {
   String? name;
@@ -41,10 +42,7 @@ class ListProduct extends StatelessWidget {
               icon: Icon(Icons.search, color: Colors.black),
               onPressed: () {},
             ),
-            IconButton(
-              icon: Icon(Icons.notifications_none, color: Colors.black),
-              onPressed: () {},
-            ),
+            NotificationButton(),
           ],
         ),
         body: Container(

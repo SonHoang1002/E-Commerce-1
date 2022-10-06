@@ -33,7 +33,7 @@ late GeneralProvider generalProvider;
 // }
 
 class _Login extends State<Login> {
-  TextEditingController email = TextEditingController(text: "admin@gmail.com");
+  TextEditingController email = TextEditingController(text: "f@gmail.com");
   TextEditingController password = TextEditingController(text: "12345678");
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -212,7 +212,7 @@ class _Login extends State<Login> {
                               ),
                               child: Text(
                                 "Login",
-                                style: TextStyle(fontSize: 30),
+                                style: TextStyle(fontSize: 30,color: Colors.black),
                               ),
                             )),
                         Row(

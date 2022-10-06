@@ -213,15 +213,20 @@ class _CheckOutState extends State<CheckOut> {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
               },
-               style: ElevatedButton.styleFrom(
+              style: ElevatedButton.styleFrom(
                 primary: Colors.grey,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(5),
                 ),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [Text('CHECK AGAIN',style: TextStyle(color: Colors.black),)],
+                children: [
+                  Text(
+                    'CHECK AGAIN',
+                    style: TextStyle(color: Colors.black),
+                  )
+                ],
               ),
             ),
           ),
@@ -229,15 +234,22 @@ class _CheckOutState extends State<CheckOut> {
             width: 150,
             height: 50,
             child: ElevatedButton(
-               style: ElevatedButton.styleFrom(
+              style: ElevatedButton.styleFrom(
                 primary: Colors.grey,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(5),
                 ),
               ),
               onPressed: () {
                 // send();
-                showModalBottomSheet(
+                if (generalProvider.getTotal <= 0) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Your Cart Is Empty !!"),
+                    backgroundColor: Colors.yellow,
+                  ));
+                  return;
+                }else{
+ showModalBottomSheet(
                     context: context,
                     builder: (ctx) {
                       return Container(
@@ -467,10 +479,18 @@ class _CheckOutState extends State<CheckOut> {
                         ),
                       );
                     });
+                  
+                }
+                
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [Text('PAYMENT')],
+                children: [
+                  Text(
+                    'PAY',
+                    style: TextStyle(color: Colors.black),
+                  )
+                ],
               ),
             ),
           ),

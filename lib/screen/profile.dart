@@ -36,7 +36,7 @@ String phone = "";
 String gender = "";
 String email = "";
 String address = "";
-var imageMap;
+var imageMap = "";
 
 late TextEditingController tName;
 late TextEditingController tPhone;
@@ -56,8 +56,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   late bool isMale = (gender == "Male");
 
   File? _pickedImage;
-  PickedFile? _image;
+  XFile? _image;
   late String imageUrl;
+
 
   @override
   Widget build(BuildContext context) {
@@ -281,13 +282,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: ElevatedButton(
-                                     style: ElevatedButton.styleFrom(
-                                    primary: Colors.grey,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(60.0),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.grey,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(60.0),
+                                      ),
                                     ),
-                                  ),
                                     onPressed: () {
                                       setState(() {
                                         edit = !edit;
@@ -311,9 +312,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future getImage(ImageSource src) async {
-    _image = (await ImagePicker().getImage(source: src))!;
+    _image = (await ImagePicker().pickImage(source: src));
     if (_image != null) {
-      _pickedImage = File(_image!.path);
+      setState(() {
+        _pickedImage = File(_image!.path);
+      });
     }
   }
 
@@ -377,6 +380,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       UploadTask uploadTask = reference.putFile(image);
       TaskSnapshot snapshot = await uploadTask;
       imageUrl = await snapshot.ref.getDownloadURL();
+      print("imageUrl is $imageUrl");
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text("Image null")));
@@ -473,7 +477,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (checkDataFieldChange(generalProvider.userName, tName.text) ||
         checkDataFieldChange(generalProvider.userAddress, tAddress.text) ||
         checkDataFieldChange(generalProvider.userPhone, tPhone.text) ||
-        checkDataFieldChange(generalProvider.userImage, imageMap.text) ||
+        checkDataFieldChange(generalProvider.userImage, imageMap) ||
         generalProvider.userGender != (isMale == true ? "Male" : "Female")) {
       generalProvider.addNotiList("${getTime()}: You already change Profile");
     }
@@ -482,7 +486,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : Container();
     FirebaseFirestore.instance.collection("User").doc(user!.uid).update({
       "UserName": tName.text,
-      "UserEmail":email,
+      "UserEmail": email,
       "UserGender": isMale == true ? "Male" : "Female",
       "UserPhone": tPhone.text,
       "UserImage": (imageMap == null || imageMap == "")
@@ -490,7 +494,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           : imageMap,
       "UserAddress": tAddress.text,
       "Id_messenger": generalProvider.getUserModelIdMessenger,
-      "UserId":user.uid
+      "UserId": user.uid
     });
     generalProvider.setUserModel();
 
@@ -507,7 +511,6 @@ Widget buildTextFormField(String hintText, String label) {
   return Container(
     height: 50,
     child: TextFormField(
-      
       decoration: InputDecoration(
           hintText: hintText,
           labelText: label,
@@ -522,7 +525,7 @@ Widget buildTextFormFieldFromController(
   return Container(
     height: 50,
     child: TextFormField(
-      readOnly: label=="Email",
+      readOnly: label == "Email",
       controller: controller,
       decoration: InputDecoration(
           // hintText: hintText,

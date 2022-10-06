@@ -311,7 +311,7 @@ class GeneralProvider with ChangeNotifier {
   get getUserModelGender => userGender;
   get getUserModelAddress => userAddress;
   get getUserModelImage => userImage;
-  get getUserModelIdMessenger => userIdMessenger;
+  String get getUserModelIdMessenger => userIdMessenger;
 
   late Product asiaDish;
   List<Product> asiaList = [];
