@@ -170,6 +170,55 @@ class GeneralProvider with ChangeNotifier {
 
   List<Product> get getSearchList => searchList;
 
+  late List<Product> searchListFromQuery = [];
+  late Product productWithQuery;
+  Future<int> searchProductListEqualQuery(String query) async {
+    searchListFromQuery = [];
+    List<Product> featureProductWithQuery =
+        featureProductList.where((element) => element.name == query).toList();
+    List<Product> waterProductWithQuery =
+        waterList.where((element) => element.name == query).toList();
+    List<Product> newProductWithQuery =
+        newProductList.where((element) => element.name == query).toList();
+    List<Product> snackProductWithQuery =
+        snackList.where((element) => element.name == query).toList();
+    List<Product> asiaProductWithQuery =
+        asiaList.where((element) => element.name == query).toList();
+    List<Product> eastProductWithQuery =
+        eastList.where((element) => element.name == query).toList();
+    List<Product> drinkProductWithQuery =
+        drinkList.where((element) => element.name == query).toList();
+
+    if (featureProductWithQuery.length > 0) {
+      searchListFromQuery.addAll(featureProductWithQuery);
+    }
+    if (newProductWithQuery.length > 0) {
+      searchListFromQuery.addAll(newProductWithQuery);
+    }
+    if (asiaProductWithQuery.length > 0) {
+      searchListFromQuery.addAll(asiaProductWithQuery);
+    }
+    if (eastProductWithQuery.length > 0) {
+      searchListFromQuery.addAll(eastProductWithQuery);
+    }
+    if (waterProductWithQuery.length > 0) {
+      searchListFromQuery.addAll(waterProductWithQuery);
+    }
+    if (snackProductWithQuery.length > 0) {
+      searchListFromQuery.addAll(snackProductWithQuery);
+    }
+    if (drinkProductWithQuery.length > 0) {
+      searchListFromQuery.addAll(drinkProductWithQuery);
+    }
+    
+    notifyListeners();
+    return 1;
+  }
+
+  List<Product> get getSearchListFromQuery => searchListFromQuery;
+
+  Product get getSearchProductFromQuery => productWithQuery;
+
   //new product
 
   late Product newProduct;
@@ -619,5 +668,5 @@ class GeneralProvider with ChangeNotifier {
     return 1;
   }
 
-  get getNameProductist => nameProductList;
+  get getNameProductList => nameProductList;
 }

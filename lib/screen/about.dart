@@ -14,7 +14,16 @@ class About extends StatefulWidget {
   State<About> createState() => _AboutState();
 }
 
+// late GeneralProvider generalProvider;
+
 class _AboutState extends State<About> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +39,7 @@ class _AboutState extends State<About> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=> HomePage()));
+            Navigator.of(context).pop();
           },
         ),
         actions: [
@@ -71,7 +80,7 @@ class _AboutState extends State<About> {
                           fontStyle: FontStyle.italic,
                         )),
                   ),
-                ),                
+                ),
                 Row(
                   children: [
                     Icon(Icons.streetview),
@@ -102,7 +111,7 @@ class _AboutState extends State<About> {
                           fontStyle: FontStyle.normal,
                         )),
                   ),
-                ),          
+                ),
 // map
                 SizedBox(
                   height: 15,
@@ -127,8 +136,7 @@ class _AboutState extends State<About> {
                 ),
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 150, 0),
-                  child: Text(
-                      "8.00 AM - 6.30 PM",
+                  child: Text("8.00 AM - 6.30 PM",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         // color: Colors.greenAccent,
@@ -136,7 +144,7 @@ class _AboutState extends State<About> {
                         fontStyle: FontStyle.normal,
                       )),
                 ),
-              
+
                 SizedBox(
                   height: 15,
                 ),
@@ -168,7 +176,6 @@ class _AboutState extends State<About> {
                         fontStyle: FontStyle.normal,
                       )),
                 ),
-             
               ],
             ),
           ],

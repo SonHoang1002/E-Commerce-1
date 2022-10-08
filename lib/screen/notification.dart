@@ -171,7 +171,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
-                    color: Colors.red),
+                    color: Colors.black),
               )),
             ),
           )

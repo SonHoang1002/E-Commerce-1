@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -15,6 +16,7 @@ import 'package:testecommerce/screen/about.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/contact_messenger.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
+import 'package:testecommerce/testScreen/test.dart';
 import '../addition/timer.dart';
 import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
@@ -32,6 +34,8 @@ import '../widget/singleproduct.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
+  List<String> nameList;
+  HomePage({required this.nameList});
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -69,6 +73,8 @@ class _HomePageState extends State<HomePage> {
 
   bool hasSearchWord = false;
   bool showResultWord = false;
+  // late final List<String> nameList;
+  late String nameOfProduct = '';
 
   void loadData() {
     generalProvider = Provider.of<GeneralProvider>(context, listen: false);
@@ -105,6 +111,10 @@ class _HomePageState extends State<HomePage> {
       Future<int> f = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
+    // if (nameList == []) {
+    //   Future<int> xxx = generalProvider.setNameProductList();
+    //   nameList = generalProvider.getNameProductList;
+    // }
 
     setState(() {
       isLoaded = true;
@@ -143,8 +153,8 @@ class _HomePageState extends State<HomePage> {
             )),
         actions: [
           IconButton(
-              onPressed: () async{
-               Future<int> abc= generalProvider.setNameProductList();
+              onPressed: () async {
+                Future<int> abc = generalProvider.setNameProductList();
                 setState(() {
                   searchTextField = !searchTextField;
                 });
@@ -230,6 +240,7 @@ class _HomePageState extends State<HomePage> {
               thickness: 1,
               color: Colors.lightGreen,
             ),
+            //home
             ListTile(
               selected: homeColor,
               onTap: () {
@@ -248,6 +259,7 @@ class _HomePageState extends State<HomePage> {
               title: const Text("Home"),
               leading: const Icon(Icons.home),
             ),
+            //profile
             ListTile(
               selected: profileColor,
               onTap: () {
@@ -266,6 +278,7 @@ class _HomePageState extends State<HomePage> {
               title: const Text("Profile"),
               leading: const Icon(Icons.people),
             ),
+            //setting
             ExpansionTile(
               children: [
                 Row(
@@ -357,6 +370,7 @@ class _HomePageState extends State<HomePage> {
               title: const Text("Settings"),
               leading: const Icon(Icons.settings),
             ),
+            //contact
             ExpansionTile(
               title: Text("Contact"),
               leading: Icon(Icons.contact_page),
@@ -425,12 +439,13 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
+            //about
             ListTile(
               selected: aboutColor,
               onTap: () {
                 _key.currentState!.openEndDrawer();
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (ctx) => About()));
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (ctx) => About()));
                 setState(() {
                   settingColor = false;
                   profileColor = false;
@@ -441,6 +456,7 @@ class _HomePageState extends State<HomePage> {
               title: const Text("About"),
               leading: const Icon(Icons.info),
             ),
+            //logout
             ListTile(
               onTap: () {
                 _key.currentState!.openEndDrawer();
@@ -455,6 +471,17 @@ class _HomePageState extends State<HomePage> {
               },
               title: const Text("Logout"),
               leading: const Icon(Icons.exit_to_app),
+            ),
+            //test
+            ListTile(
+              selected: homeColor,
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (ctx) =>
+                        TestScreen(list: generalProvider.getNameProductList)));
+              },
+              title: const Text("Test"),
+              leading: const Icon(Icons.text_snippet),
             ),
           ],
         );
@@ -479,7 +506,10 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    searchTextField ? buildSearch() : buildCarousel(),
+                    // searchTextField ? buildSearch() : buildCarousel(),
+                    searchTextField
+                        ? buildSearchSingleProduct()
+                        : buildCarousel(),
                     hasSearchWord
                         ? showResultWord
                             ? Container(
@@ -519,7 +549,9 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ],
                                     ),
-                                    generalProvider.getSearchList.length > 0
+                                    generalProvider
+                                                .getSearchListFromQuery.length >
+                                            0
                                         ? Column(
                                             children: [
                                               Text(
@@ -533,20 +565,21 @@ class _HomePageState extends State<HomePage> {
                                                 height: 500,
                                                 child: ListView.builder(
                                                   itemCount: generalProvider
-                                                      .getSearchList.length,
+                                                      .getSearchListFromQuery
+                                                      .length,
                                                   itemBuilder: (context,
                                                           index) =>
                                                       SingleProduct(
                                                           name: generalProvider
-                                                              .getSearchList[
+                                                              .getSearchListFromQuery[
                                                                   index]
                                                               .name,
                                                           price: generalProvider
-                                                              .getSearchList[
+                                                              .getSearchListFromQuery[
                                                                   index]
                                                               .price,
                                                           image: generalProvider
-                                                              .getSearchList[
+                                                              .getSearchListFromQuery[
                                                                   index]
                                                               .image),
                                                 ),
@@ -626,6 +659,48 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  Widget buildSearchSingleProduct() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+      height: 195,
+      child: SimpleAutocompleteFormField<String>(
+        decoration: InputDecoration(
+          labelText: 'Search',
+          hintText: "Search",
+          border: OutlineInputBorder(),
+        ),
+        // suggestionsHeight: 70.0,
+        maxSuggestions: 4,
+        itemBuilder: (context, item) => Container(
+          padding: EdgeInsets.all(8.0),
+          child: Text(item!),
+        ),
+        onSearch: (String search) async => search.isEmpty
+            ? widget.nameList
+            : widget.nameList
+                .where((letter) =>
+                    letter.toLowerCase().contains(search.toLowerCase()))
+                .toList(),
+        itemFromString: (string) => widget.nameList.singleWhere(
+            (letter) => letter.toLowerCase() == string.toLowerCase(),
+            orElse: () => ''),
+        onChanged: (value) {
+          setState(() => nameOfProduct = value.toString());
+          print("Name Of Product onChange is ${nameOfProduct}");
+          //////////////////////////////////////////////////////////////////////////////////////////////////  search from this
+          if (value.toString().length > 0 && value != null) {
+            hasSearchWord = true;
+            showResultWord = true;
+            FocusManager.instance.primaryFocus?.unfocus();
+            generalProvider.searchProductListEqualQuery(value);
+          }
+        },
+        validator: (letter) => letter == null ? 'Invalid letter.' : null,
+      ),
+    );
+  }
+
 
   Widget buildCarousel() {
     return Container(
@@ -863,3 +938,49 @@ Widget _CircleImage(String img, int color, String messageOfTooltip) {
     ),
   );
 }
+
+
+
+
+
+// generalProvider.getSearchList.length > 0
+//                                         ? Column(
+//                                             children: [
+//                                               Text(
+//                                                 "Result",
+//                                                 style: TextStyle(
+//                                                     fontSize: 30,
+//                                                     fontStyle:
+//                                                         FontStyle.italic),
+//                                               ),
+//                                               Container(
+//                                                 height: 500,
+//                                                 child: ListView.builder(
+//                                                   itemCount: generalProvider
+//                                                       .getSearchList.length,
+//                                                   itemBuilder: (context,
+//                                                           index) =>
+//                                                       SingleProduct(
+//                                                           name: generalProvider
+//                                                               .getSearchList[
+//                                                                   index]
+//                                                               .name,
+//                                                           price: generalProvider
+//                                                               .getSearchList[
+//                                                                   index]
+//                                                               .price,
+//                                                           image: generalProvider
+//                                                               .getSearchList[
+//                                                                   index]
+//                                                               .image),
+//                                                 ),
+//                                               ),
+//                                             ],
+//                                           )
+//                                         : Text(
+//                                             "NO RESULT",
+//                                             style: TextStyle(
+//                                                 fontSize: 30,
+//                                                 fontStyle: FontStyle.italic),
+//                                           ),
+         

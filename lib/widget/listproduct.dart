@@ -34,7 +34,7 @@ class ListProduct extends StatelessWidget {
             ),
             onPressed: () {
               Navigator.of(context)
-                  .push(CupertinoPageRoute(builder: (context) => HomePage()));
+                  .pop();
             },
           ),
           actions: [

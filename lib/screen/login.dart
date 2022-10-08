@@ -49,6 +49,7 @@ class _Login extends State<Login> {
   late List<Product> listDrink = [];
 
   String? name = "";
+  late List<String> nameList = [];
   void submit(context) async {
     late UserCredential result;
     try {
@@ -80,7 +81,7 @@ class _Login extends State<Login> {
               isLoading = false;
             });
             Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (ctx) => HomePage()));
+                MaterialPageRoute(builder: (ctx) => HomePage(nameList:generalProvider.getNameProductList)));
           }
         }
       }
@@ -134,8 +135,8 @@ class _Login extends State<Login> {
         children: [
           isLoading
               ? Container(
-                padding: EdgeInsets.symmetric(vertical: 10),
-                child: Center(child: CircularProgressIndicator()))
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  child: Center(child: CircularProgressIndicator()))
               : Container(
                   height: 20,
                 ),
@@ -212,7 +213,8 @@ class _Login extends State<Login> {
                               ),
                               child: Text(
                                 "Login",
-                                style: TextStyle(fontSize: 30,color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.black),
                               ),
                             )),
                         Row(
@@ -324,10 +326,15 @@ class _Login extends State<Login> {
       Future<int> f = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
+     if (nameList == []) {
+      Future<int> xxx = generalProvider.setNameProductList();
+      nameList = generalProvider.getNameProductList;
+    }
 
     if (generalProvider.getNotiList.length <= 0) {
       generalProvider
           .addNotiList("${getTime()}: Welcome To Home Screen Of H&H FOOD");
     }
+   
   }
 }

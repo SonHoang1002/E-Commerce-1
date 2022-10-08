@@ -123,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               : IconButton(
                   onPressed: () {
                     Navigator.of(context)
-                        .pop(MaterialPageRoute(builder: (ctx) => HomePage()));
+                        .pop(MaterialPageRoute(builder: (ctx) => HomePage(nameList:generalProvider.getNameProductList)));
                   },
                   icon: Icon(Icons.arrow_back, color: Colors.black))),
       body: centerCircle == false
