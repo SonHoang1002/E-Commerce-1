@@ -50,6 +50,7 @@ dependencies:
   flutter_slidable: ^2.0.0
   custom_dialog: ^0.0.2
   talkjs_flutter: ^0.4.1
+  simple_autocomplete_formfield: ^0.3.0
 
   
 dev_dependencies:

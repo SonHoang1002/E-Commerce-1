@@ -1,88 +1,111 @@
-import 'package:custom_dialog/custom_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:testecommerce/screen/admin/singleProductAdmin.dart';
+import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 
-class CustomExpansionTile extends StatefulWidget {
+final people = <Person>[Person('Alice', '123 Main'), Person('Bob', '456 Main')];
+final letters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+class _TestScreenState extends State<TestScreen> {
+  String? selectedLetter;
+  Person? selectedPerson;
+
+  final formKey = GlobalKey<FormState>();
+
+  bool autovalidate = false;
+
   @override
-  State createState() => CustomExpansionTileState();
-}
-
-class CustomExpansionTileState extends State<CustomExpansionTile> {
-  bool isExpanded = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Container(
-        child: Text(
-          "HEADER HERE",
-          style: TextStyle(
-            color: isExpanded ? Colors.pink : Colors.teal,
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: Builder(
+        builder: (context) => Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Form(
+            key: formKey,
+            autovalidateMode: autovalidate ? AutovalidateMode.always : AutovalidateMode.disabled,
+            child: ListView(children: <Widget>[
+              SizedBox(height: 16.0),
+              Text('Selected person: "$selectedPerson"'),
+              Text('Selected letter: "$selectedLetter"'),
+              SizedBox(height: 16.0),
+              SimpleAutocompleteFormField<Person>(
+                decoration: InputDecoration(labelText: 'Person', border: OutlineInputBorder()),
+                suggestionsHeight: 80.0,
+                itemBuilder: (context, person) => Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    Text(person!.name, style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text(person.address)
+                  ]),
+                ),
+                onSearch: (search) async => people
+                    .where((person) =>
+                        person.name.toLowerCase().contains(search.toLowerCase()) ||
+                        person.address.toLowerCase().contains(search.toLowerCase()))
+                    .toList(),
+                itemFromString: (string) {
+                  final matches = people.where((person) => person.name.toLowerCase() == string.toLowerCase());
+                  return matches.isEmpty ? null : matches.first;
+                },
+                onChanged: (value) => setState(() => selectedPerson = value),
+                onSaved: (value) => setState(() => selectedPerson = value),
+                validator: (person) => person == null ? 'Invalid person.' : null,
+              ),
+              SizedBox(height: 16.0),
+              SimpleAutocompleteFormField<String>(
+                decoration: InputDecoration(labelText: 'Letter', border: OutlineInputBorder()),
+                // suggestionsHeight: 200.0,
+                // maxSuggestions: 10,
+                itemBuilder: (context, item) => Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(item!),
+                ),
+                onSearch: (String search) async => search.isEmpty
+                    ? letters
+                    : letters.where((letter) => search.toLowerCase().contains(letter)).toList(),
+                itemFromString: (string) =>
+                    letters.singleWhere((letter) => letter == string.toLowerCase(), orElse: () => ''),
+                onChanged: (value) => setState(() => selectedLetter = value),
+                onSaved: (value) => setState(() => selectedLetter = value),
+                validator: (letter) => letter == null ? 'Invalid letter.' : null,
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                  child: Text('Submit'),
+                  onPressed: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      formKey.currentState!.save();
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fields valid!')));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fix errors to continue.')));
+                      setState(() => autovalidate = true);
+                    }
+                  })
+            ]),
           ),
         ),
-        // Change header (which is a Container widget in this case) background colour here.
-        color: isExpanded ? Colors.orange : Colors.green,
-      ),
-      leading: Icon(
-        Icons.face,
-        size: 36.0,
-      ),
-      children: <Widget>[
-        Text("Child Widget One"),
-        Text("Child Widget Two"),
-      ],
-      onExpansionChanged: (bool expanding) => setState(() => this.isExpanded = expanding),
+      ));
+}
+
+class Person {
+  Person(this.name, this.address);
+  final String name, address;
+  @override
+  String toString() => name;
+}
+
+void main() => runApp(MyApp());
+const title = 'simple_autocomplete_formfield example';
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return new MaterialApp(
+      title: title,
+      home: TestScreen(),
     );
   }
 }
-class TestScreen extends StatelessWidget {
-  const TestScreen({
-    Key? key,
-  }) : super(key: key);
 
+class TestScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Slidable Example',
-      home: Container(),
-    );
-  }
-
-  void showCustomDialog(BuildContext context) {
-    showGeneralDialog(
-      context: context,
-      barrierLabel: "Barrier",
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.5),
-      transitionDuration: Duration(milliseconds: 700),
-      pageBuilder: (_, __, ___) {
-        return Center(
-          child: Container(
-            height: 240,
-            child: SizedBox.expand(child: FlutterLogo()),
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(40)),
-          ),
-        );
-      },
-      transitionBuilder: (_, anim, __, child) {
-        Tween<Offset> tween;
-        if (anim.status == AnimationStatus.reverse) {
-          tween = Tween(begin: Offset(-1, 0), end: Offset.zero);
-        } else {
-          tween = Tween(begin: Offset(1, 0), end: Offset.zero);
-        }
-
-        return SlideTransition(
-          position: tween.animate(anim),
-          child: FadeTransition(
-            opacity: anim,
-            child: child,
-          ),
-        );
-      },
-    );
-  }
+  _TestScreenState createState() => _TestScreenState();
 }

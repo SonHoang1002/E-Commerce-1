@@ -59,7 +59,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   XFile? _image;
   late String imageUrl;
 
-
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
@@ -328,7 +327,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     var i = generalProvider.getUserModelImage;
     if (_pickedImage == null) {
       if (i == null) {
-        return NetworkImage(
+        return const NetworkImage(
             "https://scontent.fhan2-4.fna.fbcdn.net/v/t1.6435-9/203063561_108326058170068_6656793944407315036_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=JL4XcaY8Kr8AX_C2foH&_nc_ht=scontent.fhan2-4.fna&oh=00_AT_xEYOqC4RzWAcgtHLMxTD9ata6kzl_qaRxlvQRZcQRog&oe=632E61CE");
       } else {
         return NetworkImage(generalProvider.getUserModelImage);

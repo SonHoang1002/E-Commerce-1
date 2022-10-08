@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:testecommerce/models/contact_user.dart';
 import 'package:testecommerce/models/usermodel.dart';
+import 'package:testecommerce/screen/profile.dart';
 import '../models/cartmodels.dart';
 import '../models/product.dart';
 
@@ -590,4 +591,33 @@ class GeneralProvider with ChangeNotifier {
       });
     });
   }
+
+  List<String> nameProductList = [];
+  Future<int> setNameProductList() async {
+    for (int i = 0; i < asiaList.length; i++) {
+      nameProductList.add(asiaList[i].name);
+    }
+    for (int i = 0; i < eastList.length; i++) {
+      nameProductList.add(eastList[i].name);
+    }
+    for (int i = 0; i < drinkList.length; i++) {
+      nameProductList.add(drinkList[i].name);
+    }
+    for (int i = 0; i < snackList.length; i++) {
+      nameProductList.add(snackList[i].name);
+    }
+    for (int i = 0; i < newProductList.length; i++) {
+      nameProductList.add(newProductList[i].name);
+    }
+    for (int i = 0; i < featureProductList.length; i++) {
+      nameProductList.add(featureProductList[i].name);
+    }
+    for (int i = 0; i < waterList.length; i++) {
+      nameProductList.add(waterList[i].name);
+    }
+    notifyListeners();
+    return 1;
+  }
+
+  get getNameProductist => nameProductList;
 }

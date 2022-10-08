@@ -143,7 +143,8 @@ class _HomePageState extends State<HomePage> {
             )),
         actions: [
           IconButton(
-              onPressed: () {
+              onPressed: () async{
+               Future<int> abc= generalProvider.setNameProductList();
                 setState(() {
                   searchTextField = !searchTextField;
                 });
