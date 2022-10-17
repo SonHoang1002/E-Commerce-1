@@ -38,10 +38,7 @@ class ListProduct extends StatelessWidget {
             },
           ),
           actions: [
-            IconButton(
-              icon: Icon(Icons.search, color: Colors.black),
-              onPressed: () {},
-            ),
+            
             NotificationButton(),
           ],
         ),

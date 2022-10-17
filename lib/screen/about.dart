@@ -6,6 +6,7 @@ import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../providers/general_provider.dart';
 
@@ -103,7 +104,7 @@ class _AboutState extends State<About> {
                   padding: EdgeInsets.fromLTRB(35, 0, 0, 0),
                   child: Center(
                     child: Text(
-                        "No. 10, Alley 75/115, Giai Phong Street, Dong Tam Ward, Hai Ba Trung District, Ha Noi, Viet Nam",
+                        "No.207, Giai Phong Street, Dong Tam Ward, Hai Ba Trung District, Ha Noi, Viet Nam",
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           // color: Colors.greenAccent,
@@ -112,7 +113,21 @@ class _AboutState extends State<About> {
                         )),
                   ),
                 ),
-// map
+                SizedBox(
+                  height: 15,
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    String address = "207 Giai Phong";
+                    String googleUrl =
+                        'https://www.google.com/maps/search/?api=1&query=$address';
+                    await launchUrlString(googleUrl);
+                  },
+                  child: Image.asset(
+                    "images/map.png",
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 SizedBox(
                   height: 15,
                 ),
@@ -144,7 +159,6 @@ class _AboutState extends State<About> {
                         fontStyle: FontStyle.normal,
                       )),
                 ),
-
                 SizedBox(
                   height: 15,
                 ),

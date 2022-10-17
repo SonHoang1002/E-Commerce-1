@@ -8,6 +8,7 @@ import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/admin/homeadmin.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/signup.dart';
+import 'package:testecommerce/screen/welcomescreen.dart';
 import 'dart:isolate';
 
 import '../addition/timer.dart';
@@ -127,7 +128,7 @@ class _Login extends State<Login> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.of(context).push(MaterialPageRoute(builder: (_)=> WelcomeScreen()));
           },
         ),
       ),

@@ -190,29 +190,53 @@ class GeneralProvider with ChangeNotifier {
         drinkList.where((element) => element.name == query).toList();
 
     if (featureProductWithQuery.length > 0) {
-      searchListFromQuery.addAll(featureProductWithQuery);
+      if (!checkHasData(searchListFromQuery, featureProductWithQuery)) {
+        searchListFromQuery.addAll(featureProductWithQuery);
+      }
     }
     if (newProductWithQuery.length > 0) {
-      searchListFromQuery.addAll(newProductWithQuery);
+      if (!checkHasData(searchListFromQuery, newProductWithQuery)) {
+        searchListFromQuery.addAll(newProductWithQuery);
+      }
     }
     if (asiaProductWithQuery.length > 0) {
-      searchListFromQuery.addAll(asiaProductWithQuery);
+      if (!checkHasData(searchListFromQuery, asiaProductWithQuery)) {
+        searchListFromQuery.addAll(asiaProductWithQuery);
+      }
     }
     if (eastProductWithQuery.length > 0) {
-      searchListFromQuery.addAll(eastProductWithQuery);
+      if (!checkHasData(searchListFromQuery, eastProductWithQuery)) {
+        searchListFromQuery.addAll(eastProductWithQuery);
+      }
     }
     if (waterProductWithQuery.length > 0) {
-      searchListFromQuery.addAll(waterProductWithQuery);
+     if (!checkHasData(searchListFromQuery, waterProductWithQuery)) {
+        searchListFromQuery.addAll(waterProductWithQuery);
+      }
     }
     if (snackProductWithQuery.length > 0) {
-      searchListFromQuery.addAll(snackProductWithQuery);
+     if (!checkHasData(searchListFromQuery, snackProductWithQuery)) {
+        searchListFromQuery.addAll(snackProductWithQuery);
+      }
     }
     if (drinkProductWithQuery.length > 0) {
-      searchListFromQuery.addAll(drinkProductWithQuery);
+      if (!checkHasData(searchListFromQuery, drinkProductWithQuery)) {
+        searchListFromQuery.addAll(drinkProductWithQuery);
+      }
     }
-    
     notifyListeners();
     return 1;
+  }
+
+  bool checkHasData(List<Product> list, List<Product> subList) {
+    bool check = false;
+    for (int i = 0; i < subList.length; i++) {
+      if (list.contains(subList[i])) {
+        check = true;
+        return check;
+      }
+    }
+    return check;
   }
 
   List<Product> get getSearchListFromQuery => searchListFromQuery;

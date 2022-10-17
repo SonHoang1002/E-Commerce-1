@@ -51,6 +51,7 @@ dependencies:
   custom_dialog: ^0.0.2
   talkjs_flutter: ^0.4.1
   simple_autocomplete_formfield: ^0.3.0
+  url_launcher: ^6.1.6
 
   
 dev_dependencies:

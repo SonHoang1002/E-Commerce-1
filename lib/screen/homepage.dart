@@ -478,7 +478,9 @@ class _HomePageState extends State<HomePage> {
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (ctx) =>
-                        TestScreen(list: generalProvider.getNameProductList)));
+                        // TestScreen(list: generalProvider.getNameProductList)));
+                        TestScreen()));
+
               },
               title: const Text("Test"),
               leading: const Icon(Icons.text_snippet),

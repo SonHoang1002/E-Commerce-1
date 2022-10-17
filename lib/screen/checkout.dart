@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/formatInput.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
+// import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
-import 'package:testecommerce/widget/cartsingleproduct.dart';
+// import 'package:testecommerce/widget/cartsingleproduct.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -55,7 +55,7 @@ class _CheckOutState extends State<CheckOut> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [GestureDetector(child: NotificationButton())],
+        actions: [ NotificationButton()],
       ),
       body: Container(
           child: Column(children: [
