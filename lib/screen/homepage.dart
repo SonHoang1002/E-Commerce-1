@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'package:testecommerce/models/usermodel.dart';
@@ -480,7 +481,6 @@ class _HomePageState extends State<HomePage> {
                     builder: (ctx) =>
                         // TestScreen(list: generalProvider.getNameProductList)));
                         TestScreen()));
-
               },
               title: const Text("Test"),
               leading: const Icon(Icons.text_snippet),
@@ -602,7 +602,8 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               buildCategory(),
                               buildFeatured(),
-                              buildNewProduct()
+                              buildAds(),
+                              buildNewProduct(),
                             ],
                           )
                   ],
@@ -702,7 +703,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
 
   Widget buildCarousel() {
     return Container(
@@ -918,6 +918,16 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ],
+    );
+  }
+
+  Widget buildAds() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      height: 50,
+      width: double.infinity,
+      alignment: Alignment.center,
+      child: AdWidget(ad: generalProvider.getAds),
     );
   }
 }

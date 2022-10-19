@@ -52,6 +52,7 @@ dependencies:
   talkjs_flutter: ^0.4.1
   simple_autocomplete_formfield: ^0.3.0
   url_launcher: ^6.1.6
+  google_mobile_ads: ^1.2.0
 
   
 dev_dependencies:

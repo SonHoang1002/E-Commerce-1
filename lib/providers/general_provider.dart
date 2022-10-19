@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:testecommerce/models/contact_user.dart';
@@ -210,12 +211,12 @@ class GeneralProvider with ChangeNotifier {
       }
     }
     if (waterProductWithQuery.length > 0) {
-     if (!checkHasData(searchListFromQuery, waterProductWithQuery)) {
+      if (!checkHasData(searchListFromQuery, waterProductWithQuery)) {
         searchListFromQuery.addAll(waterProductWithQuery);
       }
     }
     if (snackProductWithQuery.length > 0) {
-     if (!checkHasData(searchListFromQuery, snackProductWithQuery)) {
+      if (!checkHasData(searchListFromQuery, snackProductWithQuery)) {
         searchListFromQuery.addAll(snackProductWithQuery);
       }
     }
@@ -693,4 +694,25 @@ class GeneralProvider with ChangeNotifier {
   }
 
   get getNameProductList => nameProductList;
+
+// set and get Ads
+
+  late BannerAd ad;
+  Future<int> setAds(BannerAd ads) async {
+    ad = ads;
+    notifyListeners();
+    return 1;
+  }
+
+  get getAds => ad;
+
+// set and get reset code
+   String resetCode="";
+  Future<int> setResetCode(String value) async {
+    resetCode = value;
+    notifyListeners();
+    return 0;
+  }
+
+  get getResetCode => resetCode;
 }
