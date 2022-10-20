@@ -57,7 +57,7 @@ class _CartScreenState extends State<CartScreen> {
       body: Column(
         children: [
           Container(
-            height: 460,
+            height: 390,
             width: double.infinity,
             child: ListView.builder(
               itemCount: generalProvider.getCartModelLength,
@@ -217,14 +217,19 @@ class _CartScreenState extends State<CartScreen> {
               .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));
         },
         style: ElevatedButton.styleFrom(
-                primary: Colors.grey,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
+          primary: Colors.grey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [Text('BUY ',style: TextStyle(color: Colors.black,fontSize: 20),)],
+          children: [
+            Text(
+              'BUY ',
+              style: TextStyle(color: Colors.black, fontSize: 20),
+            )
+          ],
         ),
       ),
     );
@@ -242,7 +247,8 @@ class _CartScreenState extends State<CartScreen> {
             buildSimpleDialogOption('25'),
             buildSimpleDialogOption('30'),
             buildSimpleDialogOption('35'),
-            buildSimpleDialogOption('40')
+            buildSimpleDialogOption('40'),
+            buildSimpleDialogOption('None')
           ],
         );
       },
@@ -254,18 +260,30 @@ class _CartScreenState extends State<CartScreen> {
       child: GestureDetector(
         child: Text(message),
         onTap: () {
-          setState(() {
-            double subTotal = 0;
-            showRemovePromoButton = true;
-            promo = "-" + message + "%";
+          if (message == "None") {
+            Navigator.of(context).pop();
+            generalProvider.setPromo(0);
+            double value = 0;
             for (int i = 0; i < generalProvider.getCartModelLength; i++) {
-              subTotal += (generalProvider.getCartModel[i].quantity *
+              value += (generalProvider.getCartModel[i].quantity *
                   generalProvider.getCartModel[i].price);
             }
-            generalProvider.setPromo(double.parse(message));
-            generalProvider.setTotal(subTotal);
-          });
-          Navigator.of(context).pop();
+            generalProvider.setPromo(0);
+            generalProvider.setTotal(value);
+          } else {
+            setState(() {
+              double subTotal = 0;
+              showRemovePromoButton = true;
+              promo = "-" + message + "%";
+              for (int i = 0; i < generalProvider.getCartModelLength; i++) {
+                subTotal += (generalProvider.getCartModel[i].quantity *
+                    generalProvider.getCartModel[i].price);
+              }
+              generalProvider.setPromo(double.parse(message));
+              generalProvider.setTotal(subTotal);
+            });
+            Navigator.of(context).pop();
+          }
         },
       ),
     );

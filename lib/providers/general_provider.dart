@@ -427,10 +427,6 @@ class GeneralProvider with ChangeNotifier {
         .get();
     snapshot.docs.forEach(
       (element) {
-        // asiaDish = Product(
-        //     image: element["image"],
-        //     price: double.parse(element["price"]),
-        //     name: element["category"]);
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),

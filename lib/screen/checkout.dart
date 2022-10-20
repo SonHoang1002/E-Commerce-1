@@ -55,7 +55,7 @@ class _CheckOutState extends State<CheckOut> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [ NotificationButton()],
+        actions: [NotificationButton()],
       ),
       body: Container(
           child: Column(children: [
@@ -65,7 +65,7 @@ class _CheckOutState extends State<CheckOut> {
         buildDetail("Address", generalProvider.userAddress),
         // buildDetail("Test", "ghkjfhgdf kfdjghk kdjghkk kdfjghdfk"),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
         Center(
             child: Text(
@@ -73,29 +73,32 @@ class _CheckOutState extends State<CheckOut> {
           style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
         )),
         Container(
-          width: 350,
-          child: DataTable(columns: [
-            DataColumn(
-                label: Expanded(
-              child: Text(
-                "Quantity",
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15,
+          width: 250,
+          height: 200,
+          child: ListView(children: [
+            DataTable(columns: [
+              DataColumn(
+                  label: Expanded(
+                child: Text(
+                  "Quantity",
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-            )),
-            DataColumn(
-                label: Expanded(
-              child: Text(
-                "Food Name",
-                style: TextStyle(
-                  fontStyle: FontStyle.italic,
-                  fontSize: 15,
+              )),
+              DataColumn(
+                  label: Expanded(
+                child: Text(
+                  "Food Name",
+                  style: TextStyle(
+                    fontStyle: FontStyle.italic,
+                    fontSize: 15,
+                  ),
                 ),
-              ),
-            ))
-          ], rows: buildDataCell()),
+              ))
+            ], rows: buildDataCell()),
+          ]),
         ),
         buildDetail("Total", "${generalProvider.getTotal.toString()} \$"),
       ])),
@@ -248,240 +251,243 @@ class _CheckOutState extends State<CheckOut> {
                     backgroundColor: Colors.yellow,
                   ));
                   return;
-                }else{
- showModalBottomSheet(
-                    context: context,
-                    builder: (ctx) {
-                      return Container(
-                        child: Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                              child: Center(
-                                child: Text(
-                                  "You Pay ${generalProvider.getTotal}\$",
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Select Bank",
+                } else {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (ctx) {
+                        return Container(
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                child: Center(
+                                  child: Text(
+                                    "You Pay ${generalProvider.getTotal}\$",
                                     style: TextStyle(
-                                        fontSize: 15,
-                                        fontStyle: FontStyle.italic),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
                                   ),
-                                  Container(
-                                      child: Divider(
-                                    color: Colors.red,
-                                    height: 40,
-                                  )),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              height: 130,
-                              child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: <Widget>[
-                                  Container(
-                                    color: agri
-                                        ? Colors.blue.withOpacity(0.5)
-                                        : null,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            agri = true;
-                                            mb = false;
-                                            tp = false;
-                                            us = false;
-                                            viettin = false;
-                                          });
-                                        },
-                                        child: buildBankCard(
-                                            "images/agri.png", "AgriBank")),
-                                  ),
-                                  Container(
-                                    color: mb
-                                        ? Colors.blue.withOpacity(0.5)
-                                        : null,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            agri = false;
-                                            mb = true;
-                                            tp = false;
-                                            us = false;
-                                            viettin = false;
-                                          });
-                                        },
-                                        child: buildBankCard(
-                                            "images/mb.png", "MB Bank")),
-                                  ),
-                                  Container(
-                                    color: tp
-                                        ? Colors.blue.withOpacity(0.5)
-                                        : null,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            agri = false;
-                                            mb = false;
-                                            tp = true;
-                                            us = false;
-                                            viettin = false;
-                                          });
-                                        },
-                                        child: buildBankCard(
-                                            "images/tp.jpg", "TP Bank")),
-                                  ),
-                                  Container(
-                                    color: us
-                                        ? Colors.blue.withOpacity(0.5)
-                                        : null,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            agri = false;
-                                            mb = false;
-                                            tp = false;
-                                            us = true;
-                                            viettin = false;
-                                          });
-                                        },
-                                        child: buildBankCard(
-                                            "images/us.png", "US Bank")),
-                                  ),
-                                  Container(
-                                    color: viettin
-                                        ? Colors.blue.withOpacity(0.5)
-                                        : null,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          agri = false;
-                                          mb = false;
-                                          tp = false;
-                                          us = false;
-                                          viettin = true;
-                                        });
-                                      },
-                                      child: buildBankCard(
-                                          "images/vietin.jpg", "VietTin Bank"),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                Container(
-                                  child: Center(
-                                      child: Text(
-                                          "Enter your card number to pay")),
                                 ),
-                                Container(
-                                    width: 360,
-                                    padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                    child: Column(
-                                      children: [
-                                        TextFormField(
-                                          controller: cardNumber,
-                                          inputFormatters: [
-                                            FilteringTextInputFormatter
-                                                .digitsOnly,
-                                            CustomInputFormatter()
-                                          ],
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              hintText: "Card Number",
-                                              labelText: "CARD NUMBER",
-                                              hintStyle: TextStyle(
-                                                  color: Colors.black)),
-                                        ),
-                                        Container(
-                                          padding:
-                                              EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                width: 175,
-                                                child: TextFormField(
-                                                  controller: expiry,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  decoration: InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                      hintText: "Card Expiry",
-                                                      labelText: "CARD EXPIRY",
-                                                      hintStyle: TextStyle(
-                                                          color: Colors.black)),
-                                                ),
-                                              ),
-                                              Container(
-                                                width: 175,
-                                                child: TextFormField(
-                                                  controller: cvv,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  decoration: InputDecoration(
-                                                      border:
-                                                          OutlineInputBorder(),
-                                                      hintText: "Cvv",
-                                                      labelText: "CVV",
-                                                      hintStyle: TextStyle(
-                                                          color: Colors.black)),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 60,
-                                          padding:
-                                              EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              validation();
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              primary: Colors.grey,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                "PAY",
-                                                style: TextStyle(
-                                                    fontSize: 25,
-                                                    fontStyle:
-                                                        FontStyle.italic),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                              ),
+                              Container(
+                                padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      "Select Bank",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontStyle: FontStyle.italic),
+                                    ),
+                                    Container(
+                                        child: Divider(
+                                      color: Colors.red,
+                                      height: 40,
                                     )),
-                              ],
-                            ),
-                          ],
-                        ),
-                      );
-                    });
-                  
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: 130,
+                                child: ListView(
+                                  scrollDirection: Axis.horizontal,
+                                  children: <Widget>[
+                                    Container(
+                                      color: agri
+                                          ? Colors.blue.withOpacity(0.5)
+                                          : null,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              agri = true;
+                                              mb = false;
+                                              tp = false;
+                                              us = false;
+                                              viettin = false;
+                                            });
+                                          },
+                                          child: buildBankCard(
+                                              "images/agri.png", "AgriBank")),
+                                    ),
+                                    Container(
+                                      color: mb
+                                          ? Colors.blue.withOpacity(0.5)
+                                          : null,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              agri = false;
+                                              mb = true;
+                                              tp = false;
+                                              us = false;
+                                              viettin = false;
+                                            });
+                                          },
+                                          child: buildBankCard(
+                                              "images/mb.png", "MB Bank")),
+                                    ),
+                                    Container(
+                                      color: tp
+                                          ? Colors.blue.withOpacity(0.5)
+                                          : null,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              agri = false;
+                                              mb = false;
+                                              tp = true;
+                                              us = false;
+                                              viettin = false;
+                                            });
+                                          },
+                                          child: buildBankCard(
+                                              "images/tp.jpg", "TP Bank")),
+                                    ),
+                                    Container(
+                                      color: us
+                                          ? Colors.blue.withOpacity(0.5)
+                                          : null,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              agri = false;
+                                              mb = false;
+                                              tp = false;
+                                              us = true;
+                                              viettin = false;
+                                            });
+                                          },
+                                          child: buildBankCard(
+                                              "images/us.png", "US Bank")),
+                                    ),
+                                    Container(
+                                      color: viettin
+                                          ? Colors.blue.withOpacity(0.5)
+                                          : null,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = false;
+                                            mb = false;
+                                            tp = false;
+                                            us = false;
+                                            viettin = true;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/vietin.jpg",
+                                            "VietTin Bank"),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  Container(
+                                    child: Center(
+                                        child: Text(
+                                            "Enter your card number to pay")),
+                                  ),
+                                  Container(
+                                      width: 360,
+                                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      child: Column(
+                                        children: [
+                                          TextFormField(
+                                            controller: cardNumber,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly,
+                                              CustomInputFormatter()
+                                            ],
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                hintText: "Card Number",
+                                                labelText: "CARD NUMBER",
+                                                hintStyle: TextStyle(
+                                                    color: Colors.black)),
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Container(
+                                                  width: 175,
+                                                  child: TextFormField(
+                                                    controller: expiry,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    decoration: InputDecoration(
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                        hintText: "Card Expiry",
+                                                        labelText:
+                                                            "CARD EXPIRY",
+                                                        hintStyle: TextStyle(
+                                                            color:
+                                                                Colors.black)),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 175,
+                                                  child: TextFormField(
+                                                    controller: cvv,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    decoration: InputDecoration(
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                        hintText: "Cvv",
+                                                        labelText: "CVV",
+                                                        hintStyle: TextStyle(
+                                                            color:
+                                                                Colors.black)),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            height: 60,
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 10, 0, 0),
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                validation();
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                primary: Colors.grey,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  "PAY",
+                                                  style: TextStyle(
+                                                      fontSize: 25,
+                                                      fontStyle:
+                                                          FontStyle.italic),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      });
                 }
-                
               },
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -576,13 +582,13 @@ class _CheckOutState extends State<CheckOut> {
             "user_id": "XODjifkQVe_sJaakG",
             "template_params": {
               "to_email": "kingmountain117@gmail.com",
-              "from_email": "hoangtrungson07012001@gmail.com",
+              "from_email": "H&HFood@gmail.com",
               "from_name": "H&H FOOD",
               "to_name": "${generalProvider.getUserModelName}",
               "name": "${generalProvider.getUserModelName}",
               "phone": "${generalProvider.getUserModelPhone}",
               "address": "${generalProvider.getUserModelAddress}",
-              "quantityOfProduct": "quantity1",
+              "quantityOfProduct": "${generalProvider.getCartModelLength}",
               "total": "${generalProvider.getTotal}"
             }
           }));
@@ -660,6 +666,7 @@ class _CheckOutState extends State<CheckOut> {
 
   _showPaymentDialog(BuildContext context) {
     // send();
+    resetCart();
     return showDialog(
       context: context,
       builder: (context) => CustomDialog(
@@ -678,6 +685,11 @@ class _CheckOutState extends State<CheckOut> {
         ),
       ),
     );
+  }
+
+  void resetCart() {
+    generalProvider.setCartModelList([]);
+    generalProvider.setTotal(0);
   }
 
   showDialogWithWarning(BuildContext context, String message) {
