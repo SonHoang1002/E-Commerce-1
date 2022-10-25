@@ -29,15 +29,17 @@ class _ContactMessengerState extends State<ContactMessenger> {
     print("Id: ${widget.id}, Name:${widget.name}, Email: ${widget.email}");
     final session = Session(appId: 'tFEud7Mm');
     final admin = session.getUser(
-        id: '012345',
-        name: 'H&H Food Admin',
-        email: ["admin@gmail.com"],
-        welcomeMessage: "Hello, Can We Help You");
+      id: '012345',
+      name: 'H&H Food Admin',
+      email: ["admin@gmail.com"],
+      welcomeMessage: "Hello, Can We Help You"
+    );
+   
 
-    // final user = session.getUser(id: widget.id, name: widget.name,email: [widget.email]);
+    final user = session.getUser(id: widget.id, name: widget.name,email: [widget.email]);
 
-    final user =
-        session.getUser(id: '995648', name: 'd12345', email: ["d@gmail.com"]);
+    // final user =
+    //     session.getUser(id: '995648', name: 'd12345', email: ["d@gmail.com"]);
 
     generalProvider.isAdmin ? session.me = admin : session.me = user;
 
@@ -50,14 +52,12 @@ class _ContactMessengerState extends State<ContactMessenger> {
       title: 'Messenger',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Messenger Contact'),
-          leading: 
-            IconButton(
+            title: const Text('Messenger Contact'),
+            leading: IconButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: Icon(Icons.arrow_back))
-        ),
+                icon: Icon(Icons.arrow_back))),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) => Column(
             children: <Widget>[

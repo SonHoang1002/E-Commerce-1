@@ -921,15 +921,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildAds() {
-    return Container(
-      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-      height: 50,
-      width: double.infinity,
-      alignment: Alignment.center,
-      child: AdWidget(ad: generalProvider.getAds),
-    );
-  }
+  // Widget buildAds() {
+  //   return Container(
+  //     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+  //     height: 50,
+  //     width: double.infinity,
+  //     alignment: Alignment.center,
+  //     child: AdWidget(ad: generalProvider.getAds),
+  //   );
+  // }
 }
 
 Widget _CircleImage(String img, int color, String messageOfTooltip) {
