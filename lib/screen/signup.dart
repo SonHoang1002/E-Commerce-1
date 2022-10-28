@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/screen/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -257,9 +258,10 @@ class _Signup extends State<Signup> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushReplacement(
-                                    CupertinoPageRoute(
-                                        builder: (context) => Login()));
+                                // Navigator.of(context).pushReplacement(
+                                //     CupertinoPageRoute(
+                                //         builder: (context) => Login()));
+                                        Navigator.of(context).pushReplacement(PageRouteToScreen().pushToLoginScreen());
                               },
                               child: Text(
                                 "Login",
@@ -334,7 +336,8 @@ class _Signup extends State<Signup> {
       "Id_messenger":idMessenger,
       "UserImage":"https://cdn-icons-png.flaticon.com/512/149/149071.png"
     });
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Login()));
+    // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Login()));
+    Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());
     setState(() {
       isLoading = false;
     });

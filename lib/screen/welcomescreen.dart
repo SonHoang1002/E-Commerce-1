@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/signup.dart';
 
@@ -55,17 +56,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       width: double.infinity,
                       child: DefaultTextStyle(
                         style: const TextStyle(
-                            fontSize: 30.0,
+                            fontSize: 28.0,
                             fontFamily: 'DynaPuff',
                             color: Colors.black),
-                        child: AnimatedTextKit(
-                          repeatForever: true,
-                          animatedTexts: [
-                            TypewriterAnimatedText('Welcome to shopping !!!'),
-                          ],
-                          onTap: () {
-                            print("Tap Event");
-                          },
+                        child: Center(
+                          child: AnimatedTextKit(
+                            repeatForever: true,
+                            animatedTexts: [
+                              TypewriterAnimatedText('Welcome to shopping !'),
+                            ],
+                            onTap: () {
+                              print("Tap Event");
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -99,8 +102,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           width: 300,
                           child: ElevatedButton(
                             onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (ctx) => Signup()));
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (ctx) => Signup()));
+                              
+                              Navigator.of(context).push(PageRouteToScreen().pushToSignupScreen());
                             },
                             style: ElevatedButton.styleFrom(
                               primary: Colors.blue[400],
@@ -136,8 +141,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                 ),
                               ),
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (ctx) => Login()));
+                                // Navigator.of(context).push(MaterialPageRoute(
+                                //     builder: (ctx) => Login()));
+                                Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());
+                                
                               },
                             )
                           ],

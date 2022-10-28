@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/notification.dart';
@@ -29,7 +30,8 @@ class _NotificationButtonState extends State<NotificationButton> {
             color: Colors.black,
           ),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => NotificationMessage()));
+            // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => NotificationMessage()));
+            Navigator.of(context).pushReplacement(PageRouteToScreen().pushToNotificationScreen());
           },
         ));
   }

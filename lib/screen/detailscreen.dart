@@ -3,6 +3,7 @@ import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -60,8 +61,10 @@ class _DetailScreenState extends State<DetailScreen> {
                     color: Colors.black,
                   )),
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
+                      Navigator.of(context)
+              .push(PageRouteToScreen().pushToCartScreen());
               }),
         ],
       ),
@@ -301,8 +304,10 @@ class _DetailScreenState extends State<DetailScreen> {
           generalProvider.setTotal(total);
           generalProvider.setNotiList(widget.name);
           generalProvider.addNotiList("${getTime()}: You have already added ${quantity} ${widget.name}");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (ctx) => CartScreen()));
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (ctx) => CartScreen()));
+                Navigator.of(context)
+              .push(PageRouteToScreen().pushToCartScreen());
 
           // total = 0;
           // bool? isExist;

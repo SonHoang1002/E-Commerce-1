@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
@@ -213,8 +214,10 @@ class _CartScreenState extends State<CartScreen> {
       margin: EdgeInsets.all(20),
       child: ElevatedButton(
         onPressed: () {
-          Navigator.of(context)
-              .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));
+          // Navigator.of(context)
+          //     .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));
+                Navigator.of(context)
+              .push(PageRouteToScreen().pushToCheckOutScreen());
         },
         style: ElevatedButton.styleFrom(
           primary: Colors.grey,

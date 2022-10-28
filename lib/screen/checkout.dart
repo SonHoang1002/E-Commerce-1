@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/formatInput.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 // import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
@@ -213,8 +214,10 @@ class _CheckOutState extends State<CheckOut> {
             height: 50,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
+                      Navigator.of(context)
+              .push(PageRouteToScreen().pushToCartScreen());
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey,

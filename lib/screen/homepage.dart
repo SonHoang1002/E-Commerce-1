@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -18,6 +19,8 @@ import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/contact_messenger.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 import 'package:testecommerce/testScreen/test.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import '../addition/timer.dart';
 import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
@@ -168,8 +171,10 @@ class _HomePageState extends State<HomePage> {
           NotificationButton(),
           IconButton(
               onPressed: () {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
+                      Navigator.of(context)
+              .push(PageRouteToScreen().pushToCartScreen());
               },
               icon: Badge(
                 animationType: BadgeAnimationType.scale,
@@ -245,11 +250,11 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               selected: homeColor,
               onTap: () {
-                // _key.currentState!.openEndDrawer();
+                _key.currentState!.openEndDrawer();
                 // _key.currentState!.showSnackBar(
                 //     const SnackBar(content: Text("You click Home ListTile")));
-                ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text("You click Home ListTile")));
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //     const SnackBar(content: Text("You click Home ListTile")));
                 setState(() {
                   homeColor = true;
                   settingColor = false;
@@ -265,8 +270,11 @@ class _HomePageState extends State<HomePage> {
               selected: profileColor,
               onTap: () {
                 _key.currentState!.openEndDrawer();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctx) => ProfileScreen()));
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (ctx) => ProfileScreen()));
+                      Navigator.of(context)
+              .push(PageRouteToScreen().pushToProfileScreen());
+
                 // _key.currentState!.showSnackBar(
                 //     const SnackBar(content: Text("You click Contact ListTile")));
                 setState(() {
@@ -328,7 +336,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Row(
                           children: [
-                            IconButton(onPressed: () {}, icon: Icon(Icons.abc)),
+                            IconButton(onPressed: () {}, icon: Icon(Icons.language)),
                             SizedBox(
                               width: 20,
                             ),
@@ -354,7 +362,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.abc),
+                              icon: Icon(Icons.language),
                             ),
                             SizedBox(
                               width: 20,
@@ -389,7 +397,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        IconButton(onPressed: () {}, icon: Icon(Icons.phone)),
+                        IconButton(onPressed: () {
+                          launchUrlString('tel: 0346311358');
+                        }, icon: Icon(Icons.phone)),
                         SizedBox(
                           width: 20,
                         ),
@@ -445,8 +455,10 @@ class _HomePageState extends State<HomePage> {
               selected: aboutColor,
               onTap: () {
                 _key.currentState!.openEndDrawer();
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (ctx) => About()));
+                // Navigator.of(context)
+                //     .push(MaterialPageRoute(builder: (ctx) => About()));
+                      Navigator.of(context)
+              .push(PageRouteToScreen().pushToAboutScreen());
                 setState(() {
                   settingColor = false;
                   profileColor = false;
@@ -461,8 +473,10 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               onTap: () {
                 _key.currentState!.openEndDrawer();
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (ctx) => Login()));
+                // Navigator.of(context).pushReplacement(
+                //     MaterialPageRoute(builder: (ctx) => Login()));
+                      Navigator.of(context)
+              .pushReplacement(PageRouteToScreen().pushToLoginScreen());
                 setState(() {
                   settingColor = false;
                   profileColor = true;
@@ -477,10 +491,12 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               selected: homeColor,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (ctx) =>
-                        // TestScreen(list: generalProvider.getNameProductList)));
-                        TestScreen()));
+                // Navigator.of(context).push(MaterialPageRoute(
+                //     builder: (ctx) =>
+                //         // TestScreen(list: generalProvider.getNameProductList)));
+                //         TestScreen()));
+                  Navigator.of(context)
+              .push(PageRouteToScreen().pushToTestScreen());
               },
               title: const Text("Test"),
               leading: const Icon(Icons.text_snippet),
@@ -602,7 +618,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               buildCategory(),
                               buildFeatured(),
-                              buildAds(),
+                              // buildAds(),
                               buildNewProduct(),
                             ],
                           )
@@ -921,15 +937,15 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget buildAds() {
-  //   return Container(
-  //     margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-  //     height: 50,
-  //     width: double.infinity,
-  //     alignment: Alignment.center,
-  //     child: AdWidget(ad: generalProvider.getAds),
-  //   );
-  // }
+  Widget buildAds() {
+    return Container(
+      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      height: 50,
+      width: double.infinity,
+      alignment: Alignment.center,
+      child: AdWidget(ad: generalProvider.getAds),
+    );
+  }
 }
 
 Widget _CircleImage(String img, int color, String messageOfTooltip) {
@@ -950,10 +966,6 @@ Widget _CircleImage(String img, int color, String messageOfTooltip) {
     ),
   );
 }
-
-
-
-
 
 // generalProvider.getSearchList.length > 0
 //                                         ? Column(

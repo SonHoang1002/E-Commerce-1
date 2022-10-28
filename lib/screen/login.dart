@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/admin/homeadmin.dart';
@@ -84,8 +85,9 @@ class _Login extends State<Login> {
             setState(() {
               isLoading = false;
             });
-            Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (ctx) => HomeAdmin()));
+            // Navigator.of(context).pushReplacement(
+            //     MaterialPageRoute(builder: (ctx) => HomeAdmin()));
+                Navigator.of(context).pushReplacement(PageRouteToScreen().pushToHomeAdminScreen());
           } else {
             generalProvider.setAdmin(false);
             setState(() {
@@ -94,6 +96,8 @@ class _Login extends State<Login> {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (ctx) =>
                     HomePage(nameList: generalProvider.getNameProductList)));
+                // Navigator.of(context).pushReplacement(PageRouteToScreen().pushToHomePageScreen(nameList:generalProvider.getNameProductList));
+
           }
         }
       }
@@ -152,8 +156,10 @@ class _Login extends State<Login> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (_) => WelcomeScreen()));
+            // Navigator.of(context)
+            //     .push(MaterialPageRoute(builder: (_) => WelcomeScreen()));
+                Navigator.of(context).push(PageRouteToScreen().pushToWelcomeScreen());
+                
           },
         ),
       ),
@@ -295,10 +301,12 @@ class _Login extends State<Login> {
                                                         .instance.primaryFocus
                                                         ?.unfocus();
                                                     Navigator.of(context).pop();
-                                                    Navigator.of(context).push(
-                                                        MaterialPageRoute(
-                                                            builder: (_) =>
-                                                                ResetPassword()));
+                                                    // Navigator.of(context).push(
+                                                    //     MaterialPageRoute(
+                                                    //         builder: (_) =>
+                                                    //             ResetPassword()));
+                                                             Navigator.of(context).push(
+                                                       PageRouteToScreen().pushToResetPasswordScreen());   
                                                     return;
                                                   } else {
                                                     setState(() {
@@ -356,9 +364,10 @@ class _Login extends State<Login> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Navigator.of(context).pushReplacement(
-                                    CupertinoPageRoute(
-                                        builder: (context) => Signup()));
+                                // Navigator.of(context).pushReplacement(
+                                //     CupertinoPageRoute(
+                                //         builder: (context) => Signup()));
+                                         Navigator.of(context).pushReplacement(PageRouteToScreen().pushToSignupScreen());
                               },
                               child: Text("Sign Up",
                                   style: TextStyle(
@@ -550,3 +559,4 @@ class _Login extends State<Login> {
     }
   }
 }
+

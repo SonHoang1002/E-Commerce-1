@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/admin/homeadmin.dart';
@@ -52,7 +53,9 @@ class _ResetPassword extends State<ResetPassword> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (_)=> Login()));
+            // Navigator.of(context)
+            //     .push(MaterialPageRoute(builder: (_) => Login()));
+                Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());
           },
         ),
       ),
@@ -164,7 +167,7 @@ class _ResetPassword extends State<ResetPassword> {
     );
   }
 
-  void checkValue() {
+  void checkValue() async {
     String pass = password.text.trim();
     String rpass = rpassword.text.trim();
     setState(() {
@@ -177,7 +180,10 @@ class _ResetPassword extends State<ResetPassword> {
             return AlertDialog(
               title: Wrap(
                 children: [
-                  Icon(Icons.warning,color: Colors.yellow,),
+                  Icon(
+                    Icons.warning,
+                    color: Colors.yellow,
+                  ),
                   SizedBox(width: 10),
                   Text("Warning"),
                 ],
@@ -197,7 +203,14 @@ class _ResetPassword extends State<ResetPassword> {
     }
     if (pass == rpass) {
       //// update password;
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => Login()));
+      print("Firebase password before ${FirebaseAuth.instance.currentUser}");
+
+      ///
+      await FirebaseAuth.instance.currentUser!.updatePassword(rpass);
+      print("Firebase password after ${FirebaseAuth.instance.currentUser}");
+      // Navigator.of(context).push(MaterialPageRoute(builder: (_) => Login()));
+      Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());
+      generalProvider.setResetCode("");
       setState(() {
         isLoading = false;
       });

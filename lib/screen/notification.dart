@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -68,8 +69,9 @@ class _NotificationMessageState extends State<NotificationMessage> {
               ? Container()
               : IconButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (ctx) => CartScreen()));
+                    // Navigator.of(context).push(
+                    //     MaterialPageRoute(builder: (ctx) => CartScreen()));
+                        Navigator.of(context).push(PageRouteToScreen().pushToCartScreen());
                   },
                   icon: Badge(
                     animationType: BadgeAnimationType.scale,
