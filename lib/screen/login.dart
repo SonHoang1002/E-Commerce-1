@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
@@ -8,9 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/admin/homeadmin.dart';
+import 'package:testecommerce/screen/alertResetPassword.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/resetPassword.dart';
 import 'package:testecommerce/screen/signup.dart';
@@ -87,7 +90,8 @@ class _Login extends State<Login> {
             });
             // Navigator.of(context).pushReplacement(
             //     MaterialPageRoute(builder: (ctx) => HomeAdmin()));
-                Navigator.of(context).pushReplacement(PageRouteToScreen().pushToHomeAdminScreen());
+            Navigator.of(context)
+                .pushReplacement(PageRouteToScreen().pushToHomeAdminScreen());
           } else {
             generalProvider.setAdmin(false);
             setState(() {
@@ -96,8 +100,7 @@ class _Login extends State<Login> {
             Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (ctx) =>
                     HomePage(nameList: generalProvider.getNameProductList)));
-                // Navigator.of(context).pushReplacement(PageRouteToScreen().pushToHomePageScreen(nameList:generalProvider.getNameProductList));
-
+            // Navigator.of(context).pushReplacement(PageRouteToScreen().pushToHomePageScreen(nameList:generalProvider.getNameProductList));
           }
         }
       }
@@ -111,25 +114,25 @@ class _Login extends State<Login> {
         isLoading = false;
       });
       print("----------------------${(error.toString())}");
-      showDialog(
-          context: context,
-          builder: (ctx) {
-            return AlertDialog(
-              title: Wrap(
-                children: [
-                  Icon(Icons.error),
-                  SizedBox(width: 10),
-                  Text("Message"),
-                ],
-              ),
-              content: Text("Login unsuccessfully !!"),
-              actions: [
-                ElevatedButton(
-                    onPressed: (() => Navigator.of(context).pop()),
-                    child: Text("OK"))
-              ],
-            );
-          });
+      // showDialog(
+      //     context: context,
+      //     builder: (ctx) {
+      //       return AlertDialog(
+      //         title: Wrap(
+      //           children: [
+      //             Icon(Icons.error),
+      //             SizedBox(width: 10),
+      //             Text("Message"),
+      //           ],
+      //         ),
+      //         content: Text("Login unsuccessfully !!"),
+      //         actions: [
+      //           ElevatedButton(
+      //               onPressed: (() => Navigator.of(context).pop()),
+      //               child: Text("OK"))
+      //         ],
+      //       );
+      //     });
     }
   }
 
@@ -145,7 +148,10 @@ class _Login extends State<Login> {
 
   bool isErrorCode = false;
   BannerAd? _ad;
-
+  int minute = 1;
+  String zero = "";
+  int seconds = 10;
+  late Timer timer;
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
@@ -158,8 +164,8 @@ class _Login extends State<Login> {
           onPressed: () {
             // Navigator.of(context)
             //     .push(MaterialPageRoute(builder: (_) => WelcomeScreen()));
-                Navigator.of(context).push(PageRouteToScreen().pushToWelcomeScreen());
-                
+            Navigator.of(context)
+                .push(PageRouteToScreen().pushToWelcomeScreen());
           },
         ),
       ),
@@ -175,6 +181,7 @@ class _Login extends State<Login> {
           Form(
             key: _formKey,
             child: Container(
+              // decoration: DecorationBackGround().buildDecoraion(),
               margin: EdgeInsets.symmetric(horizontal: 10.0),
               child: Column(
                 children: [
@@ -234,97 +241,9 @@ class _Login extends State<Login> {
                                     color: Color.fromARGB(255, 182, 67, 79)),
                               ),
                               onTap: () {
-                                showDialog(
-                                    context: context,
-                                    builder: (ctx) {
-                                      send();
-                                      FocusManager.instance.primaryFocus
-                                          ?.unfocus();
-                                      return AlertDialog(
-                                        title: Text(
-                                          "Please enter reset number from my email",
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Container(
-                                          height: 70,
-                                          child: Column(
-                                            children: [
-                                              TextFormField(
-                                                controller: resetController,
-                                                autofocus: true,
-                                                keyboardType:
-                                                    TextInputType.number,
-                                                textAlign: TextAlign.center,
-                                                maxLength: 6,
-                                              ),
-                                              // isErrorCode
-                                              //     ? Container(
-                                              //         height: 30,
-                                              //         child: Row(
-                                              //           children: [
-                                              //             Text(
-                                              //               "Invalid code",
-                                              //               style: TextStyle(
-                                              //                   color:
-                                              //                       Colors.red),
-                                              //             )
-                                              //           ],
-                                              //         ),
-                                              //       )
-                                              //     : Container()
-                                            ],
-                                          ),
-                                        ),
-                                        actions: [
-                                          Center(
-                                            child: ElevatedButton(
-                                                onPressed: () {
-                                                  if (resetController.text
-                                                          .trim()
-                                                          .length !=
-                                                      6) {
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(SnackBar(
-                                                            content: Text(
-                                                                "Reset code must has 6 chracters")));
-                                                    return;
-                                                  }
-                                                  if (resetController.text
-                                                          .trim() ==
-                                                      generalProvider
-                                                          .getResetCode) {
-                                                    setState(() {
-                                                      isErrorCode = true;
-                                                    });
-                                                    FocusManager
-                                                        .instance.primaryFocus
-                                                        ?.unfocus();
-                                                    Navigator.of(context).pop();
-                                                    // Navigator.of(context).push(
-                                                    //     MaterialPageRoute(
-                                                    //         builder: (_) =>
-                                                    //             ResetPassword()));
-                                                             Navigator.of(context).push(
-                                                       PageRouteToScreen().pushToResetPasswordScreen());   
-                                                    return;
-                                                  } else {
-                                                    setState(() {
-                                                      isErrorCode = true;
-                                                    });
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(SnackBar(
-                                                            content: Text(
-                                                                "Invalid Code")));
-                                                    return;
-                                                  }
-                                                },
-                                                child: Text("CHECK")),
-                                          )
-                                        ],
-                                      );
-                                    });
+                                // _buildResetDialog(context);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => AlertResetPassword()));
                               },
                             ),
                           ],
@@ -367,7 +286,8 @@ class _Login extends State<Login> {
                                 // Navigator.of(context).pushReplacement(
                                 //     CupertinoPageRoute(
                                 //         builder: (context) => Signup()));
-                                         Navigator.of(context).pushReplacement(PageRouteToScreen().pushToSignupScreen());
+                                Navigator.of(context).pushReplacement(
+                                    PageRouteToScreen().pushToSignupScreen());
                               },
                               child: Text("Sign Up",
                                   style: TextStyle(
@@ -558,5 +478,119 @@ class _Login extends State<Login> {
           .addNotiList("${getTime()}: Welcome To Home Screen Of H&H FOOD");
     }
   }
-}
 
+  void _buildResetDialog(BuildContext context) async {
+    buildTimeOutForResetPassword();
+    return showDialog(
+        context: context,
+        builder: (ctx) {
+          send();
+          FocusManager.instance.primaryFocus?.unfocus();
+          return AlertDialog(
+            title: Text(
+              "Please enter reset number from my email",
+              textAlign: TextAlign.center,
+            ),
+            content: Container(
+              height: 100,
+              child: Column(
+                children: [
+                  Text(
+                    "${minute}:${zero}${seconds}",
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  TextFormField(
+                    controller: resetController,
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    maxLength: 6,
+                  ),
+                  // isErrorCode
+                  //     ? Container(
+                  //         height: 30,
+                  //         child: Row(
+                  //           children: [
+                  //             Text(
+                  //               "Invalid code",
+                  //               style: TextStyle(
+                  //                   color:
+                  //                       Colors.red),
+                  //             )
+                  //           ],
+                  //         ),
+                  //       )
+                  //     : Container()
+                ],
+              ),
+            ),
+            actions: [
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      if (resetController.text.trim().length != 6) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Reset code must has 6 chracters")));
+                        return;
+                      }
+                      if (resetController.text.trim() ==
+                          generalProvider.getResetCode) {
+                        setState(() {
+                          isErrorCode = true;
+                        });
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Navigator.of(context).pop();
+                        // Navigator.of(context).push(
+                        //     MaterialPageRoute(
+                        //         builder: (_) =>
+                        //             ResetPassword()));
+                        Navigator.of(context).push(
+                            PageRouteToScreen().pushToResetPasswordScreen());
+                        return;
+                      } else {
+                        setState(() {
+                          isErrorCode = true;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Invalid Code")));
+                        return;
+                      }
+                    },
+                    child: Text("CHECK")),
+              )
+            ],
+          );
+        });
+  }
+
+  void buildTimeOutForResetPassword() {
+    const perSecond = Duration(seconds: 1);
+    timer = Timer.periodic(perSecond, (timer) {
+      if (minute == 0 && seconds == 0) {
+        setState(() {
+          timer.cancel();
+        });
+      } else {
+        if (seconds == 0) {
+          setState(() {
+            minute--;
+            seconds = 10;
+          });
+        } else {
+          setState(() {
+            // if (seconds<11) {
+            //   setState(() {
+            //     zero = "0";
+            //   });
+            // } else {
+            //   setState(() {
+            //     zero = "";
+            //   });
+            // }
+            seconds--;
+          });
+        }
+      }
+    });
+  }
+}
