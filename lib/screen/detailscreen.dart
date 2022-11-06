@@ -1,16 +1,15 @@
-
 import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/addition/timer.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/checkout.dart';
-import '../widget/notification_button.dart';
-
+import 'package:testecommerce/widget/notificationButton.dart';
 
 class DetailScreen extends StatefulWidget {
   late String name;
@@ -27,7 +26,6 @@ class _DetailScreenState extends State<DetailScreen> {
   late int quantity = 1;
   // late GeneralProvider generalProvider;
   late GeneralProvider generalProvider;
- 
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +61,13 @@ class _DetailScreenState extends State<DetailScreen> {
               onPressed: () {
                 // Navigator.of(context)
                 //     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
-                      Navigator.of(context)
-              .push(PageRouteToScreen().pushToCartScreen());
+                Navigator.of(context)
+                    .push(PageRouteToScreen().pushToCartScreen());
               }),
         ],
       ),
       body: Container(
+        decoration: DecorationBackGround().buildDecoration(),
         child: ListView(
           children: [
             Column(children: [
@@ -291,7 +290,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       height: 50,
       width: double.infinity,
-      padding:EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: ElevatedButton(
         onPressed: () {
           total = 0;
@@ -303,11 +302,11 @@ class _DetailScreenState extends State<DetailScreen> {
           }
           generalProvider.setTotal(total);
           generalProvider.setNotiList(widget.name);
-          generalProvider.addNotiList("${getTime()}: You have already added ${quantity} ${widget.name}");
+          generalProvider.addNotiList(
+              "${getTime()}: You have already added ${quantity} ${widget.name}");
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (ctx) => CartScreen()));
-                Navigator.of(context)
-              .push(PageRouteToScreen().pushToCartScreen());
+          Navigator.of(context).push(PageRouteToScreen().pushToCartScreen());
 
           // total = 0;
           // bool? isExist;
@@ -331,7 +330,10 @@ class _DetailScreenState extends State<DetailScreen> {
           // Navigator.push(
           //     context, MaterialPageRoute(builder: (ctx) => CartScreen()));
         },
-        style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),),
+        style: ElevatedButton.styleFrom(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        ),
         child: Center(
             child: Text(
           "ADD TO CART",

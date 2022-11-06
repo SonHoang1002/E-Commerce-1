@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'package:talkjs_flutter/talkjs_flutter.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -31,6 +32,7 @@ class _TestScreenState extends State<TestScreen> {
   int start = 10;
   int minute = 1;
   String zero = "";
+  bool isZero = false;
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +109,7 @@ class _TestScreenState extends State<TestScreen> {
     return Scaffold(
       appBar: AppBar(title: Text("TestScreen")),
       body: Container(
+        decoration: DecorationBackGround().buildDecoration(),
           child: Center(
         child: Column(children: [
           Text(
@@ -116,6 +119,12 @@ class _TestScreenState extends State<TestScreen> {
           ElevatedButton(
             child: Text("Click me"),
             onPressed: () {
+              if (isZero) {
+                setState(() {
+                  minute = 1;
+                  start = 10;
+                });
+              }
               buildTimer();
             },
           )
@@ -152,6 +161,9 @@ class _TestScreenState extends State<TestScreen> {
           });
         }
       }
+      setState(() {
+        isZero = true;
+      });
     });
   }
 
@@ -169,14 +181,15 @@ class _TestScreenState extends State<TestScreen> {
       } else {
         if (start == 0) {
           start = 10;
-        } 
-          setState(() {
-            start--;
-          });
+        }
+        setState(() {
+          start--;
+        });
       }
     });
   }
-   void _buildResetDialog(BuildContext context) async {
+
+  void _buildResetDialog(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (ctx) {
@@ -194,7 +207,6 @@ class _TestScreenState extends State<TestScreen> {
                     "${minute}:${zero}${start}",
                     style: TextStyle(fontSize: 25),
                   ),
-                
                 ],
               ),
             ),
@@ -202,17 +214,15 @@ class _TestScreenState extends State<TestScreen> {
               Center(
                 child: ElevatedButton(
                     onPressed: () {
-                      
-                     
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        Navigator.of(context).pop();
-                        // Navigator.of(context).push(
-                        //     MaterialPageRoute(
-                        //         builder: (_) =>
-                        //             ResetPassword()));
-                        Navigator.of(context).push(
-                            PageRouteToScreen().pushToResetPasswordScreen());
-                        return;
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      Navigator.of(context).pop();
+                      // Navigator.of(context).push(
+                      //     MaterialPageRoute(
+                      //         builder: (_) =>
+                      //             ResetPassword()));
+                      Navigator.of(context).push(
+                          PageRouteToScreen().pushToResetPasswordScreen());
+                      return;
                     },
                     child: Text("CHECK")),
               )

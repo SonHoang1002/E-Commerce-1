@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -18,7 +19,6 @@ import 'package:testecommerce/screen/homepage.dart';
 import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
 import '../widget/listproduct.dart';
-import '../widget/notification_button.dart';
 import 'package:testecommerce/screen/profile.dart';
 import '../addition/search.dart';
 import '../widget/cartsingleproduct.dart';
@@ -71,7 +71,8 @@ class _NotificationMessageState extends State<NotificationMessage> {
                   onPressed: () {
                     // Navigator.of(context).push(
                     //     MaterialPageRoute(builder: (ctx) => CartScreen()));
-                        Navigator.of(context).push(PageRouteToScreen().pushToCartScreen());
+                    Navigator.of(context)
+                        .push(PageRouteToScreen().pushToCartScreen());
                   },
                   icon: Badge(
                     animationType: BadgeAnimationType.scale,
@@ -92,92 +93,95 @@ class _NotificationMessageState extends State<NotificationMessage> {
   Widget buildBody() {
     int num = generalProvider.getNotiList.length;
     return Container(
-      padding: EdgeInsets.all(30),
-      child: Column(
-        children: [
-          Container(
-            child: Text("Number Message: ${num}",
-                textAlign: TextAlign.justify,
-                style: TextStyle(
-                  // color: Colors.greenAccent,
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic,
-                )),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Divider(
-            color: Colors.red,
-            height: 20,
-            thickness: 2,
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          Container(
-            height: 450,
-            width: double.infinity,
-            child: ListView.builder(
-                itemCount: num,
-                itemBuilder: ((context, index) {
-                  return Container(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: Column(
-                      children: [
-                        Text("${generalProvider.getNotiList[index]}",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontStyle: FontStyle.italic,
-                            )),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        index < num - 1
-                            ? Divider(
-                                color: Colors.green,
-                                height: 10,
-                                thickness: 2,
-                              )
-                            : Container()
-                      ],
-                    ),
-                  );
-                })),
-          ),
-          Divider(
-            color: Colors.red,
-            height: 10,
-            thickness: 2,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            height: 50,
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                generalProvider.removeNotiList();
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Center(
-                  child: Text(
-                "RESET",
-                style: TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              )),
+      decoration: DecorationBackGround().buildDecoration(),
+      child: Container(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          children: [
+            Container(
+              child: Text("Number Message: ${num}",
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(
+                    // color: Colors.greenAccent,
+                    fontSize: 20,
+                    fontStyle: FontStyle.italic,
+                  )),
             ),
-          )
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            Divider(
+              color: Colors.red,
+              height: 20,
+              thickness: 2,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Container(
+              height: 450,
+              width: double.infinity,
+              child: ListView.builder(
+                  itemCount: num,
+                  itemBuilder: ((context, index) {
+                    return Container(
+                      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      child: Column(
+                        children: [
+                          Text("${generalProvider.getNotiList[index]}",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
+                              )),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          index < num - 1
+                              ? Divider(
+                                  color: Colors.green,
+                                  height: 10,
+                                  thickness: 2,
+                                )
+                              : Container()
+                        ],
+                      ),
+                    );
+                  })),
+            ),
+            Divider(
+              color: Colors.red,
+              height: 10,
+              thickness: 2,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              height: 50,
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  generalProvider.removeNotiList();
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.grey,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: Center(
+                    child: Text(
+                  "RESET",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
+                )),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

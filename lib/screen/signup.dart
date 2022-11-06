@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/screen/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -88,6 +89,7 @@ class _Signup extends State<Signup> {
           child: Form(
             key: _formKey,
             child: Container(
+              decoration: DecorationBackGround().buildDecoration(),
               child: Column(
                 children: [
                   Container(
@@ -261,7 +263,8 @@ class _Signup extends State<Signup> {
                                 // Navigator.of(context).pushReplacement(
                                 //     CupertinoPageRoute(
                                 //         builder: (context) => Login()));
-                                        Navigator.of(context).pushReplacement(PageRouteToScreen().pushToLoginScreen());
+                                Navigator.of(context).pushReplacement(
+                                    PageRouteToScreen().pushToLoginScreen());
                               },
                               child: Text(
                                 "Login",
@@ -321,10 +324,10 @@ class _Signup extends State<Signup> {
     for (int i = 0; i < 6; i++) {
       idMessenger += Random().nextInt(9).toString();
     }
-    if(idMessenger.split("")[0]==0){
+    if (idMessenger.split("")[0] == 0) {
       for (int i = 0; i < 6; i++) {
-      idMessenger += Random().nextInt(9).toString();
-    }
+        idMessenger += Random().nextInt(9).toString();
+      }
     }
     FirebaseFirestore.instance.collection("User").doc(result.user!.uid).set({
       "UserName": username.text,
@@ -333,8 +336,8 @@ class _Signup extends State<Signup> {
       "UserAddress": address.text,
       "UserGender": isMale == true ? "Male" : "Female",
       "UserPhone": phone.text,
-      "Id_messenger":idMessenger,
-      "UserImage":"https://cdn-icons-png.flaticon.com/512/149/149071.png"
+      "Id_messenger": idMessenger,
+      "UserImage": "https://cdn-icons-png.flaticon.com/512/149/149071.png"
     });
     // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => Login()));
     Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());

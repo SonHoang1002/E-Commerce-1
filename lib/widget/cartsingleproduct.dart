@@ -30,13 +30,14 @@ class _CartSingleProductState extends State<CartSingleProduct> {
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
     return Container(
-      height: 220,
+      height: 210,
       width: double.infinity,
       child: Card(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
             children: [
               Container(
+                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                 height: 180,
                 width: 150,
                 decoration: BoxDecoration(
@@ -60,20 +61,20 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                             fontStyle: FontStyle.italic,
                             fontSize: 25),
                       ),
-                      Text(
-                        "Category: ",
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                      Text(
-                        "Size: ",
-                        style: TextStyle(
-                            color: Colors.redAccent,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13),
-                      ),
+                      // Text(
+                      //   "Category: ",
+                      //   style: TextStyle(
+                      //       color: Colors.green,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 20),
+                      // ),
+                      // Text(
+                      //   "Size: ",
+                      //   style: TextStyle(
+                      //       color: Colors.redAccent,
+                      //       fontWeight: FontWeight.bold,
+                      //       fontSize: 13),
+                      // ),
                       Text(
                         "Price: ${widget.price} ",
                         style: TextStyle(

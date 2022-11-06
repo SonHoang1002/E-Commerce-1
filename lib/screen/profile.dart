@@ -14,7 +14,7 @@ import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/homepage.dart';
-import '../widget/notification_button.dart';
+import 'package:testecommerce/widget/notificationButton.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -122,8 +122,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   icon: Icon(Icons.close, color: Colors.red))
               : IconButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(MaterialPageRoute(builder: (ctx) => HomePage(nameList:generalProvider.getNameProductList)));
+                    Navigator.of(context).pop(MaterialPageRoute(
+                        builder: (ctx) => HomePage(
+                            nameList: generalProvider.getNameProductList)));
                   },
                   icon: Icon(Icons.arrow_back, color: Colors.black))),
       body: centerCircle == false

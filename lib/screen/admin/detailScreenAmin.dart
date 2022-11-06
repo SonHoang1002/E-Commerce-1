@@ -11,7 +11,6 @@ import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/screen/profile.dart';
 import '../../models/product.dart';
-import '../../widget/notification_button.dart';
 
 class DetailScreenForAdmin extends StatefulWidget {
   late String name;

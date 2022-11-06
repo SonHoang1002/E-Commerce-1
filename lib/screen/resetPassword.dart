@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/admin/homeadmin.dart';
@@ -55,114 +56,117 @@ class _ResetPassword extends State<ResetPassword> {
           onPressed: () {
             // Navigator.of(context)
             //     .push(MaterialPageRoute(builder: (_) => Login()));
-                Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());
+            Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());
           },
         ),
       ),
-      body: Column(
-        children: [
-          isLoading
-              ? Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Center(child: CircularProgressIndicator()))
-              : Container(
-                  height: 10,
-                ),
-          Form(
-            key: _formKey,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  Container(
-                    height: 300,
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "Enter New Password",
-                          style: TextStyle(
-                              fontSize: 30, fontWeight: FontWeight.bold),
-                        ),
-                        TextFormField(
-                          controller: password,
-                          obscureText: obscureText,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "Password",
-                              labelText: "Password",
-                              // suffixIcon: GestureDetector(
-                              //   onTap: () {
-                              //     setState(() {
-                              //       obscureText = !obscureText;
-                              //     });
-                              //   },
-                              //   child: obscureText
-                              //       ? Icon(
-                              //           Icons.visibility,
-                              //           color: Colors.black,
-                              //         )
-                              //       : Icon(
-                              //           Icons.visibility_off,
-                              //           color: Colors.black,
-                              //         ),
-                              // ),
-                              hintStyle: TextStyle(color: Colors.black)),
-                        ),
-                        TextFormField(
-                          controller: rpassword,
-                          obscureText: obscureText,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "Confirm",
-                              labelText: " Confirm password",
-                              // suffixIcon: GestureDetector(
-                              //   onTap: () {
-                              //     setState(() {
-                              //       obscureText = !obscureText;
-                              //     });
-                              //   },
-                              //   child: obscureText
-                              //       ? Icon(
-                              //           Icons.visibility,
-                              //           color: Colors.black,
-                              //         )
-                              //       : Icon(
-                              //           Icons.visibility_off,
-                              //           color: Colors.black,
-                              //         ),
-                              // ),
-                              hintStyle: TextStyle(color: Colors.black)),
-                        ),
-                        Container(
-                            height: 45,
-                            width: 200,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                FocusManager.instance.primaryFocus?.unfocus();
-                                checkValue();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.grey,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
+      body: Container(
+        decoration: DecorationBackGround().buildDecoration(),
+        child: Column(
+          children: [
+            isLoading
+                ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Center(child: CircularProgressIndicator()))
+                : Container(
+                    height: 10,
+                  ),
+            Form(
+              key: _formKey,
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 300,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Enter New Password",
+                            style: TextStyle(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
+                          TextFormField(
+                            controller: password,
+                            obscureText: obscureText,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Password",
+                                labelText: "Password",
+                                // suffixIcon: GestureDetector(
+                                //   onTap: () {
+                                //     setState(() {
+                                //       obscureText = !obscureText;
+                                //     });
+                                //   },
+                                //   child: obscureText
+                                //       ? Icon(
+                                //           Icons.visibility,
+                                //           color: Colors.black,
+                                //         )
+                                //       : Icon(
+                                //           Icons.visibility_off,
+                                //           color: Colors.black,
+                                //         ),
+                                // ),
+                                hintStyle: TextStyle(color: Colors.black)),
+                          ),
+                          TextFormField(
+                            controller: rpassword,
+                            obscureText: obscureText,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Confirm",
+                                labelText: " Confirm password",
+                                // suffixIcon: GestureDetector(
+                                //   onTap: () {
+                                //     setState(() {
+                                //       obscureText = !obscureText;
+                                //     });
+                                //   },
+                                //   child: obscureText
+                                //       ? Icon(
+                                //           Icons.visibility,
+                                //           color: Colors.black,
+                                //         )
+                                //       : Icon(
+                                //           Icons.visibility_off,
+                                //           color: Colors.black,
+                                //         ),
+                                // ),
+                                hintStyle: TextStyle(color: Colors.black)),
+                          ),
+                          Container(
+                              height: 45,
+                              width: 200,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  checkValue();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.grey,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                 ),
-                              ),
-                              child: Text(
-                                "SEND",
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.black),
-                              ),
-                            )),
-                      ],
-                    ),
-                  )
-                ],
+                                child: Text(
+                                  "SEND",
+                                  style: TextStyle(
+                                      fontSize: 30, color: Colors.black),
+                                ),
+                              )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

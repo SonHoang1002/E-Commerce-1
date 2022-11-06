@@ -4,14 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/formatInput.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-// import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
-// import 'package:testecommerce/widget/cartsingleproduct.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:testecommerce/widget/notification_button.dart';
+import 'package:testecommerce/widget/notificationButton.dart';
 
 import '../addition/timer.dart';
 
@@ -59,50 +58,51 @@ class _CheckOutState extends State<CheckOut> {
         actions: [NotificationButton()],
       ),
       body: Container(
+          decoration: DecorationBackGround().buildDecoration(),
           child: Column(children: [
-        buildDetail("Name", generalProvider.userName),
-        buildDetail("Email", generalProvider.userEmail),
-        buildDetail("Phone", generalProvider.userPhone),
-        buildDetail("Address", generalProvider.userAddress),
-        // buildDetail("Test", "ghkjfhgdf kfdjghk kdjghkk kdfjghdfk"),
-        SizedBox(
-          height: 20,
-        ),
-        Center(
-            child: Text(
-          "Detail",
-          style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
-        )),
-        Container(
-          width: 250,
-          height: 200,
-          child: ListView(children: [
-            DataTable(columns: [
-              DataColumn(
-                  label: Expanded(
+            buildDetail("Name", generalProvider.userName),
+            buildDetail("Email", generalProvider.userEmail),
+            buildDetail("Phone", generalProvider.userPhone),
+            buildDetail("Address", generalProvider.userAddress),
+            // buildDetail("Test", "ghkjfhgdf kfdjghk kdjghkk kdfjghdfk"),
+            SizedBox(
+              height: 20,
+            ),
+            Center(
                 child: Text(
-                  "Quantity",
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontSize: 15,
-                  ),
-                ),
-              )),
-              DataColumn(
-                  label: Expanded(
-                child: Text(
-                  "Food Name",
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                    fontSize: 15,
-                  ),
-                ),
-              ))
-            ], rows: buildDataCell()),
-          ]),
-        ),
-        buildDetail("Total", "${generalProvider.getTotal.toString()} \$"),
-      ])),
+              "Detail",
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
+            )),
+            Container(
+              width: 250,
+              height: 200,
+              child: ListView(children: [
+                DataTable(columns: [
+                  DataColumn(
+                      label: Expanded(
+                    child: Text(
+                      "Quantity",
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 15,
+                      ),
+                    ),
+                  )),
+                  DataColumn(
+                      label: Expanded(
+                    child: Text(
+                      "Food Name",
+                      style: TextStyle(
+                        fontStyle: FontStyle.italic,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ))
+                ], rows: buildDataCell()),
+              ]),
+            ),
+            buildDetail("Total", "${generalProvider.getTotal.toString()} \$"),
+          ])),
       bottomSheet: buildBottomSheet(),
     );
   }
@@ -216,8 +216,8 @@ class _CheckOutState extends State<CheckOut> {
               onPressed: () {
                 // Navigator.of(context)
                 //     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
-                      Navigator.of(context)
-              .push(PageRouteToScreen().pushToCartScreen());
+                Navigator.of(context)
+                    .push(PageRouteToScreen().pushToCartScreen());
               },
               style: ElevatedButton.styleFrom(
                 primary: Colors.grey,

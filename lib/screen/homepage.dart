@@ -20,13 +20,13 @@ import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/contact_messenger.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 import 'package:testecommerce/testScreen/test.dart';
+import 'package:testecommerce/widget/notificationButton.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../addition/timer.dart';
 import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/login.dart';
 import '../widget/listproduct.dart';
-import '../widget/notification_button.dart';
 import 'package:testecommerce/screen/profile.dart';
 import '../addition/search.dart';
 import '../widget/cartsingleproduct.dart';
@@ -174,8 +174,8 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 // Navigator.of(context)
                 //     .push(MaterialPageRoute(builder: (ctx) => CartScreen()));
-                      Navigator.of(context)
-              .push(PageRouteToScreen().pushToCartScreen());
+                Navigator.of(context)
+                    .push(PageRouteToScreen().pushToCartScreen());
               },
               icon: Badge(
                 animationType: BadgeAnimationType.scale,
@@ -273,8 +273,8 @@ class _HomePageState extends State<HomePage> {
                 _key.currentState!.openEndDrawer();
                 // Navigator.of(context)
                 //     .push(MaterialPageRoute(builder: (ctx) => ProfileScreen()));
-                      Navigator.of(context)
-              .push(PageRouteToScreen().pushToProfileScreen());
+                Navigator.of(context)
+                    .push(PageRouteToScreen().pushToProfileScreen());
 
                 // _key.currentState!.showSnackBar(
                 //     const SnackBar(content: Text("You click Contact ListTile")));
@@ -337,7 +337,8 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Row(
                           children: [
-                            IconButton(onPressed: () {}, icon: Icon(Icons.language)),
+                            IconButton(
+                                onPressed: () {}, icon: Icon(Icons.language)),
                             SizedBox(
                               width: 20,
                             ),
@@ -398,9 +399,11 @@ class _HomePageState extends State<HomePage> {
                     ),
                     Row(
                       children: [
-                        IconButton(onPressed: () {
-                          launchUrlString('tel: 0346311358');
-                        }, icon: Icon(Icons.phone)),
+                        IconButton(
+                            onPressed: () {
+                              launchUrlString('tel: 0346311358');
+                            },
+                            icon: Icon(Icons.phone)),
                         SizedBox(
                           width: 20,
                         ),
@@ -458,8 +461,8 @@ class _HomePageState extends State<HomePage> {
                 _key.currentState!.openEndDrawer();
                 // Navigator.of(context)
                 //     .push(MaterialPageRoute(builder: (ctx) => About()));
-                      Navigator.of(context)
-              .push(PageRouteToScreen().pushToAboutScreen());
+                Navigator.of(context)
+                    .push(PageRouteToScreen().pushToAboutScreen());
                 setState(() {
                   settingColor = false;
                   profileColor = false;
@@ -476,8 +479,8 @@ class _HomePageState extends State<HomePage> {
                 _key.currentState!.openEndDrawer();
                 // Navigator.of(context).pushReplacement(
                 //     MaterialPageRoute(builder: (ctx) => Login()));
-                      Navigator.of(context)
-              .pushReplacement(PageRouteToScreen().pushToLoginScreen());
+                Navigator.of(context)
+                    .pushReplacement(PageRouteToScreen().pushToLoginScreen());
                 setState(() {
                   settingColor = false;
                   profileColor = true;
@@ -496,8 +499,8 @@ class _HomePageState extends State<HomePage> {
                 //     builder: (ctx) =>
                 //         // TestScreen(list: generalProvider.getNameProductList)));
                 //         TestScreen()));
-                  Navigator.of(context)
-              .push(PageRouteToScreen().pushToTestScreen());
+                Navigator.of(context)
+                    .push(PageRouteToScreen().pushToTestScreen());
               },
               title: const Text("Test"),
               leading: const Icon(Icons.text_snippet),
@@ -514,121 +517,125 @@ class _HomePageState extends State<HomePage> {
         FocusManager.instance.primaryFocus?.unfocus();
       },
       child: Container(
-        decoration: DecorationBackGround().buildDecoraion(),
-        margin: EdgeInsets.symmetric(horizontal: 15),
-        height: double.infinity,
-        width: double.infinity,
-        child: ListView(
-          children: [
-            Column(children: [
-              Container(
-                width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // searchTextField ? buildSearch() : buildCarousel(),
-                    searchTextField
-                        ? buildSearchSingleProduct()
-                        : buildCarousel(),
-                    hasSearchWord
-                        ? showResultWord
-                            ? Container(
-                                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 30,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              setState(() {
-                                                searchInput.text = "";
-                                                hasSearchWord = false;
-                                                searchTextField = false;
-                                              });
-                                            },
-                                            child: Center(
-                                                child: Tooltip(
-                                              waitDuration:
-                                                  Duration(seconds: 1),
-                                              showDuration:
-                                                  Duration(seconds: 3),
-                                              message: "Back To Home",
-                                              child: CircleAvatar(
-                                                  maxRadius: 25,
-                                                  backgroundColor: Colors.grey,
-                                                  child:
-                                                      Icon(Icons.arrow_back)),
-                                            )),
+        decoration: DecorationBackGround().buildDecoration(),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 15),
+          height: double.infinity,
+          width: double.infinity,
+          child: ListView(
+            children: [
+              Column(children: [
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // searchTextField ? buildSearch() : buildCarousel(),
+                      searchTextField
+                          ? buildSearchSingleProduct()
+                          : buildCarousel(),
+                      hasSearchWord
+                          ? showResultWord
+                              ? Container(
+                                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 30,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  searchInput.text = "";
+                                                  hasSearchWord = false;
+                                                  searchTextField = false;
+                                                });
+                                              },
+                                              child: Center(
+                                                  child: Tooltip(
+                                                waitDuration:
+                                                    Duration(seconds: 1),
+                                                showDuration:
+                                                    Duration(seconds: 3),
+                                                message: "Back To Home",
+                                                child: CircleAvatar(
+                                                    maxRadius: 25,
+                                                    backgroundColor:
+                                                        Colors.grey,
+                                                    child:
+                                                        Icon(Icons.arrow_back)),
+                                              )),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    generalProvider
-                                                .getSearchListFromQuery.length >
-                                            0
-                                        ? Column(
-                                            children: [
-                                              Text(
-                                                "Result",
-                                                style: TextStyle(
-                                                    fontSize: 30,
-                                                    fontStyle:
-                                                        FontStyle.italic),
-                                              ),
-                                              Container(
-                                                height: 500,
-                                                child: ListView.builder(
-                                                  itemCount: generalProvider
-                                                      .getSearchListFromQuery
-                                                      .length,
-                                                  itemBuilder: (context,
-                                                          index) =>
-                                                      SingleProduct(
-                                                          name: generalProvider
-                                                              .getSearchListFromQuery[
-                                                                  index]
-                                                              .name,
-                                                          price: generalProvider
-                                                              .getSearchListFromQuery[
-                                                                  index]
-                                                              .price,
-                                                          image: generalProvider
-                                                              .getSearchListFromQuery[
-                                                                  index]
-                                                              .image),
+                                        ],
+                                      ),
+                                      generalProvider.getSearchListFromQuery
+                                                  .length >
+                                              0
+                                          ? Column(
+                                              children: [
+                                                Text(
+                                                  "Result",
+                                                  style: TextStyle(
+                                                      fontSize: 30,
+                                                      fontStyle:
+                                                          FontStyle.italic),
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        : Text(
-                                            "NO RESULT",
-                                            style: TextStyle(
-                                                fontSize: 30,
-                                                fontStyle: FontStyle.italic),
-                                          ),
-                                  ],
-                                ),
-                              )
-                            : Container()
-                        : Column(
-                            children: [
-                              buildCategory(),
-                              buildFeatured(),
-                              // buildAds(),
-                              buildNewProduct(),
-                            ],
-                          )
-                  ],
+                                                Container(
+                                                  height: 500,
+                                                  child: ListView.builder(
+                                                    itemCount: generalProvider
+                                                        .getSearchListFromQuery
+                                                        .length,
+                                                    itemBuilder: (context,
+                                                            index) =>
+                                                        SingleProduct(
+                                                            name: generalProvider
+                                                                .getSearchListFromQuery[
+                                                                    index]
+                                                                .name,
+                                                            price: generalProvider
+                                                                .getSearchListFromQuery[
+                                                                    index]
+                                                                .price,
+                                                            image: generalProvider
+                                                                .getSearchListFromQuery[
+                                                                    index]
+                                                                .image),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : Text(
+                                              "NO RESULT",
+                                              style: TextStyle(
+                                                  fontSize: 30,
+                                                  fontStyle: FontStyle.italic),
+                                            ),
+                                    ],
+                                  ),
+                                )
+                              : Container()
+                          : Column(
+                              children: [
+                                buildCategory(),
+                                buildFeatured(),
+                                // buildAds(),
+                                buildNewProduct(),
+                              ],
+                            )
+                    ],
+                  ),
                 ),
-              ),
-            ]),
-          ],
+              ]),
+            ],
+          ),
         ),
       ),
     );
@@ -798,6 +805,7 @@ class _HomePageState extends State<HomePage> {
       children: [
         Container(
           height: 50,
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
           child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -870,6 +878,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         Container(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
           height: 50,
           child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Row(

@@ -169,140 +169,143 @@ class _Login extends State<Login> {
           },
         ),
       ),
-      body: Column(
-        children: [
-          isLoading
-              ? Container(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Center(child: CircularProgressIndicator()))
-              : Container(
-                  height: 10,
-                ),
-          Form(
-            key: _formKey,
-            child: Container(
-              // decoration: DecorationBackGround().buildDecoraion(),
-              margin: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Column(
-                children: [
-                  Container(
-                    height: 400,
-                    width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "Login",
-                          style: TextStyle(
-                              fontSize: 50, fontWeight: FontWeight.bold),
-                        ),
-                        TextFormField(
-                          controller: email,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "Email",
-                              labelText: "Email",
-                              hintStyle: TextStyle(color: Colors.black)),
-                        ),
-                        TextFormField(
-                          controller: password,
-                          obscureText: obscureText,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: "Password",
-                              labelText: "Password",
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    obscureText = !obscureText;
-                                  });
-                                },
-                                child: obscureText
-                                    ? Icon(
-                                        Icons.visibility,
-                                        color: Colors.black,
-                                      )
-                                    : Icon(
-                                        Icons.visibility_off,
-                                        color: Colors.black,
-                                      ),
-                              ),
-                              hintStyle: TextStyle(color: Colors.black)),
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            GestureDetector(
-                              child: Text(
-                                "Forgot my password !!",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 182, 67, 79)),
-                              ),
-                              onTap: () {
-                                // _buildResetDialog(context);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => AlertResetPassword()));
-                              },
-                            ),
-                          ],
-                        ),
-                        Container(
-                            height: 45,
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                FocusManager.instance.primaryFocus?.unfocus();
-                                validation();
-                                // });
-                              },
-                              style: ElevatedButton.styleFrom(
-                                primary: Colors.grey,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(100.0),
+      body: Container(
+        decoration: DecorationBackGround().buildDecoration(),
+        child: Column(
+          children: [
+            isLoading
+                ? Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    child: Center(child: CircularProgressIndicator()))
+                : Container(
+                    height: 10,
+                  ),
+            Form(
+              key: _formKey,
+              child: Container(
+                // decoration: DecorationBackGround().buildDecoraion(),
+                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 400,
+                      width: double.infinity,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "Login",
+                            style: TextStyle(
+                                fontSize: 50, fontWeight: FontWeight.bold),
+                          ),
+                          TextFormField(
+                            controller: email,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Email",
+                                labelText: "Email",
+                                hintStyle: TextStyle(color: Colors.black)),
+                          ),
+                          TextFormField(
+                            controller: password,
+                            obscureText: obscureText,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: "Password",
+                                labelText: "Password",
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      obscureText = !obscureText;
+                                    });
+                                  },
+                                  child: obscureText
+                                      ? Icon(
+                                          Icons.visibility,
+                                          color: Colors.black,
+                                        )
+                                      : Icon(
+                                          Icons.visibility_off,
+                                          color: Colors.black,
+                                        ),
                                 ),
+                                hintStyle: TextStyle(color: Colors.black)),
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 10,
                               ),
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    fontSize: 30, color: Colors.black),
-                              ),
-                            )),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "I have no account !!",
-                              style: TextStyle(color: Colors.black),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                // Navigator.of(context).pushReplacement(
-                                //     CupertinoPageRoute(
-                                //         builder: (context) => Signup()));
-                                Navigator.of(context).pushReplacement(
-                                    PageRouteToScreen().pushToSignupScreen());
-                              },
-                              child: Text("Sign Up",
+                              GestureDetector(
+                                child: Text(
+                                  "Forgot my password !!",
                                   style: TextStyle(
-                                      color: Colors.blue, fontSize: 15)),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                                      color: Color.fromARGB(255, 182, 67, 79)),
+                                ),
+                                onTap: () {
+                                  // _buildResetDialog(context);
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (_) => AlertResetPassword()));
+                                },
+                              ),
+                            ],
+                          ),
+                          Container(
+                              height: 45,
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  validation();
+                                  // });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.grey,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100.0),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                      fontSize: 30, color: Colors.black),
+                                ),
+                              )),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "I have no account !!",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  // Navigator.of(context).pushReplacement(
+                                  //     CupertinoPageRoute(
+                                  //         builder: (context) => Signup()));
+                                  Navigator.of(context).pushReplacement(
+                                      PageRouteToScreen().pushToSignupScreen());
+                                },
+                                child: Text("Sign Up",
+                                    style: TextStyle(
+                                        color: Colors.blue, fontSize: 15)),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

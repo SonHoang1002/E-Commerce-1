@@ -8,6 +8,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,23 +24,30 @@ late GeneralProvider generalProvider;
 class _AlertResetPasswordState extends State<AlertResetPassword> {
   int minute = 1;
   String zero = "";
-  int seconds = 10;
+  int seconds = 59;
   late Timer timer;
   bool isErrorCode = false;
   bool isExpired = false;
   TextEditingController resetController = TextEditingController();
+  bool isBegin = true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    buildTimeOutForResetPassword();
+    generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+    // buildTimeOutForResetPassword();
+    send();
   }
 
   @override
   Widget build(BuildContext context) {
-    generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     FocusManager.instance.primaryFocus?.focusInDirection;
-    send();
+    if (isBegin) {
+      buildTimeOutForResetPassword();
+      setState(() {
+        isBegin = false;
+      });
+    } else {}
 
     return Scaffold(
       appBar: AppBar(
@@ -53,79 +61,84 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
             },
           )),
       body: Container(
-        padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-        child: Column(children: [
-          Text(
-            "Please enter reset number from your email",
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 25),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            "${minute}:${zero}${seconds}",
-            style: TextStyle(fontSize: 25),
-          ),
-          TextFormField(
-            controller: resetController,
-            autofocus: true,
-            readOnly: isExpired,
-            keyboardType: TextInputType.number,
-            textAlign: TextAlign.center,
-            maxLength: 6,
-          ),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       buildTimeOutForResetPassword();
-          //     },
-          //     child: Text("Click")),
-          Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  if (isExpired) {
-                    setState(() {
-                      minute = 1;
-                      seconds = 10;
-                    });
-                    send();
-                    setState(() {
-                      isExpired = false;
-                    });
-                    buildTimeOutForResetPassword();
-                  } else {
-                    if (resetController.text.trim().length != 6) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Reset code must has 6 chracters")));
-                      return;
-                    }
-                    if (resetController.text.trim() ==
-                        generalProvider.getResetCode) {
+        decoration: DecorationBackGround().buildDecoration(),
+        child: Container(
+          padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+          child: Column(children: [
+            Text(
+              "Please enter reset number from your email",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 25),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "${minute}:${zero}${seconds}",
+              style: TextStyle(fontSize: 25),
+            ),
+            TextFormField(
+              controller: resetController,
+              autofocus: true,
+              readOnly: isExpired,
+              keyboardType: TextInputType.number,
+              textAlign: TextAlign.center,
+              maxLength: 6,
+            ),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       buildTimeOutForResetPassword();
+            //     },
+            //     child: Text("Click")),
+            Center(
+              child: ElevatedButton(
+                  onPressed: () async {
+                    if (isExpired) {
+                      generalProvider.setResetCode("");
+                      send();
                       setState(() {
-                        isErrorCode = true;
+                        minute = 1;
+                        seconds = 59;
                       });
-                      FocusManager.instance.primaryFocus?.unfocus();
-                      Navigator.of(context).pop();
-                      // Navigator.of(context).push(
-                      //     MaterialPageRoute(
-                      //         builder: (_) =>
-                      //             ResetPassword()));
-                      Navigator.of(context).push(
-                          PageRouteToScreen().pushToResetPasswordScreen());
-                      return;
+                      setState(() {
+                        isExpired = false;
+                        isBegin = true;
+                      });
+                      buildTimeOutForResetPassword();
                     } else {
-                      setState(() {
-                        isErrorCode = true;
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Invalid Code")));
-                      return;
+                      if (resetController.text.trim().length != 6) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Reset code must has 6 chracters")));
+                        return;
+                      }
+                      if (resetController.text.trim() ==
+                          generalProvider.getResetCode) {
+                        setState(() {
+                          isErrorCode = true;
+                        });
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Navigator.of(context).pop();
+                        // Navigator.of(context).push(
+                        //     MaterialPageRoute(
+                        //         builder: (_) =>
+                        //             ResetPassword()));
+                        Navigator.of(context).push(
+                            PageRouteToScreen().pushToResetPasswordScreen());
+                        return;
+                      } else {
+                        setState(() {
+                          isErrorCode = true;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Invalid Code")));
+                        return;
+                      }
                     }
-                  }
-                },
-                child: Text(isExpired ? "RESEND" : "CHECK")),
-          )
-        ]),
+                  },
+                  child: Text(isExpired ? "RESEND" : "CHECK")),
+            )
+          ]),
+        ),
       ),
     );
   }

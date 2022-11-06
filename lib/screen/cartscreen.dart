@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/widget/cartsingleproduct.dart';
-import 'package:testecommerce/widget/notification_button.dart';
+import 'package:testecommerce/widget/notificationButton.dart';
 
 import '../providers/general_provider.dart';
 
@@ -55,23 +56,26 @@ class _CartScreenState extends State<CartScreen> {
           // ),
         ],
       ),
-      body: Column(
-        children: [
-          Container(
-            height: 390,
-            width: double.infinity,
-            child: ListView.builder(
-              itemCount: generalProvider.getCartModelLength,
-              itemBuilder: (context, index) {
-                return CartSingleProduct(
-                    name: generalProvider.getCartModel[index].name,
-                    price: generalProvider.getCartModel[index].price,
-                    img: generalProvider.getCartModel[index].img,
-                    quantity: generalProvider.getCartModel[index].quantity);
-              },
+      body: Container(
+        decoration: DecorationBackGround().buildDecoration(),
+        child: Column(
+          children: [
+            Container(
+              height: 390,
+              width: double.infinity,
+              child: ListView.builder(
+                itemCount: generalProvider.getCartModelLength,
+                itemBuilder: (context, index) {
+                  return CartSingleProduct(
+                      name: generalProvider.getCartModel[index].name,
+                      price: generalProvider.getCartModel[index].price,
+                      img: generalProvider.getCartModel[index].img,
+                      quantity: generalProvider.getCartModel[index].quantity);
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       // bottomNavigationBar: Container(
       //   height: 50,
@@ -216,7 +220,7 @@ class _CartScreenState extends State<CartScreen> {
         onPressed: () {
           // Navigator.of(context)
           //     .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));
-                Navigator.of(context)
+          Navigator.of(context)
               .push(PageRouteToScreen().pushToCheckOutScreen());
         },
         style: ElevatedButton.styleFrom(
