@@ -703,7 +703,7 @@ class GeneralProvider with ChangeNotifier {
   get getAds => ad;
 
 // set and get reset code
-   String resetCode="";
+  String resetCode = "";
   Future<int> setResetCode(String value) async {
     resetCode = value;
     notifyListeners();
@@ -711,4 +711,13 @@ class GeneralProvider with ChangeNotifier {
   }
 
   get getResetCode => resetCode;
+
+  String verifyCode = "";
+  Future<int> setVerifyCode(String value) async {
+    verifyCode = value;
+    notifyListeners();
+    return 1;
+  }
+
+   get getVerifyCode => verifyCode;
 }

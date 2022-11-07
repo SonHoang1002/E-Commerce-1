@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:custom_dialog/custom_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +11,7 @@ import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:http/http.dart' as http;
+import 'package:testecommerce/screen/homePage.dart';
 import 'dart:convert';
 
 import 'package:testecommerce/widget/notificationButton.dart';
@@ -23,6 +27,8 @@ TextEditingController cardNumber = TextEditingController();
 TextEditingController expiry = TextEditingController();
 TextEditingController cvv = TextEditingController();
 
+TextEditingController verifyController = TextEditingController();
+
 late GeneralProvider generalProvider;
 
 class _CheckOutState extends State<CheckOut> {
@@ -31,6 +37,8 @@ class _CheckOutState extends State<CheckOut> {
   bool tp = false;
   bool us = false;
   bool viettin = false;
+
+  bool isHasVerifyCode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -650,26 +658,17 @@ class _CheckOutState extends State<CheckOut> {
       return;
     } else {
       Navigator.of(context).pop();
-      _showPaymentDialog(context);
-      generalProvider
-          .addNotiList("${getTime()}: You Have Already Paid Successfully ");
-      setState(() {
-        expiry.text = "";
-        cardNumber.text = "";
-        cvv.text = "";
-
-        mb = false;
-        tp = false;
-        viettin = false;
-        us = false;
-        agri = false;
-      });
+      sendVerifyCode();
+      _showVerifyModalBottomSheet(context);
     }
   }
 
   _showPaymentDialog(BuildContext context) {
     // send();
     resetCart();
+    Navigator.of(context).push(CupertinoPageRoute(
+        builder: (_) =>
+            HomePage(nameList: generalProvider.getNameProductList)));
     return showDialog(
       context: context,
       builder: (context) => CustomDialog(
@@ -719,5 +718,168 @@ class _CheckOutState extends State<CheckOut> {
         );
       },
     );
+  }
+
+  _showVerifyDialog(BuildContext context) async {
+    // buildTimeOutForResetPassword();
+    return showDialog(
+        context: context,
+        builder: (ctx) {
+          // sendVerifyCode();
+          FocusManager.instance.primaryFocus?.unfocus();
+          return AlertDialog(
+            title: Text(
+              "Enter Verify Code From Your Email",
+              textAlign: TextAlign.center,
+            ),
+            content: Container(
+              height: 100,
+              child: Column(
+                children: [
+                  TextFormField(
+                    controller: verifyController,
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    maxLength: 6,
+                  ),
+                ],
+              ),
+            ),
+            actions: [
+              Center(
+                child: ElevatedButton(
+                    onPressed: () {
+                      if (verifyController.text.trim().length != 6) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Verify code must has 6 chracters")));
+                        return;
+                      }
+                      if (verifyController.text.trim() ==
+                          generalProvider.getVerifyCode) {
+                        setState(() {
+                          isHasVerifyCode = true;
+                        });
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        Navigator.of(context).pop();
+                        Navigator.of(context).push(
+                            PageRouteToScreen().pushToResetPasswordScreen());
+                        return;
+                      } else {
+                        setState(() {
+                          isHasVerifyCode = true;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Invalid Verify Code")));
+                        return;
+                      }
+                    },
+                    child: Text("SEND")),
+              )
+            ],
+          );
+        });
+  }
+
+  void _showVerifyModalBottomSheet(BuildContext context) async {
+    showModalBottomSheet(
+        context: context,
+        builder: (ctx) {
+          return Container(
+            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: Column(
+              children: [
+                Text(
+                  "Enter Verify Code From Your Email",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 30),
+                ),
+                Container(
+                  height: 80,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: verifyController,
+                        autofocus: true,
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        maxLength: 6,
+                      ),
+                    ],
+                  ),
+                ),
+                Center(
+                  child: ElevatedButton(
+                      onPressed: () {
+                        if (verifyController.text.trim().length != 6) {
+                          showDialogWithWarning(
+                              context, "Verify code must has 6 chracters");
+                          return;
+                        }
+                        if (verifyController.text.trim() ==
+                            generalProvider.getVerifyCode) {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          Navigator.of(context).pop();
+                          _showPaymentDialog(context);
+                          generalProvider.addNotiList(
+                              "${getTime()}: You Have Already Paid Successfully ");
+                          setState(() {
+                            expiry.text = "";
+                            cardNumber.text = "";
+                            cvv.text = "";
+
+                            mb = false;
+                            tp = false;
+                            viettin = false;
+                            us = false;
+                            agri = false;
+                          });
+                          return;
+                        } else {
+                          showDialogWithWarning(context, "Invalid Verify Code");
+                          return;
+                        }
+                      },
+                      child: Text("SEND")),
+                )
+              ],
+            ),
+          );
+        });
+  }
+
+  Future<void> sendVerifyCode() async {
+    if (generalProvider.getVerifyCode == "") {
+    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+    String message = "";
+    for (int i = 0; i < 6; i++) {
+      message += Random().nextInt(9).toString();
+    }
+    generalProvider.setVerifyCode(message);
+    print(message);
+    try {
+      final response = await http.post(url,
+          headers: {
+            "Content-Type": "application/json",
+            "origin": "http://localhost"
+          },
+          body: json.encode({
+            "service_id": "service_orfalor",
+            "template_id": "template_hhf5y2i",
+            "user_id": "sduv4yQPMsaNfNmjJ",
+            "template_params": {
+              "to_email": "kingmountain117@gmail.com",
+              "from_email": "H&HFood@gmail.com",
+              "from_name": "H&H FOOD",
+              "to_name": "you",
+              "message": message
+            }
+          }));
+          //213637
+      print(response.body);
+    } catch (error) {
+      print("ERROR: ${error}");
+    }
+    }
   }
 }
