@@ -25,34 +25,35 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               width: double.infinity,
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image: AssetImage("images/logo1.jpg"), fit: BoxFit.fill)),
+                      image: AssetImage("images/logo.png"), fit: BoxFit.fill)),
             ),
             Container(
               height: 220,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  TextLiquidFill(
-                    waveDuration: Duration(seconds: 5),
-                    text: 'H&H FOOD',
-                    waveColor: Colors.black,
-                    boxBackgroundColor: Color(0xfff1f1f1),
-                    textStyle: TextStyle(
-                        color: Colors.black,
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: "DynaPuff"),
-                    boxHeight: 100.0,
-                  ),
+                  // TextLiquidFill(
+                  //   waveDuration: Duration(seconds: 5),
+                  //   text: 'H&H FOOD',
+                  //   waveColor: Colors.black,
+                  //   // boxBackgroundColor: Color(0xfff1f1f1),
+                  //   boxBackgroundColor: Colors.lightBlueAccent.shade100,
+                  //   textStyle: TextStyle(
+                  //       color: Colors.black,
+                  //       fontSize: 35,
+                  //       fontWeight: FontWeight.bold,
+                  //       fontFamily: "DynaPuff"),
+                  //   boxHeight: 100.0,
+                  // ),
                   // const Text("H&H FOOD ",
                   //     style: TextStyle(
                   //         color: Colors.black,
                   //         fontSize: 35,
                   //         fontWeight: FontWeight.bold,
                   //         fontFamily: "DynaPuff")),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  // SizedBox(
+                  //   width: 10,
+                  // ),
                   SizedBox(
                     width: double.infinity,
                     child: DefaultTextStyle(
@@ -99,7 +100,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ? Column(
                     children: [
                       Container(
-                        height: 45,
+                        height: 40,
                         width: 300,
                         child: ElevatedButton(
                           onPressed: () {

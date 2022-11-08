@@ -7,8 +7,8 @@ import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/notification.dart';
 
 class NotificationButton extends StatefulWidget {
-  const NotificationButton({Key? key}) : super(key: key);
-
+  // NotificationButton({required this.fromHomePage, Key? key}) : super(key: key);
+  // bool fromHomePage;
   @override
   State<NotificationButton> createState() => _NotificationButtonState();
 }
@@ -20,7 +20,7 @@ class _NotificationButtonState extends State<NotificationButton> {
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
-
+    // Future<int> i = generalProvider.setFromHomePage(widget.fromHomePage);
     return Badge(
         position: BadgePosition(top: 8, start: 25),
         badgeContent: Text(generalProvider.getNotiList.length.toString()),
@@ -31,7 +31,8 @@ class _NotificationButtonState extends State<NotificationButton> {
           ),
           onPressed: () {
             // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => NotificationMessage()));
-            Navigator.of(context).pushReplacement(PageRouteToScreen().pushToNotificationScreen());
+            Navigator.of(context).push(
+                PageRouteToScreen().pushToNotificationScreen());
           },
         ));
   }

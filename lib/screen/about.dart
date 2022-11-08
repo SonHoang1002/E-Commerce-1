@@ -44,15 +44,15 @@ class _AboutState extends State<About> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.red,
-            ),
-            onPressed: () {},
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: Icon(
+        //       Icons.notifications,
+        //       color: Colors.red,
+        //     ),
+        //     onPressed: () {},
+        //   ),
+        // ],
       ),
       body: Container(
         decoration: DecorationBackGround().buildDecoration(),
@@ -94,7 +94,7 @@ class _AboutState extends State<About> {
                       Text("Address Of Their Headquarters:",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Colors.red,
                             fontSize: 20,
                             fontStyle: FontStyle.italic,
                           )),
@@ -143,7 +143,7 @@ class _AboutState extends State<About> {
                       Text("Opening - Closing Time:",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Colors.red,
                             fontSize: 20,
                             fontStyle: FontStyle.italic,
                           )),
@@ -174,7 +174,7 @@ class _AboutState extends State<About> {
                       Text("Member Number:",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Colors.red,
                             fontSize: 20,
                             fontStyle: FontStyle.italic,
                           )),

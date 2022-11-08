@@ -36,7 +36,9 @@ class ListProduct extends StatelessWidget {
             },
           ),
           actions: [
-            NotificationButton(),
+            NotificationButton(
+              // fromHomePage: false,
+            ),
           ],
         ),
         body: Container(

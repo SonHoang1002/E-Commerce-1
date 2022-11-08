@@ -63,7 +63,11 @@ class _CheckOutState extends State<CheckOut> {
             Navigator.of(context).pop();
           },
         ),
-        actions: [NotificationButton()],
+        actions: [
+          NotificationButton(
+            // fromHomePage: false,
+          ),
+        ],
       ),
       body: Container(
           decoration: DecorationBackGround().buildDecoration(),
@@ -850,36 +854,35 @@ class _CheckOutState extends State<CheckOut> {
 
   Future<void> sendVerifyCode() async {
     if (generalProvider.getVerifyCode == "") {
-    final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
-    String message = "";
-    for (int i = 0; i < 6; i++) {
-      message += Random().nextInt(9).toString();
-    }
-    generalProvider.setVerifyCode(message);
-    print(message);
-    try {
-      final response = await http.post(url,
-          headers: {
-            "Content-Type": "application/json",
-            "origin": "http://localhost"
-          },
-          body: json.encode({
-            "service_id": "service_orfalor",
-            "template_id": "template_hhf5y2i",
-            "user_id": "sduv4yQPMsaNfNmjJ",
-            "template_params": {
-              "to_email": "kingmountain117@gmail.com",
-              "from_email": "H&HFood@gmail.com",
-              "from_name": "H&H FOOD",
-              "to_name": "you",
-              "message": message
-            }
-          }));
-          //213637
-      print(response.body);
-    } catch (error) {
-      print("ERROR: ${error}");
-    }
+      final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
+      String message = "";
+      for (int i = 0; i < 6; i++) {
+        message += Random().nextInt(9).toString();
+      }
+      generalProvider.setVerifyCode(message);
+      print(message);
+      try {
+        final response = await http.post(url,
+            headers: {
+              "Content-Type": "application/json",
+              "origin": "http://localhost"
+            },
+            body: json.encode({
+              "service_id": "service_orfalor",
+              "template_id": "template_hhf5y2i",
+              "user_id": "sduv4yQPMsaNfNmjJ",
+              "template_params": {
+                "to_email": "kingmountain117@gmail.com",
+                "from_email": "H&HFood@gmail.com",
+                "from_name": "H&H FOOD",
+                "to_name": "you",
+                "message": message
+              }
+            }));
+        print(response.body);
+      } catch (error) {
+        print("ERROR: ${error}");
+      }
     }
   }
 }

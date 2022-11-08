@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'package:talkjs_flutter/talkjs_flutter.dart';
@@ -109,37 +110,41 @@ class _TestScreenState extends State<TestScreen> {
     return Scaffold(
       appBar: AppBar(title: Text("TestScreen")),
       body: Container(
-        decoration: DecorationBackGround().buildDecoration(),
+          decoration: DecorationBackGround().buildDecoration(),
           child: Center(
-        child: Column(children: [
-          Text(
-            "${minute}:${zero}${start}",
-            style: TextStyle(fontSize: 30),
-          ),
-          ElevatedButton(
-            child: Text("Click me"),
-            onPressed: () {
-              if (isZero) {
-                setState(() {
-                  minute = 1;
-                  start = 10;
-                });
-              }
-              buildTimer();
-            },
-          )
-        ]),
-      )),
+            child: Column(children: [
+              Text(
+                "${minute}:${zero}${start}",
+                style: TextStyle(fontSize: 30),
+              ),
+              ElevatedButton(
+                child: Text("Click me"),
+                onPressed: () {
+                  if (isZero) {
+                    setState(() {
+                      minute = 1;
+                      start = 10;
+                    });
+                  }
+                  buildTimer();
+                },
+              )
+            ]),
+          )),
     );
   }
 
   void buildTimer() {
     const perSecond = Duration(seconds: 1);
-    timer = Timer.periodic(perSecond, (timer) {
+    timer = Timer.periodic(perSecond, (timer) async {
       if (minute == 0 && start == 0) {
         setState(() {
           timer.cancel();
         });
+        // String result = await sendSMS(
+        //         message: "Hello", recipients: ["0346311358",'0346311357'], sendDirect: true)
+        //     .catchError((onError) => {print('onError: $onError')});
+        // print('result: ${result}');
       } else {
         if (start == 0) {
           setState(() {

@@ -58,7 +58,12 @@ class _NotificationMessageState extends State<NotificationMessage> {
             onPressed: () {
               // Navigator.of(context)
               //     .push(MaterialPageRoute(builder: (ctx) => HomePage()));
-              Navigator.of(context).pop();
+              // generalProvider.getFromHomePage 
+              // ?  Navigator.of(context).push(MaterialPageRoute(
+              //   builder: (ctx) =>
+              //       HomePage(nameList: generalProvider.getNameProductList)))
+              // : Navigator.of(context).pop();
+               Navigator.of(context).pop();
             },
             icon: Icon(
               Icons.arrow_back,

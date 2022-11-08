@@ -14,7 +14,7 @@ import 'package:testecommerce/screen/homepage.dart';
 
 import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/profile.dart';
-import 'package:testecommerce/screen/welcomescreen.dart';
+import 'package:testecommerce/screen/welcomeScreen.dart';
 import 'package:testecommerce/testScreen/test.dart';
 import './screen/signup.dart';
 import './providers/category_provider.dart';

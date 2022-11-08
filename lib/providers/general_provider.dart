@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:testecommerce/models/contact_user.dart';
 import 'package:testecommerce/models/usermodel.dart';
+import 'package:testecommerce/screen/homePage.dart';
 import 'package:testecommerce/screen/profile.dart';
 import '../models/cartmodels.dart';
 import '../models/product.dart';
@@ -719,5 +720,15 @@ class GeneralProvider with ChangeNotifier {
     return 1;
   }
 
-   get getVerifyCode => verifyCode;
+  get getVerifyCode => verifyCode;
+
+  // fix bug pop to home page from notification page
+  bool fromHomePage = false;
+  Future<int> setFromHomePage(bool value) async {
+    fromHomePage = true;
+    notifyListeners();
+    return 1;
+  }
+
+  bool get getFromHomePage => fromHomePage;
 }

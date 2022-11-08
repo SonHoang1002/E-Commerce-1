@@ -46,7 +46,9 @@ class _CartScreenState extends State<CartScreen> {
           },
         ),
         actions: [
-          NotificationButton(),
+          NotificationButton(
+            // fromHomePage: false,
+          ),
           // IconButton(
           //   icon: Icon(
           //     Icons.shopping_cart,

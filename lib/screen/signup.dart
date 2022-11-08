@@ -93,7 +93,7 @@ class _Signup extends State<Signup> {
               child: Column(
                 children: [
                   Container(
-                    height: 100,
+                    height: 70,
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -115,21 +115,27 @@ class _Signup extends State<Signup> {
                     height: 500,
                     margin: EdgeInsets.symmetric(horizontal: 10),
                     width: double.infinity,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    child: ListView(
                       children: [
                         TextFormField(
                           controller: username,
                           decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red)),
                             hintText: "UserName",
                             labelText: "Username",
                             hintStyle: TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextFormField(
                           controller: email,
                           decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red)),
                             hintText: "Email",
                             labelText: "Email",
                             hintStyle: TextStyle(
@@ -138,9 +144,14 @@ class _Signup extends State<Signup> {
                             border: OutlineInputBorder(),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextFormField(
+                          obscureText: obscureText,
                           controller: password,
                           decoration: InputDecoration(
+                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                             hintText: "Password",
                             labelText: "Password",
                             suffixIcon: GestureDetector(
@@ -166,6 +177,9 @@ class _Signup extends State<Signup> {
                             border: OutlineInputBorder(),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         GestureDetector(
                           onTap: () {
                             setState(() {
@@ -178,7 +192,7 @@ class _Signup extends State<Signup> {
                             padding:
                                 EdgeInsets.only(left: 10, right: 10, top: 4),
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.grey)),
+                                border: Border.all(color: Colors.red)),
                             child: Container(
                               child: Row(
                                 mainAxisAlignment:
@@ -201,10 +215,16 @@ class _Signup extends State<Signup> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
                         TextFormField(
                           controller: phone,
+                          maxLength: 12,
+                          keyboardType: TextInputType.number,
                           style: TextStyle(),
                           decoration: InputDecoration(
+                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                             hintText: "Phone",
                             labelText: "Phone",
                             hintStyle: TextStyle(
@@ -217,6 +237,7 @@ class _Signup extends State<Signup> {
                           controller: address,
                           style: TextStyle(),
                           decoration: InputDecoration(
+                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
                             hintText: "Address",
                             labelText: "Address",
                             hintStyle: TextStyle(
@@ -226,6 +247,7 @@ class _Signup extends State<Signup> {
                           ),
                         ),
                         Container(
+                          margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
                           height: 50,
                           width: double.infinity,
                           child: ElevatedButton(
@@ -245,6 +267,9 @@ class _Signup extends State<Signup> {
                               onPressed: () {
                                 validation();
                               }),
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Row(
                           children: [

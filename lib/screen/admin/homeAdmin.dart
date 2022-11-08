@@ -110,7 +110,9 @@ class _HomeAdminState extends State<HomeAdmin> {
               color: Colors.black,
             )),
         actions: [
-          NotificationButton(),
+          NotificationButton(
+            // fromHomePage: false,
+          ),
         ],
       ),
       drawer: buildDrawer(),

@@ -110,7 +110,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         edit = false;
                       });
                     },
-                    child: NotificationButton())
+                    child: NotificationButton(
+                      // fromHomePage: false,
+                    ),
+                  )
           ],
           leading: edit
               ? IconButton(

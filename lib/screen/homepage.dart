@@ -169,7 +169,9 @@ class _HomePageState extends State<HomePage> {
                 Icons.search,
                 color: Colors.red,
               )),
-          NotificationButton(),
+          NotificationButton(
+            // fromHomePage: false,
+          ),
           IconButton(
               onPressed: () {
                 // Navigator.of(context)

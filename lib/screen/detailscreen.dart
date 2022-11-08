@@ -47,7 +47,9 @@ class _DetailScreenState extends State<DetailScreen> {
           },
         ),
         actions: [
-          NotificationButton(),
+          NotificationButton(
+            // fromHomePage: false,
+          ),
           IconButton(
               icon: Badge(
                   badgeContent: Text("${generalProvider.getCartModelLength}"),
