@@ -47,8 +47,8 @@ class _CartScreenState extends State<CartScreen> {
         ),
         actions: [
           NotificationButton(
-            // fromHomePage: false,
-          ),
+              // fromHomePage: false,
+              ),
           // IconButton(
           //   icon: Icon(
           //     Icons.shopping_cart,
@@ -72,7 +72,8 @@ class _CartScreenState extends State<CartScreen> {
                       name: generalProvider.getCartModel[index].name,
                       price: generalProvider.getCartModel[index].price,
                       img: generalProvider.getCartModel[index].img,
-                      quantity: generalProvider.getCartModel[index].quantity);
+                      quantity: generalProvider.getCartModel[index].quantity,
+                      repo:generalProvider.getCartModel[index].repo);
                 },
               ),
             ),
@@ -222,6 +223,7 @@ class _CartScreenState extends State<CartScreen> {
         onPressed: () {
           // Navigator.of(context)
           //     .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));
+          generalProvider.setCartModelListName();
           Navigator.of(context)
               .push(PageRouteToScreen().pushToCheckOutScreen());
         },

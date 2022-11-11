@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/widget/notificationButton.dart';
-import '../widget/cartsingleproduct.dart';
+
 
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:testecommerce/widget/singleProduct.dart';
 
 import '../models/product.dart';
-import '../widget/singleproduct.dart';
 
 class ListProduct extends StatelessWidget {
   String? name;
@@ -37,8 +37,8 @@ class ListProduct extends StatelessWidget {
           ),
           actions: [
             NotificationButton(
-              // fromHomePage: false,
-            ),
+                // fromHomePage: false,
+                ),
           ],
         ),
         body: Container(
@@ -78,7 +78,7 @@ class ListProduct extends StatelessWidget {
                         crossAxisCount: 2,
                         children: list
                             .map((e) => SingleProduct(
-                                name: e.name, price: e.price, image: e.image))
+                                name: e.name, price: e.price, image: e.image,repo:e.repo))
                             .toList(),
                       ),
                     )

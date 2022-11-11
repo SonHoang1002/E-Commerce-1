@@ -61,7 +61,8 @@ class GeneralProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     featureProductList = newList;
@@ -261,7 +262,8 @@ class GeneralProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     newProductList = newList;
@@ -276,7 +278,8 @@ class GeneralProvider with ChangeNotifier {
   //cart
   late CartModel cartModel;
   List<CartModel> cartModelList = [];
-  void setCartModel(String name, double price, int quantity, String img) {
+  void setAddCartModel(
+      String name, double price, int quantity, String img, int repo) {
     int? index;
     int? oldQuantity;
     int? newQuantity;
@@ -287,13 +290,19 @@ class GeneralProvider with ChangeNotifier {
       }
     }
     if (index == null) {
-      cartModelList.add(
-          CartModel(name: name, price: price, img: img, quantity: quantity));
+      cartModelList.add(CartModel(
+          name: name, price: price, img: img, quantity: quantity, repo: repo));
     } else if ((index >= 0)) {
       cartModelList.remove(getCartModel[index]);
       newQuantity = oldQuantity! + quantity;
-      cartModelList.insert(index,
-          CartModel(name: name, price: price, img: img, quantity: newQuantity));
+      cartModelList.insert(
+          index,
+          CartModel(
+              name: name,
+              price: price,
+              img: img,
+              quantity: newQuantity,
+              repo: repo));
     }
 
     notifyListeners();
@@ -301,11 +310,25 @@ class GeneralProvider with ChangeNotifier {
 
   void setCartModelList(List<CartModel> newList) {
     cartModelList = newList;
+    // print(cartModelList);
     notifyListeners();
   }
 
   List<CartModel> get getCartModel => List.from(cartModelList);
   int get getCartModelLength => cartModelList.length;
+
+  late List<String> cartModelListName;
+  Future<int> setCartModelListName() async {
+    List<String> list = [];
+    for (int i = 0; i < getCartModelLength; i++) {
+      list.add(getCartModel[i].name);
+    }
+    cartModelListName = list;
+    notifyListeners();
+    return 1;
+  }
+
+  List<String> get getCartModelListName => cartModelListName;
 
   // total
   late double total = 0;
@@ -354,6 +377,7 @@ class GeneralProvider with ChangeNotifier {
   }
 
   get getEmailFromLogin => email;
+
   late String userAddress;
   late String userName;
   late String userEmail;
@@ -403,7 +427,8 @@ class GeneralProvider with ChangeNotifier {
         asiaDish = Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]);
+            name: element["category"],
+            repo: int.parse(element["repo"]));
         newList.add(asiaDish);
       },
     );
@@ -431,7 +456,8 @@ class GeneralProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     eastList = newList;
@@ -458,7 +484,8 @@ class GeneralProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     snackList = newList;
@@ -485,7 +512,8 @@ class GeneralProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     drinkList = newList;
@@ -517,7 +545,8 @@ class GeneralProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     waterList = newList;
@@ -649,6 +678,15 @@ class GeneralProvider with ChangeNotifier {
   get getIdMessenger => idMessenger;
   get getIdMessengerList => listIdMessenger;
 
+// get Contact User
+  late ContactMessengerModel contactUser;
+  setContactUser(String id, String name, String email) async {
+    contactUser = ContactMessengerModel(id: id, name: name, email: email);
+    notifyListeners();
+  }
+
+  ContactMessengerModel get getContactUser => contactUser;
+
   List<ContactMessengerModel> listContactMessengerModel = [];
   setNameAndEmailFromId(i) async {
     QuerySnapshot<Object?> snapshot =
@@ -731,4 +769,29 @@ class GeneralProvider with ChangeNotifier {
   }
 
   bool get getFromHomePage => fromHomePage;
+
+// total revenue
+  late String totalRevenue;
+  Future<int> setTotalRenenue() async {
+    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+        .collection("TotalRevenue")
+        .doc("9EC0nIWg6Da6RaYG5cm8")
+        .collection("tr")
+        .get();
+    snapshot.docs.forEach(
+      (element) {
+        totalRevenue = element["totalMoney"];
+      },
+    );
+    notifyListeners();
+    return 0;
+  }
+
+  Future<int> setTotalRenenueWith(String value) async {
+    totalRevenue = value;
+    notifyListeners();
+    return 0;
+  }
+
+  String get getTotalRenenue => totalRevenue;
 }

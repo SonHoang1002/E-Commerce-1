@@ -18,7 +18,8 @@ class CategoryProvider with ChangeNotifier {
         asiaDish = Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]);
+            name: element["category"],
+            repo: int.parse(element["repo"]));
         newList.add(asiaDish);
       },
     );
@@ -50,7 +51,8 @@ class CategoryProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     eastList = newList;
@@ -77,7 +79,8 @@ class CategoryProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     snackList = newList;
@@ -109,7 +112,8 @@ class CategoryProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     waterList = newList;

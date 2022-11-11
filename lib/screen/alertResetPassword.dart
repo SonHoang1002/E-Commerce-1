@@ -205,7 +205,7 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
               "template_id": "template_m7c2jus",
               "user_id": "XODjifkQVe_sJaakG",
               "template_params": {
-                "to_email": "kingmountain117@gmail.com",
+                "to_email": "${generalProvider.getEmailFromLogin}",
                 "from_email": "H&HFood@gmail.com",
                 "from_name": "H&H FOOD",
                 "to_name": "you",

@@ -51,7 +51,7 @@ class Search extends SearchDelegate<void> {
       mainAxisSpacing: 10,
       children: searchFeatureList
           .map((e) =>
-              SingleProduct(name: e.name, price: e.price, image: e.image))
+              SingleProduct(name: e.name, price: e.price, image: e.image,repo:e.repo))
           .toList(),
     );
   }

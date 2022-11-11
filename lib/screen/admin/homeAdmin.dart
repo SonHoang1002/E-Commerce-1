@@ -111,8 +111,8 @@ class _HomeAdminState extends State<HomeAdmin> {
             )),
         actions: [
           NotificationButton(
-            // fromHomePage: false,
-          ),
+              // fromHomePage: false,
+              ),
         ],
       ),
       drawer: buildDrawer(),
@@ -475,10 +475,11 @@ class _HomeAdminState extends State<HomeAdmin> {
         ),
         ListTile(
           onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (ctx) => TestScreen()));
-            //   Navigator.of(context)
-            // .push(MaterialPageRoute(builder: (ctx) => ContactMessenger(id:"1",name:"32",email:"fdfj")));
+            // Navigator.of(context)
+            //     .push(MaterialPageRoute(builder: (ctx) => TestScreen()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (ctx) =>
+                    ContactMessenger(id: generalProvider.getContactUser.id, name: generalProvider.getContactUser.name, email: generalProvider.getContactUser.email)));
           },
           title: const Text("Contact"),
           leading: const Icon(Icons.message),

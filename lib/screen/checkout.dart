@@ -1,6 +1,9 @@
+import 'dart:ffi';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_dialog/custom_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,8 +68,8 @@ class _CheckOutState extends State<CheckOut> {
         ),
         actions: [
           NotificationButton(
-            // fromHomePage: false,
-          ),
+              // fromHomePage: false,
+              ),
         ],
       ),
       body: Container(
@@ -596,7 +599,7 @@ class _CheckOutState extends State<CheckOut> {
             "template_id": "template_34vsgep",
             "user_id": "XODjifkQVe_sJaakG",
             "template_params": {
-              "to_email": "kingmountain117@gmail.com",
+              "to_email": "${generalProvider.getUserModelEmail}",
               "from_email": "H&HFood@gmail.com",
               "from_name": "H&H FOOD",
               "to_name": "${generalProvider.getUserModelName}",
@@ -667,8 +670,9 @@ class _CheckOutState extends State<CheckOut> {
     }
   }
 
-  _showPaymentDialog(BuildContext context) {
-    // send();
+  _showPaymentDialogSuccesfull(BuildContext context) async{
+    await send();
+    await setCustomerAndTotalRevenue();
     resetCart();
     Navigator.of(context).push(CupertinoPageRoute(
         builder: (_) =>
@@ -824,7 +828,7 @@ class _CheckOutState extends State<CheckOut> {
                             generalProvider.getVerifyCode) {
                           FocusManager.instance.primaryFocus?.unfocus();
                           Navigator.of(context).pop();
-                          _showPaymentDialog(context);
+                          _showPaymentDialogSuccesfull(context);
                           generalProvider.addNotiList(
                               "${getTime()}: You Have Already Paid Successfully ");
                           setState(() {
@@ -872,7 +876,7 @@ class _CheckOutState extends State<CheckOut> {
               "template_id": "template_hhf5y2i",
               "user_id": "sduv4yQPMsaNfNmjJ",
               "template_params": {
-                "to_email": "kingmountain117@gmail.com",
+                "to_email": "${generalProvider.getUserModelEmail}",
                 "from_email": "H&HFood@gmail.com",
                 "from_name": "H&H FOOD",
                 "to_name": "you",
@@ -884,5 +888,29 @@ class _CheckOutState extends State<CheckOut> {
         print("ERROR: ${error}");
       }
     }
+  }
+
+  Future<void> setCustomerAndTotalRevenue() async {
+    await FirebaseFirestore.instance
+        .collection("TotalRevenue")
+        .doc("9EC0nIWg6Da6RaYG5cm8")
+        .collection("bill")
+        .add({
+      "idUser": FirebaseAuth.instance.currentUser!.uid,
+      "productList": generalProvider.getCartModelListName,
+      "money": generalProvider.getTotal
+    });
+    print("add user to totalRevenue ok");
+    String money = (double.parse(generalProvider.getTotalRenenue) +
+            generalProvider.getTotal)
+        .toString();
+
+    await FirebaseFirestore.instance
+        .collection("TotalRevenue")
+        .doc("9EC0nIWg6Da6RaYG5cm8")
+        .collection("tr")
+        .doc("W5hd5BaRmYrhNAySeeq3")
+        .update({"totalMoney": money});
+    print("add bill to totalRevenue ok");
   }
 }

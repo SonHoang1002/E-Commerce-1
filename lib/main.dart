@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
                 //   print("Login() is called first");
                 //   return WelcomeScreen();
                 // }
-                return WelcomeScreen();
+                return Login();
               },
             ),
           );

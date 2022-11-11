@@ -12,12 +12,14 @@ class CartSingleProduct extends StatefulWidget {
   late double price;
   late int quantity;
   late String img;
+  late int repo;
 
   CartSingleProduct(
       {required this.name,
       required this.price,
       required this.img,
-      required this.quantity});
+      required this.quantity,
+      required this.repo});
 
   @override
   State<CartSingleProduct> createState() => _CartSingleProductState();
@@ -124,7 +126,6 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                                 updateQuantity(widget.name);
                                 generalProvider.addNotiList(
                                     "${getTime()}: You have already updated ${widget.name} quantity");
-                
                               },
                             ),
                           ],
@@ -151,7 +152,8 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                     } else {
                       generalProvider.setTotal(CountTotal(list));
                     }
-                    generalProvider.addNotiList("${getTime()}: You have already deleted ${widget.quantity} ${widget.name}");
+                    generalProvider.addNotiList(
+                        "${getTime()}: You have already deleted ${widget.quantity} ${widget.name}");
                   })
             ],
           ),

@@ -170,8 +170,8 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.red,
               )),
           NotificationButton(
-            // fromHomePage: false,
-          ),
+              // fromHomePage: false,
+              ),
           IconButton(
               onPressed: () {
                 // Navigator.of(context)
@@ -437,6 +437,11 @@ class _HomePageState extends State<HomePage> {
                                 if (element.id == id) {
                                   generalProvider
                                       .setListId(element["Id_messenger"]);
+                                  generalProvider.setContactUser(
+                                    element["Id_messenger"],
+                                    element["UserName"],
+                                    element["UserEmail"],
+                                  );
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (ctx) => ContactMessenger(
                                             id: element["Id_messenger"],
@@ -494,19 +499,19 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.exit_to_app),
             ),
             //test
-            ListTile(
-              selected: homeColor,
-              onTap: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (ctx) =>
-                //         // TestScreen(list: generalProvider.getNameProductList)));
-                //         TestScreen()));
-                Navigator.of(context)
-                    .push(PageRouteToScreen().pushToTestScreen());
-              },
-              title: const Text("Test"),
-              leading: const Icon(Icons.text_snippet),
-            ),
+            // ListTile(
+            //   selected: homeColor,
+            //   onTap: () {
+            //     // Navigator.of(context).push(MaterialPageRoute(
+            //     //     builder: (ctx) =>
+            //     //         // TestScreen(list: generalProvider.getNameProductList)));
+            //     //         TestScreen()));
+            //     Navigator.of(context)
+            //         .push(PageRouteToScreen().pushToTestScreen());
+            //   },
+            //   title: const Text("Test"),
+            //   leading: const Icon(Icons.text_snippet),
+            // ),
           ],
         );
       },
@@ -595,21 +600,23 @@ class _HomePageState extends State<HomePage> {
                                                     itemCount: generalProvider
                                                         .getSearchListFromQuery
                                                         .length,
-                                                    itemBuilder: (context,
-                                                            index) =>
-                                                        SingleProduct(
-                                                            name: generalProvider
-                                                                .getSearchListFromQuery[
-                                                                    index]
-                                                                .name,
-                                                            price: generalProvider
-                                                                .getSearchListFromQuery[
-                                                                    index]
-                                                                .price,
-                                                            image: generalProvider
-                                                                .getSearchListFromQuery[
-                                                                    index]
-                                                                .image),
+                                                    itemBuilder: (context, index) => SingleProduct(
+                                                        name: generalProvider
+                                                            .getSearchListFromQuery[
+                                                                index]
+                                                            .name,
+                                                        price: generalProvider
+                                                            .getSearchListFromQuery[
+                                                                index]
+                                                            .price,
+                                                        image: generalProvider
+                                                            .getSearchListFromQuery[
+                                                                index]
+                                                            .image,
+                                                        repo: generalProvider
+                                                            .getSearchListFromQuery[
+                                                                index]
+                                                            .repo),
                                                   ),
                                                 ),
                                               ],
@@ -628,7 +635,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 buildCategory(),
                                 buildFeatured(),
-                                // buildAds(),
+                                buildAds(),
                                 buildNewProduct(),
                               ],
                             )
@@ -673,7 +680,8 @@ class _HomePageState extends State<HomePage> {
                       hasSearchWord = true;
                       showResultWord = true;
                       FocusManager.instance.primaryFocus?.unfocus();
-                      generalProvider.searchProductList(searchInput.text);
+                      generalProvider
+                          .searchProductListEqualQuery(searchInput.text);
                     }
                   },
                 )
@@ -843,15 +851,18 @@ class _HomePageState extends State<HomePage> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(CupertinoPageRoute(
-                            builder: (ctx) => DetailScreen(
-                                name: listFeature[0].name,
-                                price: listFeature[0].price,
-                                img: listFeature[0].image)));
+                          builder: (ctx) => DetailScreen(
+                              name: listFeature[0].name,
+                              price: listFeature[0].price,
+                              img: listFeature[0].image,
+                              repo: listFeature[0].repo),
+                        ));
                       },
                       child: SingleProduct(
                           name: listFeature[0].name,
                           price: listFeature[0].price,
-                          image: listFeature[0].image),
+                          image: listFeature[0].image,
+                          repo: listFeature[0].repo),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -859,12 +870,14 @@ class _HomePageState extends State<HomePage> {
                             builder: (ctx) => DetailScreen(
                                 name: listFeature[1].name,
                                 price: listFeature[1].price,
-                                img: listFeature[1].image)));
+                                img: listFeature[1].image,
+                                repo: listFeature[0].repo)));
                       },
                       child: SingleProduct(
                           name: listFeature[1].name,
                           price: listFeature[1].price,
-                          image: listFeature[1].image),
+                          image: listFeature[1].image,
+                          repo: listFeature[0].repo),
                     ),
                   ],
                 )
@@ -920,12 +933,14 @@ class _HomePageState extends State<HomePage> {
                             builder: (ctx) => DetailScreen(
                                 name: listNew[0].name,
                                 price: listNew[0].price,
-                                img: listNew[0].image)));
+                                img: listNew[0].image,
+                                repo: listFeature[0].repo)));
                       },
                       child: SingleProduct(
                           name: listNew[0].name,
                           price: listNew[0].price,
-                          image: listNew[0].image),
+                          image: listNew[0].image,
+                          repo: listFeature[0].repo),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -933,12 +948,14 @@ class _HomePageState extends State<HomePage> {
                             builder: (ctx) => DetailScreen(
                                 name: listNew[1].name,
                                 price: listNew[1].price,
-                                img: listNew[1].image)));
+                                img: listNew[1].image,
+                                repo: listFeature[0].repo)));
                       },
                       child: SingleProduct(
                           name: listNew[1].name,
                           price: listNew[1].price,
-                          image: listNew[1].image),
+                          image: listNew[1].image,
+                          repo: listFeature[0].repo),
                     ),
                   ],
                 )

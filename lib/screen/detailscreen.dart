@@ -15,7 +15,8 @@ class DetailScreen extends StatefulWidget {
   late String name;
   late String img;
   late double price;
-  DetailScreen({required this.name, required this.price, required this.img});
+  late int repo;
+  DetailScreen({required this.name, required this.price, required this.img,required this.repo});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -48,8 +49,8 @@ class _DetailScreenState extends State<DetailScreen> {
         ),
         actions: [
           NotificationButton(
-            // fromHomePage: false,
-          ),
+              // fromHomePage: false,
+              ),
           IconButton(
               icon: Badge(
                   badgeContent: Text("${generalProvider.getCartModelLength}"),
@@ -296,8 +297,8 @@ class _DetailScreenState extends State<DetailScreen> {
       child: ElevatedButton(
         onPressed: () {
           total = 0;
-          generalProvider.setCartModel(
-              widget.name, widget.price, quantity, widget.img);
+          generalProvider.setAddCartModel(
+              widget.name, widget.price, quantity, widget.img,widget.repo);
           for (int i = 0; i < generalProvider.getCartModelLength; i++) {
             total += (generalProvider.getCartModel[i].quantity *
                 generalProvider.getCartModel[i].price);
@@ -381,4 +382,6 @@ class _DetailScreenState extends State<DetailScreen> {
           generalProvider.getCartModel[i].price);
     }
   }
+
+  
 }

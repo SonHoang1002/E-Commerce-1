@@ -19,10 +19,13 @@ class ProductProvider with ChangeNotifier {
         .get();
     snapshot.docs.forEach(
       (element) {
-        newList.add(Product(
-            image: element["image"],
-            price: double.parse(element["price"]),
-            name: element["category"]));
+        newList.add(
+          Product(
+              image: element["image"],
+              price: double.parse(element["price"]),
+              name: element["category"],
+              repo: int.parse(element["repo"])),
+        );
       },
     );
     featureProductList = newList;
@@ -50,7 +53,8 @@ class ProductProvider with ChangeNotifier {
         newList.add(Product(
             image: element["image"],
             price: double.parse(element["price"]),
-            name: element["category"]));
+            name: element["category"],
+            repo: int.parse(element["repo"])));
       },
     );
     newProductList = newList;
@@ -65,7 +69,8 @@ class ProductProvider with ChangeNotifier {
   //cart
   late CartModel cartModel;
   List<CartModel> cartModelList = [];
-  void setCartModel(String name, double price, int quantity, String img) {
+  void setCartModel(
+      String name, double price, int quantity, String img, int repo) {
     int? index;
     int? oldQuantity;
     int? newQuantity;
@@ -76,13 +81,19 @@ class ProductProvider with ChangeNotifier {
       }
     }
     if (index == null) {
-      cartModelList.add(
-          CartModel(name: name, price: price, img: img, quantity: quantity));
-    }else if ((index >= 0)) {
+      cartModelList.add(CartModel(
+          name: name, price: price, img: img, quantity: quantity, repo: repo));
+    } else if ((index >= 0)) {
       cartModelList.remove(getCartModel[index]);
       newQuantity = oldQuantity! + quantity;
-      cartModelList.insert(index,
-          CartModel(name: name, price: price, img: img, quantity: newQuantity));
+      cartModelList.insert(
+          index,
+          CartModel(
+              name: name,
+              price: price,
+              img: img,
+              quantity: newQuantity,
+              repo: repo));
     }
 
     notifyListeners();

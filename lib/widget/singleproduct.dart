@@ -4,17 +4,18 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 
 class SingleProduct extends StatelessWidget {
-  SingleProduct({required this.name, required this.price, required this.image});
+  SingleProduct({required this.name, required this.price, required this.image,required this.repo});
   late final String name;
   late final String image;
   late final double price;
+  late final int repo;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(CupertinoPageRoute(
             builder: (context) =>
-                DetailScreen(name: name, price: price, img: image)));
+                DetailScreen(name: name, price: price, img: image,repo:repo)));
       },
       onLongPress: () {
         _showAlertDialog(context);
