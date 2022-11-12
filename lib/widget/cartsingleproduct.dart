@@ -84,6 +84,13 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
+                      Text(
+                        "Suitable: ${widget.repo} ",
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
                       Container(
                         height: 30,
                         width: 100,
@@ -120,12 +127,14 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                                 color: Colors.black,
                               ),
                               onTap: () {
-                                setState(() {
-                                  widget.quantity += 1;
-                                });
-                                updateQuantity(widget.name);
-                                generalProvider.addNotiList(
-                                    "${getTime()}: You have already updated ${widget.name} quantity");
+                                if (widget.quantity < widget.repo) {
+                                  setState(() {
+                                    widget.quantity += 1;
+                                  });
+                                  updateQuantity(widget.name);
+                                  generalProvider.addNotiList(
+                                      "${getTime()}: You have already updated ${widget.name} quantity");
+                                } else {}
                               },
                             ),
                           ],

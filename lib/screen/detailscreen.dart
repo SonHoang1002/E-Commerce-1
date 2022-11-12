@@ -16,7 +16,11 @@ class DetailScreen extends StatefulWidget {
   late String img;
   late double price;
   late int repo;
-  DetailScreen({required this.name, required this.price, required this.img,required this.repo});
+  DetailScreen(
+      {required this.name,
+      required this.price,
+      required this.img,
+      required this.repo});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -25,6 +29,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   double total = 0;
   late int quantity = 1;
+  bool overPlus = false;
   // late GeneralProvider generalProvider;
   late GeneralProvider generalProvider;
 
@@ -89,6 +94,10 @@ class _DetailScreenState extends State<DetailScreen> {
                   ],
                 ),
               ),
+              buildRepo(),
+              SizedBox(
+                height: 10,
+              ),
               buildQuantity(),
               SizedBox(
                 height: 10,
@@ -148,13 +157,13 @@ class _DetailScreenState extends State<DetailScreen> {
                     fontSize: 23,
                     fontWeight: FontWeight.bold),
               ),
-              Text(
-                "Description",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                ),
-              ),
+              // Text(
+              //   "Description",
+              //   style: TextStyle(
+              //     color: Colors.black,
+              //     fontSize: 20,
+              //   ),
+              // ),
             ],
           ),
         ],
@@ -182,61 +191,17 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  Widget buildSizes() {
-    return Column(
-      children: [
-        Text(
-          "Size",
+  Widget buildRepo() {
+    return Container(
+      child: Center(
+        child: Text(
+          "Suitable: ${widget.repo}",
           style: TextStyle(
             color: Colors.black,
-            fontSize: 20,
+            fontSize: 15,
           ),
         ),
-        Container(
-            width: 260,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildSizeForEach(
-                  "S",
-                ),
-                buildSizeForEach(
-                  "XXL",
-                ),
-                buildSizeForEach(
-                  "XL",
-                ),
-                buildSizeForEach(
-                  "L",
-                ),
-              ],
-            ))
-      ],
-    );
-  }
-
-  Widget buildColors() {
-    return Column(
-      children: [
-        Text(
-          "Color",
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-        ),
-        Container(
-            width: 260,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                buildColorProduct("Red", Colors.red),
-                buildColorProduct("Orange", Colors.orange),
-                buildColorProduct("Blue", Colors.blue),
-                buildColorProduct("Green", Color.fromARGB(255, 102, 183, 104)),
-              ],
-            ))
-      ],
+      ),
     );
   }
 
@@ -250,6 +215,7 @@ class _DetailScreenState extends State<DetailScreen> {
             fontSize: 20,
           ),
         ),
+        SizedBox(height: 5,),
         Container(
           height: 30,
           width: 100,
@@ -262,10 +228,10 @@ class _DetailScreenState extends State<DetailScreen> {
                 child: Icon(Icons.remove),
                 onTap: () {
                   setState(() {
-                    if (quantity > 0) {
+                    if (quantity >= 2) {
                       quantity -= 1;
                     } else {
-                      quantity = 0;
+                      quantity = 1;
                     }
                   });
                 },
@@ -277,9 +243,15 @@ class _DetailScreenState extends State<DetailScreen> {
               GestureDetector(
                 child: Icon(Icons.add),
                 onTap: () {
-                  setState(() {
-                    quantity += 1;
-                  });
+                  if (quantity < widget.repo) {
+                    setState(() {
+                      quantity += 1;
+                    });
+                  } else {
+                    setState(() {
+                      overPlus = true;
+                    });
+                  }
                 },
               ),
             ],
@@ -298,7 +270,7 @@ class _DetailScreenState extends State<DetailScreen> {
         onPressed: () {
           total = 0;
           generalProvider.setAddCartModel(
-              widget.name, widget.price, quantity, widget.img,widget.repo);
+              widget.name, widget.price, quantity, widget.img, widget.repo);
           for (int i = 0; i < generalProvider.getCartModelLength; i++) {
             total += (generalProvider.getCartModel[i].quantity *
                 generalProvider.getCartModel[i].price);
@@ -383,5 +355,61 @@ class _DetailScreenState extends State<DetailScreen> {
     }
   }
 
-  
+  Widget buildSizes() {
+    return Column(
+      children: [
+        Text(
+          "Size",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
+        Container(
+            width: 260,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildSizeForEach(
+                  "S",
+                ),
+                buildSizeForEach(
+                  "XXL",
+                ),
+                buildSizeForEach(
+                  "XL",
+                ),
+                buildSizeForEach(
+                  "L",
+                ),
+              ],
+            ))
+      ],
+    );
+  }
+
+  Widget buildColors() {
+    return Column(
+      children: [
+        Text(
+          "Color",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 20,
+          ),
+        ),
+        Container(
+            width: 260,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildColorProduct("Red", Colors.red),
+                buildColorProduct("Orange", Colors.orange),
+                buildColorProduct("Blue", Colors.blue),
+                buildColorProduct("Green", Color.fromARGB(255, 102, 183, 104)),
+              ],
+            ))
+      ],
+    );
+  }
 }

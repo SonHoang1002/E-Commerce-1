@@ -15,13 +15,14 @@ class SingleProductForAdmin extends StatelessWidget {
   late final String name;
   late final String image;
   late final double price;
+  late final int repo;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(CupertinoPageRoute(
-            builder: (context) =>
-                DetailScreenForAdmin(name: name, price: price, img: image)));
+            builder: (context) => DetailScreenForAdmin(
+                name: name, price: price, img: image, repo: repo)));
       },
       child: Card(
         child: Container(
@@ -101,17 +102,17 @@ class SingleProductForAdmin extends StatelessWidget {
   }
 
   deleteProduct(BuildContext context) {
-    checkForCategory("AsiaDish",context);
-    checkForCategory("WaterDish",context);
-    checkForCategory("Snack",context);
-    checkForCategory("Drink",context);
-    checkForCategory("EastDish",context);
-    checkForProduct("featuredproduct",context);
-    checkForProduct("newachives",context);
+    checkForCategory("AsiaDish", context);
+    checkForCategory("WaterDish", context);
+    checkForCategory("Snack", context);
+    checkForCategory("Drink", context);
+    checkForCategory("EastDish", context);
+    checkForProduct("featuredproduct", context);
+    checkForProduct("newachives", context);
     Navigator.of(context).pop();
   }
 
-  checkForProduct(String col,BuildContext context) async {
+  checkForProduct(String col, BuildContext context) async {
     QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
         .collection("products")
         .doc("Yr4cg3K870i11VWoxx5q")
@@ -127,8 +128,7 @@ class SingleProductForAdmin extends StatelessWidget {
             .delete();
         print("$col delete $name succesfully");
         Navigator.of(context).pop();
-    generalProvider.searchProductList(name);
-
+        generalProvider.searchProductList(name);
 
         return;
       }
@@ -136,7 +136,7 @@ class SingleProductForAdmin extends StatelessWidget {
     // print("$col delete $name succesfully");
   }
 
-  checkForCategory(String col,BuildContext context) async {
+  checkForCategory(String col, BuildContext context) async {
     QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
         .collection("category")
         .doc("2n0DMzp0z2in1eLYBXHG")

@@ -8,4 +8,23 @@ kingmountain711
 vinh phuc
 
 
-
+QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+          .collection("category")
+          .doc("2n0DMzp0z2in1eLYBXHG")
+          .collection(nameList)
+          .get();
+      snapshot.docs.forEach((element) {
+        if (element["category"] == widget.name) {
+          FirebaseFirestore.instance
+              .collection("category")
+              .doc("2n0DMzp0z2in1eLYBXHG")
+              .collection(nameList)
+              .doc(element.id)
+              .update({
+            "category": nameController.text.trim(),
+            "image": widget.img,
+            "price": priceController.text.trim()
+          });
+          print("$nameList update succesfully");
+        }
+      });

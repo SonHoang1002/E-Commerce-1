@@ -794,4 +794,93 @@ class GeneralProvider with ChangeNotifier {
   }
 
   String get getTotalRenenue => totalRevenue;
+
+  Future<void> updateRepo(List<CartModel> cartModelListToUpdateRepo) async {
+    for (int i = 0; i < cartModelListToUpdateRepo.length; i++) {
+      _ConnectAndUpdateCategoryCollection(
+          "Drink", cartModelListToUpdateRepo[i]);
+      _ConnectAndUpdateCategoryCollection(
+          "AsiaDish", cartModelListToUpdateRepo[i]);
+      _ConnectAndUpdateCategoryCollection(
+          "Snack", cartModelListToUpdateRepo[i]);
+      _ConnectAndUpdateCategoryCollection(
+          "EastDish", cartModelListToUpdateRepo[i]);
+      _ConnectAndUpdateCategoryCollection(
+          "WaterDish", cartModelListToUpdateRepo[i]);
+      _ConnectAndUpdateProductsCollection(
+          "newachives", cartModelListToUpdateRepo[i]);
+      _ConnectAndUpdateProductsCollection(
+          "featuredproduct", cartModelListToUpdateRepo[i]);
+    }
+  }
+
+  Future<void> _ConnectAndUpdateCategoryCollection(
+      String collectionCategory, CartModel cartModel) async {
+    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+        .collection("category")
+        .doc("2n0DMzp0z2in1eLYBXHG")
+        .collection(collectionCategory)
+        .get();
+    snapshot.docs.forEach((element) {
+      if (element["category"] == cartModel.name) {
+        FirebaseFirestore.instance
+            .collection("category")
+            .doc("2n0DMzp0z2in1eLYBXHG")
+            .collection(collectionCategory)
+            .doc(element.id)
+            .update({
+          "category": "${cartModel.name}",
+          "image": "${cartModel.img}",
+          "price": "${cartModel.price}",
+          "repo": "${cartModel.repo - cartModel.quantity}"
+        });
+        print("${collectionCategory} update ${cartModel.name}");
+      }
+    });
+  }
+
+  Future<void> _ConnectAndUpdateProductsCollection(
+      String collectionProducts, CartModel cartModel) async {
+    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+        .collection("products")
+        .doc("Yr4cg3K870i11VWoxx5q")
+        .collection(collectionProducts)
+        .get();
+    snapshot.docs.forEach((element) {
+      if (element["category"] == cartModel.name) {
+        FirebaseFirestore.instance
+            .collection("products")
+            .doc("Yr4cg3K870i11VWoxx5q")
+            .collection(collectionProducts)
+            .doc(element.id)
+            .update({
+          "category": "${cartModel.name}",
+          "image": "${cartModel.img}",
+          "price": "${cartModel.price}",
+          "repo": "${cartModel.repo - cartModel.quantity}"
+        });
+        print("${collectionProducts} update ${cartModel.name}");
+      }
+    });
+  }
 }
+// QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+//           .collection("products")
+//           .doc("Yr4cg3K870i11VWoxx5q")
+//           .collection("featuredproduct")
+//           .get();
+//       snapshot.docs.forEach((element) {
+//         if (element["category"] == widget.name) {
+//           FirebaseFirestore.instance
+//               .collection("products")
+//               .doc("Yr4cg3K870i11VWoxx5q")
+//               .collection("featuredproduct")
+//               .doc(element.id)
+//               .update({
+//             "category": nameController.text.trim(),
+//             "image": widget.img,
+//             "price": priceController.text.trim()
+//           });
+//           print("featuredproduct update succesfully");
+//         }
+//       });

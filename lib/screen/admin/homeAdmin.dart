@@ -55,6 +55,7 @@ class _HomeAdminState extends State<HomeAdmin> {
   TextEditingController imageController = TextEditingController();
   TextEditingController priceController = TextEditingController();
   TextEditingController searchController = TextEditingController();
+  TextEditingController repoController = TextEditingController();
 
   late List<Product> listFeature = [];
   late List<Product> listNew = [];
@@ -217,23 +218,37 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             Container(
                               padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                controller: priceController,
-                                style: TextStyle(),
-                                decoration: InputDecoration(
-                                  hintText: "Price",
-                                  labelText: "Price",
-                                  hintStyle: TextStyle(
-                                    color: Colors.black,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: 160,
+                                    child: TextFormField(
+                                      controller: priceController,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: "Price",
+                                          labelText: "Price",
+                                          hintStyle:
+                                              TextStyle(color: Colors.black)),
+                                    ),
                                   ),
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(8.0)),
-                                      borderSide:
-                                          BorderSide(color: Colors.green),
-                                      gapPadding: 10.0),
-                                ),
+                                  Container(
+                                    width: 160,
+                                    child: TextFormField(
+                                      controller: repoController,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          hintText: "Repository",
+                                          labelText: "Repository",
+                                          hintStyle:
+                                              TextStyle(color: Colors.black)),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                             Container(
@@ -478,8 +493,10 @@ class _HomeAdminState extends State<HomeAdmin> {
             // Navigator.of(context)
             //     .push(MaterialPageRoute(builder: (ctx) => TestScreen()));
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (ctx) =>
-                    ContactMessenger(id: generalProvider.getContactUser.id, name: generalProvider.getContactUser.name, email: generalProvider.getContactUser.email)));
+                builder: (ctx) => ContactMessenger(
+                    id: generalProvider.getContactUser.id,
+                    name: generalProvider.getContactUser.name,
+                    email: generalProvider.getContactUser.email)));
           },
           title: const Text("Contact"),
           leading: const Icon(Icons.message),
@@ -527,6 +544,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         "category": nameController.text,
         "image": imageController.text,
         "price": nameController.text,
+        "repo":repoController.text,
       });
       generalProvider.setFeatureProduct();
     }

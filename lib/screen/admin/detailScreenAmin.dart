@@ -16,8 +16,9 @@ class DetailScreenForAdmin extends StatefulWidget {
   late String name;
   late String img;
   late double price;
+  late int repo;
   DetailScreenForAdmin(
-      {required this.name, required this.price, required this.img});
+      {required this.name, required this.price, required this.img,required this.repo});
 
   @override
   State<DetailScreenForAdmin> createState() => _DetailScreenForAdminState();
@@ -78,7 +79,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
               ? IconButton(
                   color: Colors.green,
                   onPressed: () {
-                     checkNameInList();
+                    checkNameInList();
                   },
                   icon: Icon(Icons.check))
               : IconButton(

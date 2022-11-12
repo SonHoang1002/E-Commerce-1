@@ -45,7 +45,7 @@ late GeneralProvider generalProvider;
 // }
 
 class _Login extends State<Login> {
-  TextEditingController email = TextEditingController(text: "f@gmail.com");
+  TextEditingController email = TextEditingController(text: "admin@gmail.com");
   TextEditingController password = TextEditingController(text: "12345678");
   TextEditingController resetController = TextEditingController(text: "");
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
