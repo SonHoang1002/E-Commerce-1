@@ -40,7 +40,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
       TextEditingController(text: widget.price.toString());
   // late TextEditingController repoController =
   //     TextEditingController(text: widget.repo.toString());
-  late TextEditingController repoController = TextEditingController(text: "9");
+  late TextEditingController repoController = TextEditingController(text: widget.repo.toString());
 
   @override
   void initState() {
@@ -103,6 +103,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
         ],
       ),
       body: Container(
+        height: 700,
         child: ListView(
           children: [
             StreamBuilder<Object>(
@@ -154,9 +155,10 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
 
   Widget buildNameToDescription() {
     return Container(
-      height: 150,
+      height: isFixing ? null:150,
       child: Form(
-        child: ListView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             isFixing
                 ? Container(
@@ -209,12 +211,14 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                     ),
                   )
                 : Center(
-                    child: Text(
-                      "${tPrice} \$",
-                      style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 23,
-                          fontWeight: FontWeight.bold),
+                    child: Badge(
+                      child: Text(
+                        "${tPrice} \$",
+                        style: TextStyle(
+                            color: Colors.green,
+                            fontSize: 23,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
             isFixing

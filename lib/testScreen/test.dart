@@ -239,7 +239,7 @@ class _MyHomePageState extends State<_MyHomePage> {
       ChartData('CHN', 12),
       ChartData('GER', 15),
       ChartData('RUS', 30),
-      ChartData('BRZ', 6.4),
+      ChartData('BRZ', 10),
       ChartData('IND', 14)
     ];
     _tooltip = TooltipBehavior(enable: true);

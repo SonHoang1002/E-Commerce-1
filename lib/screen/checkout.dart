@@ -937,35 +937,6 @@ class _CheckOutState extends State<CheckOut> {
     });
 
     for (int i = 0; i < list.length; i++) {
-      // if (generalProvider.getSnack().contains(list[i].name)) {
-      //   snack += list[i].quantity;
-      //   print("update Snack List: ${snack} products");
-      // }
-      // if (generalProvider.getWaterDish().contains(list[i].name)) {
-      //   water += list[i].quantity;
-      //   print("update Water List: ${water} products");
-      // }
-      // if (generalProvider.getListAsia().contains(list[i].name)) {
-      //   asia += list[i].quantity;
-      //   print("update Asia List: ${asia} products");
-      // }
-      // if (generalProvider.getFeatureProduct().contains(list[i].name)) {
-      //   featured += list[i].quantity;
-      //   print("update Featured List: ${featured} products");
-      // }
-      // if (generalProvider.getNewProduct().contains(list[i].name)) {
-      //   news += list[i].quantity;
-      //   print("update New List: ${news} products");
-      // }
-      // if (generalProvider.getListDrink().contains(list[i].name)) {
-      //   drink += list[i].quantity;
-      //   print("update Drink List: ${drink} products");
-      // }
-      // if (generalProvider.getEastDish().contains(list[i].name)) {
-      //   east += list[i].quantity;
-      //   print("update East List: ${east} products");
-      // }
-
       if (checkNameProductWithList(generalProvider.getSnack(), list[i].name)) {
         snack += list[i].quantity;
         print("update Snack List: ${snack} products");
