@@ -28,6 +28,8 @@ class CartSingleProduct extends StatefulWidget {
 late GeneralProvider generalProvider;
 
 class _CartSingleProductState extends State<CartSingleProduct> {
+  bool isUpdate = false;
+
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
@@ -109,6 +111,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                                 setState(() {
                                   if (widget.quantity > 0) {
                                     widget.quantity -= 1;
+                                    isUpdate = true;
                                   } else {
                                     widget.quantity = 0;
                                   }
@@ -130,10 +133,13 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                                 if (widget.quantity < widget.repo) {
                                   setState(() {
                                     widget.quantity += 1;
+                                    isUpdate = true;
                                   });
                                   updateQuantity(widget.name);
-                                  generalProvider.addNotiList(
-                                      "${getTime()}: You have already updated ${widget.name} quantity");
+                                  if (isUpdate) {
+                                    generalProvider.addNotiList(
+                                        "${getTime()}: You have already updated ${widget.name} quantity");
+                                  }
                                 } else {}
                               },
                             ),

@@ -4,6 +4,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/screen/about.dart';
+import 'package:testecommerce/screen/admin/analysistScreen.dart';
 import 'package:testecommerce/screen/admin/homeAdmin.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:testecommerce/screen/checkout.dart';
@@ -188,6 +189,24 @@ Route pushToResetPasswordScreen() {
 Route pushToHomeAdminScreen() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => HomeAdmin(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(0.0, 1.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
+}
+
+Route pushToAnalysistAdminScreen() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Analysist(),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;

@@ -1,4 +1,4 @@
-import 'dart:ffi';
+import 'dart:async';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/formatInput.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
+import 'package:testecommerce/models/cartmodels.dart';
+import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
 import 'package:http/http.dart' as http;
@@ -124,15 +126,15 @@ class _CheckOutState extends State<CheckOut> {
 
   List<DataRow> buildDataCell() {
     List<DataRow> list = [];
-    int len = generalProvider.getCartModelLength;
+    int len = generalProvider.getCartModelListLength;
     for (int i = 0; i < len; i++) {
       list.add(DataRow(cells: [
         DataCell(Text(
-          generalProvider.getCartModel[i].quantity.toString(),
+          generalProvider.getCartModelList[i].quantity.toString(),
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         )),
         DataCell(Text(
-          generalProvider.getCartModel[i].name,
+          generalProvider.getCartModelList[i].name,
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ))
       ]));
@@ -606,7 +608,7 @@ class _CheckOutState extends State<CheckOut> {
               "name": "${generalProvider.getUserModelName}",
               "phone": "${generalProvider.getUserModelPhone}",
               "address": "${generalProvider.getUserModelAddress}",
-              "quantityOfProduct": "${generalProvider.getCartModelLength}",
+              "quantityOfProduct": "${generalProvider.getCartModelListLength}",
               "total": "${generalProvider.getTotal}"
             }
           }));
@@ -670,14 +672,11 @@ class _CheckOutState extends State<CheckOut> {
     }
   }
 
-  _showPaymentDialogSuccesfull(BuildContext context) async{
-    await send();
-    await setCustomerAndTotalRevenue();
-    resetCart();
+  _showPaymentDialogSuccesfull(BuildContext context) async {
     Navigator.of(context).push(CupertinoPageRoute(
         builder: (_) =>
             HomePage(nameList: generalProvider.getNameProductList)));
-    return showDialog(
+    showDialog(
       context: context,
       builder: (context) => CustomDialog(
         content: Text(
@@ -695,10 +694,14 @@ class _CheckOutState extends State<CheckOut> {
         ),
       ),
     );
-  }
-
-  void resetCart() {
+    await setCustomerAndTotalRevenue();
+    await send();
+    await analysistProduct();
+    //reset any state in provider
+    generalProvider.setTotalRenenue();
+    generalProvider.reSetVerifyCode();
     generalProvider.setCartModelList([]);
+    generalProvider.resetPromo();
     generalProvider.setTotal(0);
   }
 
@@ -897,7 +900,8 @@ class _CheckOutState extends State<CheckOut> {
         .collection("bill")
         .add({
       "idUser": FirebaseAuth.instance.currentUser!.uid,
-      "productList": generalProvider.getCartModelListName,
+      "productList": generalProvider.getCartModelListListName,
+      // "time": getTime(),
       "money": generalProvider.getTotal
     });
     print("add user to totalRevenue ok");
@@ -911,6 +915,116 @@ class _CheckOutState extends State<CheckOut> {
         .collection("tr")
         .doc("W5hd5BaRmYrhNAySeeq3")
         .update({"totalMoney": money});
-    print("add bill to totalRevenue ok");
+    print("add bill to totalRevenue $money");
+  }
+
+  Future<void> analysistProduct() async {
+    late int snack, drink, news, east, asia, featured, water;
+    List<CartModel> list = generalProvider.getCartModelList;
+    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+        .collection("TotalRevenue")
+        .doc("9EC0nIWg6Da6RaYG5cm8")
+        .collection("analystProduct")
+        .get();
+    snapshot.docs.forEach((element) {
+      snack = int.parse(element["Snack"]);
+      water = int.parse(element["Water"]);
+      asia = int.parse(element["Asia"]);
+      featured = int.parse(element["Featured"]);
+      news = int.parse(element['New']);
+      drink = int.parse(element["Drink"]);
+      east = int.parse(element["East"]);
+    });
+
+    for (int i = 0; i < list.length; i++) {
+      // if (generalProvider.getSnack().contains(list[i].name)) {
+      //   snack += list[i].quantity;
+      //   print("update Snack List: ${snack} products");
+      // }
+      // if (generalProvider.getWaterDish().contains(list[i].name)) {
+      //   water += list[i].quantity;
+      //   print("update Water List: ${water} products");
+      // }
+      // if (generalProvider.getListAsia().contains(list[i].name)) {
+      //   asia += list[i].quantity;
+      //   print("update Asia List: ${asia} products");
+      // }
+      // if (generalProvider.getFeatureProduct().contains(list[i].name)) {
+      //   featured += list[i].quantity;
+      //   print("update Featured List: ${featured} products");
+      // }
+      // if (generalProvider.getNewProduct().contains(list[i].name)) {
+      //   news += list[i].quantity;
+      //   print("update New List: ${news} products");
+      // }
+      // if (generalProvider.getListDrink().contains(list[i].name)) {
+      //   drink += list[i].quantity;
+      //   print("update Drink List: ${drink} products");
+      // }
+      // if (generalProvider.getEastDish().contains(list[i].name)) {
+      //   east += list[i].quantity;
+      //   print("update East List: ${east} products");
+      // }
+
+      if (checkNameProductWithList(generalProvider.getSnack(), list[i].name)) {
+        snack += list[i].quantity;
+        print("update Snack List: ${snack} products");
+      }
+      if (checkNameProductWithList(
+          generalProvider.getWaterDish(), list[i].name)) {
+        water += list[i].quantity;
+        print("update Water List: ${water} products");
+      }
+      if (checkNameProductWithList(
+          generalProvider.getListAsia(), list[i].name)) {
+        asia += list[i].quantity;
+        print("update Asia List: ${asia} products");
+      }
+      if (checkNameProductWithList(
+          generalProvider.getFeatureProduct(), list[i].name)) {
+        featured += list[i].quantity;
+        print("update Featured List: ${featured} products");
+      }
+      if (checkNameProductWithList(
+          generalProvider.getNewProduct(), list[i].name)) {
+        news += list[i].quantity;
+        print("update New List: ${news} products");
+      }
+      if (checkNameProductWithList(
+          generalProvider.getListDrink(), list[i].name)) {
+        drink += list[i].quantity;
+        print("update Drink List: ${drink} products");
+      }
+      if (checkNameProductWithList(
+          generalProvider.getEastDish(), list[i].name)) {
+        east += list[i].quantity;
+        print("update East List: ${east} products");
+      }
+    }
+    FirebaseFirestore.instance
+        .collection("TotalRevenue")
+        .doc("9EC0nIWg6Da6RaYG5cm8")
+        .collection("analystProduct")
+        .doc("bMgdLeyriRz8LtdoWVOL")
+        .update({
+      "Asia": asia.toString(),
+      "Drink": drink.toString(),
+      "Snack": snack.toString(),
+      "East": east.toString(),
+      "New": news.toString(),
+      "Featured": featured.toString(),
+      "Water": water.toString()
+    });
+    print(
+        "Update Asia :$asia, Drink: $drink, Snack: $snack, East: $east, New: $news, Featured: $featured, Water: $water");
+  }
+
+  bool checkNameProductWithList(List<Product> listOfProduct, String name) {
+    for (int i = 0; i < listOfProduct.length; i++) {
+      if (listOfProduct[i].name == name) {
+        return true;
+      }
+    }
+    return false;
   }
 }

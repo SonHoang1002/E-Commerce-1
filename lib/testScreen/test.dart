@@ -9,9 +9,11 @@ import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart
 import 'package:talkjs_flutter/talkjs_flutter.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/cartmodels.dart';
+import 'package:testecommerce/models/chart.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import "package:syncfusion_flutter_charts/charts.dart";
 
 import '../addition/pageRoute.dart';
 
@@ -26,8 +28,7 @@ List<CartModel> list = [
   CartModel(
       name: "a11",
       price: 23.4,
-      img:
-          "https://upload.jpg",
+      img: "https://upload.jpg",
       quantity: 65,
       repo: 98),
   CartModel(name: "a111", price: 23.4, img: "abc.jpg", quantity: 6, repo: 98)
@@ -37,6 +38,10 @@ late GeneralProvider generalProvider;
 
 class _TestScreenState extends State<TestScreen> {
   bool chatBoxVisible = false;
+  String zero = "";
+  int seconds = 590;
+  late Timer timer;
+  bool isExpired = false;
   @override
   void initState() {
     super.initState();
@@ -45,24 +50,73 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
+    generalProvider = Provider.of<GeneralProvider>(context, listen: false);
+
     return MaterialApp(
       title: 'TalkJS Demo',
       home: Scaffold(
           appBar: AppBar(
             title: const Text('TalkJS Demo'),
           ),
-          body: Container(
-            child: Center(
+          body: Column(children: [
+            Text(
+              "${seconds}",
+              style: TextStyle(fontSize: 25),
+            ),
+            Center(
               child: ElevatedButton(
                 child: Text("Click"),
                 onPressed: () {
                   // setCustomerAndTotalRevenue();
-                  updateRepo(list);
+                  // updateRepo(list);
+                  buildTimeOutForResetPassword();
                 },
               ),
             ),
-          )),
+            Center(
+              child: ElevatedButton(
+                child: Text("Click"),
+                onPressed: () {
+                  // setCustomerAndTotalRevenue();
+                  // updateRepo(list);
+                  setState(() {
+                    seconds = 600;
+                  });
+                },
+              ),
+            ),
+            Center(
+              child: ElevatedButton(
+                child: Text("get TR"),
+                onPressed: () {
+                  generalProvider.setTotalRenenue();
+                },
+              ),
+            ),
+          ])),
     );
+  }
+
+  void buildTimeOutForResetPassword() {
+    const perSecond = Duration(seconds: 1);
+    timer = Timer.periodic(perSecond, (timer) {
+      print("12323234");
+      if (seconds == 0) {
+        setState(() {
+          timer.cancel();
+        });
+      } else {
+        if (seconds == 0) {
+          setState(() {
+            seconds = 560;
+          });
+        } else {
+          setState(() {
+            seconds--;
+          });
+        }
+      }
+    });
   }
 
   Future<void> setCustomerAndTotalRevenue() async {
@@ -156,3 +210,67 @@ class _TestScreenState extends State<TestScreen> {
     });
   }
 }
+
+class ChartApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: _MyHomePage(),
+    );
+  }
+}
+
+class _MyHomePage extends StatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
+  _MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<_MyHomePage> {
+  late List<ChartData> data;
+  late TooltipBehavior _tooltip;
+
+  @override
+  void initState() {
+    data = [
+      ChartData('CHN', 12),
+      ChartData('GER', 15),
+      ChartData('RUS', 30),
+      ChartData('BRZ', 6.4),
+      ChartData('IND', 14)
+    ];
+    _tooltip = TooltipBehavior(enable: true);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Syncfusion Flutter chart'),
+        ),
+        body: SfCartesianChart(
+            primaryXAxis: CategoryAxis(),
+            primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
+            tooltipBehavior: _tooltip,
+            series: <ChartSeries<ChartData, String>>[
+              ColumnSeries<ChartData, String>(
+                  dataSource: data,
+                  xValueMapper: (ChartData data, _) => data.x,
+                  yValueMapper: (ChartData data, _) => data.y,
+                  name: 'Gold',
+                  color: Color.fromRGBO(8, 142, 255, 1)),
+              LineSeries(
+                  dataSource: data,
+                  xValueMapper: (ChartData data, _) => data.x,
+                  yValueMapper: (ChartData data, _) => data.y,
+                  name: "Abc",
+                  color: Color.fromRGBO(10, 100, 240, 1))
+            ]));
+  }
+}
+
+

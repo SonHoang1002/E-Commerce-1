@@ -54,6 +54,9 @@ dependencies:
   url_launcher: ^6.1.6
   google_mobile_ads: ^1.2.0
   flutter_sms: ^2.3.3
+  count_number: ^0.3.71+1
+  flutter_countdown_timer: ^4.1.0
+  syncfusion_flutter_charts: ^20.3.56
 
   
 dev_dependencies:

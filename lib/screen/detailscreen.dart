@@ -30,6 +30,7 @@ class _DetailScreenState extends State<DetailScreen> {
   double total = 0;
   late int quantity = 1;
   bool overPlus = false;
+  bool isUpdate = false;
   // late GeneralProvider generalProvider;
   late GeneralProvider generalProvider;
 
@@ -58,7 +59,7 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
           IconButton(
               icon: Badge(
-                  badgeContent: Text("${generalProvider.getCartModelLength}"),
+                  badgeContent: Text("${generalProvider.getCartModelListLength}"),
                   badgeColor: Colors.red,
                   shape: BadgeShape.circle,
                   showBadge: true,
@@ -195,7 +196,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       child: Center(
         child: Text(
-          "Suitable: ${widget.repo}",
+          "Available: ${widget.repo}",
           style: TextStyle(
             color: Colors.black,
             fontSize: 15,
@@ -215,7 +216,9 @@ class _DetailScreenState extends State<DetailScreen> {
             fontSize: 20,
           ),
         ),
-        SizedBox(height: 5,),
+        SizedBox(
+          height: 5,
+        ),
         Container(
           height: 30,
           width: 100,
@@ -271,9 +274,9 @@ class _DetailScreenState extends State<DetailScreen> {
           total = 0;
           generalProvider.setAddCartModel(
               widget.name, widget.price, quantity, widget.img, widget.repo);
-          for (int i = 0; i < generalProvider.getCartModelLength; i++) {
-            total += (generalProvider.getCartModel[i].quantity *
-                generalProvider.getCartModel[i].price);
+          for (int i = 0; i < generalProvider.getCartModelListLength; i++) {
+            total += (generalProvider.getCartModelList[i].quantity *
+                generalProvider.getCartModelList[i].price);
           }
           generalProvider.setTotal(total);
           generalProvider.setNotiList(widget.name);
@@ -286,16 +289,16 @@ class _DetailScreenState extends State<DetailScreen> {
           // total = 0;
           // bool? isExist;
           // int? index;
-          // for (int i = 0; i < generalProvider.getCartmodelLength; i++) {
-          //   total += (generalProvider.getCartmodel[i].quantity *
-          //       generalProvider.getCartmodel[i].price);
-          //   if (widget.name == generalProvider.getCartmodel[i]) {
+          // for (int i = 0; i < generalProvider.getCartModelListLength; i++) {
+          //   total += (generalProvider.getCartModelList[i].quantity *
+          //       generalProvider.getCartModelList[i].price);
+          //   if (widget.name == generalProvider.getCartModelList[i]) {
           //     isExist = true;
           //     index = i;
           //   }
           // }
           // if (isExist == true) {
-          //   generalProvider.getCartmodel[index!].quantity += quantity;
+          //   generalProvider.getCartModelList[index!].quantity += quantity;
           // } else {
           //   generalProvider.setCartModel(
           //       widget.name, widget.price, quantity, widget.img);
@@ -349,9 +352,9 @@ class _DetailScreenState extends State<DetailScreen> {
   }
 
   void CountTotal() {
-    for (int i = 0; i < generalProvider.getCartModelLength; i++) {
-      total += (generalProvider.getCartModel[i].quantity *
-          generalProvider.getCartModel[i].price);
+    for (int i = 0; i < generalProvider.getCartModelListLength; i++) {
+      total += (generalProvider.getCartModelList[i].quantity *
+          generalProvider.getCartModelList[i].price);
     }
   }
 

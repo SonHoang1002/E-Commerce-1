@@ -257,7 +257,6 @@ class _Login extends State<Login> {
                                 onPressed: () {
                                   FocusManager.instance.primaryFocus?.unfocus();
                                   validation();
-                                  // });
                                 },
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.grey,
@@ -475,7 +474,9 @@ class _Login extends State<Login> {
       Future<int> xxx = generalProvider.setNameProductList();
       nameList = generalProvider.getNameProductList;
     }
-
+    List<Product> asd = generalProvider.searchProductList("");
+    Future<int> sdhf = generalProvider.setTotalRenenue();
+    
     if (generalProvider.getNotiList.length <= 0) {
       generalProvider
           .addNotiList("${getTime()}: Welcome To Home Screen Of H&H FOOD");

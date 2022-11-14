@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/models/contact_user.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/category_provider.dart';
@@ -129,6 +130,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                       Form(
                         child: Column(
                           children: [
+                            // title add product
                             Container(
                               padding: EdgeInsets.all(20),
                               child: Center(
@@ -141,6 +143,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 ),
                               ),
                             ),
+                            // choose collection
                             Container(
                               padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
                               child: DropdownButtonFormField(
@@ -176,6 +179,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 }).toList(),
                               ),
                             ),
+                            //name
                             Container(
                               padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                               child: TextFormField(
@@ -196,6 +200,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 ),
                               ),
                             ),
+                            //image
                             Container(
                               padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                               child: TextFormField(
@@ -216,6 +221,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 ),
                               ),
                             ),
+                            //price and repo
                             Container(
                               padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
                               child: Row(
@@ -251,6 +257,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 ],
                               ),
                             ),
+                            //add
                             Container(
                               padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
                               height: 60,
@@ -302,7 +309,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   GestureDetector(
                                     child: Icon(Icons.close),
                                     onTap: () {
-                                      generalProvider.setNumberOfAllProduct();
+                                      // generalProvider.setNumberOfAllProduct();
+                                      generalProvider
+                                          .searchProductListForAdmin("");
                                       setState(() {
                                         searchController.text = "";
                                         hasSearchWord = false;
@@ -385,12 +394,15 @@ class _HomeAdminState extends State<HomeAdmin> {
                                             ],
                                           ),
                                           child: SingleProductForAdmin(
-                                              name: generalProvider
-                                                  .getSearchList[index].name,
-                                              price: generalProvider
-                                                  .getSearchList[index].price,
-                                              image: generalProvider
-                                                  .getSearchList[index].image),
+                                            name: generalProvider
+                                                .getSearchList[index].name,
+                                            price: generalProvider
+                                                .getSearchList[index].price,
+                                            image: generalProvider
+                                                .getSearchList[index].image,
+                                          ),
+                                          // repo: generalProvider
+                                          //     .getSearchList[index].repo),
                                         );
                                       })),
                                 )
@@ -432,12 +444,15 @@ class _HomeAdminState extends State<HomeAdmin> {
                                         ],
                                       ),
                                       child: SingleProductForAdmin(
-                                          name: generalProvider
-                                              .getAllProduct[index].name,
-                                          price: generalProvider
-                                              .getAllProduct[index].price,
-                                          image: generalProvider
-                                              .getAllProduct[index].image),
+                                        name: generalProvider
+                                            .getAllProduct[index].name,
+                                        price: generalProvider
+                                            .getAllProduct[index].price,
+                                        image: generalProvider
+                                            .getAllProduct[index].image,
+                                      ),
+                                      // repo: generalProvider
+                                      //     .getSearchList[index].repo),
                                     );
                                   })),
                             )
@@ -487,6 +502,14 @@ class _HomeAdminState extends State<HomeAdmin> {
           onTap: () {},
           title: const Text("Home"),
           leading: const Icon(Icons.home),
+        ),
+        ListTile(
+          onTap: () {
+            Navigator.of(context)
+                .push(PageRouteToScreen().pushToAnalysistAdminScreen());
+          },
+          title: const Text("Analysis"),
+          leading: const Icon(Icons.analytics),
         ),
         ListTile(
           onTap: () {
@@ -544,7 +567,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         "category": nameController.text,
         "image": imageController.text,
         "price": nameController.text,
-        "repo":repoController.text,
+        "repo": repoController.text,
       });
       generalProvider.setFeatureProduct();
     }
@@ -556,7 +579,8 @@ class _HomeAdminState extends State<HomeAdmin> {
   validation() {
     if (nameController.text.isEmpty &&
         imageController.text.isEmpty &&
-        priceController.text.isEmpty) {
+        priceController.text.isEmpty &&
+        repoController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Both Field Are Empty"),
       ));
@@ -572,6 +596,10 @@ class _HomeAdminState extends State<HomeAdmin> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Price Of Product Are Empty"),
       ));
+    } else if (repoController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Repository Of Product Are Empty"),
+      ));
     } else {
       addProduct();
     }
@@ -586,6 +614,7 @@ class _HomeAdminState extends State<HomeAdmin> {
       "category": nameController.text,
       "image": imageController.text,
       "price": priceController.text,
+      "repo": repoController.text
     });
     print("add Product for $col succesfully");
   }
@@ -654,6 +683,8 @@ class _HomeAdminState extends State<HomeAdmin> {
         print("$col delete $nameOfDeletedProduct succesfully");
         generalProvider.searchProductList(name);
         searchController.text = "";
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("You have already deleted ${nameOfDeletedProduct}")));
         generalProvider.addNotiList(
             "${getTime()}: You delete ${nameOfDeletedProduct} into ${col} list");
         return;

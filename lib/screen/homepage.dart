@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
               icon: Badge(
                 animationType: BadgeAnimationType.scale,
                 shape: BadgeShape.circle,
-                badgeContent: Text("${generalProvider.getCartModelLength}"),
+                badgeContent: Text("${generalProvider.getCartModelListLength}"),
                 showBadge: true,
                 child: Icon(
                   Icons.shopping_cart,

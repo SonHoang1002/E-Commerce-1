@@ -6,6 +6,7 @@ import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
+import 'package:testecommerce/screen/admin/analysistScreen.dart';
 import 'package:testecommerce/screen/admin/homeadmin.dart';
 import 'package:testecommerce/screen/alertResetPassword.dart';
 import 'package:testecommerce/screen/cartscreen.dart';
@@ -67,7 +68,7 @@ class MyApp extends StatelessWidget {
                 //   print("Login() is called first");
                 //   return WelcomeScreen();
                 // }
-                return TestScreen();
+                return Login();
               },
             ),
           );

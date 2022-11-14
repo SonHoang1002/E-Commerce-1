@@ -283,17 +283,17 @@ class GeneralProvider with ChangeNotifier {
     int? index;
     int? oldQuantity;
     int? newQuantity;
-    for (int i = 0; i < getCartModelLength; i++) {
-      if (name == getCartModel[i].name) {
+    for (int i = 0; i < getCartModelListLength; i++) {
+      if (name == getCartModelList[i].name) {
         index = i;
-        oldQuantity = getCartModel[i].quantity;
+        oldQuantity = getCartModelList[i].quantity;
       }
     }
     if (index == null) {
       cartModelList.add(CartModel(
           name: name, price: price, img: img, quantity: quantity, repo: repo));
     } else if ((index >= 0)) {
-      cartModelList.remove(getCartModel[index]);
+      cartModelList.remove(getCartModelList[index]);
       newQuantity = oldQuantity! + quantity;
       cartModelList.insert(
           index,
@@ -314,21 +314,21 @@ class GeneralProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<CartModel> get getCartModel => List.from(cartModelList);
-  int get getCartModelLength => cartModelList.length;
+  List<CartModel> get getCartModelList => List.from(cartModelList);
+  int get getCartModelListLength => cartModelList.length;
 
   late List<String> cartModelListName;
   Future<int> setCartModelListName() async {
     List<String> list = [];
-    for (int i = 0; i < getCartModelLength; i++) {
-      list.add(getCartModel[i].name);
+    for (int i = 0; i < getCartModelListLength; i++) {
+      list.add(getCartModelList[i].name);
     }
     cartModelListName = list;
     notifyListeners();
     return 1;
   }
 
-  List<String> get getCartModelListName => cartModelListName;
+  List<String> get getCartModelListListName => cartModelListName;
 
   // total
   late double total = 0;
@@ -350,8 +350,8 @@ class GeneralProvider with ChangeNotifier {
   late double price = 0;
   void setPrice() {
     price = 0;
-    for (int i = 0; i < getCartModelLength; i++) {
-      price += (getCartModel[i].quantity * getCartModel[i].price);
+    for (int i = 0; i < getCartModelListLength; i++) {
+      price += (getCartModelList[i].quantity * getCartModelList[i].price);
     }
     notifyListeners();
   }
@@ -366,6 +366,11 @@ class GeneralProvider with ChangeNotifier {
   void setPromo(double value) {
     promo = 0;
     promo = value;
+    notifyListeners();
+  }
+
+  void resetPromo() {
+    promo = 0;
     notifyListeners();
   }
 
@@ -583,6 +588,8 @@ class GeneralProvider with ChangeNotifier {
     return 0;
   }
 
+    List<Product> get getAllProduct => searchProductListForAdmin("");
+
   // Future<int> setAllProduct(String value) async {
   //   allProduct = searchProductList(value);
   //   notifyListeners();
@@ -654,7 +661,7 @@ class GeneralProvider with ChangeNotifier {
     return list;
   }
 
-  List<Product> get getAllProduct => searchProductListForAdmin("");
+
 
   // check admin or user
   bool isAdmin = false;
@@ -753,9 +760,16 @@ class GeneralProvider with ChangeNotifier {
 
   String verifyCode = "";
   Future<int> setVerifyCode(String value) async {
-    verifyCode = value;
+    if (verifyCode == "") {
+      verifyCode = value;
+    }
     notifyListeners();
     return 1;
+  }
+
+  void reSetVerifyCode() {
+    verifyCode = "";
+    notifyListeners();
   }
 
   get getVerifyCode => verifyCode;
@@ -773,16 +787,17 @@ class GeneralProvider with ChangeNotifier {
 // total revenue
   late String totalRevenue;
   Future<int> setTotalRenenue() async {
-    QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
+    DocumentSnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
         .collection("TotalRevenue")
         .doc("9EC0nIWg6Da6RaYG5cm8")
         .collection("tr")
+        .doc("W5hd5BaRmYrhNAySeeq3")
         .get();
-    snapshot.docs.forEach(
-      (element) {
-        totalRevenue = element["totalMoney"];
-      },
-    );
+    snapshot.data()!.forEach((key, value) {
+      totalRevenue = value;
+    });
+    print("totalRevenue in generalProvider: ${totalRevenue}");
     notifyListeners();
     return 0;
   }
@@ -863,7 +878,11 @@ class GeneralProvider with ChangeNotifier {
       }
     });
   }
+
+
 }
+
+
 // QuerySnapshot<Object?> snapshot = await FirebaseFirestore.instance
 //           .collection("products")
 //           .doc("Yr4cg3K870i11VWoxx5q")

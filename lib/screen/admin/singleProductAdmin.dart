@@ -4,6 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
+import 'package:testecommerce/main.dart';
+import 'package:testecommerce/models/product.dart';
+import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/screen/admin/detailScreenAmin.dart';
 import 'package:testecommerce/screen/admin/homeAdmin.dart';
 import 'package:testecommerce/screen/checkout.dart';
@@ -11,18 +15,32 @@ import 'package:testecommerce/screen/detailscreen.dart';
 
 class SingleProductForAdmin extends StatelessWidget {
   SingleProductForAdmin(
-      {required this.name, required this.price, required this.image});
+      // {required this.name, required this.price, required this.image,required this.repo});
+      {required this.name,
+      required this.price,
+      required this.image});
   late final String name;
   late final String image;
   late final double price;
-  late final int repo;
+  // late final int repo;
+
+  late GeneralProvider generalProvider;
   @override
   Widget build(BuildContext context) {
+    generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
+        int repox = 0;
+        List<Product> list = generalProvider.getAllProduct;
+        for (int i = 0; i < list.length; i++) {
+          if (name == list[i].name) {
+            repox = list[i].repo;
+          }
+        }
         Navigator.of(context).push(CupertinoPageRoute(
             builder: (context) => DetailScreenForAdmin(
-                name: name, price: price, img: image, repo: repo)));
+                name: name, price: price, img: image, repo: repox)));
+        // name: name, price: price, img: image)));
       },
       child: Card(
         child: Container(

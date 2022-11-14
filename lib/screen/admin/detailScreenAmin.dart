@@ -17,8 +17,12 @@ class DetailScreenForAdmin extends StatefulWidget {
   late String img;
   late double price;
   late int repo;
-  DetailScreenForAdmin(
-      {required this.name, required this.price, required this.img,required this.repo});
+  DetailScreenForAdmin({
+    required this.name,
+    required this.price,
+    required this.img,
+    required this.repo
+  });
 
   @override
   State<DetailScreenForAdmin> createState() => _DetailScreenForAdminState();
@@ -28,11 +32,15 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
   bool isFixing = false;
   late String tName;
   late String tPrice;
+  late String tRepo;
   late GeneralProvider generalProvider;
   late TextEditingController nameController =
       TextEditingController(text: widget.name);
   late TextEditingController priceController =
       TextEditingController(text: widget.price.toString());
+  // late TextEditingController repoController =
+  //     TextEditingController(text: widget.repo.toString());
+  late TextEditingController repoController = TextEditingController(text: "9");
 
   @override
   void initState() {
@@ -40,6 +48,8 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
     super.initState();
     tName = widget.name;
     tPrice = widget.price.toString();
+    tRepo = widget.repo.toString();
+    // tRepo = "9";
   }
 
   @override
@@ -146,8 +156,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
     return Container(
       height: 150,
       child: Form(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: ListView(
           children: [
             isFixing
                 ? Container(
@@ -169,12 +178,14 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                       ),
                     ),
                   )
-                : Text(
-                    tName,
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontSize: 28,
-                        fontStyle: FontStyle.italic),
+                : Center(
+                    child: Text(
+                      tName,
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 28,
+                          fontStyle: FontStyle.italic),
+                    ),
                   ),
             isFixing
                 ? Container(
@@ -197,12 +208,44 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                       ),
                     ),
                   )
-                : Text(
-                    "${tPrice} \$",
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 23,
-                        fontWeight: FontWeight.bold),
+                : Center(
+                    child: Text(
+                      "${tPrice} \$",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+            isFixing
+                ? Container(
+                    height: 70,
+                    padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    child: TextFormField(
+                      controller: repoController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: "Repository",
+                        labelText: "Repository",
+                        hintStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(8.0)),
+                            borderSide: BorderSide(color: Colors.green),
+                            gapPadding: 10.0),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      "${tRepo} products",
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
           ],
         ),
@@ -282,7 +325,8 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
               .update({
             "category": nameController.text.trim(),
             "image": widget.img,
-            "price": priceController.text.trim()
+            "price": priceController.text.trim(),
+            "repo":repoController.text
           });
           print("featuredproduct update succesfully");
         }
@@ -303,7 +347,8 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
               .update({
             "category": nameController.text.trim(),
             "image": widget.img,
-            "price": priceController.text.trim()
+            "price": priceController.text.trim(),
+            "repo":repoController.text.trim()
           });
           print("$nameList update succesfully");
         }
@@ -312,6 +357,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
     setState(() {
       tName = nameController.text.trim();
       tPrice = priceController.text.trim();
+      tRepo = repoController.text.trim();
       isFixing = false;
     });
   }
