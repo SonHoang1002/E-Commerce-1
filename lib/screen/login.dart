@@ -75,10 +75,11 @@ class _Login extends State<Login> {
         result = await FirebaseAuth.instance.signInWithEmailAndPassword(
             email: email.text.trim(), password: password.text.trim());
         print(result);
+        generalProvider.setEmailFromLogin(email.text.trim());
         if (result != null) {
           generalProvider =
               Provider.of<GeneralProvider>(context, listen: false);
-          generalProvider.setEmailFromLogin(email.text.trim());
+          // generalProvider.setEmailFromLogin(email.text.trim());
           loadData();
           if (email.text.trim() == "admin@gmail.com") {
             generalProvider.setAdmin(true);
@@ -245,7 +246,7 @@ class _Login extends State<Login> {
                                 onTap: () {
                                   // _buildResetDialog(context);
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) => AlertResetPassword()));
+                                      builder: (_) => AlertResetPassword(email:email.text.trim())));
                                 },
                               ),
                             ],
@@ -341,7 +342,8 @@ class _Login extends State<Login> {
               "template_id": "template_m7c2jus",
               "user_id": "XODjifkQVe_sJaakG",
               "template_params": {
-                "to_email": "kingmountain117@gmail.com",
+                // "to_email": "kingmountain117@gmail.com",
+                "to_email": email.text.trim(),
                 "from_email": "H&HFood@gmail.com",
                 "from_name": "H&H FOOD",
                 "to_name": "you",

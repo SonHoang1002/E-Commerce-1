@@ -11,8 +11,8 @@ import 'package:testecommerce/models/chart.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 
 class Analysist extends StatefulWidget {
-  const Analysist({super.key});
-
+  Analysist({super.key, required this.cost});
+  late double cost;
   @override
   State<Analysist> createState() => _AnalysistState();
 }
@@ -92,15 +92,23 @@ class _AnalysistState extends State<Analysist> {
             Center(
               child: Text(
                 "Total Revenue",
-                style: TextStyle(fontSize: 30,color: Colors.green),
+                style: TextStyle(fontSize: 30, color: Colors.green),
               ),
             ),
             Center(
                 child: Text(
               // _number.toString(),
               totalRevenue,
-              style: Theme.of(context).textTheme.headline1,
+              // style: Theme.of(context).textTheme.bodyMedium,
+              style: TextStyle(fontSize: 40, color: Colors.grey[400]),
             )),
+            // Container(child: Center(child: Text("Total Cost"),),),
+            Center(
+              child: Text(
+                "${widget.cost}",
+                style: TextStyle(color: Colors.red, fontSize: 25),
+              ),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -133,10 +141,46 @@ class _AnalysistState extends State<Analysist> {
                   )
                 ],
               ),
+            ),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(15.0),
+              margin: EdgeInsets.fromLTRB(30, 30, 160, 30),
+              decoration: BoxDecoration(
+                  border: Border.all(
+                color: Colors.blue,
+              )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildNotes("W", "Water Food"),
+                  _buildNotes("N", "New Food"),
+                  _buildNotes("A", "Asia Food"),
+                  _buildNotes("M", "Main Food"),
+                  _buildNotes("S", "Snack Food"),
+                  _buildNotes("D", "Drink Food"),
+                  _buildNotes("E", "Eastern Food"),
+                ],
+              ),
             )
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildNotes(String label, String word) {
+    return Row(
+      children: [
+        Text(
+          "$label : ",
+          style: TextStyle(color: Colors.red),
+        ),
+        Text(
+          word,
+          style: TextStyle(color: Colors.green),
+        )
+      ],
     );
   }
 
@@ -164,13 +208,13 @@ class _AnalysistState extends State<Analysist> {
         .get();
     late ChartData water, news, asia, featured, snack, drink, east;
     snapshot.docs.forEach((element) {
-      water = ChartData("Water ", int.parse(element["Water"]));
-      news = ChartData("News ", int.parse(element["New"]));
-      asia = ChartData("Asia ", int.parse(element["Asia"]));
-      featured = ChartData("Main ", int.parse(element["Featured"]));
-      snack = ChartData("Snack ", int.parse(element["Snack"]));
-      drink = ChartData("Drink ", int.parse(element["Drink"]));
-      east = ChartData("Eastern ", int.parse(element["East"]));
+      water = ChartData("W", int.parse(element["Water"]));
+      news = ChartData("N", int.parse(element["New"]));
+      asia = ChartData("A", int.parse(element["Asia"]));
+      featured = ChartData("M", int.parse(element["Featured"]));
+      snack = ChartData("S", int.parse(element["Snack"]));
+      drink = ChartData("D", int.parse(element["Drink"]));
+      east = ChartData("E", int.parse(element["East"]));
     });
 
     setState(() {

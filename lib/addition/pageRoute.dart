@@ -204,9 +204,9 @@ Route pushToHomeAdminScreen() {
   );
 }
 
-Route pushToAnalysistAdminScreen() {
+Route pushToAnalysistAdminScreen(double cost) {
   return PageRouteBuilder(
-    pageBuilder: (context, animation, secondaryAnimation) => Analysist(),
+    pageBuilder: (context, animation, secondaryAnimation) => Analysist(cost: cost,),
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       const begin = Offset(0.0, 1.0);
       const end = Offset.zero;

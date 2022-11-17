@@ -90,6 +90,7 @@ class _HomeAdminState extends State<HomeAdmin> {
     generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     generalProvider.setEmailFromLogin(FirebaseAuth.instance.currentUser!.email);
     generalProvider.setNumberOfAllProduct();
+    generalProvider.setTotalCost();
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -505,8 +506,8 @@ class _HomeAdminState extends State<HomeAdmin> {
         ),
         ListTile(
           onTap: () {
-            Navigator.of(context)
-                .push(PageRouteToScreen().pushToAnalysistAdminScreen());
+            Navigator.of(context).push(PageRouteToScreen()
+                .pushToAnalysistAdminScreen(generalProvider.getTotalCost));
           },
           title: const Text("Analysis"),
           leading: const Icon(Icons.analytics),

@@ -900,11 +900,11 @@ class _CheckOutState extends State<CheckOut> {
         .collection("bill")
         .add({
       "idUser": FirebaseAuth.instance.currentUser!.uid,
-      "productList": generalProvider.getCartModelListListName,
-      // "time": getTime(),
-      "money": generalProvider.getTotal
+      "listOfProduct": generalProvider.getCartModelListListName,
+      "purchaseTime": getTime().toString(),
+      "total": generalProvider.getTotal
     });
-    print("add user to totalRevenue ok");
+    print("add user to bills ok");
     String money = (double.parse(generalProvider.getTotalRenenue) +
             generalProvider.getTotal)
         .toString();

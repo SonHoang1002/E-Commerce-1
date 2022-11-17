@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -72,8 +73,9 @@ class _CartScreenState extends State<CartScreen> {
                       name: generalProvider.getCartModelList[index].name,
                       price: generalProvider.getCartModelList[index].price,
                       img: generalProvider.getCartModelList[index].img,
-                      quantity: generalProvider.getCartModelList[index].quantity,
-                      repo:generalProvider.getCartModelList[index].repo);
+                      quantity:
+                          generalProvider.getCartModelList[index].quantity,
+                      repo: generalProvider.getCartModelList[index].repo);
                 },
               ),
             ),
@@ -154,7 +156,8 @@ class _CartScreenState extends State<CartScreen> {
                                                       .getCartModelList[i]
                                                       .quantity *
                                                   generalProvider
-                                                      .getCartModelList[i].price);
+                                                      .getCartModelList[i]
+                                                      .price);
                                             }
                                             generalProvider.setPromo(0);
                                             generalProvider.setTotal(value);
@@ -226,6 +229,10 @@ class _CartScreenState extends State<CartScreen> {
           generalProvider.setCartModelListName();
           Navigator.of(context)
               .push(PageRouteToScreen().pushToCheckOutScreen());
+          if (generalProvider.getIsUpdateForCartProduct) {
+            generalProvider.addNotiList(
+                "${getTime()}: You have already updated quantity any product");
+          }
         },
         style: ElevatedButton.styleFrom(
           primary: Colors.grey,

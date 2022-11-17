@@ -378,7 +378,9 @@ class GeneralProvider with ChangeNotifier {
 
   late String email;
   setEmailFromLogin(String? value) {
+    email = "";
     email = value!;
+    notifyListeners();
   }
 
   get getEmailFromLogin => email;
@@ -588,7 +590,7 @@ class GeneralProvider with ChangeNotifier {
     return 0;
   }
 
-    List<Product> get getAllProduct => searchProductListForAdmin("");
+  List<Product> get getAllProduct => searchProductListForAdmin("");
 
   // Future<int> setAllProduct(String value) async {
   //   allProduct = searchProductList(value);
@@ -660,8 +662,6 @@ class GeneralProvider with ChangeNotifier {
     // notifyListeners();
     return list;
   }
-
-
 
   // check admin or user
   bool isAdmin = false;
@@ -879,7 +879,26 @@ class GeneralProvider with ChangeNotifier {
     });
   }
 
+  late double totalCost;
+  Future<int> setTotalCost() async {
+    totalCost = 0;
+    List<Product> list = searchProductList("");
+    list.forEach((element) {
+      totalCost += (element.price * double.parse(element.repo.toString()));
+    });
+    notifyListeners();
+    return 0;
+  }
 
+  double get getTotalCost => double.parse(totalCost.toStringAsFixed(3));
+
+  late bool isCartProductNumberUpdate = false;
+  setIsUpdateForCartProduct(bool value) {
+    isCartProductNumberUpdate = true;
+    notifyListeners();
+  }
+
+  get getIsUpdateForCartProduct => isCartProductNumberUpdate;
 }
 
 

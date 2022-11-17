@@ -202,6 +202,11 @@ class _HomePageState extends State<HomePage> {
         child: StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection("User").snapshots(),
       builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         snapshot.data!.docs.forEach((element) {
           if (element["UserId"] == FirebaseAuth.instance.currentUser!.uid) {
             name = element["UserName"];
@@ -871,13 +876,13 @@ class _HomePageState extends State<HomePage> {
                                 name: listFeature[1].name,
                                 price: listFeature[1].price,
                                 img: listFeature[1].image,
-                                repo: listFeature[0].repo)));
+                                repo: listFeature[1].repo)));
                       },
                       child: SingleProduct(
                           name: listFeature[1].name,
                           price: listFeature[1].price,
                           image: listFeature[1].image,
-                          repo: listFeature[0].repo),
+                          repo: listFeature[1].repo),
                     ),
                   ],
                 )
@@ -940,7 +945,7 @@ class _HomePageState extends State<HomePage> {
                           name: listNew[0].name,
                           price: listNew[0].price,
                           image: listNew[0].image,
-                          repo: listFeature[0].repo),
+                          repo: listNew[0].repo),
                     ),
                     GestureDetector(
                       onTap: () {
@@ -949,13 +954,13 @@ class _HomePageState extends State<HomePage> {
                                 name: listNew[1].name,
                                 price: listNew[1].price,
                                 img: listNew[1].image,
-                                repo: listFeature[0].repo)));
+                                repo: listNew[1].repo)));
                       },
                       child: SingleProduct(
                           name: listNew[1].name,
                           price: listNew[1].price,
                           image: listNew[1].image,
-                          repo: listFeature[0].repo),
+                          repo:  listNew[1].repo),
                     ),
                   ],
                 )

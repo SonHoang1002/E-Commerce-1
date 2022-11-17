@@ -13,8 +13,8 @@ import 'package:testecommerce/providers/general_provider.dart';
 import 'package:http/http.dart' as http;
 
 class AlertResetPassword extends StatefulWidget {
-  const AlertResetPassword({super.key});
-
+  AlertResetPassword({super.key, required this.email});
+  String email;
   @override
   State<AlertResetPassword> createState() => _AlertResetPasswordState();
 }
@@ -44,6 +44,7 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
     FocusManager.instance.primaryFocus?.focusInDirection;
     if (isBegin) {
       buildTimeOutForResetPassword();
+      // generalProvider.setEmailFromLogin(widget.email);
       setState(() {
         isBegin = false;
       });
@@ -205,7 +206,7 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
               "template_id": "template_m7c2jus",
               "user_id": "XODjifkQVe_sJaakG",
               "template_params": {
-                "to_email": "${generalProvider.getEmailFromLogin}",
+                "to_email": "${widget.email}",
                 "from_email": "H&HFood@gmail.com",
                 "from_name": "H&H FOOD",
                 "to_name": "you",
