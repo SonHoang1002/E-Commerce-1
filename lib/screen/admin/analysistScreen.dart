@@ -92,21 +92,27 @@ class _AnalysistState extends State<Analysist> {
             Center(
               child: Text(
                 "Total Revenue",
-                style: TextStyle(fontSize: 30, color: Colors.green),
+                style: TextStyle(fontSize: 30, color: Colors.grey[400]),
               ),
             ),
             Center(
-                child: Text(
-              // _number.toString(),
-              totalRevenue,
-              // style: Theme.of(context).textTheme.bodyMedium,
-              style: TextStyle(fontSize: 40, color: Colors.grey[400]),
+                child: Tooltip(
+              message: "Total Revenue",
+              child: Text(
+                // _number.toString(),
+                totalRevenue,
+                // style: Theme.of(context).textTheme.bodyMedium,
+                style: TextStyle(fontSize: 40, color: Colors.green),
+              ),
             )),
             // Container(child: Center(child: Text("Total Cost"),),),
             Center(
-              child: Text(
-                "${widget.cost}",
-                style: TextStyle(color: Colors.red, fontSize: 25),
+              child: Tooltip(
+                message: "Total Cost",
+                child: Text(
+                  "${widget.cost}",
+                  style: TextStyle(color: Colors.red, fontSize: 25),
+                ),
               ),
             ),
             SizedBox(
@@ -125,7 +131,7 @@ class _AnalysistState extends State<Analysist> {
                     dataSource: listData,
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y,
-                    name: "abc",
+                    name: "Column_Chart",
                     color: Color.fromRGBO(100, 100, 100, 1),
                     dataLabelSettings: DataLabelSettings(
                         isVisible: true,
@@ -135,7 +141,7 @@ class _AnalysistState extends State<Analysist> {
                     dataSource: listData,
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y,
-                    name: "Abc",
+                    name: "Line_Chart",
                     enableTooltip: true,
                     color: Colors.red,
                   )

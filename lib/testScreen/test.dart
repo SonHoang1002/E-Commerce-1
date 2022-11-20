@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -51,56 +52,37 @@ class _TestScreenState extends State<TestScreen> {
   @override
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context, listen: false);
-
+    late int number = 0;
     return MaterialApp(
-      title: 'TalkJS Demo',
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('TalkJS Demo'),
-          ),
-          body: Column(children: [
-            Text(
-              "${seconds}",
-              style: TextStyle(fontSize: 25),
+        title: 'TalkJS Demo',
+        home: Scaffold(
+            appBar: AppBar(
+              title: const Text('TalkJS Demo'),
             ),
-            Center(
-              child: ElevatedButton(
-                child: Text("Click"),
-                onPressed: () {
-                  // setCustomerAndTotalRevenue();
-                  // updateRepo(list);
-                  buildTimeOutForResetPassword();
-                },
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                child: Text("Click"),
-                onPressed: () {
-                  // setCustomerAndTotalRevenue();
-                  // updateRepo(list);
-                  setState(() {
-                    seconds = 600;
-                  });
-                },
-              ),
-            ),
-            Center(
-              child: ElevatedButton(
-                child: Text("get TR"),
-                onPressed: () {
-                  generalProvider.setTotalRenenue();
-                },
-              ),
-            ),
-          ])),
-    );
+            body: Container(
+              child: ListView(children: [
+                Center(
+                  child: Text("$number"),
+                ),
+                Center(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      int a = Random().nextInt(10);
+                      setState(() {
+                        number = a;
+                      });
+                    },
+                    child: Container(),
+                  ),
+                )
+              ]),
+            )));
   }
 
   void buildTimeOutForResetPassword() {
     const perSecond = Duration(seconds: 1);
     timer = Timer.periodic(perSecond, (timer) {
-      print("12323234");
+      // print("12323234");
       if (seconds == 0) {
         setState(() {
           timer.cancel();
@@ -139,25 +121,6 @@ class _TestScreenState extends State<TestScreen> {
         .doc("W5hd5BaRmYrhNAySeeq3")
         .update({"totalMoney": money});
     print("add bill to totalRevenue ok");
-  }
-
-  Future<void> updateRepo(List<CartModel> cartModelListToUpdateRepo) async {
-    for (int i = 0; i < cartModelListToUpdateRepo.length; i++) {
-      _ConnectAndUpdateCategoryCollection(
-          "Drink", cartModelListToUpdateRepo[i]);
-      _ConnectAndUpdateCategoryCollection(
-          "AsiaDish", cartModelListToUpdateRepo[i]);
-      _ConnectAndUpdateCategoryCollection(
-          "Snack", cartModelListToUpdateRepo[i]);
-      _ConnectAndUpdateCategoryCollection(
-          "EastDish", cartModelListToUpdateRepo[i]);
-      _ConnectAndUpdateCategoryCollection(
-          "WaterDish", cartModelListToUpdateRepo[i]);
-      _ConnectAndUpdateProductsCollection(
-          "newachives", cartModelListToUpdateRepo[i]);
-      _ConnectAndUpdateProductsCollection(
-          "featuredproduct", cartModelListToUpdateRepo[i]);
-    }
   }
 
   Future<void> _ConnectAndUpdateCategoryCollection(
@@ -211,66 +174,66 @@ class _TestScreenState extends State<TestScreen> {
   }
 }
 
-class ChartApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: _MyHomePage(),
-    );
-  }
-}
+// class ChartApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       theme: ThemeData(primarySwatch: Colors.blue),
+//       home: _MyHomePage(),
+//     );
+//   }
+// }
 
-class _MyHomePage extends StatefulWidget {
-  // ignore: prefer_const_constructors_in_immutables
-  _MyHomePage({Key? key}) : super(key: key);
+// class _MyHomePage extends StatefulWidget {
+//   // ignore: prefer_const_constructors_in_immutables
+//   _MyHomePage({Key? key}) : super(key: key);
 
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+//   @override
+//   _MyHomePageState createState() => _MyHomePageState();
+// }
 
-class _MyHomePageState extends State<_MyHomePage> {
-  late List<ChartData> data;
-  late TooltipBehavior _tooltip;
+// class _MyHomePageState extends State<_MyHomePage> {
+//   late List<ChartData> data;
+//   late TooltipBehavior _tooltip;
 
-  @override
-  void initState() {
-    data = [
-      ChartData('CHN', 12),
-      ChartData('GER', 15),
-      ChartData('RUS', 30),
-      ChartData('BRZ', 10),
-      ChartData('IND', 14)
-    ];
-    _tooltip = TooltipBehavior(enable: true);
-    super.initState();
-  }
+//   @override
+//   void initState() {
+//     data = [
+//       ChartData('CHN', 12),
+//       ChartData('GER', 15),
+//       ChartData('RUS', 30),
+//       ChartData('BRZ', 10),
+//       ChartData('IND', 14)
+//     ];
+//     _tooltip = TooltipBehavior(enable: true);
+//     super.initState();
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Syncfusion Flutter chart'),
-        ),
-        body: SfCartesianChart(
-            primaryXAxis: CategoryAxis(),
-            primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
-            tooltipBehavior: _tooltip,
-            series: <ChartSeries<ChartData, String>>[
-              ColumnSeries<ChartData, String>(
-                  dataSource: data,
-                  xValueMapper: (ChartData data, _) => data.x,
-                  yValueMapper: (ChartData data, _) => data.y,
-                  name: 'Gold',
-                  color: Color.fromRGBO(8, 142, 255, 1)),
-              LineSeries(
-                  dataSource: data,
-                  xValueMapper: (ChartData data, _) => data.x,
-                  yValueMapper: (ChartData data, _) => data.y,
-                  name: "Abc",
-                  color: Color.fromRGBO(10, 100, 240, 1))
-            ]));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//           title: const Text('Syncfusion Flutter chart'),
+//         ),
+//         body: SfCartesianChart(
+//             primaryXAxis: CategoryAxis(),
+//             primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 10),
+//             tooltipBehavior: _tooltip,
+//             series: <ChartSeries<ChartData, String>>[
+//               ColumnSeries<ChartData, String>(
+//                   dataSource: data,
+//                   xValueMapper: (ChartData data, _) => data.x,
+//                   yValueMapper: (ChartData data, _) => data.y,
+//                   name: 'Gold',
+//                   color: Color.fromRGBO(8, 142, 255, 1)),
+//               LineSeries(
+//                   dataSource: data,
+//                   xValueMapper: (ChartData data, _) => data.x,
+//                   yValueMapper: (ChartData data, _) => data.y,
+//                   name: "Abc",
+//                   color: Color.fromRGBO(10, 100, 240, 1))
+//             ]));
+//   }
+// }
 
 

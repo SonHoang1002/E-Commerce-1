@@ -226,7 +226,7 @@ class _CheckOutState extends State<CheckOut> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
+          SizedBox(
             width: 150,
             height: 50,
             child: ElevatedButton(
@@ -253,7 +253,7 @@ class _CheckOutState extends State<CheckOut> {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: 150,
             height: 50,
             child: ElevatedButton(
