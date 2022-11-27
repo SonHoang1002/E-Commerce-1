@@ -44,6 +44,7 @@ class _CheckOutState extends State<CheckOut> {
   bool viettin = false;
 
   bool isHasVerifyCode = false;
+  bool isDola = true;
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +119,7 @@ class _CheckOutState extends State<CheckOut> {
                 ], rows: buildDataCell()),
               ]),
             ),
-            buildDetail("Total", "${generalProvider.getTotal.toString()} \$"),
+            buildDetail("Total", "${generalProvider.getTotal.toString()}"),
           ])),
       bottomSheet: buildBottomSheet(),
     );
@@ -549,14 +550,34 @@ class _CheckOutState extends State<CheckOut> {
             Row(
               children: [
                 endName.length < 20
-                    ? Text(
-                        endName,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      )
+                    ? (startName == "Total")
+                        ? Row(
+                            children: [
+                              IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      isDola = !isDola;
+                                    });
+                                  },
+                                  icon: Icon(Icons.change_circle_rounded)),
+                              Text(
+                                isDola ? "${endName} \$": "${(double.parse(endName)*23000).round()} \đ",
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              )
+                            ],
+                          )
+                        : Text(
+                            "${endName}",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black),
+                          )
                     : Container(
                         width: 180,
                         child: Text(

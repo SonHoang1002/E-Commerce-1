@@ -211,7 +211,9 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                     ),
                   )
                 : Center(
-                    child: Badge(
+                    // child: Badge(
+                      // position: BadgePosition(bottom: 8,start: 45),
+                      // badgeContent: Text("New"),
                       child: Text(
                         "${tPrice} \$",
                         style: TextStyle(
@@ -220,7 +222,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ),
+                  // ),
             isFixing
                 ? Container(
                     height: 70,
