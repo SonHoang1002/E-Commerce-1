@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/timer.dart';
+import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/models/cartmodels.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -63,7 +64,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                     children: [
                       Text(
                         widget.name == null ? "Demo1" : widget.name,
-                        style:const TextStyle(
+                        style: const TextStyle(
                             color: Colors.blue,
                             fontStyle: FontStyle.italic,
                             fontSize: 25),
@@ -83,7 +84,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                       //       fontSize: 13),
                       // ),
                       Text(
-                        "Price: ${widget.price} ",
+                        "Price: ${convertMoney(generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName} ",
                         style: const TextStyle(
                             color: Colors.redAccent,
                             fontWeight: FontWeight.bold,
@@ -207,5 +208,14 @@ class _CartSingleProductState extends State<CartSingleProduct> {
       value += (list[i].quantity * list[i].price);
     }
     return value;
+  }
+
+  double convertMoney(String unitMoney) {
+    if (unitMoney == "₫") {
+      return widget.price * UnitMoney().convertToVND;
+    } else if (unitMoney == "₤") {
+      return widget.price * UnitMoney().convertToEuro;
+    }
+    return widget.price;
   }
 }

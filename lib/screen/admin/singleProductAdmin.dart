@@ -63,7 +63,7 @@ class SingleProductForAdmin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    "$price \$",
+                    "$price ${generalProvider.getMoneyIconName}",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,

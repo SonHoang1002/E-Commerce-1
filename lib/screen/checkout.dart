@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/formatInput.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
+import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/cartmodels.dart';
 import 'package:testecommerce/models/product.dart';
@@ -283,7 +284,7 @@ class _CheckOutState extends State<CheckOut> {
                                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                                 child: Center(
                                   child: Text(
-                                    "You Pay ${generalProvider.getTotal}\$",
+                                    "You Pay ${convertMoney(generalProvider.getTotal, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold),
@@ -415,23 +416,26 @@ class _CheckOutState extends State<CheckOut> {
                                       padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                                       child: Column(
                                         children: [
-                                          TextFormField(
-                                            controller: cardNumber,
-                                            inputFormatters: [
-                                              FilteringTextInputFormatter
-                                                  .digitsOnly,
-                                              CustomInputFormatter()
-                                            ],
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
-                                                hintText: "Card Number",
-                                                labelText: "CARD NUMBER",
-                                                hintStyle: TextStyle(
-                                                    color: Colors.black)),
+                                          Container(
+                                            padding:EdgeInsets.symmetric(horizontal: 10),
+                                            child: TextFormField(
+                                              controller: cardNumber,
+                                              inputFormatters: [
+                                                FilteringTextInputFormatter
+                                                    .digitsOnly,
+                                                CustomInputFormatter()
+                                              ],
+                                              keyboardType: TextInputType.number,
+                                              decoration: const InputDecoration(
+                                                  border: OutlineInputBorder(),
+                                                  hintText: "Card Number",
+                                                  labelText: "CARD NUMBER",
+                                                  hintStyle: TextStyle(
+                                                      color: Colors.black)),
+                                            ),
                                           ),
                                           Container(
-                                            padding: EdgeInsets.fromLTRB(
+                                            padding: const EdgeInsets.fromLTRB(
                                                 0, 10, 0, 0),
                                             child: Row(
                                               mainAxisAlignment:
@@ -440,23 +444,27 @@ class _CheckOutState extends State<CheckOut> {
                                               children: [
                                                 Container(
                                                   width: 175,
-                                                  child: TextFormField(
-                                                    controller: expiry,
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(),
-                                                        hintText: "Card Expiry",
-                                                        labelText:
-                                                            "CARD EXPIRY",
-                                                        hintStyle: TextStyle(
-                                                            color:
-                                                                Colors.black)),
+                                                  child: Container(
+                                                    padding:EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                                    child: TextFormField(
+                                                      controller: expiry,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      decoration: InputDecoration(
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                          hintText: "Card Expiry",
+                                                          labelText:
+                                                              "CARD EXPIRY",
+                                                          hintStyle: TextStyle(
+                                                              color:
+                                                                  Colors.black)),
+                                                    ),
                                                   ),
                                                 ),
                                                 Container(
                                                   width: 175,
+                                                  padding:EdgeInsets.fromLTRB(0, 0, 10, 0),
                                                   child: TextFormField(
                                                     controller: cvv,
                                                     keyboardType:
@@ -527,6 +535,7 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   Widget buildDetail(String startName, String endName) {
+    //  buildDetail("Name", generalProvider.userName),
     return Container(
       padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Center(
@@ -547,57 +556,33 @@ class _CheckOutState extends State<CheckOut> {
                 ),
               ],
             ),
-            Row(
-              children: [
-                endName.length < 20
-                    ? (startName == "Total")
-                        ? Row(
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      isDola = !isDola;
-                                    });
-                                  },
-                                  icon: Icon(Icons.change_circle_rounded)),
-                              Text(
-                                isDola ? "${endName} \$": "${(double.parse(endName)*23000).round()} \đ",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              )
-                            ],
-                          )
-                        : Text(
-                            "${endName}",
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
-                          )
-                    : Container(
-                        width: 180,
-                        child: Text(
-                          endName,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      ),
-                SizedBox(
-                  width: 30,
-                )
-              ],
-            )
+            Container(
+              padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+              child: Text(
+                startName == "Total"
+                    ? "${convertMoney(double.parse(endName), generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"
+                    : "$endName",
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
+              ),
+            ),
+            
           ],
         ),
       ),
     );
+  }
+
+  double convertMoney(double valueMoney, String unitMoney) {
+    if (unitMoney == "₫") {
+      return valueMoney * UnitMoney().convertToVND;
+    } else if (unitMoney == "₤") {
+      return valueMoney * UnitMoney().convertToEuro;
+    }
+    return valueMoney;
   }
 
   Future<void> send() async {
@@ -1020,3 +1005,53 @@ class _CheckOutState extends State<CheckOut> {
     return false;
   }
 }
+
+
+
+// Row(
+            //   children: [
+            //     endName.length < 20
+            //         ? (startName == "Total")
+            //             ? Row(
+            //                 children: [
+            //                   IconButton(
+            //                       onPressed: () {
+            //                         setState(() {
+            //                           isDola = !isDola;
+            //                         });
+            //                       },
+            //                       icon: Icon(Icons.change_circle_rounded)),
+            //                   Text(
+            //                     isDola ? "${endName} ${generalProvider.getMoneyIconName}": "${(double.parse(endName)*23000).round()} \đ",
+            //                     overflow: TextOverflow.ellipsis,
+            //                     style: TextStyle(
+            //                         fontSize: 18,
+            //                         fontWeight: FontWeight.bold,
+            //                         color: Colors.black),
+            //                   )
+            //                 ],
+            //               )
+            //             : Text(
+            //                 "${endName}",
+            //                 overflow: TextOverflow.ellipsis,
+            //                 style: TextStyle(
+            //                     fontSize: 18,
+            //                     fontWeight: FontWeight.bold,
+            //                     color: Colors.black),
+            //               )
+            //         : Container(
+            //             width: 180,
+            //             child: Text(
+            //               endName,
+            //               overflow: TextOverflow.ellipsis,
+            //               style: TextStyle(
+            //                   fontSize: 18,
+            //                   fontWeight: FontWeight.bold,
+            //                   color: Colors.black),
+            //             ),
+            //           ),
+            //     SizedBox(
+            //       width: 30,
+            //     )
+            //   ],
+            // )

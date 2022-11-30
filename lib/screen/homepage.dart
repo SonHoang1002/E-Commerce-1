@@ -72,7 +72,6 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listWater = [];
   late List<Product> listDrink = [];
 
-
   String? name = "";
   String image = "";
   bool isMale = false;
@@ -132,7 +131,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     loadData();
-    
   }
 
   @override
@@ -385,6 +383,97 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                   title: Text("Language"),
+                  // leading: const Icon(Icons.language),
+                ),
+                ExpansionTile(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Text("Viet Nam Dong"),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  generalProvider.setMoneyIcon(1);
+                                }, icon: Icon(Icons.money)),
+                            SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Text("USD"),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                generalProvider.setMoneyIcon(2);
+                              },
+                              icon: Icon(Icons.money),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: Text("Euro"),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                generalProvider.setMoneyIcon(3);
+                              },
+                              icon: Icon(Icons.money),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                  title: Text("Currentcy"),
                   // leading: const Icon(Icons.language),
                 ),
               ],
@@ -984,8 +1073,6 @@ class _HomePageState extends State<HomePage> {
       child: AdWidget(ad: generalProvider.getAds),
     );
   }
-
-  
 }
 
 Widget _CircleImage(String img, int color, String messageOfTooltip) {

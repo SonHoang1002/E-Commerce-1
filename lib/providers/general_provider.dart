@@ -899,6 +899,21 @@ class GeneralProvider with ChangeNotifier {
   }
 
   get getIsUpdateForCartProduct => isCartProductNumberUpdate;
+
+  List<String> listMoneyIcon = ["₫", "\$", "₤"];
+  String moneyIconName = "\$";
+  void setMoneyIcon(int index) {
+    if (index > 4 && index < 0) {
+      moneyIconName = "\$";
+    }
+    moneyIconName = listMoneyIcon[index - 1];
+    notifyListeners();
+  }
+
+  String get getMoneyIconName => moneyIconName;
+
+
+  
 }
 
 

@@ -215,7 +215,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                       // position: BadgePosition(bottom: 8,start: 45),
                       // badgeContent: Text("New"),
                       child: Text(
-                        "${tPrice} \$",
+                        "${tPrice} ${generalProvider.getMoneyIconName}",
                         style: TextStyle(
                             color: Colors.green,
                             fontSize: 23,

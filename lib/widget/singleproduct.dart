@@ -1,21 +1,32 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
+import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/unit_money.dart';
+import 'package:testecommerce/providers/general_provider.dart';
+import 'package:testecommerce/screen/alertResetPassword.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 
 class SingleProduct extends StatelessWidget {
-  SingleProduct({required this.name, required this.price, required this.image,required this.repo});
+  SingleProduct(
+      {required this.name,
+      required this.price,
+      required this.image,
+      required this.repo});
   late final String name;
   late final String image;
   late final double price;
   late final int repo;
+
+  late GeneralProvider generalProvider;
   @override
   Widget build(BuildContext context) {
+    generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(CupertinoPageRoute(
-            builder: (context) =>
-                DetailScreen(name: name, price: price, img: image,repo:repo)));
+            builder: (context) => DetailScreen(
+                name: name, price: price, img: image, repo: repo)));
       },
       onLongPress: () {
         _showAlertDialog(context);
@@ -40,7 +51,7 @@ class SingleProduct extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    "$price \$",
+                    "${convertMoney(generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
@@ -60,6 +71,15 @@ class SingleProduct extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  double convertMoney(String unitMoney) {
+    if (unitMoney == "₫") {
+      return price * UnitMoney().convertToVND;
+    }else if(unitMoney =="₤"){
+      return price * UnitMoney().convertToEuro;
+    }
+    return price;
   }
 
   _showAlertDialog(BuildContext context) {

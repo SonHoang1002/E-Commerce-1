@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/addition/timer.dart';
+import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
@@ -59,7 +60,8 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
           IconButton(
               icon: Badge(
-                  badgeContent: Text("${generalProvider.getCartModelListLength}"),
+                  badgeContent:
+                      Text("${generalProvider.getCartModelListLength}"),
                   badgeColor: Colors.red,
                   shape: BadgeShape.circle,
                   showBadge: true,
@@ -152,7 +154,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     fontStyle: FontStyle.italic),
               ),
               Text(
-                "${widget.price == null ? 30.0 : widget.price} \$",
+                "${convertMoney(generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
                 style: TextStyle(
                     color: Colors.red,
                     fontSize: 23,
@@ -414,5 +416,14 @@ class _DetailScreenState extends State<DetailScreen> {
             ))
       ],
     );
+  }
+
+  double convertMoney(String unitMoney) {
+    if (unitMoney == "₫") {
+      return widget.price * UnitMoney().convertToVND;
+    } else if (unitMoney == "₤") {
+      return widget.price * UnitMoney().convertToEuro;
+    }
+    return widget.price;
   }
 }
