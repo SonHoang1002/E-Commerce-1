@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
+import 'package:testecommerce/addition/ad_helper.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/usermodel.dart';
@@ -71,6 +72,7 @@ class _HomePageState extends State<HomePage> {
   late List<Product> listWater = [];
   late List<Product> listDrink = [];
 
+
   String? name = "";
   String image = "";
   bool isMale = false;
@@ -130,6 +132,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     loadData();
+    
   }
 
   @override
@@ -960,7 +963,7 @@ class _HomePageState extends State<HomePage> {
                           name: listNew[1].name,
                           price: listNew[1].price,
                           image: listNew[1].image,
-                          repo:  listNew[1].repo),
+                          repo: listNew[1].repo),
                     ),
                   ],
                 )
@@ -981,6 +984,8 @@ class _HomePageState extends State<HomePage> {
       child: AdWidget(ad: generalProvider.getAds),
     );
   }
+
+  
 }
 
 Widget _CircleImage(String img, int color, String messageOfTooltip) {
@@ -994,7 +999,7 @@ Widget _CircleImage(String img, int color, String messageOfTooltip) {
     child: Container(
       margin: EdgeInsets.all(4),
       child: CircleAvatar(
-        maxRadius: 30,
+        maxRadius: 28,
         backgroundColor: Color(color),
         child: Image(image: AssetImage("images/$img")),
       ),

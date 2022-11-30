@@ -310,12 +310,6 @@ class _Login extends State<Login> {
     );
   }
 
-  @override
-  void dispose() {
-    _ad?.dispose();
-
-    super.dispose();
-  }
 
   Future<void> send() async {
     if (generalProvider.getResetCode == "") {

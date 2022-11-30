@@ -230,7 +230,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
-                                    width: 160,
+                                    width: 145,
+                                    margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
                                     child: TextFormField(
                                       controller: priceController,
                                       keyboardType: TextInputType.number,
@@ -243,7 +244,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     ),
                                   ),
                                   Container(
-                                    width: 160,
+                                    width: 145,
+                                     margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: TextFormField(
                                       controller: repoController,
                                       keyboardType: TextInputType.number,

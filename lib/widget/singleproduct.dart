@@ -24,7 +24,7 @@ class SingleProduct extends StatelessWidget {
       child: Card(
         child: Container(
           height: 230,
-          width: 173,
+          width: 157,
           color: Colors.blue,
           child: Column(children: [
             Container(
@@ -35,7 +35,7 @@ class SingleProduct extends StatelessWidget {
                       fit: BoxFit.fill, image: NetworkImage("$image"))),
             ),
             Container(
-              height: 60,
+              height: 50,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [

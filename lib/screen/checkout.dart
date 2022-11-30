@@ -303,7 +303,7 @@ class _CheckOutState extends State<CheckOut> {
                                     Container(
                                         child: Divider(
                                       color: Colors.red,
-                                      height: 40,
+                                      height: 20,
                                     )),
                                   ],
                                 ),

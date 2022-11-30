@@ -96,6 +96,7 @@ class _CartScreenState extends State<CartScreen> {
       // ),
       bottomSheet: Container(
           height: 290,
+          padding:EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
               Container(

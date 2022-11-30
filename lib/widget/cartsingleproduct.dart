@@ -34,8 +34,10 @@ class _CartSingleProductState extends State<CartSingleProduct> {
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
     return Container(
+      // margin: EdgeInsets.all(5),
+      // padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
       height: 210,
-      width: double.infinity,
+      // width: 500,
       child: Card(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(
@@ -52,7 +54,8 @@ class _CartSingleProductState extends State<CartSingleProduct> {
               ),
               Container(
                 height: 200,
-                width: 200,
+                width: 178,
+                // padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: ListTile(
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +63,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                     children: [
                       Text(
                         widget.name == null ? "Demo1" : widget.name,
-                        style: TextStyle(
+                        style:const TextStyle(
                             color: Colors.blue,
                             fontStyle: FontStyle.italic,
                             fontSize: 25),
@@ -81,14 +84,14 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                       // ),
                       Text(
                         "Price: ${widget.price} ",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.redAccent,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
                       ),
                       Text(
                         "Suitable: ${widget.repo} ",
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.green,
                             fontWeight: FontWeight.bold,
                             fontSize: 15),
@@ -103,7 +106,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             GestureDetector(
-                              child: Icon(
+                              child: const Icon(
                                 Icons.remove,
                                 color: Colors.black,
                               ),
@@ -126,7 +129,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                                   TextStyle(color: Colors.black, fontSize: 20),
                             ),
                             GestureDetector(
-                              child: Icon(
+                              child: const Icon(
                                 Icons.add,
                                 color: Colors.black,
                               ),
@@ -134,11 +137,10 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                                 if (widget.quantity < widget.repo) {
                                   setState(() {
                                     widget.quantity += 1;
-                                   generalProvider
+                                    generalProvider
                                         .setIsUpdateForCartProduct(true);
                                   });
                                   updateQuantity(widget.name);
-                                 
                                 } else {}
                               },
                             ),
@@ -150,7 +152,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                 ),
               ),
               GestureDetector(
-                  child: Icon(Icons.close),
+                  child: const Icon(Icons.close),
                   onTap: () {
                     List<CartModel> list = generalProvider.cartModelList;
                     late int index;
