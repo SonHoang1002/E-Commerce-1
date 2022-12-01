@@ -245,7 +245,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   ),
                                   Container(
                                     width: 145,
-                                     margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: TextFormField(
                                       controller: repoController,
                                       keyboardType: TextInputType.number,
@@ -530,14 +530,47 @@ class _HomeAdminState extends State<HomeAdmin> {
         ListTile(
           onTap: () {
             _key.currentState!.openEndDrawer();
-            Navigator.of(context)
-                .pushReplacement(MaterialPageRoute(builder: (ctx) => Login()));
+            _showAlertDialog(context);
           },
           title: const Text("Log Out"),
           leading: const Icon(Icons.logout),
         ),
       ],
     ));
+  }
+
+  _showAlertDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Warning !!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You really want log out ??'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacement(PageRouteToScreen().pushToLoginScreen());
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   addProduct() {

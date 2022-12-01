@@ -625,7 +625,7 @@ class _HomePageState extends State<HomePage> {
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
-                Text('You want log out ??'),
+                Text('You really want log out ??'),
               ],
             ),
           ),
