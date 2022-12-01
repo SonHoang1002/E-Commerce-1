@@ -406,7 +406,8 @@ class _HomePageState extends State<HomePage> {
                             IconButton(
                                 onPressed: () {
                                   generalProvider.setMoneyIcon(1);
-                                }, icon: Icon(Icons.money)),
+                                },
+                                icon: Icon(Icons.money)),
                             SizedBox(
                               width: 20,
                             ),
@@ -583,8 +584,7 @@ class _HomePageState extends State<HomePage> {
                 _key.currentState!.openEndDrawer();
                 // Navigator.of(context).pushReplacement(
                 //     MaterialPageRoute(builder: (ctx) => Login()));
-                Navigator.of(context)
-                    .pushReplacement(PageRouteToScreen().pushToLoginScreen());
+                _showAlertDialog(context);
                 setState(() {
                   settingColor = false;
                   profileColor = true;
@@ -613,6 +613,40 @@ class _HomePageState extends State<HomePage> {
         );
       },
     ));
+  }
+
+  _showAlertDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Warning !!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You want log out ??'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacement(PageRouteToScreen().pushToLoginScreen());
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Widget buildBody() {

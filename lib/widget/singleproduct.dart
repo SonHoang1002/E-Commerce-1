@@ -7,6 +7,7 @@ import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/screen/alertResetPassword.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 
+
 class SingleProduct extends StatelessWidget {
   SingleProduct(
       {required this.name,
@@ -51,7 +52,7 @@ class SingleProduct extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    "${convertMoney(generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
+                    "${UnitMoney().convertMoney(price,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
@@ -73,14 +74,7 @@ class SingleProduct extends StatelessWidget {
     );
   }
 
-  double convertMoney(String unitMoney) {
-    if (unitMoney == "₫") {
-      return price * UnitMoney().convertToVND;
-    }else if(unitMoney =="₤"){
-      return price * UnitMoney().convertToEuro;
-    }
-    return price;
-  }
+
 
   _showAlertDialog(BuildContext context) {
     return showDialog<void>(

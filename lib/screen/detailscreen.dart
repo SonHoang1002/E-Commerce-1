@@ -154,7 +154,7 @@ class _DetailScreenState extends State<DetailScreen> {
                     fontStyle: FontStyle.italic),
               ),
               Text(
-                "${convertMoney(generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
+                "${UnitMoney().convertMoney(widget.price,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
                 style: TextStyle(
                     color: Colors.red,
                     fontSize: 23,
@@ -418,12 +418,5 @@ class _DetailScreenState extends State<DetailScreen> {
     );
   }
 
-  double convertMoney(String unitMoney) {
-    if (unitMoney == "₫") {
-      return widget.price * UnitMoney().convertToVND;
-    } else if (unitMoney == "₤") {
-      return widget.price * UnitMoney().convertToEuro;
-    }
-    return widget.price;
-  }
+
 }

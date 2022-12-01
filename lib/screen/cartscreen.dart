@@ -106,11 +106,11 @@ class _CartScreenState extends State<CartScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     buildDeatail(Icon(Icons.price_change), "Price",
-                        "${convertMoney(generalProvider.getPrice,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
+                        "${UnitMoney().convertMoney(generalProvider.getPrice,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
                     buildDeatail(Icon(Icons.discount), "Discount (-10%)",
-                        "-${convertMoney(generalProvider.getDiscount,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
+                        "-${UnitMoney().convertMoney(generalProvider.getDiscount,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
                     buildDeatail(Icon(Icons.local_shipping), "Shipping",
-                        "+${convertMoney(generalProvider.getShipping,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
+                        "+${UnitMoney().convertMoney(generalProvider.getShipping,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
                     Container(
                       width: 380,
                       child: Center(
@@ -129,7 +129,7 @@ class _CartScreenState extends State<CartScreen> {
                                         children: [
                                           Text("Total: "),
                                           Text(
-                                              "${total == null ? 0 : convertMoney(total,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}")
+                                              "${total == null ? 0 : UnitMoney().convertMoney(total,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}")
                                         ]),
                                   ),
                                 ],
@@ -309,12 +309,5 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
   
-  double convertMoney(double moneyValue,String unitMoney) {
-    if (unitMoney == "₫") {
-      return moneyValue * UnitMoney().convertToVND;
-    }else if(unitMoney =="₤"){
-      return moneyValue * UnitMoney().convertToEuro;
-    }
-    return moneyValue;
-  }
+  
 }

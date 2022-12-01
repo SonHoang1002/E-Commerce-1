@@ -284,7 +284,7 @@ class _CheckOutState extends State<CheckOut> {
                                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                                 child: Center(
                                   child: Text(
-                                    "You Pay ${convertMoney(generalProvider.getTotal, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
+                                    "You Pay ${UnitMoney().convertMoney(generalProvider.getTotal, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold),
@@ -560,7 +560,7 @@ class _CheckOutState extends State<CheckOut> {
               padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
               child: Text(
                 startName == "Total"
-                    ? "${convertMoney(double.parse(endName), generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"
+                    ? "${UnitMoney().convertMoney(double.parse(endName), generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"
                     : "$endName",
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -576,14 +576,7 @@ class _CheckOutState extends State<CheckOut> {
     );
   }
 
-  double convertMoney(double valueMoney, String unitMoney) {
-    if (unitMoney == "₫") {
-      return valueMoney * UnitMoney().convertToVND;
-    } else if (unitMoney == "₤") {
-      return valueMoney * UnitMoney().convertToEuro;
-    }
-    return valueMoney;
-  }
+
 
   Future<void> send() async {
     final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");

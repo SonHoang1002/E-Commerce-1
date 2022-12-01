@@ -84,7 +84,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                       //       fontSize: 13),
                       // ),
                       Text(
-                        "Price: ${convertMoney(generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName} ",
+                        "Price: ${UnitMoney().convertMoney(widget.price,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName} ",
                         style: const TextStyle(
                             color: Colors.redAccent,
                             fontWeight: FontWeight.bold,
@@ -210,12 +210,5 @@ class _CartSingleProductState extends State<CartSingleProduct> {
     return value;
   }
 
-  double convertMoney(String unitMoney) {
-    if (unitMoney == "₫") {
-      return widget.price * UnitMoney().convertToVND;
-    } else if (unitMoney == "₤") {
-      return widget.price * UnitMoney().convertToEuro;
-    }
-    return widget.price;
-  }
+
 }

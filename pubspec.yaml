@@ -57,6 +57,7 @@ dependencies:
   count_number: ^0.3.71+1
   flutter_countdown_timer: ^4.1.0
   syncfusion_flutter_charts: ^20.3.56
+  intl: ^0.17.0
 
   
 dev_dependencies:

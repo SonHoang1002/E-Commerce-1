@@ -58,12 +58,12 @@ class _NotificationMessageState extends State<NotificationMessage> {
             onPressed: () {
               // Navigator.of(context)
               //     .push(MaterialPageRoute(builder: (ctx) => HomePage()));
-              // generalProvider.getFromHomePage 
+              // generalProvider.getFromHomePage
               // ?  Navigator.of(context).push(MaterialPageRoute(
               //   builder: (ctx) =>
               //       HomePage(nameList: generalProvider.getNameProductList)))
               // : Navigator.of(context).pop();
-               Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
             icon: Icon(
               Icons.arrow_back,
@@ -82,7 +82,8 @@ class _NotificationMessageState extends State<NotificationMessage> {
                   icon: Badge(
                     animationType: BadgeAnimationType.scale,
                     shape: BadgeShape.circle,
-                    badgeContent: Text("${generalProvider.getCartModelListLength}"),
+                    badgeContent:
+                        Text("${generalProvider.getCartModelListLength}"),
                     showBadge: true,
                     child: Icon(
                       Icons.shopping_cart,
@@ -167,7 +168,8 @@ class _NotificationMessageState extends State<NotificationMessage> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  generalProvider.removeNotiList();
+                  // generalProvider.removeNotiList();
+                  _showAlertDialog(context);
                 },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.grey,
@@ -188,6 +190,39 @@ class _NotificationMessageState extends State<NotificationMessage> {
           ],
         ),
       ),
+    );
+  }
+
+  _showAlertDialog(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Warning !!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You want delete all history ??'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () {
+                generalProvider.removeNotiList();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
