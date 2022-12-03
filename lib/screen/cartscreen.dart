@@ -190,6 +190,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
+  // 
   Widget buildDeatail(Icon icon, String startName, String endName) {
     return Container(
       width: 380,
@@ -261,7 +262,7 @@ class _CartScreenState extends State<CartScreen> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Select assignment'),
+          title: const Text('Select discount rate'),
           children: <Widget>[
             buildSimpleDialogOption('15'),
             buildSimpleDialogOption('25'),

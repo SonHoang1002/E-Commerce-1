@@ -339,7 +339,7 @@ class GeneralProvider with ChangeNotifier {
     total = double.parse(
         ((value + getShipping - getDiscount) * (1 - getPromo / 100))
             .toStringAsFixed(2));
-
+    if (total == 0) resetPromo();
     notifyListeners();
   }
 
@@ -911,9 +911,6 @@ class GeneralProvider with ChangeNotifier {
   }
 
   String get getMoneyIconName => moneyIconName;
-
-
-  
 }
 
 

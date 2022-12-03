@@ -84,7 +84,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                       //       fontSize: 13),
                       // ),
                       Text(
-                        "Price: ${UnitMoney().convertMoney(widget.price,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName} ",
+                        "Price: ${UnitMoney().convertMoney(widget.price, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName} ",
                         style: const TextStyle(
                             color: Colors.redAccent,
                             fontWeight: FontWeight.bold,
@@ -209,6 +209,4 @@ class _CartSingleProductState extends State<CartSingleProduct> {
     }
     return value;
   }
-
-
 }

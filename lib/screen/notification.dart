@@ -218,6 +218,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
               child: Text('Yes'),
               onPressed: () {
                 generalProvider.removeNotiList();
+                Navigator.of(context).pop();
               },
             ),
           ],

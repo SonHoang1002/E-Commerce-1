@@ -160,7 +160,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }));
 
                     return Container(
-                      height: 900,
+                      height: 800,
                       width: double.infinity,
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
