@@ -802,11 +802,11 @@ class GeneralProvider with ChangeNotifier {
     return 0;
   }
 
-  Future<int> setTotalRenenueWith(String value) async {
-    totalRevenue = value;
-    notifyListeners();
-    return 0;
-  }
+  // Future<int> setTotalRenenueWith(String value) async {
+  //   totalRevenue = value;
+  //   notifyListeners();
+  //   return 0;
+  // }
 
   String get getTotalRenenue => totalRevenue;
 

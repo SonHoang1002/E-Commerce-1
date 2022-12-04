@@ -149,6 +149,19 @@ class _AnalysistState extends State<Analysist> {
               ),
             ),
             Container(
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // Text("Picture 1."),
+                    Text(
+                      "The bar chart shows the number of products sold from August to now",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.blue),
+                    ),
+                  ],
+                )),
+            Container(
               width: double.infinity,
               padding: const EdgeInsets.all(15.0),
               margin: EdgeInsets.fromLTRB(30, 30, 160, 30),

@@ -145,81 +145,6 @@ class _CheckOutState extends State<CheckOut> {
     return list;
   }
 
-  // Widget buildCart() {
-  //   return Container(
-  //     height: 220,
-  //     width: double.infinity,
-  //     child: Card(
-  //       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-  //         Row(
-  //           children: [
-  //             Container(
-  //               height: 180,
-  //               width: 150,
-  //               decoration: BoxDecoration(
-  //                   image: DecorationImage(
-  //                       image: NetworkImage(
-  //                           "${widget.img == null ? "" : widget.img}"),
-  //                       fit: BoxFit.fill)),
-  //             ),
-  //             Container(
-  //               height: 200,
-  //               width: 200,
-  //               child: ListTile(
-  //                 title: Column(
-  //                   crossAxisAlignment: CrossAxisAlignment.start,
-  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //                   children: [
-  //                     Text(
-  //                       widget.name == null ? "Demo1" : widget.name,
-  //                       style: TextStyle(
-  //                           color: Colors.blue,
-  //                           fontStyle: FontStyle.italic,
-  //                           fontSize: 25),
-  //                     ),
-  //                     Text(
-  //                       "Category: ",
-  //                       style: TextStyle(
-  //                           color: Colors.green,
-  //                           fontWeight: FontWeight.bold,
-  //                           fontSize: 20),
-  //                     ),
-  //                     Text(
-  //                       "Size: ",
-  //                       style: TextStyle(
-  //                           color: Colors.redAccent,
-  //                           fontWeight: FontWeight.bold,
-  //                           fontSize: 13),
-  //                     ),
-  //                     Text(
-  //                       "Price: ${widget.price * quantity} ",
-  //                       style: TextStyle(
-  //                           color: Colors.redAccent,
-  //                           fontWeight: FontWeight.bold,
-  //                           fontSize: 15),
-  //                     ),
-  //                     Container(
-  //                       height: 30,
-  //                       width: 100,
-  //                       decoration: BoxDecoration(
-  //                           color: Colors.grey[100],
-  //                           borderRadius: BorderRadius.circular(20)),
-  //                       child: Row(
-  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                         children: [Text("Quantity"), Text("1")],
-  //                       ),
-  //                     ),
-  //                   ],
-  //                 ),
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       ]),
-  //     ),
-  //   );
-  // }
-
   Widget buildBottomSheet() {
     return Container(
       height: 100,
@@ -417,7 +342,8 @@ class _CheckOutState extends State<CheckOut> {
                                       child: Column(
                                         children: [
                                           Container(
-                                            padding:EdgeInsets.symmetric(horizontal: 10),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 10),
                                             child: TextFormField(
                                               controller: cardNumber,
                                               inputFormatters: [
@@ -425,7 +351,8 @@ class _CheckOutState extends State<CheckOut> {
                                                     .digitsOnly,
                                                 CustomInputFormatter()
                                               ],
-                                              keyboardType: TextInputType.number,
+                                              keyboardType:
+                                                  TextInputType.number,
                                               decoration: const InputDecoration(
                                                   border: OutlineInputBorder(),
                                                   hintText: "Card Number",
@@ -445,7 +372,9 @@ class _CheckOutState extends State<CheckOut> {
                                                 Container(
                                                   width: 175,
                                                   child: Container(
-                                                    padding:EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10, 0, 0, 0),
                                                     child: TextFormField(
                                                       controller: expiry,
                                                       keyboardType:
@@ -453,18 +382,20 @@ class _CheckOutState extends State<CheckOut> {
                                                       decoration: InputDecoration(
                                                           border:
                                                               OutlineInputBorder(),
-                                                          hintText: "Card Expiry",
+                                                          hintText:
+                                                              "Card Expiry",
                                                           labelText:
                                                               "CARD EXPIRY",
                                                           hintStyle: TextStyle(
-                                                              color:
-                                                                  Colors.black)),
+                                                              color: Colors
+                                                                  .black)),
                                                     ),
                                                   ),
                                                 ),
                                                 Container(
                                                   width: 175,
-                                                  padding:EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      0, 0, 10, 0),
                                                   child: TextFormField(
                                                     controller: cvv,
                                                     keyboardType:
@@ -569,14 +500,11 @@ class _CheckOutState extends State<CheckOut> {
                     color: Colors.black),
               ),
             ),
-            
           ],
         ),
       ),
     );
   }
-
-
 
   Future<void> send() async {
     final url = Uri.parse("https://api.emailjs.com/api/v1.0/email/send");
@@ -672,6 +600,7 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   _showPaymentDialogSuccesfull(BuildContext context) async {
+        generalProvider.updateRepo(generalProvider.getCartModelList); ////// s
     Navigator.of(context).push(CupertinoPageRoute(
         builder: (_) =>
             HomePage(nameList: generalProvider.getNameProductList)));
@@ -693,10 +622,12 @@ class _CheckOutState extends State<CheckOut> {
         ),
       ),
     );
+
     await setCustomerAndTotalRevenue();
     await send();
     await analysistProduct();
     //reset any state in provider
+
     generalProvider.setTotalRenenue();
     generalProvider.reSetVerifyCode();
     generalProvider.setCartModelList([]);
@@ -999,6 +930,80 @@ class _CheckOutState extends State<CheckOut> {
   }
 }
 
+  // Widget buildCart() {
+  //   return Container(
+  //     height: 220,
+  //     width: double.infinity,
+  //     child: Card(
+  //       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  //         Row(
+  //           children: [
+  //             Container(
+  //               height: 180,
+  //               width: 150,
+  //               decoration: BoxDecoration(
+  //                   image: DecorationImage(
+  //                       image: NetworkImage(
+  //                           "${widget.img == null ? "" : widget.img}"),
+  //                       fit: BoxFit.fill)),
+  //             ),
+  //             Container(
+  //               height: 200,
+  //               width: 200,
+  //               child: ListTile(
+  //                 title: Column(
+  //                   crossAxisAlignment: CrossAxisAlignment.start,
+  //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //                   children: [
+  //                     Text(
+  //                       widget.name == null ? "Demo1" : widget.name,
+  //                       style: TextStyle(
+  //                           color: Colors.blue,
+  //                           fontStyle: FontStyle.italic,
+  //                           fontSize: 25),
+  //                     ),
+  //                     Text(
+  //                       "Category: ",
+  //                       style: TextStyle(
+  //                           color: Colors.green,
+  //                           fontWeight: FontWeight.bold,
+  //                           fontSize: 20),
+  //                     ),
+  //                     Text(
+  //                       "Size: ",
+  //                       style: TextStyle(
+  //                           color: Colors.redAccent,
+  //                           fontWeight: FontWeight.bold,
+  //                           fontSize: 13),
+  //                     ),
+  //                     Text(
+  //                       "Price: ${widget.price * quantity} ",
+  //                       style: TextStyle(
+  //                           color: Colors.redAccent,
+  //                           fontWeight: FontWeight.bold,
+  //                           fontSize: 15),
+  //                     ),
+  //                     Container(
+  //                       height: 30,
+  //                       width: 100,
+  //                       decoration: BoxDecoration(
+  //                           color: Colors.grey[100],
+  //                           borderRadius: BorderRadius.circular(20)),
+  //                       child: Row(
+  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //                         children: [Text("Quantity"), Text("1")],
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       ]),
+  //     ),
+  //   );
+  // }
 
 
 // Row(

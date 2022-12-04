@@ -65,7 +65,6 @@ class _HomePageState extends State<HomePage> {
 
   late List<Product> listFeature = [];
   late List<Product> listNew = [];
-
   late List<Product> listAsia = [];
   late List<Product> listEast = [];
   late List<Product> listSnack = [];
@@ -85,6 +84,14 @@ class _HomePageState extends State<HomePage> {
   void loadData() {
     generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     generalProvider.setEmailFromLogin(FirebaseAuth.instance.currentUser!.email);
+    // print(" Product lists is empty__________________________________");
+    listAsia = [];
+    listDrink = [];
+    listEast = [];
+    listFeature = [];
+    listSnack = [];
+    listWater = [];
+    listNew = [];
     if (listAsia.length == 0) {
       Future<int> a = generalProvider.setAsiaDish();
       listAsia = generalProvider.getListAsia();
@@ -114,7 +121,7 @@ class _HomePageState extends State<HomePage> {
       listDrink = generalProvider.getListDrink();
     }
     if (name == "") {
-      Future<int> f = generalProvider.setUserModel();
+      Future<int> i = generalProvider.setUserModel();
       name = generalProvider.getUserModelName;
     }
     // if (nameList == []) {
@@ -127,15 +134,16 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  @override
-  void initState() {
-    super.initState();
-    loadData();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // loadData();
+    
+  // }
 
   @override
   Widget build(BuildContext context) {
-    // loadData();
+    loadData();
     return Scaffold(
       key: _key,
       appBar: AppBar(
