@@ -245,8 +245,20 @@ class _Login extends State<Login> {
                                 ),
                                 onTap: () {
                                   // _buildResetDialog(context);
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (_) => AlertResetPassword(email:email.text.trim())));
+                                  FocusManager.instance.primaryFocus?.unfocus();
+                                  if (email.text.trim() == "admin@gmail.com") {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                            content: Text(
+                                      "Admin can not change password !!",
+                                      style: TextStyle(color: Colors.red),
+                                    )));
+                                  } else {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (_) => AlertResetPassword(
+                                                email: email.text.trim())));
+                                  }
                                 },
                               ),
                             ],
@@ -309,7 +321,6 @@ class _Login extends State<Login> {
       ),
     );
   }
-
 
   Future<void> send() async {
     if (generalProvider.getResetCode == "") {
@@ -472,7 +483,7 @@ class _Login extends State<Login> {
     }
     List<Product> asd = generalProvider.searchProductList("");
     Future<int> sdhf = generalProvider.setTotalRenenue();
-    
+
     if (generalProvider.getNotiList.length <= 0) {
       generalProvider
           .addNotiList("${getTime()}: Welcome To Home Screen Of H&H FOOD");

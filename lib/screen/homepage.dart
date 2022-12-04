@@ -138,7 +138,6 @@ class _HomePageState extends State<HomePage> {
   // void initState() {
   //   super.initState();
   //   // loadData();
-    
   // }
 
   @override
@@ -212,7 +211,7 @@ class _HomePageState extends State<HomePage> {
       stream: FirebaseFirestore.instance.collection("User").snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -231,7 +230,7 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Text(
                   name!,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
                       color: Colors.red),
@@ -239,7 +238,7 @@ class _HomePageState extends State<HomePage> {
               ),
               accountEmail: Text(
                 generalProvider.getEmailFromLogin,
-                style: TextStyle(
+                style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
                     fontSize: 20,
@@ -248,13 +247,13 @@ class _HomePageState extends State<HomePage> {
               currentAccountPicture: CircleAvatar(
                 backgroundImage: image == ""
                     ? isMale
-                        ? NetworkImage(
+                        ? const NetworkImage(
                             "https://w7.pngwing.com/pngs/481/915/png-transparent-computer-icons-user-avatar-woman-avatar-computer-business-conversation-thumbnail.png")
-                        : NetworkImage(
+                        : const NetworkImage(
                             "https://cdn-icons-png.flaticon.com/512/219/219990.png")
                     : NetworkImage(image),
               ),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Color(0xfff2f2f2),
               ),
             ),
@@ -312,10 +311,10 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text("Theme"),
+                        const Text("Theme"),
                       ],
                     ),
                     Row(
@@ -325,10 +324,10 @@ class _HomePageState extends State<HomePage> {
                             generalProvider.setTheme();
                           },
                           icon: generalProvider.isDark
-                              ? Icon(Icons.light_mode)
-                              : Icon(Icons.dark_mode),
+                              ? const Icon(Icons.light_mode)
+                              : const Icon(Icons.dark_mode),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
                       ],
@@ -342,7 +341,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
@@ -457,12 +456,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Text("Euro"),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: const Text("Euro"),
                             ),
                           ],
                         ),
@@ -472,9 +471,9 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 generalProvider.setMoneyIcon(3);
                               },
-                              icon: Icon(Icons.money),
+                              icon: const Icon(Icons.money),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                           ],
@@ -482,7 +481,7 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )
                   ],
-                  title: Text("Currentcy"),
+                  title: const Text("Currentcy"),
                   // leading: const Icon(Icons.language),
                 ),
               ],
@@ -491,18 +490,18 @@ class _HomePageState extends State<HomePage> {
             ),
             //contact
             ExpansionTile(
-              title: Text("Contact"),
-              leading: Icon(Icons.contact_page),
+              title: const Text("Contact"),
+              leading: const Icon(Icons.contact_page),
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text("Phone"),
+                        const Text("Phone"),
                       ],
                     ),
                     Row(
@@ -511,8 +510,8 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               launchUrlString('tel: 0346311358');
                             },
-                            icon: Icon(Icons.phone)),
-                        SizedBox(
+                            icon: const Icon(Icons.phone)),
+                        const SizedBox(
                           width: 20,
                         ),
                       ],
@@ -524,10 +523,10 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Row(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           width: 20,
                         ),
-                        Text("Messenger"),
+                        const Text("Messenger"),
                       ],
                     ),
                     Row(
@@ -557,8 +556,8 @@ class _HomePageState extends State<HomePage> {
                                 }
                               });
                             },
-                            icon: Icon(Icons.message)),
-                        SizedBox(
+                            icon: const Icon(Icons.message)),
+                        const SizedBox(
                           width: 20,
                         ),
                       ],
@@ -629,23 +628,23 @@ class _HomePageState extends State<HomePage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Warning !!'),
+          title: const Text('Warning !!'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
-                Text('You really want log out ??'),
+              children: [
+                const Text('You really want log out ??'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 Navigator.of(context)
                     .pushReplacement(PageRouteToScreen().pushToLoginScreen());
@@ -665,7 +664,7 @@ class _HomePageState extends State<HomePage> {
       child: Container(
         decoration: DecorationBackGround().buildDecoration(),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 15),
+          margin: const EdgeInsets.symmetric(horizontal: 15),
           height: double.infinity,
           width: double.infinity,
           child: ListView(
@@ -673,7 +672,7 @@ class _HomePageState extends State<HomePage> {
               Column(children: [
                 Container(
                   width: double.infinity,
-                  padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -687,7 +686,7 @@ class _HomePageState extends State<HomePage> {
                                   padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
                                   child: Column(
                                     children: [
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 30,
                                       ),
                                       Row(
@@ -703,7 +702,7 @@ class _HomePageState extends State<HomePage> {
                                                   searchTextField = false;
                                                 });
                                               },
-                                              child: Center(
+                                              child: const Center(
                                                   child: Tooltip(
                                                 waitDuration:
                                                     Duration(seconds: 1),
@@ -726,7 +725,7 @@ class _HomePageState extends State<HomePage> {
                                               0
                                           ? Column(
                                               children: [
-                                                Text(
+                                                const Text(
                                                   "Result",
                                                   style: TextStyle(
                                                       fontSize: 30,
@@ -760,7 +759,7 @@ class _HomePageState extends State<HomePage> {
                                                 ),
                                               ],
                                             )
-                                          : Text(
+                                          : const Text(
                                               "NO RESULT",
                                               style: TextStyle(
                                                   fontSize: 30,
@@ -792,17 +791,17 @@ class _HomePageState extends State<HomePage> {
   Widget buildSearch() {
     return Container(
       // height: 60,
-      padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
+      padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
       child: TextFormField(
         controller: searchInput,
-        style: TextStyle(),
+        style: const TextStyle(),
         decoration: InputDecoration(
           suffixIcon: Container(
             margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
             child: Wrap(
               children: [
                 GestureDetector(
-                  child: Icon(Icons.close),
+                  child: const Icon(Icons.close),
                   onTap: () {
                     generalProvider.setNumberOfAllProduct();
                     setState(() {
@@ -811,9 +810,9 @@ class _HomePageState extends State<HomePage> {
                     FocusManager.instance.primaryFocus?.unfocus();
                   },
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 GestureDetector(
-                  child: Icon(Icons.send),
+                  child: const Icon(Icons.send),
                   onTap: () {
                     if (searchInput.text.trim().length > 0) {
                       hasSearchWord = true;
@@ -829,7 +828,7 @@ class _HomePageState extends State<HomePage> {
           ),
           hintText: "Search",
           labelText: "Search",
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Colors.black,
           ),
         ),
@@ -839,10 +838,10 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildSearchSingleProduct() {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+      padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
       height: 195,
       child: SimpleAutocompleteFormField<String>(
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           labelText: 'Search',
           hintText: "Search",
           border: OutlineInputBorder(),
@@ -850,7 +849,7 @@ class _HomePageState extends State<HomePage> {
         // suggestionsHeight: 70.0,
         maxSuggestions: 4,
         itemBuilder: (context, item) => Container(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           child: Text(item!),
         ),
         onSearch: (String search) async => search.isEmpty
@@ -885,7 +884,7 @@ class _HomePageState extends State<HomePage> {
         autoplay: true,
         showIndicator: false,
         dotSize: 20,
-        images: [
+        images: const [
           NetworkImage(
               "https://lavenderstudio.com.vn/wp-content/uploads/2017/03/chup-san-pham.jpg"),
           NetworkImage(
@@ -954,12 +953,12 @@ class _HomePageState extends State<HomePage> {
       children: [
         Container(
           height: 50,
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
           child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Main Products",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
@@ -971,7 +970,7 @@ class _HomePageState extends State<HomePage> {
                               list: listFeature,
                             )));
                   },
-                  child: Text(
+                  child: const Text(
                     "See More",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -1038,7 +1037,7 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "New Products",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
@@ -1050,7 +1049,7 @@ class _HomePageState extends State<HomePage> {
                               list: listNew,
                             )));
                   },
-                  child: Text(
+                  child: const Text(
                     "See More",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -1108,7 +1107,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildAds() {
     return Container(
-      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
       height: 50,
       width: double.infinity,
       alignment: Alignment.center,
@@ -1119,14 +1118,14 @@ class _HomePageState extends State<HomePage> {
 
 Widget _CircleImage(String img, int color, String messageOfTooltip) {
   return Tooltip(
-    waitDuration: Duration(seconds: 1),
-    showDuration: Duration(seconds: 2),
+    waitDuration: const Duration(seconds: 1),
+    showDuration: const Duration(seconds: 2),
     message: messageOfTooltip,
     padding: const EdgeInsets.all(5),
     height: 25,
     preferBelow: true,
     child: Container(
-      margin: EdgeInsets.all(4),
+      margin: const EdgeInsets.all(4),
       child: CircleAvatar(
         maxRadius: 28,
         backgroundColor: Color(color),

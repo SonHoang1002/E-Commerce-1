@@ -39,31 +39,31 @@ class _Signup extends State<Signup> {
   void validation() async {
     if (email.text.isEmpty && password.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Both Field Are Empty"),
         ),
       );
     } else if (email.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
     } else if (!regExp.hasMatch(email.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please Try Valid Email"),
         ),
       );
     } else if (password.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Password Is Empty"),
         ),
       );
     } else if (password.text.length < 8) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Password  Is Too Short"),
         ),
       );
@@ -77,7 +77,7 @@ class _Signup extends State<Signup> {
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -97,10 +97,10 @@ class _Signup extends State<Signup> {
                     width: double.infinity,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
+                      children: const [
                         Text(
                           "Register",
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 50,
                             fontWeight: FontWeight.bold,
                           ),
@@ -108,50 +108,51 @@ class _Signup extends State<Signup> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Container(
                     height: 500,
-                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
                     width: double.infinity,
                     child: ListView(
                       children: [
                         TextFormField(
                           controller: username,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "UserName",
                             labelText: "Username",
-                            hintStyle: TextStyle(color: Colors.black),
+                            hintStyle: const TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           controller: email,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "Email",
                             labelText: "Email",
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Colors.black,
                             ),
                             border: OutlineInputBorder(),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           obscureText: obscureText,
                           controller: password,
                           decoration: InputDecoration(
-                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                            enabledBorder: const OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red)),
                             hintText: "Password",
                             labelText: "Password",
                             suffixIcon: GestureDetector(
@@ -162,22 +163,22 @@ class _Signup extends State<Signup> {
                                 FocusScope.of(context).unfocus();
                               },
                               child: (obscureText
-                                  ? Icon(
+                                  ? const Icon(
                                       Icons.visibility,
                                       color: Colors.black,
                                     )
-                                  : Icon(
+                                  : const Icon(
                                       Icons.visibility_off,
                                       color: Colors.black,
                                     )),
                             ),
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Colors.black,
                             ),
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         GestureDetector(
@@ -189,8 +190,8 @@ class _Signup extends State<Signup> {
                           child: Container(
                             height: 60,
                             width: double.infinity,
-                            padding:
-                                EdgeInsets.only(left: 10, right: 10, top: 4),
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 10, top: 4),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.red)),
                             child: Container(
@@ -200,12 +201,12 @@ class _Signup extends State<Signup> {
                                 children: [
                                   Text(
                                     isMale ? "Male" : "Female",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontSize: 16,
                                     ),
                                   ),
                                   Column(
-                                    children: [
+                                    children: const [
                                       Icon(Icons.arrow_drop_up),
                                       Icon(Icons.arrow_drop_down)
                                     ],
@@ -215,16 +216,17 @@ class _Signup extends State<Signup> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         TextFormField(
                           controller: phone,
                           maxLength: 12,
                           keyboardType: TextInputType.number,
-                          style: TextStyle(),
-                          decoration: InputDecoration(
-                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                          style: const TextStyle(),
+                          decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red)),
                             hintText: "Phone",
                             labelText: "Phone",
                             hintStyle: TextStyle(
@@ -235,9 +237,10 @@ class _Signup extends State<Signup> {
                         ),
                         TextFormField(
                           controller: address,
-                          style: TextStyle(),
-                          decoration: InputDecoration(
-                             enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+                          style: const TextStyle(),
+                          decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red)),
                             hintText: "Address",
                             labelText: "Address",
                             hintStyle: TextStyle(
@@ -247,7 +250,7 @@ class _Signup extends State<Signup> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                           height: 50,
                           width: double.infinity,
                           child: ElevatedButton(
@@ -268,19 +271,19 @@ class _Signup extends State<Signup> {
                                 validation();
                               }),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         Row(
                           children: [
-                            Text(
+                            const Text(
                               "I have account",
                               style: TextStyle(
                                   fontSize: 15,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             GestureDetector(
@@ -291,7 +294,7 @@ class _Signup extends State<Signup> {
                                 Navigator.of(context).pushReplacement(
                                     PageRouteToScreen().pushToLoginScreen());
                               },
-                              child: Text(
+                              child: const Text(
                                 "Login",
                                 style: TextStyle(
                                     fontSize: 17,
@@ -327,7 +330,7 @@ class _Signup extends State<Signup> {
       }
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(message.toString()),
-        duration: Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 600),
         backgroundColor: Theme.of(context).primaryColor,
       ));
       setState(() {
@@ -339,7 +342,7 @@ class _Signup extends State<Signup> {
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
-        duration: Duration(milliseconds: 600),
+        duration: const Duration(milliseconds: 600),
         backgroundColor: Theme.of(context).primaryColor,
       ));
       print(error);

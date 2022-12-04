@@ -94,7 +94,7 @@ class _HomeAdminState extends State<HomeAdmin> {
     return Scaffold(
       key: _key,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Admin Screen",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -108,7 +108,7 @@ class _HomeAdminState extends State<HomeAdmin> {
               //   homeColor = true;
               // });
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               color: Colors.black,
             )),
@@ -133,8 +133,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                           children: [
                             // title add product
                             Container(
-                              padding: EdgeInsets.all(20),
-                              child: Center(
+                              padding: const EdgeInsets.all(20),
+                              child: const Center(
                                 child: Text(
                                   "Add New Product",
                                   style: TextStyle(
@@ -146,9 +146,10 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             // choose collection
                             Container(
-                              padding: EdgeInsets.fromLTRB(30, 20, 30, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(30, 20, 30, 10),
                               child: DropdownButtonFormField(
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: Colors.black, width: 2),
@@ -182,11 +183,12 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             //name
                             Container(
-                              padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(30, 10, 30, 10),
                               child: TextFormField(
                                 controller: nameController,
-                                style: TextStyle(),
-                                decoration: InputDecoration(
+                                style: const TextStyle(),
+                                decoration: const InputDecoration(
                                   hintText: "Name",
                                   labelText: "Name",
                                   hintStyle: TextStyle(
@@ -203,11 +205,12 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             //image
                             Container(
-                              padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(30, 10, 30, 10),
                               child: TextFormField(
                                 controller: imageController,
-                                style: TextStyle(),
-                                decoration: InputDecoration(
+                                style: const TextStyle(),
+                                decoration: const InputDecoration(
                                   hintText: "Image",
                                   labelText: "Image",
                                   hintStyle: TextStyle(
@@ -224,18 +227,20 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             //price and repo
                             Container(
-                              padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(30, 10, 30, 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     width: 145,
-                                    margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(0, 0, 5, 0),
                                     child: TextFormField(
                                       controller: priceController,
                                       keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           hintText: "Price",
                                           labelText: "Price",
@@ -245,11 +250,12 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   ),
                                   Container(
                                     width: 145,
-                                    margin: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(5, 0, 0, 0),
                                     child: TextFormField(
                                       controller: repoController,
                                       keyboardType: TextInputType.number,
-                                      decoration: InputDecoration(
+                                      decoration: const InputDecoration(
                                           border: OutlineInputBorder(),
                                           hintText: "Repository",
                                           labelText: "Repository",
@@ -262,11 +268,11 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             //add
                             Container(
-                              padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                              padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                               height: 60,
                               width: double.infinity,
                               child: ElevatedButton(
-                                  child: Text(
+                                  child: const Text(
                                     "ADD",
                                     style: TextStyle(
                                         fontSize: 25,
@@ -291,22 +297,23 @@ class _HomeAdminState extends State<HomeAdmin> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                        padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
                         child: Center(
                             child: Text(
                           "Product Number: ${generalProvider.getAllNumberProduct} ",
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 20),
                         )),
                       ),
                       Container(
                         // height: 60,
-                        padding: EdgeInsets.fromLTRB(30, 0, 30, 10),
+                        padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
                         child: TextFormField(
                           controller: searchController,
-                          style: TextStyle(),
+                          style: const TextStyle(),
                           decoration: InputDecoration(
                             suffixIcon: Container(
-                              margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
+                              margin: const EdgeInsets.fromLTRB(0, 20, 10, 0),
                               child: Wrap(
                                 children: [
                                   GestureDetector(
@@ -323,7 +330,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   ),
                                   SizedBox(width: 10),
                                   GestureDetector(
-                                    child: Icon(Icons.send),
+                                    child: const Icon(Icons.send),
                                     onTap: () {
                                       print(searchController.text.trim());
                                       if (searchController.text.trim().length >
@@ -341,7 +348,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                             ),
                             hintText: "Search",
                             labelText: "Search",
-                            hintStyle: TextStyle(
+                            hintStyle: const TextStyle(
                               color: Colors.black,
                             ),
                           ),
@@ -351,7 +358,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                           ? generalProvider.getSearchList.length == 0
                               ? Container(
                                   height: 300,
-                                  child: Center(
+                                  child: const Center(
                                       child: Text(
                                     "No Result",
                                     style: TextStyle(fontSize: 30),
@@ -359,7 +366,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 )
                               : Container(
                                   height: 300,
-                                  padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                  padding:
+                                      const EdgeInsets.fromLTRB(10, 10, 10, 10),
                                   width: double.infinity,
                                   child: ListView.builder(
                                       itemCount:
@@ -389,7 +397,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                     showAlertDialogForDelete(
                                                         context, index),
                                                 backgroundColor:
-                                                    Color(0xFFFE4A49),
+                                                    const Color(0xFFFE4A49),
                                                 foregroundColor: Colors.white,
                                                 icon: Icons.delete,
                                                 label: 'Delete',
@@ -411,7 +419,8 @@ class _HomeAdminState extends State<HomeAdmin> {
                                 )
                           : Container(
                               height: 300,
-                              padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(10, 10, 10, 10),
                               width: double.infinity,
                               child: ListView.builder(
                                   itemCount:
@@ -473,7 +482,7 @@ class _HomeAdminState extends State<HomeAdmin> {
         // key:_key,
         child: ListView(
       children: [
-        UserAccountsDrawerHeader(
+        const UserAccountsDrawerHeader(
           accountName: Text(
             "Admin",
             style: TextStyle(
@@ -545,23 +554,23 @@ class _HomeAdminState extends State<HomeAdmin> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Warning !!'),
+          title: const Text('Warning !!'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: const <Widget>[
                 Text('You really want log out ??'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 Navigator.of(context)
                     .pushReplacement(PageRouteToScreen().pushToLoginScreen());
@@ -617,23 +626,23 @@ class _HomeAdminState extends State<HomeAdmin> {
         imageController.text.isEmpty &&
         priceController.text.isEmpty &&
         repoController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Both Field Are Empty"),
       ));
     } else if (nameController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Name Of Product Are Empty"),
       ));
     } else if (imageController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Image Of Product Are Empty"),
       ));
     } else if (priceController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Price Of Product Are Empty"),
       ));
     } else if (repoController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
         content: Text("Repository Of Product Are Empty"),
       ));
     } else {
@@ -664,7 +673,7 @@ class _HomeAdminState extends State<HomeAdmin> {
             ? generalProvider.searchList[index].name
             : generalProvider.getAllProduct[index].name;
         return AlertDialog(
-          title: Text('WARNING !!'),
+          title: const Text('WARNING !!'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -674,13 +683,13 @@ class _HomeAdminState extends State<HomeAdmin> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 deleteProduct(nameOfDeletedProduct);
                 Navigator.of(context).pop();

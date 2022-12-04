@@ -64,14 +64,14 @@ class SingleProductForAdmin extends StatelessWidget {
                 children: [
                   Text(
                     "$price ${generalProvider.getMoneyIconName}",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
                         color: Colors.white),
                   ),
                   Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: Colors.black),
@@ -92,7 +92,7 @@ class SingleProductForAdmin extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           // <-- SEE HERE
-          title: Text('Warning!!'),
+          title: const Text('Warning!!'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -102,13 +102,13 @@ class SingleProductForAdmin extends StatelessWidget {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 deleteProduct(context);
               },

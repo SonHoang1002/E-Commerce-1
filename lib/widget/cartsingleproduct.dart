@@ -35,8 +35,8 @@ class _CartSingleProductState extends State<CartSingleProduct> {
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
     return Container(
-      // margin: EdgeInsets.all(5),
-      // padding: EdgeInsets.fromLTRB(5, 0, 5, 0),
+      // margin: const EdgeInsets.all(5),
+      // padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
       height: 210,
       // width: 500,
       child: Card(
@@ -44,7 +44,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
           Row(
             children: [
               Container(
-                padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                 height: 180,
                 width: 150,
                 decoration: BoxDecoration(
@@ -56,7 +56,7 @@ class _CartSingleProductState extends State<CartSingleProduct> {
               Container(
                 height: 200,
                 width: 178,
-                // padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                // padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: ListTile(
                   title: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,14 +71,14 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                       ),
                       // Text(
                       //   "Category: ",
-                      //   style: TextStyle(
+                      //   style: const TextStyle(
                       //       color: Colors.green,
                       //       fontWeight: FontWeight.bold,
                       //       fontSize: 20),
                       // ),
                       // Text(
                       //   "Size: ",
-                      //   style: TextStyle(
+                      //   style: const TextStyle(
                       //       color: Colors.redAccent,
                       //       fontWeight: FontWeight.bold,
                       //       fontSize: 13),
@@ -126,8 +126,8 @@ class _CartSingleProductState extends State<CartSingleProduct> {
                             ),
                             Text(
                               "${widget.quantity}",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 20),
                             ),
                             GestureDetector(
                               child: const Icon(

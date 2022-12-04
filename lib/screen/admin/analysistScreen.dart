@@ -80,13 +80,13 @@ class _AnalysistState extends State<Analysist> {
     // }
 
     return Scaffold(
-      appBar: AppBar(title: Text("Analysist")),
+      appBar: AppBar(title: const Text("Analysist")),
       body: Container(
         height: 700,
-        padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
         child: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
@@ -102,7 +102,7 @@ class _AnalysistState extends State<Analysist> {
                 // _number.toString(),
                 totalRevenue,
                 // style: Theme.of(context).textTheme.bodyMedium,
-                style: TextStyle(fontSize: 40, color: Colors.green),
+                style: const TextStyle(fontSize: 40, color: Colors.green),
               ),
             )),
             // Container(child: Center(child: Text("Total Cost"),),),
@@ -111,11 +111,11 @@ class _AnalysistState extends State<Analysist> {
                 message: "Total Cost",
                 child: Text(
                   "${widget.cost}",
-                  style: TextStyle(color: Colors.red, fontSize: 25),
+                  style: const TextStyle(color: Colors.red, fontSize: 25),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -132,8 +132,8 @@ class _AnalysistState extends State<Analysist> {
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y,
                     name: "Column_Chart",
-                    color: Color.fromRGBO(100, 100, 100, 1),
-                    dataLabelSettings: DataLabelSettings(
+                    color: const Color.fromRGBO(100, 100, 100, 1),
+                    dataLabelSettings: const DataLabelSettings(
                         isVisible: true,
                         labelAlignment: ChartDataLabelAlignment.top),
                   ),
@@ -149,22 +149,22 @@ class _AnalysistState extends State<Analysist> {
               ),
             ),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Text("Picture 1."),
-                    Text(
+                    const Text(
                       "The bar chart shows the number of products sold from August to now",
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.blue),
+                      style: const TextStyle(color: Colors.blue),
                     ),
                   ],
                 )),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(15.0),
-              margin: EdgeInsets.fromLTRB(30, 30, 160, 30),
+              margin: const EdgeInsets.fromLTRB(30, 30, 160, 30),
               decoration: BoxDecoration(
                   border: Border.all(
                 color: Colors.blue,
@@ -193,11 +193,11 @@ class _AnalysistState extends State<Analysist> {
       children: [
         Text(
           "$label : ",
-          style: TextStyle(color: Colors.red),
+          style: const TextStyle(color: Colors.red),
         ),
         Text(
           word,
-          style: TextStyle(color: Colors.green),
+          style: const TextStyle(color: Colors.green),
         )
       ],
     );

@@ -5,7 +5,6 @@ import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/screen/homepage.dart';
 import 'package:testecommerce/widget/notificationButton.dart';
 
-
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:testecommerce/widget/singleProduct.dart';
 
@@ -27,7 +26,7 @@ class ListProduct extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0.0,
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             ),
@@ -44,14 +43,14 @@ class ListProduct extends StatelessWidget {
         body: Container(
           decoration: DecorationBackGround().buildDecoration(),
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 15),
+            margin: const EdgeInsets.symmetric(horizontal: 15),
             child: ListView(
               children: [
                 Column(
                   children: [
                     Container(
                       height: 50,
-                      padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -60,7 +59,7 @@ class ListProduct extends StatelessWidget {
                               children: [
                                 Text(
                                   name == null ? "Featured" : name!,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -78,7 +77,10 @@ class ListProduct extends StatelessWidget {
                         crossAxisCount: 2,
                         children: list
                             .map((e) => SingleProduct(
-                                name: e.name, price: e.price, image: e.image,repo:e.repo))
+                                name: e.name,
+                                price: e.price,
+                                image: e.image,
+                                repo: e.repo))
                             .toList(),
                       ),
                     )

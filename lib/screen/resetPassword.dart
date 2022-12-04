@@ -66,7 +66,7 @@ class _ResetPassword extends State<ResetPassword> {
           children: [
             isLoading
                 ? Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Center(child: CircularProgressIndicator()))
                 : Container(
                     height: 10,
@@ -74,7 +74,7 @@ class _ResetPassword extends State<ResetPassword> {
             Form(
               key: _formKey,
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 10.0),
+                margin: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Column(
                   children: [
                     Container(
@@ -83,7 +83,7 @@ class _ResetPassword extends State<ResetPassword> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(
+                          const Text(
                             "Enter New Password",
                             style: TextStyle(
                                 fontSize: 30, fontWeight: FontWeight.bold),
@@ -91,7 +91,7 @@ class _ResetPassword extends State<ResetPassword> {
                           TextFormField(
                             controller: password,
                             obscureText: obscureText,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: "Password",
                                 labelText: "Password",
@@ -116,7 +116,7 @@ class _ResetPassword extends State<ResetPassword> {
                           TextFormField(
                             controller: rpassword,
                             obscureText: obscureText,
-                            decoration: InputDecoration(
+                            decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: "Confirm",
                                 labelText: " Confirm password",
@@ -152,9 +152,9 @@ class _ResetPassword extends State<ResetPassword> {
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
-                                child: Text(
+                                child: const Text(
                                   "SEND",
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 30, color: Colors.black),
                                 ),
                               )),
@@ -183,7 +183,7 @@ class _ResetPassword extends State<ResetPassword> {
           builder: (ctx) {
             return AlertDialog(
               title: Wrap(
-                children: [
+                children: const [
                   Icon(
                     Icons.warning,
                     color: Colors.yellow,
@@ -192,11 +192,11 @@ class _ResetPassword extends State<ResetPassword> {
                   Text("Warning"),
                 ],
               ),
-              content: Text("Password has least 8 characters !!"),
+              content: const Text("Password has least 8 characters !!"),
               actions: [
                 ElevatedButton(
                     onPressed: (() => Navigator.of(context).pop()),
-                    child: Text("OK"))
+                    child: const Text("OK"))
               ],
             );
           });
@@ -231,14 +231,14 @@ class _ResetPassword extends State<ResetPassword> {
                 children: [
                   Icon(Icons.error),
                   SizedBox(width: 10),
-                  Text("Message"),
+                  const Text("Message"),
                 ],
               ),
-              content: Text("Unsuccessfull Confirm!!"),
+              content: const Text("Unsuccessfull Confirm!!"),
               actions: [
                 ElevatedButton(
                     onPressed: (() => Navigator.of(context).pop()),
-                    child: Text("OK"))
+                    child: const Text("OK"))
               ],
             );
           });

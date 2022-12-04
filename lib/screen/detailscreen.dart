@@ -40,13 +40,13 @@ class _DetailScreenState extends State<DetailScreen> {
     generalProvider = Provider.of<GeneralProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text("Detail", style: TextStyle(color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
@@ -65,7 +65,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   badgeColor: Colors.red,
                   shape: BadgeShape.circle,
                   showBadge: true,
-                  child: Icon(
+                  child: const Icon(
                     Icons.shopping_cart,
                     color: Colors.black,
                   )),
@@ -84,13 +84,14 @@ class _DetailScreenState extends State<DetailScreen> {
             Column(children: [
               buildImage(),
               Container(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                 child: Column(
                   children: [
                     buildNameToDescription(),
                     buildContentDescription(),
                     // buildSizes(),
-                    // SizedBox(
+                    // const SizedBox(
                     //   height: 10,
                     // ),
                     // buildColors()
@@ -98,15 +99,15 @@ class _DetailScreenState extends State<DetailScreen> {
                 ),
               ),
               buildRepo(),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               buildQuantity(),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               buildButton(),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               )
             ]),
@@ -122,7 +123,7 @@ class _DetailScreenState extends State<DetailScreen> {
         width: 350,
         child: Card(
           child: Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             child: Container(
               height: 220,
               decoration: BoxDecoration(
@@ -148,14 +149,14 @@ class _DetailScreenState extends State<DetailScreen> {
             children: [
               Text(
                 widget.name == null ? "Product" : widget.name,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.blue,
                     fontSize: 28,
                     fontStyle: FontStyle.italic),
               ),
               Text(
-                "${UnitMoney().convertMoney(widget.price,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
-                style: TextStyle(
+                "${UnitMoney().convertMoney(widget.price, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
+                style: const TextStyle(
                     color: Colors.red,
                     fontSize: 23,
                     fontWeight: FontWeight.bold),
@@ -178,7 +179,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       height: 200,
       child: Wrap(
-        children: [
+        children: const [
           Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software",
             style: TextStyle(
@@ -199,7 +200,7 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Center(
         child: Text(
           "Available: ${widget.repo}",
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.black,
             fontSize: 15,
           ),
@@ -211,14 +212,14 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget buildQuantity() {
     return Column(
       children: [
-        Text(
+        const Text(
           "Quantity",
           style: TextStyle(
             color: Colors.black,
             fontSize: 20,
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         Container(
@@ -230,7 +231,7 @@ class _DetailScreenState extends State<DetailScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                child: Icon(Icons.remove),
+                child: const Icon(Icons.remove),
                 onTap: () {
                   setState(() {
                     if (quantity >= 2) {
@@ -246,7 +247,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               GestureDetector(
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
                 onTap: () {
                   if (quantity < widget.repo) {
                     setState(() {
@@ -270,7 +271,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       height: 50,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ElevatedButton(
         onPressed: () {
           total = 0;
@@ -314,7 +315,7 @@ class _DetailScreenState extends State<DetailScreen> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
-        child: Center(
+        child: const Center(
             child: Text(
           "ADD TO CART",
           style: TextStyle(color: Colors.white, fontSize: 20),
@@ -331,7 +332,7 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Center(
         child: Text(
           size,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
@@ -342,7 +343,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       height: 60,
       width: 60,
-      color: Color.fromARGB(255, 234, 233, 230),
+      color: const Color.fromARGB(255, 234, 233, 230),
       child: Center(
         child: Text(
           size,
@@ -363,7 +364,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget buildSizes() {
     return Column(
       children: [
-        Text(
+        const Text(
           "Size",
           style: TextStyle(
             color: Colors.black,
@@ -396,7 +397,7 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget buildColors() {
     return Column(
       children: [
-        Text(
+        const Text(
           "Color",
           style: TextStyle(
             color: Colors.black,
@@ -417,6 +418,4 @@ class _DetailScreenState extends State<DetailScreen> {
       ],
     );
   }
-
-
 }

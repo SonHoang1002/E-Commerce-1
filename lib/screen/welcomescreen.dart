@@ -10,7 +10,6 @@ class WelcomeScreen extends StatefulWidget {
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
-
 class _WelcomeScreenState extends State<WelcomeScreen> {
   bool show = false;
   @override
@@ -19,12 +18,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         body: Container(
       decoration: DecorationBackGround().buildDecoration(),
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             Container(
               height: 300,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("images/logo.png"), fit: BoxFit.fill)),
             ),
@@ -52,7 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   //         fontSize: 35,
                   //         fontWeight: FontWeight.bold,
                   //         fontFamily: "DynaPuff")),
-                  // SizedBox(
+                  // const SizedBox(
                   //   width: 10,
                   // ),
                   SizedBox(
@@ -82,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   //         fontStyle: FontStyle.italic,
                   //         fontFamily: "DynaPuff")),
                   GestureDetector(
-                    child: Text("Getting started",
+                    child: const Text("Getting started",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -117,7 +116,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                           ),
-                          child: Text(
+                          child: const Text(
                             "Sign Up",
                             style: TextStyle(
                               color: Colors.black,
@@ -126,18 +125,18 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text("I already have account."),
-                          SizedBox(
+                          const Text("I already have account."),
+                          const SizedBox(
                             width: 5,
                           ),
                           GestureDetector(
-                            child: Text(
+                            child: const Text(
                               "Login",
                               style: TextStyle(
                                 color: Colors.blue,

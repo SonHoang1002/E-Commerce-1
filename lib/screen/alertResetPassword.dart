@@ -32,7 +32,6 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
   bool isBegin = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     // buildTimeOutForResetPassword();
@@ -52,9 +51,9 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
 
     return Scaffold(
       appBar: AppBar(
-          title: Text("Reset Password"),
+          title: const Text("Reset Password"),
           leading: IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
             ),
             onPressed: () {
@@ -66,17 +65,17 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
         child: Container(
           padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
           child: Column(children: [
-            Text(
+            const Text(
               "Please enter reset number from your email",
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 25),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               "${minute}:${zero}${seconds}",
-              style: TextStyle(fontSize: 25),
+              style: const TextStyle(fontSize: 25),
             ),
             TextFormField(
               controller: resetController,
@@ -90,7 +89,7 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
             //     onPressed: () {
             //       buildTimeOutForResetPassword();
             //     },
-            //     child: Text("Click")),
+            //     child: const Text("Click")),
             Center(
               child: ElevatedButton(
                   onPressed: () async {
@@ -108,8 +107,10 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
                       buildTimeOutForResetPassword();
                     } else {
                       if (resetController.text.trim().length != 6) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Reset code must has 6 chracters")));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text("Reset code must has 6 chracters")));
                         return;
                       }
                       if (resetController.text.trim() ==
@@ -131,7 +132,8 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
                           isErrorCode = true;
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Invalid Code")));
+                            const SnackBar(
+                                content: const Text("Invalid Code")));
                         return;
                       }
                     }
@@ -151,8 +153,8 @@ class _AlertResetPasswordState extends State<AlertResetPassword> {
         setState(() {
           timer.cancel();
         });
-        ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("the verification code has expired")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: const Text("the verification code has expired")));
         setState(() {
           isExpired = true;
         });

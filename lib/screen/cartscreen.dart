@@ -33,13 +33,13 @@ class _CartScreenState extends State<CartScreen> {
     total = generalProvider.getTotal;
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text("Cart", style: TextStyle(color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
@@ -52,7 +52,7 @@ class _CartScreenState extends State<CartScreen> {
               // fromHomePage: false,
               ),
           // IconButton(
-          //   icon: Icon(
+          //   icon: const Icon(
           //     Icons.shopping_cart,
           //     color: Colors.black,
           //   ),
@@ -86,7 +86,7 @@ class _CartScreenState extends State<CartScreen> {
       // bottomNavigationBar: Container(
       //   height: 50,
       //   width: 100,
-      //   margin: EdgeInsets.all(20),
+      //   margin: const EdgeInsets.all(20),
       //   child: RaisedButton(
       //     onPressed: () {},
       //     child: Column(
@@ -97,7 +97,7 @@ class _CartScreenState extends State<CartScreen> {
       // ),
       bottomSheet: Container(
           height: 290,
-          padding:EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: [
               Container(
@@ -105,12 +105,12 @@ class _CartScreenState extends State<CartScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    buildDeatail(Icon(Icons.price_change), "Price",
-                        "${UnitMoney().convertMoney(generalProvider.getPrice,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
-                    buildDeatail(Icon(Icons.discount), "Discount (-10%)",
-                        "-${UnitMoney().convertMoney(generalProvider.getDiscount,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
-                    buildDeatail(Icon(Icons.local_shipping), "Shipping",
-                        "+${UnitMoney().convertMoney(generalProvider.getShipping,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
+                    buildDeatail(const Icon(Icons.price_change), "Price",
+                        "${UnitMoney().convertMoney(generalProvider.getPrice, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
+                    buildDeatail(const Icon(Icons.discount), "Discount (-10%)",
+                        "-${UnitMoney().convertMoney(generalProvider.getDiscount, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
+                    buildDeatail(const Icon(Icons.local_shipping), "Shipping",
+                        "+${UnitMoney().convertMoney(generalProvider.getShipping, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"),
                     Container(
                       width: 380,
                       child: Center(
@@ -120,16 +120,17 @@ class _CartScreenState extends State<CartScreen> {
                             Container(
                               child: Row(
                                 children: [
-                                  Icon(Icons.money),
+                                  const Icon(Icons.money),
                                   Container(
-                                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    margin:
+                                        const EdgeInsets.fromLTRB(10, 0, 0, 0),
                                     child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         children: [
                                           Text("Total: "),
                                           Text(
-                                              "${total == null ? 0 : UnitMoney().convertMoney(total,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}")
+                                              "${total == null ? 0 : UnitMoney().convertMoney(total, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}")
                                         ]),
                                   ),
                                 ],
@@ -169,7 +170,7 @@ class _CartScreenState extends State<CartScreen> {
                                               // promo = "Add Promo";
                                             });
                                           },
-                                          icon: Icon(
+                                          icon: const Icon(
                                             Icons.cancel,
                                             size: 15,
                                           ))
@@ -190,7 +191,7 @@ class _CartScreenState extends State<CartScreen> {
     );
   }
 
-  // 
+  //
   Widget buildDeatail(Icon icon, String startName, String endName) {
     return Container(
       width: 380,
@@ -203,7 +204,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   icon,
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    margin: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -224,7 +225,7 @@ class _CartScreenState extends State<CartScreen> {
     return Container(
       height: 50,
       width: 700,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: ElevatedButton(
         onPressed: () {
           // Navigator.of(context)
@@ -245,7 +246,7 @@ class _CartScreenState extends State<CartScreen> {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
+          children: const [
             Text(
               'BUY ',
               style: TextStyle(color: Colors.black, fontSize: 20),
@@ -309,6 +310,4 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
-  
-  
 }

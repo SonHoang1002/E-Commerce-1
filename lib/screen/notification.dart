@@ -113,15 +113,15 @@ class _NotificationMessageState extends State<NotificationMessage> {
                     fontStyle: FontStyle.italic,
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Divider(
+            const Divider(
               color: Colors.red,
               height: 20,
               thickness: 2,
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Container(
@@ -136,15 +136,15 @@ class _NotificationMessageState extends State<NotificationMessage> {
                         children: [
                           Text("${generalProvider.getNotiList[index]}",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 20,
                                 fontStyle: FontStyle.italic,
                               )),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           index < num - 1
-                              ? Divider(
+                              ? const Divider(
                                   color: Colors.green,
                                   height: 10,
                                   thickness: 2,
@@ -155,12 +155,12 @@ class _NotificationMessageState extends State<NotificationMessage> {
                     );
                   })),
             ),
-            Divider(
+            const Divider(
               color: Colors.red,
               height: 10,
               thickness: 2,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Container(
@@ -177,7 +177,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Center(
+                child: const Center(
                     child: Text(
                   "RESET",
                   style: TextStyle(
@@ -199,23 +199,23 @@ class _NotificationMessageState extends State<NotificationMessage> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Warning !!'),
+          title: const Text('Warning !!'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: const <Widget>[
                 Text('You want delete all history ??'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 generalProvider.removeNotiList();
                 Navigator.of(context).pop();

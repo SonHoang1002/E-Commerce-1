@@ -7,7 +7,6 @@ import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/screen/alertResetPassword.dart';
 import 'package:testecommerce/screen/detailscreen.dart';
 
-
 class SingleProduct extends StatelessWidget {
   SingleProduct(
       {required this.name,
@@ -52,15 +51,15 @@ class SingleProduct extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
-                    "${UnitMoney().convertMoney(price,generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
-                    style: TextStyle(
+                    "${UnitMoney().convertMoney(price, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 17,
                         color: Colors.white),
                   ),
                   Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                         color: Colors.black),
@@ -74,8 +73,6 @@ class SingleProduct extends StatelessWidget {
     );
   }
 
-
-
   _showAlertDialog(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -83,23 +80,23 @@ class SingleProduct extends StatelessWidget {
       builder: (BuildContext context) {
         return AlertDialog(
           // <-- SEE HERE
-          title: Text('Cancel booking'),
+          title: const Text('Cancel booking'),
           content: SingleChildScrollView(
             child: ListBody(
-              children: <Widget>[
+              children: const <Widget>[
                 Text('Are you sure want to cancel booking?'),
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('No'),
+              child: const Text('No'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: Text('Yes'),
+              child: const Text('Yes'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

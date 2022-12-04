@@ -57,15 +57,15 @@ class _ContactMessengerState extends State<ContactMessenger> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                icon: Icon(Icons.arrow_back))),
+                icon: const Icon(Icons.arrow_back))),
         body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) => Column(
             children: <Widget>[
               Visibility(
                 visible: !chatBoxVisible,
                 child: Container(
-                  padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
-                  child: Center(
+                  padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
+                  child: const Center(
                     child: SizedBox(
                       width: 50,
                       height: 50,

@@ -100,7 +100,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       });
                       validation();
                     },
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.check,
                       color: Colors.green,
                     ))
@@ -111,8 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       });
                     },
                     child: NotificationButton(
-                      // fromHomePage: false,
-                    ),
+                        // fromHomePage: false,
+                        ),
                   )
           ],
           leading: edit
@@ -122,14 +122,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       edit = false;
                     });
                   },
-                  icon: Icon(Icons.close, color: Colors.red))
+                  icon: const Icon(Icons.close, color: Colors.red))
               : IconButton(
                   onPressed: () {
                     Navigator.of(context).pop(MaterialPageRoute(
                         builder: (ctx) => HomePage(
                             nameList: generalProvider.getNameProductList)));
                   },
-                  icon: Icon(Icons.arrow_back, color: Colors.black))),
+                  icon: const Icon(Icons.arrow_back, color: Colors.black))),
       body: centerCircle == false
           ? ListView(
               children: [
@@ -138,7 +138,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       FirebaseFirestore.instance.collection("User").snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -162,8 +162,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     return Container(
                       height: 800,
                       width: double.infinity,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
@@ -192,16 +192,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(30)),
-                                        child: CircleAvatar(
+                                        child: const CircleAvatar(
                                           backgroundColor: Colors.green,
                                           child: Icon(Icons.camera_alt),
                                         ),
                                       ),
                                     ),
                                   )
-                                : Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 80, top: 80),
+                                : const Padding(
+                                    padding: EdgeInsets.only(left: 80, top: 80),
                                   )
                           ]),
                           edit
@@ -225,7 +224,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         child: Container(
                                           height: 55,
                                           width: double.infinity,
-                                          padding: EdgeInsets.only(
+                                          padding: const EdgeInsets.only(
                                               left: 10, right: 10, top: 4),
                                           decoration: BoxDecoration(
                                               border: Border.all(
@@ -240,12 +239,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               children: [
                                                 Text(
                                                   isMale ? "Male" : "Female",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                     fontSize: 16,
                                                   ),
                                                 ),
                                                 Column(
-                                                  children: [
+                                                  children: const [
                                                     Icon(Icons.arrow_drop_up),
                                                     Icon(Icons.arrow_drop_down)
                                                   ],
@@ -297,7 +296,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         edit = !edit;
                                       });
                                     },
-                                    child: Text("FIX"),
+                                    child: const Text("FIX"),
                                   ),
                                 )
                               : Container()
@@ -308,7 +307,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 )
               ],
             )
-          : Center(
+          : const Center(
               child: CircularProgressIndicator(),
             ),
     );
@@ -350,16 +349,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: ListBody(
               children: [
                 ListTile(
-                  leading: Icon(Icons.camera),
-                  title: Text('Pick From Camera'),
+                  leading: const Icon(Icons.camera),
+                  title: const Text('Pick From Camera'),
                   onTap: () {
                     getImage(ImageSource.camera);
                     Navigator.of(context).pop();
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.photo_library),
-                  title: Text('Pick From Photo Library'),
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Pick From Photo Library'),
                   onTap: () {
                     getImage(ImageSource.gallery);
                     Navigator.of(context).pop();
@@ -386,7 +385,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       print("imageUrl is $imageUrl");
     } else {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Image null")));
+          .showSnackBar(const SnackBar(content: Text("Image null")));
     }
 
 //  https://www.educative.io/answers/how-to-upload-to-firebase-storage-with-flutter
@@ -397,7 +396,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     //     allowedExtensions: ["png", "jpg"]);
     // if (result == null) {
     //   ScaffoldMessenger.of(context)
-    //       .showSnackBar(SnackBar(content: Text("Image null")));
+    //       .showSnackBar(SnackBar(content: const Text("Image null")));
     // }
     // final path = result!.files.single.path!;
     // final pathName = result.files.single.name;
@@ -444,25 +443,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void validation() async {
     if (tEmail.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Email Is Empty"),
         ),
       );
     } else if (!regExp.hasMatch(tEmail.text)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Please Try Valid Email"),
         ),
       );
     } else if (tPhone.text.length < 10 && tPhone.text.length > 10) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Phone Number Is Too Short Or Too Long"),
         ),
       );
     } else if (tName.text.length < 6) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Name Is Too Short"),
         ),
       );
@@ -517,7 +516,7 @@ Widget buildTextFormField(String hintText, String label) {
       decoration: InputDecoration(
           hintText: hintText,
           labelText: label,
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
     ),
   );
@@ -533,7 +532,7 @@ Widget buildTextFormFieldFromController(
       decoration: InputDecoration(
           // hintText: hintText,
           labelText: label,
-          contentPadding: EdgeInsets.symmetric(horizontal: 10),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20))),
     ),
   );
@@ -544,7 +543,7 @@ Widget buildFieldInput(String name, String value) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     child: Container(
       height: 50,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.red,
@@ -555,14 +554,14 @@ Widget buildFieldInput(String name, String value) {
         children: [
           Text(
             name,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
           ),
           value.length < 20
               ? Text(
                   value,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
@@ -572,7 +571,7 @@ Widget buildFieldInput(String name, String value) {
                   child: Text(
                     value,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),

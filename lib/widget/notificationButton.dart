@@ -22,17 +22,17 @@ class _NotificationButtonState extends State<NotificationButton> {
     generalProvider = Provider.of<GeneralProvider>(context);
     // Future<int> i = generalProvider.setFromHomePage(widget.fromHomePage);
     return Badge(
-        position: BadgePosition(top: 8, start: 25),
+        position: const BadgePosition(top: 8, start: 25),
         badgeContent: Text(generalProvider.getNotiList.length.toString()),
         child: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.notifications,
             color: Colors.black,
           ),
           onPressed: () {
             // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => NotificationMessage()));
-            Navigator.of(context).push(
-                PageRouteToScreen().pushToNotificationScreen());
+            Navigator.of(context)
+                .push(PageRouteToScreen().pushToNotificationScreen());
           },
         ));
   }

@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.SEND_SMS"/>
     <uses-permission android:name="android.permission.READ_SMS"/>
    <application
-        android:label="testecommerce"
+        android:label="HH Food"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

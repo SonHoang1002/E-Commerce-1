@@ -56,13 +56,14 @@ class _CheckOutState extends State<CheckOut> {
     return Scaffold(
       key: _key,
       appBar: AppBar(
-        title: Center(
-          child: Text("Payment Invoice", style: TextStyle(color: Colors.black)),
+        title: const Center(
+          child: const Text("Payment Invoice",
+              style: const TextStyle(color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
@@ -84,13 +85,13 @@ class _CheckOutState extends State<CheckOut> {
             buildDetail("Phone", generalProvider.userPhone),
             buildDetail("Address", generalProvider.userAddress),
             // buildDetail("Test", "ghkjfhgdf kfdjghk kdjghkk kdfjghdfk"),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Center(
-                child: Text(
+            const Center(
+                child: const Text(
               "Detail",
-              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
+              style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
             )),
             Container(
               width: 250,
@@ -99,9 +100,9 @@ class _CheckOutState extends State<CheckOut> {
                 DataTable(columns: [
                   DataColumn(
                       label: Expanded(
-                    child: Text(
+                    child: const Text(
                       "Quantity",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontStyle: FontStyle.italic,
                         fontSize: 15,
                       ),
@@ -109,9 +110,9 @@ class _CheckOutState extends State<CheckOut> {
                   )),
                   DataColumn(
                       label: Expanded(
-                    child: Text(
+                    child: const Text(
                       "Food Name",
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontStyle: FontStyle.italic,
                         fontSize: 15,
                       ),
@@ -133,15 +134,16 @@ class _CheckOutState extends State<CheckOut> {
       list.add(DataRow(cells: [
         DataCell(Text(
           generalProvider.getCartModelList[i].quantity.toString(),
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         )),
         DataCell(Text(
           generalProvider.getCartModelList[i].name,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
         ))
       ]));
     }
-    list.add(DataRow(cells: [DataCell(Text("")), DataCell(Text(""))]));
+    list.add(
+        DataRow(cells: [DataCell(const Text("")), DataCell(const Text(""))]));
     return list;
   }
 
@@ -149,7 +151,7 @@ class _CheckOutState extends State<CheckOut> {
     return Container(
       height: 100,
       width: double.infinity,
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -172,9 +174,9 @@ class _CheckOutState extends State<CheckOut> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
+                  const Text(
                     'CHECK AGAIN',
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   )
                 ],
               ),
@@ -193,8 +195,8 @@ class _CheckOutState extends State<CheckOut> {
               onPressed: () {
                 // send();
                 if (generalProvider.getTotal <= 0) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text("Your Cart Is Empty !!"),
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: const Text("Your Cart Is Empty !!"),
                     backgroundColor: Colors.yellow,
                   ));
                   return;
@@ -206,28 +208,29 @@ class _CheckOutState extends State<CheckOut> {
                           child: Column(
                             children: [
                               Container(
-                                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                 child: Center(
                                   child: Text(
                                     "You Pay ${UnitMoney().convertMoney(generalProvider.getTotal, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.fromLTRB(20, 10, 0, 0),
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 10, 0, 0),
                                 child: Row(
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Select Bank",
                                       style: TextStyle(
                                           fontSize: 15,
                                           fontStyle: FontStyle.italic),
                                     ),
                                     Container(
-                                        child: Divider(
+                                        child: const Divider(
                                       color: Colors.red,
                                       height: 20,
                                     )),
@@ -332,17 +335,18 @@ class _CheckOutState extends State<CheckOut> {
                               Column(
                                 children: [
                                   Container(
-                                    child: Center(
-                                        child: Text(
+                                    child: const Center(
+                                        child: const Text(
                                             "Enter your card number to pay")),
                                   ),
                                   Container(
                                       width: 360,
-                                      padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 10, 0, 0),
                                       child: Column(
                                         children: [
                                           Container(
-                                            padding: EdgeInsets.symmetric(
+                                            padding: const EdgeInsets.symmetric(
                                                 horizontal: 10),
                                             child: TextFormField(
                                               controller: cardNumber,
@@ -357,7 +361,7 @@ class _CheckOutState extends State<CheckOut> {
                                                   border: OutlineInputBorder(),
                                                   hintText: "Card Number",
                                                   labelText: "CARD NUMBER",
-                                                  hintStyle: TextStyle(
+                                                  hintStyle: const TextStyle(
                                                       color: Colors.black)),
                                             ),
                                           ),
@@ -372,9 +376,8 @@ class _CheckOutState extends State<CheckOut> {
                                                 Container(
                                                   width: 175,
                                                   child: Container(
-                                                    padding:
-                                                        EdgeInsets.fromLTRB(
-                                                            10, 0, 0, 0),
+                                                    padding: const EdgeInsets
+                                                        .fromLTRB(10, 0, 0, 0),
                                                     child: TextFormField(
                                                       controller: expiry,
                                                       keyboardType:
@@ -386,16 +389,18 @@ class _CheckOutState extends State<CheckOut> {
                                                               "Card Expiry",
                                                           labelText:
                                                               "CARD EXPIRY",
-                                                          hintStyle: TextStyle(
-                                                              color: Colors
-                                                                  .black)),
+                                                          hintStyle:
+                                                              const TextStyle(
+                                                                  color: Colors
+                                                                      .black)),
                                                     ),
                                                   ),
                                                 ),
                                                 Container(
                                                   width: 175,
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      0, 0, 10, 0),
+                                                  padding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 0, 10, 0),
                                                   child: TextFormField(
                                                     controller: cvv,
                                                     keyboardType:
@@ -405,9 +410,10 @@ class _CheckOutState extends State<CheckOut> {
                                                             OutlineInputBorder(),
                                                         hintText: "Cvv",
                                                         labelText: "CVV",
-                                                        hintStyle: TextStyle(
-                                                            color:
-                                                                Colors.black)),
+                                                        hintStyle:
+                                                            const TextStyle(
+                                                                color: Colors
+                                                                    .black)),
                                                   ),
                                                 ),
                                               ],
@@ -415,7 +421,7 @@ class _CheckOutState extends State<CheckOut> {
                                           ),
                                           Container(
                                             height: 60,
-                                            padding: EdgeInsets.fromLTRB(
+                                            padding: const EdgeInsets.fromLTRB(
                                                 0, 10, 0, 0),
                                             child: ElevatedButton(
                                               onPressed: () {
@@ -428,10 +434,10 @@ class _CheckOutState extends State<CheckOut> {
                                                       BorderRadius.circular(20),
                                                 ),
                                               ),
-                                              child: Center(
-                                                child: Text(
+                                              child: const Center(
+                                                child: const Text(
                                                   "PAY",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 25,
                                                       fontStyle:
                                                           FontStyle.italic),
@@ -452,9 +458,9 @@ class _CheckOutState extends State<CheckOut> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(
+                  const Text(
                     'PAY',
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   )
                 ],
               ),
@@ -468,19 +474,19 @@ class _CheckOutState extends State<CheckOut> {
   Widget buildDetail(String startName, String endName) {
     //  buildDetail("Name", generalProvider.userName),
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Text(
                   startName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 20,
                       fontStyle: FontStyle.italic,
                       fontWeight: FontWeight.bold),
@@ -488,13 +494,13 @@ class _CheckOutState extends State<CheckOut> {
               ],
             ),
             Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
               child: Text(
                 startName == "Total"
                     ? "${UnitMoney().convertMoney(double.parse(endName), generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"
                     : "$endName",
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
@@ -552,7 +558,7 @@ class _CheckOutState extends State<CheckOut> {
         child: Column(
           children: [
             Container(
-              // padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
+              // padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               width: 100,
               height: 100,
               decoration: BoxDecoration(),
@@ -566,7 +572,8 @@ class _CheckOutState extends State<CheckOut> {
             Center(
               child: Text(
                 name,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             )
           ],
@@ -600,22 +607,22 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   _showPaymentDialogSuccesfull(BuildContext context) async {
-        generalProvider.updateRepo(generalProvider.getCartModelList); ////// s
+    generalProvider.updateRepo(generalProvider.getCartModelList); ////// s
     Navigator.of(context).push(CupertinoPageRoute(
         builder: (_) =>
             HomePage(nameList: generalProvider.getNameProductList)));
     showDialog(
       context: context,
       builder: (context) => CustomDialog(
-        content: Text(
+        content: const Text(
           'Payment Successfull',
           style: TextStyle(
               fontWeight: FontWeight.w900, fontSize: 20.0, color: Colors.black),
         ),
-        title: Text(''),
+        title: const Text(''),
         firstColor: Color(0xFF3CCF57),
         secondColor: Colors.white,
-        headerIcon: Icon(
+        headerIcon: const Icon(
           Icons.check_circle_outline,
           size: 120.0,
           color: Colors.white,
@@ -640,7 +647,7 @@ class _CheckOutState extends State<CheckOut> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('WARNING !!'),
+          title: const Text('WARNING !!'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -650,7 +657,7 @@ class _CheckOutState extends State<CheckOut> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -669,7 +676,7 @@ class _CheckOutState extends State<CheckOut> {
           // sendVerifyCode();
           FocusManager.instance.primaryFocus?.unfocus();
           return AlertDialog(
-            title: Text(
+            title: const Text(
               "Enter Verify Code From Your Email",
               textAlign: TextAlign.center,
             ),
@@ -692,8 +699,10 @@ class _CheckOutState extends State<CheckOut> {
                 child: ElevatedButton(
                     onPressed: () {
                       if (verifyController.text.trim().length != 6) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text("Verify code must has 6 chracters")));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: const Text(
+                                    "Verify code must has 6 chracters")));
                         return;
                       }
                       if (verifyController.text.trim() ==
@@ -711,11 +720,12 @@ class _CheckOutState extends State<CheckOut> {
                           isHasVerifyCode = true;
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Invalid Verify Code")));
+                            const SnackBar(
+                                content: const Text("Invalid Verify Code")));
                         return;
                       }
                     },
-                    child: Text("SEND")),
+                    child: const Text("SEND")),
               )
             ],
           );
@@ -727,13 +737,13 @@ class _CheckOutState extends State<CheckOut> {
         context: context,
         builder: (ctx) {
           return Container(
-            padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Column(
               children: [
-                Text(
+                const Text(
                   "Enter Verify Code From Your Email",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 30),
+                  style: const TextStyle(fontSize: 30),
                 ),
                 Container(
                   height: 80,
@@ -781,7 +791,7 @@ class _CheckOutState extends State<CheckOut> {
                           return;
                         }
                       },
-                      child: Text("SEND")),
+                      child: const Text("SEND")),
                 )
               ],
             ),
@@ -955,30 +965,30 @@ class _CheckOutState extends State<CheckOut> {
   //                   crossAxisAlignment: CrossAxisAlignment.start,
   //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   //                   children: [
-  //                     Text(
+  //                     const Text(
   //                       widget.name == null ? "Demo1" : widget.name,
-  //                       style: TextStyle(
+  //                       style: const TextStyle(
   //                           color: Colors.blue,
   //                           fontStyle: FontStyle.italic,
   //                           fontSize: 25),
   //                     ),
-  //                     Text(
+  //                     const Text(
   //                       "Category: ",
-  //                       style: TextStyle(
+  //                       style: const TextStyle(
   //                           color: Colors.green,
   //                           fontWeight: FontWeight.bold,
   //                           fontSize: 20),
   //                     ),
-  //                     Text(
+  //                     const Text(
   //                       "Size: ",
-  //                       style: TextStyle(
+  //                       style: const TextStyle(
   //                           color: Colors.redAccent,
   //                           fontWeight: FontWeight.bold,
   //                           fontSize: 13),
   //                     ),
-  //                     Text(
+  //                     const Text(
   //                       "Price: ${widget.price * quantity} ",
-  //                       style: TextStyle(
+  //                       style: const TextStyle(
   //                           color: Colors.redAccent,
   //                           fontWeight: FontWeight.bold,
   //                           fontSize: 15),
@@ -991,7 +1001,7 @@ class _CheckOutState extends State<CheckOut> {
   //                           borderRadius: BorderRadius.circular(20)),
   //                       child: Row(
   //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //                         children: [Text("Quantity"), Text("1")],
+  //                         children: [const Text("Quantity"), const Text("1")],
   //                       ),
   //                     ),
   //                   ],
@@ -1018,37 +1028,37 @@ class _CheckOutState extends State<CheckOut> {
             //                           isDola = !isDola;
             //                         });
             //                       },
-            //                       icon: Icon(Icons.change_circle_rounded)),
-            //                   Text(
+            //                       icon: const Icon(Icons.change_circle_rounded)),
+            //                   const Text(
             //                     isDola ? "${endName} ${generalProvider.getMoneyIconName}": "${(double.parse(endName)*23000).round()} \đ",
             //                     overflow: TextOverflow.ellipsis,
-            //                     style: TextStyle(
+            //                     style: const TextStyle(
             //                         fontSize: 18,
             //                         fontWeight: FontWeight.bold,
             //                         color: Colors.black),
             //                   )
             //                 ],
             //               )
-            //             : Text(
+            //             : const Text(
             //                 "${endName}",
             //                 overflow: TextOverflow.ellipsis,
-            //                 style: TextStyle(
+            //                 style: const TextStyle(
             //                     fontSize: 18,
             //                     fontWeight: FontWeight.bold,
             //                     color: Colors.black),
             //               )
             //         : Container(
             //             width: 180,
-            //             child: Text(
+            //             child: const Text(
             //               endName,
             //               overflow: TextOverflow.ellipsis,
-            //               style: TextStyle(
+            //               style: const TextStyle(
             //                   fontSize: 18,
             //                   fontWeight: FontWeight.bold,
             //                   color: Colors.black),
             //             ),
             //           ),
-            //     SizedBox(
+            //     const SizedBox(
             //       width: 30,
             //     )
             //   ],

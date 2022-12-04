@@ -21,7 +21,6 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     // generalProvider = Provider.of<GeneralProvider>(context, listen: false);
   }
@@ -30,13 +29,13 @@ class _AboutState extends State<About> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
+        title: const Center(
           child: Text("About", style: TextStyle(color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
@@ -46,7 +45,7 @@ class _AboutState extends State<About> {
         ),
         // actions: [
         //   IconButton(
-        //     icon: Icon(
+        //     icon: const Icon(
         //       Icons.notifications,
         //       color: Colors.red,
         //     ),
@@ -57,12 +56,12 @@ class _AboutState extends State<About> {
       body: Container(
         decoration: DecorationBackGround().buildDecoration(),
         child: Container(
-          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+          padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
           child: ListView(
             children: [
               Column(
                 children: [
-                  Center(
+                  const Center(
                     child: Text("H&H FOOD",
                         style: TextStyle(
                             color: Colors.black,
@@ -72,8 +71,8 @@ class _AboutState extends State<About> {
                   ),
                   Center(
                     child: Container(
-                      padding: EdgeInsets.all(20),
-                      child: Text('''
+                      padding: const EdgeInsets.all(20),
+                      child: const Text('''
            H&H FOOD is stands for Healthy and Happy FOOD, with the principle of bringing an extremely rich variety of really quality and nutritional products to users through a system of products that are tested daily and provided with certificates. food safety permits of countries.
           
           We are committed to giving our customers an unforgettable experience when shopping at our address
@@ -86,7 +85,7 @@ class _AboutState extends State<About> {
                     ),
                   ),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.streetview),
                       SizedBox(
                         width: 10,
@@ -100,12 +99,12 @@ class _AboutState extends State<About> {
                           )),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(35, 0, 0, 0),
-                    child: Center(
+                    padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+                    child: const Center(
                       child: Text(
                           "No.207, Giai Phong Street, Dong Tam Ward, Hai Ba Trung District, Ha Noi, Viet Nam",
                           textAlign: TextAlign.justify,
@@ -116,7 +115,7 @@ class _AboutState extends State<About> {
                           )),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   GestureDetector(
@@ -131,11 +130,11 @@ class _AboutState extends State<About> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.timelapse),
                       SizedBox(
                         width: 10,
@@ -149,12 +148,12 @@ class _AboutState extends State<About> {
                           )),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(0, 0, 150, 0),
-                    child: Text("8.00 AM - 6.30 PM",
+                    padding: const EdgeInsets.fromLTRB(0, 0, 150, 0),
+                    child: const Text("8.00 AM - 6.30 PM",
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           // color: Colors.greenAccent,
@@ -162,11 +161,11 @@ class _AboutState extends State<About> {
                           fontStyle: FontStyle.normal,
                         )),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Row(
-                    children: [
+                    children: const [
                       Icon(Icons.people),
                       SizedBox(
                         width: 10,
@@ -180,12 +179,12 @@ class _AboutState extends State<About> {
                           )),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 15,
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(0, 0, 215, 0),
-                    child: Text("8 members",
+                    padding: const EdgeInsets.fromLTRB(0, 0, 215, 0),
+                    child: const Text("8 members",
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           // color: Colors.greenAccent,

@@ -17,12 +17,11 @@ class DetailScreenForAdmin extends StatefulWidget {
   late String img;
   late double price;
   late int repo;
-  DetailScreenForAdmin({
-    required this.name,
-    required this.price,
-    required this.img,
-    required this.repo
-  });
+  DetailScreenForAdmin(
+      {required this.name,
+      required this.price,
+      required this.img,
+      required this.repo});
 
   @override
   State<DetailScreenForAdmin> createState() => _DetailScreenForAdminState();
@@ -40,7 +39,8 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
       TextEditingController(text: widget.price.toString());
   // late TextEditingController repoController =
   //     TextEditingController(text: widget.repo.toString());
-  late TextEditingController repoController = TextEditingController(text: widget.repo.toString());
+  late TextEditingController repoController =
+      TextEditingController(text: widget.repo.toString());
 
   @override
   void initState() {
@@ -59,13 +59,14 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
     return Scaffold(
       appBar: AppBar(
         title: Center(
-          child: Text("Detail", style: TextStyle(color: Colors.black)),
+          child:
+              const Text("Detail", style: const TextStyle(color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leading: isFixing
             ? IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.close,
                   color: Colors.red,
                 ),
@@ -76,7 +77,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                 },
               )
             : IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back,
                   color: Colors.black,
                 ),
@@ -91,7 +92,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                   onPressed: () {
                     checkNameInList();
                   },
-                  icon: Icon(Icons.check))
+                  icon: const Icon(Icons.check))
               : IconButton(
                   color: Colors.black,
                   onPressed: () {
@@ -99,7 +100,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                       isFixing = true;
                     });
                   },
-                  icon: Icon(Icons.drive_file_rename_outline))
+                  icon: const Icon(Icons.drive_file_rename_outline))
         ],
       ),
       body: Container(
@@ -112,13 +113,13 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                   return Column(children: [
                     buildImage(),
                     Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 20),
                       child: Column(
                         children: [
                           buildNameToDescription(),
                           buildContentDescription(),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                         ],
@@ -138,7 +139,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
         width: 350,
         child: Card(
           child: Container(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             child: Container(
               height: 220,
               decoration: BoxDecoration(
@@ -155,7 +156,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
 
   Widget buildNameToDescription() {
     return Container(
-      height: isFixing ? null:150,
+      height: isFixing ? null : 150,
       child: Form(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -163,10 +164,10 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
             isFixing
                 ? Container(
                     height: 70,
-                    padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                     child: TextFormField(
                       controller: nameController,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         // hintText: "Name",
                         labelText: "Name",
                         hintStyle: TextStyle(
@@ -183,7 +184,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                 : Center(
                     child: Text(
                       tName,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.blue,
                           fontSize: 28,
                           fontStyle: FontStyle.italic),
@@ -192,11 +193,11 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
             isFixing
                 ? Container(
                     height: 70,
-                    padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                     child: TextFormField(
                       controller: priceController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Price",
                         labelText: "Price",
                         hintStyle: TextStyle(
@@ -212,25 +213,25 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                   )
                 : Center(
                     // child: Badge(
-                      // position: BadgePosition(bottom: 8,start: 45),
-                      // badgeContent: Text("New"),
-                      child: Text(
-                        "${tPrice} ${generalProvider.getMoneyIconName}",
-                        style: TextStyle(
-                            color: Colors.green,
-                            fontSize: 23,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    // position: BadgePosition(bottom: 8,start: 45),
+                    // badgeContent: Text("New"),
+                    child: Text(
+                      "${tPrice} ${generalProvider.getMoneyIconName}",
+                      style: const TextStyle(
+                          color: Colors.green,
+                          fontSize: 23,
+                          fontWeight: FontWeight.bold),
                     ),
-                  // ),
+                  ),
+            // ),
             isFixing
                 ? Container(
                     height: 70,
-                    padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                    padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                     child: TextFormField(
                       controller: repoController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Repository",
                         labelText: "Repository",
                         hintStyle: TextStyle(
@@ -247,7 +248,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
                 : Center(
                     child: Text(
                       "${tRepo} products",
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.red,
                           fontSize: 23,
                           fontWeight: FontWeight.bold),
@@ -266,7 +267,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
         children: [
           Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software",
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.blueGrey,
                 fontSize: 15,
                 fontWeight: FontWeight.bold),
@@ -332,7 +333,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
             "category": nameController.text.trim(),
             "image": widget.img,
             "price": priceController.text.trim(),
-            "repo":repoController.text
+            "repo": repoController.text
           });
           print("featuredproduct update succesfully");
         }
@@ -354,7 +355,7 @@ class _DetailScreenForAdminState extends State<DetailScreenForAdmin> {
             "category": nameController.text.trim(),
             "image": widget.img,
             "price": priceController.text.trim(),
-            "repo":repoController.text.trim()
+            "repo": repoController.text.trim()
           });
           print("$nameList update succesfully");
         }
