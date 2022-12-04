@@ -8,19 +8,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:testecommerce/addition/formatInput.dart';
+import 'package:testecommerce/addition/format_input.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/cartmodels.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/screen/cartscreen.dart';
+import 'package:testecommerce/screen/cart_screen.dart';
 import 'package:http/http.dart' as http;
-import 'package:testecommerce/screen/homePage.dart';
+import 'package:testecommerce/screen/home_page.dart';
 import 'dart:convert';
 
-import 'package:testecommerce/widget/notificationButton.dart';
+import 'package:testecommerce/widget/notification_button.dart';
 
 import '../addition/timer.dart';
 

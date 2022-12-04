@@ -13,21 +13,21 @@ import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/about.dart';
-import 'package:testecommerce/screen/cartscreen.dart';
-import 'package:testecommerce/screen/detailscreen.dart';
-import 'package:testecommerce/screen/homepage.dart';
-import '../widget/listproduct.dart';
+import 'package:testecommerce/screen/cart_screen.dart';
+import 'package:testecommerce/screen/detail_screen.dart';
+import 'package:testecommerce/screen/home_page.dart';
+import '../widget/list_product.dart';
 import 'package:testecommerce/screen/login.dart';
-import '../widget/listproduct.dart';
+// import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/profile.dart';
 import '../addition/search.dart';
-import '../widget/cartsingleproduct.dart';
+import '../widget/cart_single_product.dart';
 
 import '../providers/general_provider.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:badges/badges.dart';
 import '../models/product.dart';
-import '../widget/singleproduct.dart';
+import '../widget/single_product.dart';
 
 class NotificationMessage extends StatefulWidget {
   @override

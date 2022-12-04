@@ -4,8 +4,8 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/screen/alertResetPassword.dart';
-import 'package:testecommerce/screen/detailscreen.dart';
+// import 'package:testecommerce/screen/alertResetPassword.dart';
+import 'package:testecommerce/screen/detail_screen.dart';
 
 class SingleProduct extends StatelessWidget {
   SingleProduct(

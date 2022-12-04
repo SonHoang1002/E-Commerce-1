@@ -8,9 +8,9 @@ import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/cartscreen.dart';
+import 'package:testecommerce/screen/cart_screen.dart';
 import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/widget/notificationButton.dart';
+import 'package:testecommerce/widget/notification_button.dart';
 
 class DetailScreen extends StatefulWidget {
   late String name;

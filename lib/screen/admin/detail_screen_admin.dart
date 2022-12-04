@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/cartscreen.dart';
+import 'package:testecommerce/screen/cart_screen.dart';
 import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/homepage.dart';
+import 'package:testecommerce/screen/home_page.dart';
 import 'package:testecommerce/screen/profile.dart';
 import '../../models/product.dart';
 

@@ -17,26 +17,25 @@ import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
 import 'package:testecommerce/screen/about.dart';
-import 'package:testecommerce/screen/cartscreen.dart';
+import 'package:testecommerce/screen/cart_screen.dart';
 import 'package:testecommerce/screen/contact_messenger.dart';
-import 'package:testecommerce/screen/detailscreen.dart';
+import 'package:testecommerce/screen/detail_screen.dart';
 import 'package:testecommerce/testScreen/test.dart';
-import 'package:testecommerce/widget/notificationButton.dart';
+import 'package:testecommerce/widget/notification_button.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../addition/timer.dart';
-import '../widget/listproduct.dart';
+import '../widget/list_product.dart';
 import 'package:testecommerce/screen/login.dart';
-import '../widget/listproduct.dart';
 import 'package:testecommerce/screen/profile.dart';
 import '../addition/search.dart';
-import '../widget/cartsingleproduct.dart';
+import '../widget/cart_single_product.dart';
 
 import '../providers/general_provider.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:badges/badges.dart';
 import '../models/product.dart';
-import '../widget/singleproduct.dart';
+import '../widget/single_product.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {

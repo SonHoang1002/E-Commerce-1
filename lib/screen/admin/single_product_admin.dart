@@ -8,10 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:testecommerce/main.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/screen/admin/detailScreenAmin.dart';
-import 'package:testecommerce/screen/admin/homeAdmin.dart';
+import 'package:testecommerce/screen/admin/detail_screen_admin.dart';
 import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/detailscreen.dart';
+import 'package:testecommerce/screen/detail_screen.dart';
 
 class SingleProductForAdmin extends StatelessWidget {
   SingleProductForAdmin(

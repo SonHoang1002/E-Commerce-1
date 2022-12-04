@@ -12,12 +12,10 @@ import 'package:provider/provider.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/homepage.dart';
-import '../widget/cartsingleproduct.dart';
-
-
+import 'package:testecommerce/screen/home_page.dart';
+import '../widget/cart_single_product.dart';
 import '../models/product.dart';
-import '../widget/singleproduct.dart';
+import '../widget/single_product.dart';
 
 class Search extends SearchDelegate<void> {
   @override

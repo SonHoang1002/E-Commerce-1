@@ -6,7 +6,7 @@ import 'package:testecommerce/models/cartmodels.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/homepage.dart';
+import 'package:testecommerce/screen/home_page.dart';
 
 class CartSingleProduct extends StatefulWidget {
   late String name;

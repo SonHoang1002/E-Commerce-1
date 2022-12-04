@@ -11,10 +11,10 @@ import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/admin/homeadmin.dart';
-import 'package:testecommerce/screen/homepage.dart';
-import 'package:testecommerce/screen/signup.dart';
-import 'package:testecommerce/screen/welcomescreen.dart';
+import 'package:testecommerce/screen/admin/home_admin.dart';
+import 'package:testecommerce/screen/home_page.dart';
+import 'package:testecommerce/screen/sign_up.dart';
+import 'package:testecommerce/screen/welcome_screen.dart';
 import 'dart:isolate';
 import "package:http/http.dart" as http;
 

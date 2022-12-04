@@ -5,8 +5,8 @@ import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/homepage.dart';
-import 'package:testecommerce/widget/cartsingleproduct.dart';
+import 'package:testecommerce/screen/home_page.dart';
+import 'package:testecommerce/widget/cart_single_product.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../providers/general_provider.dart';

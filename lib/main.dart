@@ -6,18 +6,18 @@ import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/providers/theme_provider.dart';
-import 'package:testecommerce/screen/admin/analysistScreen.dart';
-import 'package:testecommerce/screen/admin/homeadmin.dart';
-import 'package:testecommerce/screen/alertResetPassword.dart';
-import 'package:testecommerce/screen/cartscreen.dart';
-import 'package:testecommerce/screen/detailscreen.dart';
-import 'package:testecommerce/screen/homepage.dart';
+import 'package:testecommerce/screen/admin/analysist_screen.dart';
+import 'package:testecommerce/screen/admin/home_admin.dart';
+// import 'package:testecommerce/screen/alertResetPassword.dart';
+import 'package:testecommerce/screen/cart_screen.dart';
+import 'package:testecommerce/screen/detail_screen.dart';
+import 'package:testecommerce/screen/home_page.dart';
 
 import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/profile.dart';
-import 'package:testecommerce/screen/welcomeScreen.dart';
+import 'package:testecommerce/screen/welcome_screen.dart';
 import 'package:testecommerce/testScreen/test.dart';
-import './screen/signup.dart';
+import './screen/sign_up.dart';
 import './providers/category_provider.dart';
 import 'models/product.dart';
 
