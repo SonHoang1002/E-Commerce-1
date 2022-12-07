@@ -133,15 +133,15 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // loadData();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    loadData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    loadData();
+    // loadData();
     return Scaffold(
       key: _key,
       appBar: AppBar(

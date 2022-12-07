@@ -58,7 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     width: double.infinity,
                     child: DefaultTextStyle(
                       style: const TextStyle(
-                          fontSize: 28.0,
+                          fontSize: 25.0,
                           fontFamily: 'DynaPuff',
                           color: Colors.black),
                       child: Center(

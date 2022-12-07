@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +11,7 @@ import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/screen/home_page.dart';
+import 'package:testecommerce/warning_from_state/warning_from_name.dart';
 import 'package:testecommerce/widget/cart_single_product.dart';
 // import 'package:testecommerce/widget/notificationButton.dart';
 import 'package:testecommerce/widget/notification_button.dart';
@@ -228,12 +231,20 @@ class _CartScreenState extends State<CartScreen> {
       width: 700,
       margin: const EdgeInsets.all(20),
       child: ElevatedButton(
-        onPressed: () {
+        onPressed: () async {
           // Navigator.of(context)
           //     .push(CupertinoPageRoute(builder: (ctx) => CheckOut()));
           generalProvider.setCartModelListName();
+          //
+          // final list = await checkEmailHaveAnyAccount();
+          // if(list.length>1){
+          //    Navigator.of(context)
+          //     .push(MaterialPageRoute(builder: (_)=> WarningFromName(listOfName: list,)));
+          // }else{
           Navigator.of(context)
               .push(PageRouteToScreen().pushToCheckOutScreen());
+          // }
+          //
           if (generalProvider.getIsUpdateForCartProduct) {
             generalProvider.addNotiList(
                 "${getTime()}: You have already updated quantity any product");
@@ -310,5 +321,18 @@ class _CartScreenState extends State<CartScreen> {
         },
       ),
     );
+  }
+
+  Future<List<String>> checkEmailHaveAnyAccount() async {
+    List<String> listOfName = [];
+    QuerySnapshot<Object?> snapshot =
+        await FirebaseFirestore.instance.collection("User").get();
+    snapshot.docs.forEach((element) {
+      if (element["UserEmail"] == generalProvider.getEmailFromLogin) {
+        listOfName.add(element['UserName']);
+      }
+    });
+    print(listOfName.toList());
+    return listOfName;
   }
 }

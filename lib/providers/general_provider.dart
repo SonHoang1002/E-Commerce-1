@@ -659,7 +659,7 @@ class GeneralProvider with ChangeNotifier {
       list.addAll(searchDrinkList);
     }
     // print("list length: ${list.length}");
-    // notifyListeners();
+    notifyListeners();
     return list;
   }
 

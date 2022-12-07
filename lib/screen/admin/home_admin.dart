@@ -321,7 +321,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                     onTap: () {
                                       // generalProvider.setNumberOfAllProduct();
                                       generalProvider
-                                          .searchProductListForAdmin("");
+                                          .searchProductList("");
                                       setState(() {
                                         searchController.text = "";
                                         hasSearchWord = false;
@@ -332,11 +332,11 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   GestureDetector(
                                     child: const Icon(Icons.send),
                                     onTap: () {
-                                      print(searchController.text.trim());
                                       if (searchController.text.trim().length >
                                           0) {
+                                        print(searchController.text.trim());
                                         generalProvider.searchProductList(
-                                            searchController.text);
+                                            searchController.text.trim());
                                         hasSearchWord = true;
                                         FocusManager.instance.primaryFocus
                                             ?.unfocus();
@@ -355,7 +355,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                         ),
                       ),
                       hasSearchWord
-                          ? generalProvider.getSearchList.length == 0
+                          ? generalProvider.searchProductList(searchController.text.trim()).length == 0
                               ? Container(
                                   height: 300,
                                   child: const Center(
@@ -371,7 +371,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                   width: double.infinity,
                                   child: ListView.builder(
                                       itemCount:
-                                          generalProvider.getSearchList.length,
+                                          generalProvider.searchProductList(searchController.text.trim()).length,
                                       itemBuilder: ((context, index) {
                                         return Slidable(
                                           startActionPane: ActionPane(
@@ -611,7 +611,7 @@ class _HomeAdminState extends State<HomeAdmin> {
           .add({
         "category": nameController.text,
         "image": imageController.text,
-        "price": nameController.text,
+        "price": priceController.text,
         "repo": repoController.text,
       });
       generalProvider.setFeatureProduct();
