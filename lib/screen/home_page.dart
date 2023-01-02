@@ -10,6 +10,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
 import 'package:testecommerce/addition/ad_helper.dart';
+import 'package:testecommerce/addition/app_localization.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/usermodel.dart';
@@ -146,7 +147,7 @@ class _HomePageState extends State<HomePage> {
       key: _key,
       appBar: AppBar(
         title: Text(
-          "Home",
+          AppLocalizations.of(context)!.translate("home_title") ?? "Home",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -277,7 +278,9 @@ class _HomePageState extends State<HomePage> {
                   aboutColor = false;
                 });
               },
-              title: const Text("Home"),
+              title: Text(
+                  AppLocalizations.of(context)!.translate("home_title") ??
+                      "Home"),
               leading: const Icon(Icons.home),
             ),
             //profile
@@ -299,7 +302,9 @@ class _HomePageState extends State<HomePage> {
                   aboutColor = false;
                 });
               },
-              title: const Text("Profile"),
+              title: Text(
+                  AppLocalizations.of(context)!.translate("profile_title") ??
+                      "Profile"),
               leading: const Icon(Icons.people),
             ),
             //setting
@@ -313,7 +318,8 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           width: 20,
                         ),
-                        const Text("Theme"),
+                        Text(AppLocalizations.of(context)!.translate("theme") ??
+                            "Theme"),
                       ],
                     ),
                     Row(
@@ -388,7 +394,9 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )
                   ],
-                  title: Text("Language"),
+                  title: Text(
+                      AppLocalizations.of(context)!.translate("language") ??
+                          "Language"),
                   // leading: const Icon(Icons.language),
                 ),
                 ExpansionTile(
@@ -480,16 +488,22 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )
                   ],
-                  title: const Text("Currentcy"),
+                  title: Text(
+                      AppLocalizations.of(context)!.translate("currentcy") ??
+                          "Currentcy"),
                   // leading: const Icon(Icons.language),
                 ),
               ],
-              title: const Text("Settings"),
+              title: Text(
+                  AppLocalizations.of(context)!.translate("setting_title") ??
+                      "Settings"),
               leading: const Icon(Icons.settings),
             ),
             //contact
             ExpansionTile(
-              title: const Text("Contact"),
+              title: Text(
+                  AppLocalizations.of(context)!.translate("contact_title") ??
+                      "Contact"),
               leading: const Icon(Icons.contact_page),
               children: [
                 Row(
@@ -500,7 +514,8 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           width: 20,
                         ),
-                        const Text("Phone"),
+                        Text(AppLocalizations.of(context)!.translate("phone") ??
+                            "Phone"),
                       ],
                     ),
                     Row(
@@ -525,7 +540,9 @@ class _HomePageState extends State<HomePage> {
                         const SizedBox(
                           width: 20,
                         ),
-                        const Text("Messenger"),
+                        Text(AppLocalizations.of(context)!
+                                .translate("messenger") ??
+                            "Messenger"),
                       ],
                     ),
                     Row(
@@ -581,7 +598,9 @@ class _HomePageState extends State<HomePage> {
                   aboutColor = true;
                 });
               },
-              title: const Text("About"),
+              title: Text(
+                  AppLocalizations.of(context)!.translate("about_title") ??
+                      "About"),
               leading: const Icon(Icons.info),
             ),
             //logout
@@ -598,7 +617,9 @@ class _HomePageState extends State<HomePage> {
                   aboutColor = false;
                 });
               },
-              title: const Text("Logout"),
+              title: Text(
+                  AppLocalizations.of(context)!.translate("logout_title") ??
+                      "Logout"),
               leading: const Icon(Icons.exit_to_app),
             ),
             //test
@@ -724,8 +745,8 @@ class _HomePageState extends State<HomePage> {
                                               0
                                           ? Column(
                                               children: [
-                                                const Text(
-                                                  "Result",
+                                                 Text(
+                                                  AppLocalizations.of(context)!.translate("result") ??"Result",
                                                   style: TextStyle(
                                                       fontSize: 30,
                                                       fontStyle:
@@ -840,9 +861,11 @@ class _HomePageState extends State<HomePage> {
       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
       height: 195,
       child: SimpleAutocompleteFormField<String>(
-        decoration: const InputDecoration(
-          labelText: 'Search',
-          hintText: "Search",
+        decoration: InputDecoration(
+          labelText:
+              AppLocalizations.of(context)!.translate("search") ?? 'Search',
+          hintText:
+              AppLocalizations.of(context)!.translate("search") ?? "Search",
           border: OutlineInputBorder(),
         ),
         // suggestionsHeight: 70.0,
@@ -908,7 +931,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Category",
+                AppLocalizations.of(context)!.translate("category") ??"Category",
                 style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
             ],
@@ -919,15 +942,15 @@ class _HomePageState extends State<HomePage> {
           child: Row(
             children: [
               buildIconCategory(
-                  "waterdish.webp", "Water Food", "WATER FOOD", listWater),
+                  "waterdish.webp", AppLocalizations.of(context)!.translate("water_title") ??"Water Food", "WATER FOOD", listWater),
               buildIconCategory(
-                  "snack-food.png", "Snack Food", "SNACK FOOD", listSnack),
+                  "snack-food.png", AppLocalizations.of(context)!.translate("snack_title") ??"Snack Food", "SNACK FOOD", listSnack),
               buildIconCategory(
-                  "east-food.png", "Europe Food", "EUROPE FOOD", listEast),
+                  "east-food.png", AppLocalizations.of(context)!.translate("eastern_title") ??"Europe Food", "EUROPE FOOD", listEast),
               buildIconCategory(
-                  "asiafood.png", "Asia Food", "ASIA FOOD", listAsia),
+                  "asiafood.png", AppLocalizations.of(context)!.translate("asia_title") ??"Asia Food", "ASIA FOOD", listAsia),
               buildIconCategory(
-                  "cocktail.png", "Drinking", "DRINKING", listDrink),
+                  "cocktail.png", AppLocalizations.of(context)!.translate("drink_title") ??"Drinking", "DRINKING", listDrink),
             ],
           ),
         )
@@ -957,8 +980,8 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "Main Products",
+                 Text(
+                   AppLocalizations.of(context)!.translate("main_product") ??"Main Products",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
@@ -969,8 +992,8 @@ class _HomePageState extends State<HomePage> {
                               list: listFeature,
                             )));
                   },
-                  child: const Text(
-                    "See More",
+                  child:  Text(
+                     AppLocalizations.of(context)!.translate("see_more") ??"See More",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -1036,8 +1059,8 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "New Products",
+                 Text(
+                   AppLocalizations.of(context)!.translate("new_product") ??"New Products",
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
@@ -1048,8 +1071,8 @@ class _HomePageState extends State<HomePage> {
                               list: listNew,
                             )));
                   },
-                  child: const Text(
-                    "See More",
+                  child:  Text(
+                     AppLocalizations.of(context)!.translate("see_more") ??"See More",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),

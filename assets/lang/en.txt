@@ -1,0 +1,52 @@
+"general": {
+        "sign_up": " Sign Up",
+        "have_account": "I already have account",
+        "login": "Login",
+        "password": "Password",
+        "forgot_password": "Forgot my password !!",
+        "have_no_account": " I have no account !!"
+    },
+    "welcome": {
+        "welcome title": "Welcome to shopping !",
+        "getting_started": " Getting started"
+    },
+    "login": {
+        "reset_title": "Please enter reset number from your email"
+    },
+    "reset_password": {
+        "new_password_title": "Enter New Password",
+        "confirm_password": "Confirm Password"
+    },
+    "home": {
+        "drawer": {
+            "home_title": "Home",
+            "profile_title": "Profile",
+            "setting": {
+                "setting_title": "Settings",
+                "theme": "Theme",
+                "Language": "Language",
+                "currentcy": "Currentcy"
+            },
+            "contact": {
+                "contact_title": "Contact",
+                "phone": "Phone",
+                "messenger": "Messenger"
+            },
+            "about_title": "About",
+            "logout_title": "Logout"
+        },
+        "main":{
+            "home_title":"Home",
+            "search_placeholder":"Search",
+            "category":"Category",
+            "water_title":"Water Food",
+            "snack_title":"Snack",
+            "eastern_title":"Eastern Food",
+            "asia_title":"Asia Food",
+            "drinking_title":"Drink",
+            "main_product":"Main Product",
+            "see_more":"See More",
+            "new_product":"New Product",
+            "result":"Result"
+        }
+    }

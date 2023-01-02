@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
+import 'package:testecommerce/addition/app_localization.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
@@ -196,7 +197,8 @@ class _Login extends State<Login> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "Login",
+                            AppLocalizations.of(context)!
+                                                .translate("login") ??"Login",
                             style: TextStyle(
                                 fontSize: 50, fontWeight: FontWeight.bold),
                           ),
@@ -213,8 +215,10 @@ class _Login extends State<Login> {
                             obscureText: obscureText,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText: "Password",
-                                labelText: "Password",
+                                hintText: AppLocalizations.of(context)!
+                                                .translate("password") ??"Password",
+                                labelText: AppLocalizations.of(context)!
+                                                .translate("password") ??"Password",
                                 suffixIcon: GestureDetector(
                                   onTap: () {
                                     setState(() {
@@ -240,7 +244,8 @@ class _Login extends State<Login> {
                               ),
                               GestureDetector(
                                 child: Text(
-                                  "Forgot my password !!",
+                                  AppLocalizations.of(context)!
+                                                .translate("forgot_password") ??"Forgot my password !!",
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 182, 67, 79)),
                                 ),
@@ -279,7 +284,8 @@ class _Login extends State<Login> {
                                   ),
                                 ),
                                 child: Text(
-                                  "Login",
+                                  AppLocalizations.of(context)!
+                                                .translate("login") ??"Login",
                                   style: TextStyle(
                                       fontSize: 30, color: Colors.black),
                                 ),
@@ -290,7 +296,8 @@ class _Login extends State<Login> {
                                 width: 10,
                               ),
                               Text(
-                                "I have no account !!",
+                                AppLocalizations.of(context)!
+                                                .translate("have_no_account") ??"I have no account !!",
                                 style: TextStyle(color: Colors.black),
                               ),
                               SizedBox(
@@ -304,7 +311,8 @@ class _Login extends State<Login> {
                                   Navigator.of(context).pushReplacement(
                                       PageRouteToScreen().pushToSignupScreen());
                                 },
-                                child: Text("Sign Up",
+                                child: Text(AppLocalizations.of(context)!
+                                                .translate("sign_up") ??"Sign Up",
                                     style: TextStyle(
                                         color: Colors.blue, fontSize: 15)),
                               ),

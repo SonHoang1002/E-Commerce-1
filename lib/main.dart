@@ -19,7 +19,8 @@ import 'package:testecommerce/screen/welcome_screen.dart';
 import 'package:testecommerce/testScreen/test.dart';
 import './screen/sign_up.dart';
 import './providers/category_provider.dart';
-import 'models/product.dart';
+import 'addition/app_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 ThemeData light = ThemeData(
     brightness: Brightness.light,
@@ -42,8 +43,24 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+  static void setLocale(BuildContext context, Locale locale) {
+    _MyAppState? state = context.findAncestorStateOfType();
+    state!.changeLanguage(locale);
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late Locale _locale = Locale("en", "US");
+  changeLanguage(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +74,23 @@ class MyApp extends StatelessWidget {
             darkTheme: notifier.isDark ? dark : light,
             themeMode: notifier.isDark ? ThemeMode.dark : ThemeMode.light,
             debugShowCheckedModeBanner: false,
+            locale: _locale,
+            localizationsDelegates: [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+            ],
+            supportedLocales: [Locale("vi", "VN"), Locale("en", "US")],
+            localeResolutionCallback: ((locale, supportedLocales) {
+              for (var supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale!.languageCode &&
+                    supportedLocale.countryCode == locale.countryCode) {
+                  return supportedLocale;
+                }
+                return Locale("en", "US");
+              }
+            }),
             home: StreamBuilder(
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
@@ -75,7 +109,6 @@ class MyApp extends StatelessWidget {
         }));
   }
 }
-
 
 
 // MultiProvider(
