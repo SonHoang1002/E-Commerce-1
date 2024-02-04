@@ -1,44 +1,26 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_autocomplete_formfield/simple_autocomplete_formfield.dart';
-import 'package:testecommerce/addition/ad_helper.dart';
 import 'package:testecommerce/addition/app_localization.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
-import 'package:testecommerce/models/usermodel.dart';
-import 'package:testecommerce/providers/category_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/providers/theme_provider.dart';
-import 'package:testecommerce/screen/about.dart';
-import 'package:testecommerce/screen/cart_screen.dart';
 import 'package:testecommerce/screen/contact_messenger.dart';
 import 'package:testecommerce/screen/detail_screen.dart';
-import 'package:testecommerce/testScreen/test.dart';
 import 'package:testecommerce/widget/notification_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
-import '../addition/timer.dart';
 import '../widget/list_product.dart';
-import 'package:testecommerce/screen/login.dart';
 import 'package:testecommerce/screen/profile.dart';
-import '../addition/search.dart';
-import '../widget/cart_single_product.dart';
 
-import '../providers/general_provider.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:badges/badges.dart';
+import '../providers/general_provider.dart'; 
+import 'package:badges/badges.dart' as badges; 
 import '../models/product.dart';
 import '../widget/single_product.dart';
-import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   List<String> nameList;
   HomePage({required this.nameList});
@@ -148,7 +130,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           AppLocalizations.of(context)!.translate("home_title") ?? "Home",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         elevation: 0.0,
@@ -160,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                 homeColor = true;
               });
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.menu,
               color: Colors.black,
             )),
@@ -173,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                 });
                 // showSearch(context: context, delegate: Search());
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.search,
                 color: Colors.red,
               )),
@@ -187,12 +169,12 @@ class _HomePageState extends State<HomePage> {
                 Navigator.of(context)
                     .push(PageRouteToScreen().pushToCartScreen());
               },
-              icon: Badge(
-                animationType: BadgeAnimationType.scale,
-                shape: BadgeShape.circle,
+              icon:badges. Badge(
+                badgeAnimation: const badges.BadgeAnimation.scale(),
+                badgeStyle: const badges.BadgeStyle(shape: badges.BadgeShape.circle,),
                 badgeContent: Text("${generalProvider.getCartModelListLength}"),
                 showBadge: true,
-                child: Icon(
+                child: const Icon(
                   Icons.shopping_cart,
                   color: Colors.black,
                 ),
@@ -201,7 +183,7 @@ class _HomePageState extends State<HomePage> {
       ),
       // endDrawer: buildDrawer(),
       drawer: buildDrawer(),
-      body: isLoaded ? buildBody() : CircularProgressIndicator(),
+      body: isLoaded ? buildBody() : const CircularProgressIndicator(),
     );
   }
 
@@ -227,7 +209,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             UserAccountsDrawerHeader(
               accountName: Container(
-                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: Text(
                   name!,
                   style: const TextStyle(
@@ -309,6 +291,10 @@ class _HomePageState extends State<HomePage> {
             ),
             //setting
             ExpansionTile(
+              title: Text(
+                  AppLocalizations.of(context)!.translate("setting_title") ??
+                      "Settings"),
+              leading: const Icon(Icons.settings),
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -340,6 +326,9 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 ExpansionTile(
+                  title: Text(
+                      AppLocalizations.of(context)!.translate("language") ??
+                          "Language"),
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -350,16 +339,16 @@ class _HomePageState extends State<HomePage> {
                               width: 20,
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Text("Vietnamese"),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: const Text("Vietnamese"),
                             ),
                           ],
                         ),
                         Row(
                           children: [
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.language)),
-                            SizedBox(
+                                onPressed: () {}, icon: const Icon(Icons.language)),
+                            const SizedBox(
                               width: 20,
                             ),
                           ],
@@ -371,12 +360,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Text("English"),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: const Text("English"),
                             ),
                           ],
                         ),
@@ -384,9 +373,9 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: Icon(Icons.language),
+                              icon: const Icon(Icons.language),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                           ],
@@ -394,24 +383,24 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )
                   ],
-                  title: Text(
-                      AppLocalizations.of(context)!.translate("language") ??
-                          "Language"),
                   // leading: const Icon(Icons.language),
                 ),
                 ExpansionTile(
+                  title: Text(
+                      AppLocalizations.of(context)!.translate("currentcy") ??
+                          "Currentcy"),
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Text("Viet Nam Dong"),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: const Text("Viet Nam Dong"),
                             ),
                           ],
                         ),
@@ -421,8 +410,8 @@ class _HomePageState extends State<HomePage> {
                                 onPressed: () {
                                   generalProvider.setMoneyIcon(1);
                                 },
-                                icon: Icon(Icons.money)),
-                            SizedBox(
+                                icon: const Icon(Icons.money)),
+                            const SizedBox(
                               width: 20,
                             ),
                           ],
@@ -434,12 +423,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Row(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                             Container(
-                              padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                              child: Text("USD"),
+                              padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                              child: const Text("USD"),
                             ),
                           ],
                         ),
@@ -449,9 +438,9 @@ class _HomePageState extends State<HomePage> {
                               onPressed: () {
                                 generalProvider.setMoneyIcon(2);
                               },
-                              icon: Icon(Icons.money),
+                              icon: const Icon(Icons.money),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 20,
                             ),
                           ],
@@ -488,16 +477,9 @@ class _HomePageState extends State<HomePage> {
                       ],
                     )
                   ],
-                  title: Text(
-                      AppLocalizations.of(context)!.translate("currentcy") ??
-                          "Currentcy"),
                   // leading: const Icon(Icons.language),
                 ),
               ],
-              title: Text(
-                  AppLocalizations.of(context)!.translate("setting_title") ??
-                      "Settings"),
-              leading: const Icon(Icons.settings),
             ),
             //contact
             ExpansionTile(
@@ -649,10 +631,10 @@ class _HomePageState extends State<HomePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Warning !!'),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
               children: [
-                const Text('You really want log out ??'),
+                Text('You really want log out ??'),
               ],
             ),
           ),
@@ -703,7 +685,7 @@ class _HomePageState extends State<HomePage> {
                       hasSearchWord
                           ? showResultWord
                               ? Container(
-                                  padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                                   child: Column(
                                     children: [
                                       const SizedBox(
@@ -747,7 +729,7 @@ class _HomePageState extends State<HomePage> {
                                               children: [
                                                  Text(
                                                   AppLocalizations.of(context)!.translate("result") ??"Result",
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 30,
                                                       fontStyle:
                                                           FontStyle.italic),
@@ -817,7 +799,7 @@ class _HomePageState extends State<HomePage> {
         style: const TextStyle(),
         decoration: InputDecoration(
           suffixIcon: Container(
-            margin: EdgeInsets.fromLTRB(0, 20, 10, 0),
+            margin: const EdgeInsets.fromLTRB(0, 20, 10, 0),
             child: Wrap(
               children: [
                 GestureDetector(
@@ -866,7 +848,7 @@ class _HomePageState extends State<HomePage> {
               AppLocalizations.of(context)!.translate("search") ?? 'Search',
           hintText:
               AppLocalizations.of(context)!.translate("search") ?? "Search",
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
         ),
         // suggestionsHeight: 70.0,
         maxSuggestions: 4,
@@ -932,7 +914,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Text(
                 AppLocalizations.of(context)!.translate("category") ??"Category",
-                style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -982,7 +964,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                  Text(
                    AppLocalizations.of(context)!.translate("main_product") ??"Main Products",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -994,7 +976,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child:  Text(
                      AppLocalizations.of(context)!.translate("see_more") ??"See More",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -1053,7 +1035,7 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 5),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
           height: 50,
           child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
             Row(
@@ -1061,7 +1043,7 @@ class _HomePageState extends State<HomePage> {
               children: [
                  Text(
                    AppLocalizations.of(context)!.translate("new_product") ??"New Products",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
                   onTap: () {
@@ -1073,7 +1055,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child:  Text(
                      AppLocalizations.of(context)!.translate("see_more") ??"See More",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
               ],

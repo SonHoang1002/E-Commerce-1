@@ -4,8 +4,6 @@ import 'package:testecommerce/addition/app_localization.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/main.dart';
-import 'package:testecommerce/screen/login.dart';
-import 'package:testecommerce/screen/sign_up.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override

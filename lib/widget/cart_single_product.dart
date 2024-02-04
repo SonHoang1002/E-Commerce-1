@@ -4,10 +4,8 @@ import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/models/cartmodels.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/home_page.dart';
 
+// ignore: must_be_immutable
 class CartSingleProduct extends StatefulWidget {
   late String name;
   late double price;

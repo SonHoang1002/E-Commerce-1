@@ -1,24 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/gradient/gradient.dart';
-import 'package:testecommerce/models/product.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/home_page.dart';
-import 'package:testecommerce/warning_from_state/warning_from_name.dart';
 import 'package:testecommerce/widget/cart_single_product.dart';
-// import 'package:testecommerce/widget/notificationButton.dart';
 import 'package:testecommerce/widget/notification_button.dart';
 
 import '../providers/general_provider.dart';
 
 class CartScreen extends StatefulWidget {
+  const CartScreen({Key? key}) : super(key: key);
+
   @override
   State<CartScreen> createState() => _CartScreenState();
 }
@@ -134,6 +128,7 @@ class _CartScreenState extends State<CartScreen> {
                                         children: [
                                           Text("Total: "),
                                           Text(
+                                              // ignore: unnecessary_null_comparison
                                               "${total == null ? 0 : UnitMoney().convertMoney(total, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}")
                                         ]),
                                   ),

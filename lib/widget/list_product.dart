@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:testecommerce/gradient/gradient.dart';
-import 'package:testecommerce/screen/home_page.dart';
-// import 'package:testecommerce/widget/notificationButton.dart';
-
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:testecommerce/widget/notification_button.dart';
-// import 'package:testecommerce/widget/singleProduct.dart';
 import 'package:testecommerce/widget/single_product.dart';
 
 import '../models/product.dart';

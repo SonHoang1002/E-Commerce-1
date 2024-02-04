@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_dialog/custom_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,13 +14,10 @@ import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/models/cartmodels.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/screen/cart_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:testecommerce/screen/home_page.dart';
 import 'dart:convert';
-
 import 'package:testecommerce/widget/notification_button.dart';
-
 import '../addition/timer.dart';
 
 class CheckOut extends StatefulWidget {
@@ -57,8 +53,7 @@ class _CheckOutState extends State<CheckOut> {
       key: _key,
       appBar: AppBar(
         title: const Center(
-          child: const Text("Payment Invoice",
-              style: const TextStyle(color: Colors.black)),
+          child: Text("Payment Invoice", style: TextStyle(color: Colors.black)),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -89,20 +84,20 @@ class _CheckOutState extends State<CheckOut> {
               height: 20,
             ),
             const Center(
-                child: const Text(
+                child: Text(
               "Detail",
-              style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
+              style: TextStyle(fontStyle: FontStyle.italic, fontSize: 30),
             )),
-            Container(
+            SizedBox(
               width: 250,
               height: 200,
               child: ListView(children: [
-                DataTable(columns: [
+                DataTable(columns: const [
                   DataColumn(
                       label: Expanded(
-                    child: const Text(
+                    child: Text(
                       "Quantity",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontSize: 15,
                       ),
@@ -110,9 +105,9 @@ class _CheckOutState extends State<CheckOut> {
                   )),
                   DataColumn(
                       label: Expanded(
-                    child: const Text(
+                    child: Text(
                       "Food Name",
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontSize: 15,
                       ),
@@ -121,7 +116,7 @@ class _CheckOutState extends State<CheckOut> {
                 ], rows: buildDataCell()),
               ]),
             ),
-            buildDetail("Total", "${generalProvider.getTotal.toString()}"),
+            buildDetail("Total", generalProvider.getTotal.toString()),
           ])),
       bottomSheet: buildBottomSheet(),
     );
@@ -142,8 +137,7 @@ class _CheckOutState extends State<CheckOut> {
         ))
       ]));
     }
-    list.add(
-        DataRow(cells: [DataCell(const Text("")), DataCell(const Text(""))]));
+    list.add(const DataRow(cells: [DataCell(Text("")), DataCell(Text(""))]));
     return list;
   }
 
@@ -171,12 +165,12 @@ class _CheckOutState extends State<CheckOut> {
                   borderRadius: BorderRadius.circular(5),
                 ),
               ),
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text(
+                  Text(
                     'CHECK AGAIN',
-                    style: const TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.black),
                   )
                 ],
               ),
@@ -187,7 +181,7 @@ class _CheckOutState extends State<CheckOut> {
             height: 50,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.grey,
+                backgroundColor: Colors.grey,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -196,7 +190,7 @@ class _CheckOutState extends State<CheckOut> {
                 // send();
                 if (generalProvider.getTotal <= 0) {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: const Text("Your Cart Is Empty !!"),
+                    content: Text("Your Cart Is Empty !!"),
                     backgroundColor: Colors.yellow,
                   ));
                   return;
@@ -204,263 +198,255 @@ class _CheckOutState extends State<CheckOut> {
                   showModalBottomSheet(
                       context: context,
                       builder: (ctx) {
-                        return Container(
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: Center(
-                                  child: Text(
-                                    "You Pay ${UnitMoney().convertMoney(generalProvider.getTotal, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
-                                    style: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
+                        return Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                              child: Center(
+                                child: Text(
+                                  "You Pay ${UnitMoney().convertMoney(generalProvider.getTotal, generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}",
+                                  style: const TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+                              child: const Row(
+                                children: [
+                                  Text(
+                                    "Select Bank",
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontStyle: FontStyle.italic),
                                   ),
-                                ),
+                                  Divider(
+                                    color: Colors.red,
+                                    height: 20,
+                                  ),
+                                ],
                               ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 10, 0, 0),
-                                child: Row(
-                                  children: [
-                                    const Text(
-                                      "Select Bank",
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontStyle: FontStyle.italic),
-                                    ),
-                                    Container(
-                                        child: const Divider(
-                                      color: Colors.red,
-                                      height: 20,
-                                    )),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                height: 130,
-                                child: ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: <Widget>[
-                                    Container(
-                                      color: agri
-                                          ? Colors.blue.withOpacity(0.5)
-                                          : null,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              agri = true;
-                                              mb = false;
-                                              tp = false;
-                                              us = false;
-                                              viettin = false;
-                                            });
-                                          },
-                                          child: buildBankCard(
-                                              "images/agri.png", "AgriBank")),
-                                    ),
-                                    Container(
-                                      color: mb
-                                          ? Colors.blue.withOpacity(0.5)
-                                          : null,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              agri = false;
-                                              mb = true;
-                                              tp = false;
-                                              us = false;
-                                              viettin = false;
-                                            });
-                                          },
-                                          child: buildBankCard(
-                                              "images/mb.png", "MB Bank")),
-                                    ),
-                                    Container(
-                                      color: tp
-                                          ? Colors.blue.withOpacity(0.5)
-                                          : null,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              agri = false;
-                                              mb = false;
-                                              tp = true;
-                                              us = false;
-                                              viettin = false;
-                                            });
-                                          },
-                                          child: buildBankCard(
-                                              "images/tp.jpg", "TP Bank")),
-                                    ),
-                                    Container(
-                                      color: us
-                                          ? Colors.blue.withOpacity(0.5)
-                                          : null,
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              agri = false;
-                                              mb = false;
-                                              tp = false;
-                                              us = true;
-                                              viettin = false;
-                                            });
-                                          },
-                                          child: buildBankCard(
-                                              "images/us.png", "US Bank")),
-                                    ),
-                                    Container(
-                                      color: viettin
-                                          ? Colors.blue.withOpacity(0.5)
-                                          : null,
-                                      child: GestureDetector(
+                            ),
+                            SizedBox(
+                              height: 130,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: <Widget>[
+                                  Container(
+                                    color: agri
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = true;
+                                            mb = false;
+                                            tp = false;
+                                            us = false;
+                                            viettin = false;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/agri.png", "AgriBank")),
+                                  ),
+                                  Container(
+                                    color: mb
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = false;
+                                            mb = true;
+                                            tp = false;
+                                            us = false;
+                                            viettin = false;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/mb.png", "MB Bank")),
+                                  ),
+                                  Container(
+                                    color: tp
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            agri = false;
+                                            mb = false;
+                                            tp = true;
+                                            us = false;
+                                            viettin = false;
+                                          });
+                                        },
+                                        child: buildBankCard(
+                                            "images/tp.jpg", "TP Bank")),
+                                  ),
+                                  Container(
+                                    color: us
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
                                         onTap: () {
                                           setState(() {
                                             agri = false;
                                             mb = false;
                                             tp = false;
-                                            us = false;
-                                            viettin = true;
+                                            us = true;
+                                            viettin = false;
                                           });
                                         },
                                         child: buildBankCard(
-                                            "images/vietin.jpg",
-                                            "VietTin Bank"),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                children: [
-                                  Container(
-                                    child: const Center(
-                                        child: const Text(
-                                            "Enter your card number to pay")),
+                                            "images/us.png", "US Bank")),
                                   ),
                                   Container(
-                                      width: 360,
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 10, 0, 0),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10),
-                                            child: TextFormField(
-                                              controller: cardNumber,
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .digitsOnly,
-                                                CustomInputFormatter()
-                                              ],
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              decoration: const InputDecoration(
-                                                  border: OutlineInputBorder(),
-                                                  hintText: "Card Number",
-                                                  labelText: "CARD NUMBER",
-                                                  hintStyle: const TextStyle(
-                                                      color: Colors.black)),
-                                            ),
+                                    color: viettin
+                                        ? Colors.blue.withOpacity(0.5)
+                                        : null,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          agri = false;
+                                          mb = false;
+                                          tp = false;
+                                          us = false;
+                                          viettin = true;
+                                        });
+                                      },
+                                      child: buildBankCard(
+                                          "images/vietin.jpg", "VietTin Bank"),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              children: [
+                                const Center(
+                                    child: Text(
+                                        "Enter your card number to pay")),
+                                Container(
+                                    width: 360,
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10),
+                                          child: TextFormField(
+                                            controller: cardNumber,
+                                            inputFormatters: [
+                                              FilteringTextInputFormatter
+                                                  .digitsOnly,
+                                              CustomInputFormatter()
+                                            ],
+                                            keyboardType: TextInputType.number,
+                                            decoration: const InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                hintText: "Card Number",
+                                                labelText: "CARD NUMBER",
+                                                hintStyle: TextStyle(
+                                                    color: Colors.black)),
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 10, 0, 0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Container(
-                                                  width: 175,
-                                                  child: Container(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(10, 0, 0, 0),
-                                                    child: TextFormField(
-                                                      controller: expiry,
-                                                      keyboardType:
-                                                          TextInputType.number,
-                                                      decoration: InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          hintText:
-                                                              "Card Expiry",
-                                                          labelText:
-                                                              "CARD EXPIRY",
-                                                          hintStyle:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .black)),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 175,
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 10, 0, 0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SizedBox(
+                                                width: 175,
+                                                child: Container(
                                                   padding:
                                                       const EdgeInsets.fromLTRB(
-                                                          0, 0, 10, 0),
+                                                          10, 0, 0, 0),
                                                   child: TextFormField(
-                                                    controller: cvv,
+                                                    controller: expiry,
                                                     keyboardType:
                                                         TextInputType.number,
-                                                    decoration: InputDecoration(
-                                                        border:
-                                                            OutlineInputBorder(),
-                                                        hintText: "Cvv",
-                                                        labelText: "CVV",
-                                                        hintStyle:
-                                                            const TextStyle(
+                                                    decoration:
+                                                        const InputDecoration(
+                                                            border:
+                                                                OutlineInputBorder(),
+                                                            hintText:
+                                                                "Card Expiry",
+                                                            labelText:
+                                                                "CARD EXPIRY",
+                                                            hintStyle: TextStyle(
                                                                 color: Colors
                                                                     .black)),
                                                   ),
                                                 ),
-                                              ],
+                                              ),
+                                              Container(
+                                                width: 175,
+                                                padding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 0, 10, 0),
+                                                child: TextFormField(
+                                                  controller: cvv,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                          border:
+                                                              OutlineInputBorder(),
+                                                          hintText: "Cvv",
+                                                          labelText: "CVV",
+                                                          hintStyle: TextStyle(
+                                                              color: Colors
+                                                                  .black)),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          height: 60,
+                                          padding: const EdgeInsets.fromLTRB(
+                                              0, 10, 0, 0),
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              validation();
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: Colors.grey,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                            ),
+                                            child: const Center(
+                                              child: Text(
+                                                "PAY",
+                                                style: TextStyle(
+                                                    fontSize: 25,
+                                                    fontStyle:
+                                                        FontStyle.italic),
+                                              ),
                                             ),
                                           ),
-                                          Container(
-                                            height: 60,
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 10, 0, 0),
-                                            child: ElevatedButton(
-                                              onPressed: () {
-                                                validation();
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                primary: Colors.grey,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                ),
-                                              ),
-                                              child: const Center(
-                                                child: const Text(
-                                                  "PAY",
-                                                  style: const TextStyle(
-                                                      fontSize: 25,
-                                                      fontStyle:
-                                                          FontStyle.italic),
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              ),
-                            ],
-                          ),
+                                        )
+                                      ],
+                                    )),
+                              ],
+                            ),
+                          ],
                         );
                       });
                 }
               },
-              child: Column(
+              child: const Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Text(
+                  Text(
                     'PAY',
-                    style: const TextStyle(color: Colors.black),
+                    style: TextStyle(color: Colors.black),
                   )
                 ],
               ),
@@ -498,7 +484,7 @@ class _CheckOutState extends State<CheckOut> {
               child: Text(
                 startName == "Total"
                     ? "${UnitMoney().convertMoney(double.parse(endName), generalProvider.getMoneyIconName)} ${generalProvider.getMoneyIconName}"
-                    : "$endName",
+                    : endName,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
                     fontSize: 18,
@@ -552,7 +538,7 @@ class _CheckOutState extends State<CheckOut> {
   }
 
   Widget buildBankCard(String img, String name) {
-    return Container(
+    return SizedBox(
         // color: Colors.blue.withOpacity(20),
         width: 120.0,
         child: Column(
@@ -561,7 +547,7 @@ class _CheckOutState extends State<CheckOut> {
               // padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
               width: 100,
               height: 100,
-              decoration: BoxDecoration(),
+              decoration: const BoxDecoration(),
               // borderRadius: BorderRadius.circular(30), color: Colors.red),
               child: Image.asset(
                 img,
@@ -620,7 +606,7 @@ class _CheckOutState extends State<CheckOut> {
               fontWeight: FontWeight.w900, fontSize: 20.0, color: Colors.black),
         ),
         title: const Text(''),
-        firstColor: Color(0xFF3CCF57),
+        firstColor: const Color(0xFF3CCF57),
         secondColor: Colors.white,
         headerIcon: const Icon(
           Icons.check_circle_outline,
@@ -680,7 +666,7 @@ class _CheckOutState extends State<CheckOut> {
               "Enter Verify Code From Your Email",
               textAlign: TextAlign.center,
             ),
-            content: Container(
+            content: SizedBox(
               height: 100,
               child: Column(
                 children: [
@@ -701,8 +687,8 @@ class _CheckOutState extends State<CheckOut> {
                       if (verifyController.text.trim().length != 6) {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: const Text(
-                                    "Verify code must has 6 chracters")));
+                                content:
+                                    Text("Verify code must has 6 chracters")));
                         return;
                       }
                       if (verifyController.text.trim() ==
@@ -721,7 +707,7 @@ class _CheckOutState extends State<CheckOut> {
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                                content: const Text("Invalid Verify Code")));
+                                content: Text("Invalid Verify Code")));
                         return;
                       }
                     },
@@ -743,9 +729,9 @@ class _CheckOutState extends State<CheckOut> {
                 const Text(
                   "Enter Verify Code From Your Email",
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 30),
                 ),
-                Container(
+                SizedBox(
                   height: 80,
                   child: Column(
                     children: [

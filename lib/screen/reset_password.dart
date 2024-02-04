@@ -1,31 +1,18 @@
-import 'dart:convert';
-import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/admin/home_admin.dart';
-import 'package:testecommerce/screen/home_page.dart';
-import 'package:testecommerce/screen/sign_up.dart';
-import 'package:testecommerce/screen/welcome_screen.dart';
-import 'dart:isolate';
-import "package:http/http.dart" as http;
 
-import '../addition/ad_helper.dart';
-import '../addition/timer.dart';
-import '../models/product.dart';
-import '../models/usermodel.dart';
-import 'login.dart';
 
 class ResetPassword extends StatefulWidget {
+  const ResetPassword({Key? key}) : super(key: key);
+
   @override
+  // ignore: library_private_types_in_public_api
   _ResetPassword createState() => _ResetPassword();
 }
 
@@ -52,7 +39,7 @@ class _ResetPassword extends State<ResetPassword> {
       key: _scaffoldKey,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // Navigator.of(context)
             //     .push(MaterialPageRoute(builder: (_) => Login()));
@@ -67,7 +54,7 @@ class _ResetPassword extends State<ResetPassword> {
             isLoading
                 ? Container(
                     padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Center(child: CircularProgressIndicator()))
+                    child: const Center(child: CircularProgressIndicator()))
                 : Container(
                     height: 10,
                   ),
@@ -147,14 +134,14 @@ class _ResetPassword extends State<ResetPassword> {
                                   checkValue();
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.grey,
+                                  backgroundColor: Colors.grey,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
                                 child: const Text(
                                   "SEND",
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                       fontSize: 30, color: Colors.black),
                                 ),
                               )),
@@ -182,8 +169,8 @@ class _ResetPassword extends State<ResetPassword> {
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              title: Wrap(
-                children: const [
+              title: const Wrap(
+                children: [
                   Icon(
                     Icons.warning,
                     color: Colors.yellow,
@@ -213,6 +200,7 @@ class _ResetPassword extends State<ResetPassword> {
       await FirebaseAuth.instance.currentUser!.updatePassword(rpass);
       print("Firebase password after ${FirebaseAuth.instance.currentUser}");
       // Navigator.of(context).push(MaterialPageRoute(builder: (_) => Login()));
+      // ignore: use_build_context_synchronously
       Navigator.of(context).push(PageRouteToScreen().pushToLoginScreen());
       generalProvider.setResetCode("");
       setState(() {
@@ -227,11 +215,11 @@ class _ResetPassword extends State<ResetPassword> {
           context: context,
           builder: (ctx) {
             return AlertDialog(
-              title: Wrap(
+              title: const Wrap(
                 children: [
                   Icon(Icons.error),
                   SizedBox(width: 10),
-                  const Text("Message"),
+                  Text("Message"),
                 ],
               ),
               content: const Text("Unsuccessfull Confirm!!"),

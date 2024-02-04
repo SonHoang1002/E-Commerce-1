@@ -11,9 +11,12 @@ import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:http/http.dart' as http;
+ 
+ 
 
-class AlertResetPassword extends StatefulWidget {
-  AlertResetPassword({super.key, required this.email});
+// ignore: must_be_immutable
+class AlertResetPassword extends StatefulWidget { 
+  AlertResetPassword({Key? key,  required this.email}): super(key: key);
   String email;
   @override
   State<AlertResetPassword> createState() => _AlertResetPasswordState();

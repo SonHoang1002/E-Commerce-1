@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
@@ -7,9 +7,6 @@ import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/addition/unit_money.dart';
 import 'package:testecommerce/gradient/gradient.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/cart_screen.dart';
-import 'package:testecommerce/screen/checkout.dart';
 import 'package:testecommerce/widget/notification_button.dart';
 
 class DetailScreen extends StatefulWidget {
@@ -59,11 +56,13 @@ class _DetailScreenState extends State<DetailScreen> {
               // fromHomePage: false,
               ),
           IconButton(
-              icon: Badge(
+              icon: badges.Badge(
                   badgeContent:
                       Text("${generalProvider.getCartModelListLength}"),
-                  badgeColor: Colors.red,
-                  shape: BadgeShape.circle,
+                  badgeStyle: const badges.BadgeStyle(
+                    badgeColor: Colors.red,
+                    shape: BadgeShape.circle,
+                  ),
                   showBadge: true,
                   child: const Icon(
                     Icons.shopping_cart,
@@ -130,7 +129,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   image: DecorationImage(
                       fit: BoxFit.fill,
                       image: NetworkImage(
-                          "${widget.img == null ? "" : widget.img}"))),
+                          widget.img ?? ""))),
             ),
           ),
         ),
@@ -148,7 +147,7 @@ class _DetailScreenState extends State<DetailScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                widget.name == null ? "Product" : widget.name,
+                widget.name ?? "Product",
                 style: const TextStyle(
                     color: Colors.blue,
                     fontSize: 28,
@@ -178,8 +177,8 @@ class _DetailScreenState extends State<DetailScreen> {
   Widget buildContentDescription() {
     return Container(
       height: 200,
-      child: Wrap(
-        children: const [
+      child: const Wrap(
+        children: [
           Text(
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software",
             style: TextStyle(
@@ -244,7 +243,7 @@ class _DetailScreenState extends State<DetailScreen> {
               ),
               Text(
                 "${quantity}",
-                style: TextStyle(color: Colors.white, fontSize: 20),
+                style: const TextStyle(color: Colors.white, fontSize: 20),
               ),
               GestureDetector(
                 child: const Icon(Icons.add),
@@ -328,7 +327,7 @@ class _DetailScreenState extends State<DetailScreen> {
     return Container(
       height: 60,
       width: 60,
-      color: Color.fromARGB(255, 234, 233, 230),
+      color: const Color.fromARGB(255, 234, 233, 230),
       child: Center(
         child: Text(
           size,
@@ -412,7 +411,7 @@ class _DetailScreenState extends State<DetailScreen> {
                 buildColorProduct("Red", Colors.red),
                 buildColorProduct("Orange", Colors.orange),
                 buildColorProduct("Blue", Colors.blue),
-                buildColorProduct("Green", Color.fromARGB(255, 102, 183, 104)),
+                buildColorProduct("Green", const Color.fromARGB(255, 102, 183, 104)),
               ],
             ))
       ],

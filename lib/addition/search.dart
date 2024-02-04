@@ -1,19 +1,7 @@
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/home_page.dart';
-import '../widget/cart_single_product.dart';
 import '../models/product.dart';
 import '../widget/single_product.dart';
 
@@ -25,7 +13,7 @@ class Search extends SearchDelegate<void> {
           onPressed: () {
             query = "";
           },
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close))
     ];
   }
 
@@ -35,7 +23,7 @@ class Search extends SearchDelegate<void> {
         onPressed: () {
           close(context, null);
         },
-        icon: Icon(Icons.arrow_back));
+        icon: const Icon(Icons.arrow_back));
   }
 
   @override

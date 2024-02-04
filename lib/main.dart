@@ -2,49 +2,34 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:testecommerce/providers/category_provider.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/providers/theme_provider.dart';
-import 'package:testecommerce/screen/admin/analysist_screen.dart';
-import 'package:testecommerce/screen/admin/home_admin.dart';
-// import 'package:testecommerce/screen/alertResetPassword.dart';
-import 'package:testecommerce/screen/cart_screen.dart';
-import 'package:testecommerce/screen/detail_screen.dart';
-import 'package:testecommerce/screen/home_page.dart';
-
-import 'package:testecommerce/screen/login.dart';
-import 'package:testecommerce/screen/profile.dart';
 import 'package:testecommerce/screen/welcome_screen.dart';
-import 'package:testecommerce/testScreen/test.dart';
-import './screen/sign_up.dart';
-import './providers/category_provider.dart';
 import 'addition/app_localization.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 ThemeData light = ThemeData(
     brightness: Brightness.light,
     primarySwatch: Colors.indigo,
-    primaryColor: Color(0xff746bc9),
-    iconTheme: IconThemeData(color: Colors.black),
-    scaffoldBackgroundColor: Color(0xfff1f1f1));
+    primaryColor: const Color(0xff746bc9),
+    iconTheme: const IconThemeData(color: Colors.black),
+    scaffoldBackgroundColor: const Color(0xfff1f1f1));
 
 ThemeData dark = ThemeData(
   brightness: Brightness.dark,
   primarySwatch: Colors.indigo,
-  primaryColor: Color(0xff746bc9),
-  iconTheme: IconThemeData(color: Colors.black),
+  primaryColor: const Color(0xff746bc9),
+  iconTheme: const IconThemeData(color: Colors.black),
 );
 
 void main() async {
   Provider.debugCheckInvalidValueType = null;
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key});
   static void setLocale(BuildContext context, Locale locale) {
     _MyAppState? state = context.findAncestorStateOfType();
     state!.changeLanguage(locale);
@@ -55,7 +40,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Locale _locale = Locale("en", "US");
+  late Locale _locale = const Locale("en", "US");
   changeLanguage(Locale locale) {
     setState(() {
       _locale = locale;
@@ -81,14 +66,14 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
             ],
-            supportedLocales: [Locale("vi", "VN"), Locale("en", "US")],
+            supportedLocales: [const Locale("vi", "VN"), const Locale("en", "US")],
             localeResolutionCallback: ((locale, supportedLocales) {
               for (var supportedLocale in supportedLocales) {
                 if (supportedLocale.languageCode == locale!.languageCode &&
                     supportedLocale.countryCode == locale.countryCode) {
                   return supportedLocale;
                 }
-                return Locale("en", "US");
+                return const Locale("en", "US");
               }
             }),
             home: StreamBuilder(

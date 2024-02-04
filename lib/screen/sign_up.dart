@@ -1,15 +1,10 @@
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
-import 'package:testecommerce/screen/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
-
-import 'home_page.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -95,12 +90,12 @@ class _Signup extends State<Signup> {
                   Container(
                     height: 70,
                     width: double.infinity,
-                    child: Column(
+                    child: const Column(
                       mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
+                      children: [
                         Text(
                           "Register",
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 50,
                             fontWeight: FontWeight.bold,
                           ),
@@ -124,7 +119,7 @@ class _Signup extends State<Signup> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "UserName",
                             labelText: "Username",
-                            hintStyle: const TextStyle(color: Colors.black),
+                            hintStyle:  TextStyle(color: Colors.black),
                             border: OutlineInputBorder(),
                           ),
                         ),
@@ -138,7 +133,7 @@ class _Signup extends State<Signup> {
                                 borderSide: BorderSide(color: Colors.red)),
                             hintText: "Email",
                             labelText: "Email",
-                            hintStyle: const TextStyle(
+                            hintStyle:  TextStyle(
                               color: Colors.black,
                             ),
                             border: OutlineInputBorder(),
@@ -194,25 +189,23 @@ class _Signup extends State<Signup> {
                                 left: 10, right: 10, top: 4),
                             decoration: BoxDecoration(
                                 border: Border.all(color: Colors.red)),
-                            child: Container(
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    isMale ? "Male" : "Female",
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    ),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  isMale ? "Male" : "Female",
+                                  style: const TextStyle(
+                                    fontSize: 16,
                                   ),
-                                  Column(
-                                    children: const [
-                                      Icon(Icons.arrow_drop_up),
-                                      Icon(Icons.arrow_drop_down)
-                                    ],
-                                  )
-                                ],
-                              ),
+                                ),
+                                const Column(
+                                  children: [
+                                    Icon(Icons.arrow_drop_up),
+                                    Icon(Icons.arrow_drop_down)
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                         ),
@@ -254,22 +247,22 @@ class _Signup extends State<Signup> {
                           height: 50,
                           width: double.infinity,
                           child: ElevatedButton(
-                              child: Text(
-                                "Register",
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black),
-                              ),
                               style: ElevatedButton.styleFrom(
-                                primary: Colors.grey,
+                                backgroundColor: Colors.grey,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(100.0),
                                 ),
                               ),
                               onPressed: () {
                                 validation();
-                              }),
+                              },
+                              child: const Text(
+                                "Register",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              )),
                         ),
                         const SizedBox(
                           height: 10,
@@ -340,6 +333,7 @@ class _Signup extends State<Signup> {
       setState(() {
         isLoading = false;
       });
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(error.toString()),
         duration: const Duration(milliseconds: 600),

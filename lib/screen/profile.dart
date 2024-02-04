@@ -1,18 +1,14 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/timer.dart';
 import 'package:testecommerce/models/usermodel.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
 import 'package:testecommerce/screen/home_page.dart';
 // import 'package:testecommerce/widget/notificationButton.dart';
 import 'package:testecommerce/widget/notification_button.dart';
@@ -169,7 +165,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Stack(children: [
-                            Container(
+                            SizedBox(
                               height: 120,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
@@ -205,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   )
                           ]),
                           edit
-                              ? Container(
+                              ? SizedBox(
                                   height: 330,
                                   width: double.infinity,
                                   child: Column(
@@ -244,8 +240,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     fontSize: 16,
                                                   ),
                                                 ),
-                                                Column(
-                                                  children: const [
+                                                const Column(
+                                                  children: [
                                                     Icon(Icons.arrow_drop_up),
                                                     Icon(Icons.arrow_drop_down)
                                                   ],
@@ -262,7 +258,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     ],
                                   ),
                                 )
-                              : Container(
+                              : SizedBox(
                                   height: 400,
                                   width: double.infinity,
                                   child: Column(
@@ -492,7 +488,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       "UserEmail": email,
       "UserGender": isMale == true ? "Male" : "Female",
       "UserPhone": tPhone.text,
-      "UserImage": (imageMap == null || imageMap == "")
+      "UserImage": (imageMap == "")
           ? generalProvider.getUserModelImage
           : imageMap,
       "UserAddress": tAddress.text,
@@ -511,7 +507,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 Widget buildTextFormField(String hintText, String label) {
-  return Container(
+  return SizedBox(
     height: 50,
     child: TextFormField(
       decoration: InputDecoration(
@@ -525,7 +521,7 @@ Widget buildTextFormField(String hintText, String label) {
 
 Widget buildTextFormFieldFromController(
     String label, TextEditingController controller) {
-  return Container(
+  return SizedBox(
     height: 50,
     child: TextFormField(
       readOnly: label == "Email",
@@ -567,7 +563,7 @@ Widget buildFieldInput(String name, String value) {
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 )
-              : Container(
+              : SizedBox(
                   width: 180,
                   child: Text(
                     value,

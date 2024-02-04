@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/providers/general_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/screen/notification.dart';
+import "package:badges/badges.dart" as badges;
 
 class NotificationButton extends StatefulWidget {
   // NotificationButton({required this.fromHomePage, Key? key}) : super(key: key);
@@ -21,8 +20,8 @@ class _NotificationButtonState extends State<NotificationButton> {
   Widget build(BuildContext context) {
     generalProvider = Provider.of<GeneralProvider>(context);
     // Future<int> i = generalProvider.setFromHomePage(widget.fromHomePage);
-    return Badge(
-        position: const BadgePosition(top: 8, start: 25),
+    return badges.Badge(
+        position:BadgePosition.custom(top: 8, start: 25),
         badgeContent: Text(generalProvider.getNotiList.length.toString()),
         child: IconButton(
           icon: const Icon(

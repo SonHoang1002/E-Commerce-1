@@ -11,7 +11,7 @@ import 'package:testecommerce/models/chart.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 
 class Analysist extends StatefulWidget {
-  Analysist({super.key, required this.cost});
+  Analysist({Key? key, required this.cost});
   late double cost;
   @override
   State<Analysist> createState() => _AnalysistState();

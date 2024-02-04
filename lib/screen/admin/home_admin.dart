@@ -1,40 +1,16 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
-import 'package:testecommerce/models/contact_user.dart';
-import 'package:testecommerce/models/usermodel.dart';
-import 'package:testecommerce/providers/category_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/providers/theme_provider.dart';
-import 'package:testecommerce/screen/about.dart';
 import 'package:testecommerce/screen/admin/single_product_admin.dart';
-import 'package:testecommerce/screen/cart_screen.dart';
-import 'package:testecommerce/screen/detail_screen.dart';
-import 'package:testecommerce/testScreen/test.dart';
 import 'package:testecommerce/widget/notification_button.dart';
 import '../../addition/timer.dart';
-import '../../widget/list_product.dart';
-import 'package:testecommerce/screen/login.dart';
-import '../../widget/list_product.dart';
 import 'package:testecommerce/screen/profile.dart';
-import '../../addition/search.dart';
-import '../../widget/cart_single_product.dart';
-
 import '../../providers/general_provider.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:badges/badges.dart';
 import '../../models/product.dart';
-import '../../widget/single_product.dart';
-import 'package:intl/intl.dart';
-
 import '../contact_messenger.dart';
 
 class HomeAdmin extends StatefulWidget {

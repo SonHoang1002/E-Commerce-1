@@ -1,33 +1,11 @@
-import 'dart:ui';
-
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testecommerce/addition/pageRoute.dart';
 import 'package:testecommerce/gradient/gradient.dart';
-import 'package:testecommerce/models/usermodel.dart';
-import 'package:testecommerce/providers/category_provider.dart';
-import 'package:testecommerce/providers/product_provider.dart';
-import 'package:testecommerce/providers/theme_provider.dart';
-import 'package:testecommerce/screen/about.dart';
-import 'package:testecommerce/screen/cart_screen.dart';
-import 'package:testecommerce/screen/detail_screen.dart';
-import 'package:testecommerce/screen/home_page.dart';
-import '../widget/list_product.dart';
-import 'package:testecommerce/screen/login.dart';
-// import '../widget/listproduct.dart';
-import 'package:testecommerce/screen/profile.dart';
-import '../addition/search.dart';
-import '../widget/cart_single_product.dart';
-
+import "package:badges/badges.dart" as badges;
 import '../providers/general_provider.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:badges/badges.dart';
-import '../models/product.dart';
-import '../widget/single_product.dart';
 
 class NotificationMessage extends StatefulWidget {
   @override
@@ -47,7 +25,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
     generalProvider = Provider.of<GeneralProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Notification Page",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
@@ -65,7 +43,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
               // : Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.arrow_back,
               color: Colors.black,
             )),
@@ -79,13 +57,15 @@ class _NotificationMessageState extends State<NotificationMessage> {
                     Navigator.of(context)
                         .push(PageRouteToScreen().pushToCartScreen());
                   },
-                  icon: Badge(
-                    animationType: BadgeAnimationType.scale,
+                  icon: badges.Badge(
+                  badgeAnimation :  const BadgeAnimation.scale(), 
+                     badgeStyle: const badges.BadgeStyle( 
                     shape: BadgeShape.circle,
+                  ),
                     badgeContent:
                         Text("${generalProvider.getCartModelListLength}"),
                     showBadge: true,
-                    child: Icon(
+                    child: const Icon(
                       Icons.shopping_cart,
                       color: Colors.black,
                     ),
@@ -101,18 +81,16 @@ class _NotificationMessageState extends State<NotificationMessage> {
     return Container(
       decoration: DecorationBackGround().buildDecoration(),
       child: Container(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: Column(
           children: [
-            Container(
-              child: Text("Number Message: ${num}",
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    // color: Colors.greenAccent,
-                    fontSize: 20,
-                    fontStyle: FontStyle.italic,
-                  )),
-            ),
+            Text("Number Message: $num",
+                textAlign: TextAlign.justify,
+                style: const TextStyle(
+                  // color: Colors.greenAccent,
+                  fontSize: 20,
+                  fontStyle: FontStyle.italic,
+                )),
             const SizedBox(
               height: 20,
             ),
@@ -124,17 +102,17 @@ class _NotificationMessageState extends State<NotificationMessage> {
             const SizedBox(
               width: 20,
             ),
-            Container(
+            SizedBox(
               height: 450,
               width: double.infinity,
               child: ListView.builder(
                   itemCount: num,
                   itemBuilder: ((context, index) {
                     return Container(
-                      padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                       child: Column(
                         children: [
-                          Text("${generalProvider.getNotiList[index]}",
+                          Text(generalProvider.getNotiList[index],
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 fontSize: 20,
@@ -163,7 +141,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
             const SizedBox(
               height: 20,
             ),
-            Container(
+            SizedBox(
               height: 50,
               width: double.infinity,
               child: ElevatedButton(
@@ -172,7 +150,7 @@ class _NotificationMessageState extends State<NotificationMessage> {
                   _showAlertDialog(context);
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.grey,
+                  backgroundColor: Colors.grey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -200,9 +178,9 @@ class _NotificationMessageState extends State<NotificationMessage> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Warning !!'),
-          content: SingleChildScrollView(
+          content: const SingleChildScrollView(
             child: ListBody(
-              children: const <Widget>[
+              children: <Widget>[
                 Text('You want delete all history ??'),
               ],
             ),

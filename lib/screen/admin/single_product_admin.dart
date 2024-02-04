@@ -1,23 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_pro/carousel_pro.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import 'package:testecommerce/main.dart';
 import 'package:testecommerce/models/product.dart';
 import 'package:testecommerce/providers/general_provider.dart';
 import 'package:testecommerce/screen/admin/detail_screen_admin.dart';
-import 'package:testecommerce/screen/checkout.dart';
-import 'package:testecommerce/screen/detail_screen.dart';
 
+// ignore: must_be_immutable
 class SingleProductForAdmin extends StatelessWidget {
-  SingleProductForAdmin(
-      // {required this.name, required this.price, required this.image,required this.repo});
-      {required this.name,
-      required this.price,
-      required this.image});
+  SingleProductForAdmin({
+    Key? key,
+    required this.name,
+    required this.price,
+    required this.image,
+  }) : super(key: key);
   late final String name;
   late final String image;
   late final double price;
